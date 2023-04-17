@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!-- Primary Meta Tags -->
+    <title>MyPage - Tutor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="title" content="Spaces - Settings"/>
+    <meta name="author" content="Themesberg"/>
+    <meta name="description"
+          content="Premium Directory Listing Bootstrap 4 Template featuring 37 hand-crafted pages, a dashboard an Mapbox integration. Spaces also comes with a complete UI Kit featuring over 700 components by Themesberg."/>
+    <meta name="keywords"
+          content="bootstrap, bootstrap 4 template, directory listing bootstrap, bootstrap 4 listing, bootstrap listing, bootstrap 4 directory listing template, vector map, leaflet js template, mapbox theme, mapbox template, dashboard, themesberg, user dashboard bootstrap, dashboard bootstrap, ui kit, bootstrap ui kit, premium bootstrap theme"/>
+    <link rel="canonical" href="https://themesberg.s3.us-east-2.amazonaws.com/public/products/spaces/thumbnail.jpg"/>
+
+    <!-- Fontawesome -->
+    <link type="text/css" href="/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/js/all.min.js"
+            integrity="sha512-Cvxz1E4gCrYKQfz6Ne+VoDiiLrbFBvc6BPh4iyKo2/ICdIodfgc5Q9cBjRivfQNUXBCEnQWcEInSXsvlNHY/ZQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Leaflet JS -->
+    <link type="text/css" href="/vendor/leaflet/dist/leaflet.css" rel="stylesheet">
+
+    <!-- Fancybox -->
+    <link rel="stylesheet" href="/vendor/@fancyapps/fancybox/dist/jquery.fancybox.min.css">
+
+    <!-- VectorMap -->
+    <link rel="stylesheet" href="/vendor/jqvmap/dist/jqvmap.min.css">
+
+    <!-- Main CSS -->
+    <link type="text/css" href="/css/spaces.css" rel="stylesheet">
+
+    <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
+</head>
+
+<body style="min-height: 100vh;">
+<section style="padding: 0px; height: 50px;"
+         class="section section-image bg-primary overlay-primary text-white pb-4 pb-md-7"
+         data-background="../assets/img/hero-1.jpg">
+    <nav class="navbar navbar-expand-lg navbar-transparent navbar-dark "
+         style="padding-top: 25px; padding-bottom: 25px;">
+        <div class="container position-relative">
+
+            <a class="navbar-brand mr-lg-3" href="/main">
+                <img class="navbar-brand-dark" style="min-height: 60px;" src="/assets/img/Logo_white.png"
+                     alt="menuimage">
+
+            </a>
+            <div>
+                <button class="btn mb-2 mr-2 btn-white" type="button">MY PAGE</button>
+                <a href="./sign-in.html">
+                    <button class="btn mb-2 mr-2 btn-secondary" type="button">SIGN IN</button>
+                </a>
+            </div>
+        </div>
+    </nav>
+</section>
+<main>
+    <div class="section section-lg bg-soft" style="min-height: 100vh;">
+        <div class="container">
+            <div class="row pt-5 pt-md-0">
+                <div class="col-12 col-md-4 d-none d-lg-block">
+                    <!-- Navigation -->
+                    <div class="card border-light p-2">
+                        <div class="card-body p-2">
+                            <div class="profile-thumbnail small-thumbnail mx-auto">
+                                <img src="/assets/img/team/profile-picture-4.jpg"
+                                     class="card-img-top rounded-circle border-white" alt="Joseph Portrait"/>
+                            </div>
+                            <h2 class="h5 font-weight-normal text-center mt-3 mb-0">
+                                Neil Sims
+                            </h2>
+                            <div class="list-group dashboard-menu list-group-sm mt-4">
+                                <a href="./myPage-tutors.html" class="d-flex list-group-item list-group-item-action">Information<span
+                                        class="icon icon-xs ml-auto"><span class="fas fa-chevron-right"></span></span>
+                                </a>
+                                <a href="myPage-tutors_Schedule.html"
+                                   class="d-flex list-group-item list-group-item-action active">Schedule<span
+                                        class="icon icon-xs ml-auto"><span class="fas fa-chevron-right"></span></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 d-lg-none">
+                    <div class="card bg-white border-light mb-4 mb-lg-5">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-10 d-flex">
+                                    <a href="./myPage-tutors.html"
+                                       class="list-group-item list-group-item-action border-0 active">Information</a>
+                                    <a href="myPage-tutors_Schedule.html"
+                                       class="list-group-item list-group-item-action d-none d-sm-block border-0">Suchedule</a>
+                                </div>
+                                <div class="col-2 d-flex justify-content-center">
+                                    <div class="btn-group dropleft">
+                                        <button class="btn btn-link dropdown-toggle dropdown-toggle-split mr-2 m-0 p-0"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="icon icon-sm">
+                          <span class="fas fa-ellipsis-h icon-secondary fa-lg"></span>
+                        </span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a href="./my-items.html"
+                                               class="list-group-item list-group-item-action d-sm-none border-0">Suchedule</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-8">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card card-body bg-white border-light mb-4">
+                                <h2 class="h5 mb-4">Schedule</h2>
+                                <form id="calendarForm">
+                                    <link type="text/css" href="/css/calendar.css" rel="stylesheet"/>
+                                    <link rel="stylesheet"
+                                          href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.css"/>
+                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+                                    <script
+                                            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
+                                    <script
+                                            src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.js"></script>
+                                    <div class="mb-5">
+                                        <div class="row justify-content-center">
+                                            <div class="col-lg-10">
+                                                <div class="card border-0">
+
+                                                    <form autocomplete="off">
+                                                        <div class="card-header bg-dark">
+                                                            <div class="mx-0 mb-0 row justify-content-sm-center justify-content-start px-1">
+                                                                <input type="text" id="yymmdd" class="datepicker"
+                                                                       placeholder="Pick Date" name="date"
+                                                                       readonly/><span class="fa fa-calendar"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-body p-2 p-sm-4">
+                                                            <div class="row text-center mx-0">
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">12:00AM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">12:30AM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">01:00AM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">01:30AM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">02:00AM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">02:30AM</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row text-center mx-0">
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">03:00AM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">03:30AM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">04:00AM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">04:30AM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">05:00AM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">05:30AM</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row text-center mx-0">
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">06:00AM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">06:30AM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">07:00AM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">07:30AM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">08:00AM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">08:30AM</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row text-center mx-0">
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">09:00AM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">09:30AM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">10:00AM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">10:30AM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">11:00AM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">11:30AM</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row text-center mx-0">
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">12:00PM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">12:30PM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">01:00PM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">01:30PM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">02:00PM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">02:30PM</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row text-center mx-0">
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">03:00PM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">03:30PM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">04:00PM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">04:30PM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">05:00PM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">05:30PM</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row text-center mx-0">
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">06:00PM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">06:30PM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">07:00PM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">07:30PM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">08:00PM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">08:30PM</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row text-center mx-0">
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">09:00PM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">09:30PM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">10:00PM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">10:30PM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">11:00PM</div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1">11:30PM</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    <div class="pr-2">
+                                                        <button type="button" class="btn btn-danger m-3"
+                                                                data-toggle="modal"
+                                                                data-target="#modal-default" style="float: right">
+                                                            Save All
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--모달 시작-->
+                                    <!-- 버튼 클릭시 모달창 -->
+                                    <div class="modal fade" id="modal-default" tabindex="-1" role="dialog"
+                                         aria-labelledby="modal-default" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h6 class="modal-title">Save</h6>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <!-- <span aria-hidden="true">&times;</span> -->
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form>
+                                                        <div class="mb-3">
+                                                            <label for="message-text" class="col-form-label">Enter
+                                                                Password</label>
+                                                            <input type="password" class="form-control"
+                                                                   id="message-text" autocomplete="off"
+                                                                   required/>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <form>
+                                                        <button type="submit" class="btn btn-sm btn-secondary">
+                                                            Authenticate
+                                                        </button>
+                                                    </form>
+                                                    <button type="button" class="btn btn-link text-danger ml-auto"
+                                                            data-dismiss="modal">
+                                                        Close
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Modal End-->
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col" style="text-align: center">#</th>
+                                            <th scope="col" style="text-align: center">
+                                                Booking Time
+                                            </th>
+                                            <th scope="col" style="text-align: center">
+                                                Tutor
+                                            </th>
+                                            <th scope="col" style="text-align: center">
+                                                Admission to class
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <c:forEach items="${}" var="dto">
+                                            <tr>
+                                                <td scope="row" style="text-align: center">
+                                                    <c:out value="${dto.tno}"/>
+                                                    1
+                                                </td>
+                                                <td style="text-align: center">
+                                                    <c:out value="${dto.dueDate}"/>
+                                                    Date Time
+                                                </td>
+                                                <td style="text-align: center">
+                                                    <c:out value="${dto.writer}"/>
+                                                    Tutor
+                                                </td>
+                                                <td style="text-align: center">
+                                                    <div style="text-align: center">
+                                                        <a href="/templates/html/classroom-tutor.html"
+                                                           class="btn btn-primary" inline-block>
+                                                            Admission to class
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer class="footer pb-5 bg-primary text-white pt-2 st-n9">
+    <div class="container">
+        <div class="row mt-6 text-center">
+            <div class="col-12 col-xl-6 mb-5 mb-xl-0">
+                <img style="min-height: 60px; color: RGB(207, 209, 218);" src="/assets/img/Logo_white.png"
+                     height="50"
+                     class="mb-3" alt="Spaces logo">
+                <p>Newstopic English <br>Conversation Service</p>
+            </div>
+            <div class="col-12 col-xl-6 mb-5 mb-xl-0">
+                <span class="h5" style="color: RGB(207, 209, 218);">Git Link</span>
+                <p class="text-muted font-small mt-2">check out our progress</p>
+                <button class="btn btn-sm btn-black mb-xl-0 mr-2 mr-lg-2"><!-- 아이콘 변경-->
+                    <span class="d-flex align-items-center">
+              <!-- 로고 -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-github"
+                   viewBox="0 0 16 16">
+                <path
+                        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+              </svg>
+            </span>
+                </button>
+                <button class="btn btn-sm btn-black">
+                    <img src="/assets/img/notion-icon.png" alt="notion-icon" width="35" height="35">
+                </button>
+            </div>
+        </div>
+        <hr class="my-3 my-lg-2">
+        <div class="text-center">
+            <ul>
+                <li><span style="display:inline-block; height:20px; width:200px; color: RGB(207, 209, 218);"><a
+                        href="#">개인정보처리방침</a></span></li>
+                <li><span style="display:inline-block; height:20px; width:200px; color: RGB(207, 209, 218);"><a
+                        href="#">서비스소개</a></span></li>
+                <li><span style="display:inline-block; height:20px; width:200px; color: RGB(207, 209, 218);"><a
+                        href="#">이용약관</a></span></li>
+                <li><span style="display:inline-block; height:20px; width:200px; color: RGB(207, 209, 218);"><a
+                        href="#">광고상표소개</a></span></li>
+            </ul>
+        </div>
+        <hr class="my-3 my-lg-2">
+        <div class="row">
+            <div class="col mb-md-0 mt-3">
+                <div class="d-flex text-center justify-content-center align-items-center" role="contentinfo"
+                     style="color: RGB(207, 209, 218);">
+                    <p class="font-weight-normal font-small mb-0">
+                        Copyright ©️ WhyCodeRun <span class="current-year">2023</span>.
+                        All rights reserved.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="/js/schedule.js"></script>
+
+<!-- Core -->
+<script src="/vendor/jquery/dist/jquery.min.js"></script>
+<script src="/vendor/popper.js/dist/umd/popper.min.js"></script>
+<script src="/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/vendor/headroom.js/dist/headroom.min.js"></script>
+<script src="/vendor/onscreen/dist/on-screen.umd.min.js"></script>
+
+<!-- NoUISlider -->
+<script src="/vendor/nouislider/distribute/nouislider.min.js"></script>
+
+<!-- Bootstrap Datepicker -->
+<script src="/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+<!-- jQuery Waypoints -->
+<script src="/vendor/waypoints/lib/jquery.waypoints.min.js"></script>
+
+<!-- Owl acrousel -->
+<script src="/vendor/owl.carousel/dist/owl.carousel.min.js"></script>
+
+<!-- Smooth scroll -->
+<script src="/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+
+<!-- Fancybox -->
+<script src="/vendor/@fancyapps/fancybox/dist/jquery.fancybox.min.js"></script>
+
+<!-- Sticky sidebar -->
+<script src="/vendor/sticky-sidebar/dist/sticky-sidebar.min.js"></script>
+
+<!-- Mapbox & Leaflet.js -->
+<script src="/vendor/leaflet/dist/leaflet.js"></script>
+
+<!-- Chartist -->
+<script src="/vendor/chartist/dist/chartist.min.js"></script>
+<script src="/vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+
+<!-- Vector Maps -->
+<script src="/vendor/jqvmap/dist/jquery.vmap.min.js"></script>
+<script src="/vendor/jqvmap/dist/maps/jquery.vmap.usa.js"></script>
+
+<!-- Sliderform -->
+<script src="/js/jquery.slideform.js"></script>
+
+<!-- Spaces custom Javascript -->
+<script src="/js/spaces.js"></script>
+</body>
+
+</html>

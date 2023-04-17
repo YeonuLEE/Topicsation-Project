@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <!-- Primary Meta Tags -->
+  <title>TOPICSATION - Sign up Tutor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="title" content="Spaces - Sign up" />
+  <meta name="author" content="Themesberg" />
+  <meta name="description"
+    content="Premium Directory Listing Bootstrap 4 Template featuring 37 hand-crafted pages, a dashboard an Mapbox integration. Spaces also comes with a complete UI Kit featuring over 700 components by Themesberg." />
+  <meta name="keywords"
+    content="bootstrap, bootstrap 4 template, directory listing bootstrap, bootstrap 4 listing, bootstrap listing, bootstrap 4 directory listing template, vector map, leaflet js template, mapbox theme, mapbox template, dashboard, themesberg, user dashboard bootstrap, dashboard bootstrap, ui kit, bootstrap ui kit, premium bootstrap theme" />
+  <link rel="canonical" href="https://themesberg.s3.us-east-2.amazonaws.com/public/products/spaces/thumbnail.jpg" />
+
+  <!-- Fontawesome -->
+  <link type="text/css" href="/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/js/all.min.js"
+          integrity="sha512-Cvxz1E4gCrYKQfz6Ne+VoDiiLrbFBvc6BPh4iyKo2/ICdIodfgc5Q9cBjRivfQNUXBCEnQWcEInSXsvlNHY/ZQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- Leaflet JS -->
+  <link type="text/css" href="/vendor/leaflet/dist/leaflet.css" rel="stylesheet" />
+
+  <!-- Fancybox -->
+  <link rel="stylesheet" href="/vendor/@fancyapps/fancybox/dist/jquery.fancybox.min.css" />
+
+  <!-- VectorMap -->
+  <link rel="stylesheet" href="/vendor/jqvmap/dist/jqvmap.min.css" />
+
+  <!-- Main CSS -->
+  <link type="text/css" href="/css/spaces.css" rel="stylesheet" />
+
+  <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
+
+  <!-- Jquery -->
+  <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <main>
+    <!-- <div class="preloader bg-dark flex-column justify-content-center align-items-center">
+    <div class="position-relative">
+        <img src="../assets/img/brand/light-without-letter.svg" alt="Logo loader">
+        <img src="../assets/img/brand/letter.svg" class="rotate-letter" alt="Letter loader">
+    </div>
+</div> -->
+
+    <!-- Section -->
+    <section class="min-vh-100 d-flex align-items-center section-image overlay-soft-dark py-5 py-lg-0"
+      data-background="/assets/img/form-image.jpg">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12 d-flex align-items-center justify-content-center">
+            <div
+              class="signin-inner mt-3 mt-lg-0 bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
+              <form action="/members/signup/tutors" method="post" id="signInForm">
+                <!-- Form -->
+                <div class="form-group">
+                  <label for="email">E-mail<span class="txt-error email"
+                      style="padding-left: 10px; font-size: 13px"></span></label>
+                  <div class="input-group mb-4">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><span class="fas fa-envelope"></span></span>
+                    </div>
+                    <input class="form-control" id="email" placeholder="@E-mail" type="text" aria-label="email adress"
+                      autocomplete="off" required />
+                  </div>
+                </div>
+                <!-- End of Form -->
+                <div class="form-group">
+                  <label for="password">Name<span class="txt-error name"
+                      style="padding-left: 10px; font-size: 13px"></span></label>
+                  <div class="input-group mb-4">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                          class="bi bi-person-fill" viewBox="0 0 16 16">
+                          <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                        </svg>
+                      </span>
+                    </div>
+                    <input class="form-control" id="name" placeholder="Name" type="text" aria-label="Name" required />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <!-- Form -->
+                  <div class="form-group">
+                    <label for="password">Password<span class="txt-guide password"
+                        style="padding-left: 10px; font-size: 13px"></span></label>
+                    <div class="input-group mb-4">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><span class="fas fa-unlock-alt"></span></span>
+                      </div>
+                      <input class="form-control" id="password" placeholder="Password" type="password"
+                        aria-label="Password" required />
+                    </div>
+                  </div>
+                  <!-- End of Form -->
+                  <!-- Form -->
+                  <div class="form-group">
+                    <label for="password_confirm">Confirm Password<span class="txt-error password_confirm"
+                        style="padding-left: 10px; font-size: 13px"></span></label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><span class="fas fa-unlock-alt"></span></span>
+                      </div>
+                      <input class="form-control" id="password_confirm" placeholder="Confirm password" type="password"
+                        aria-label="Password" required />
+                    </div>
+                  </div>
+                  <!-- End of Form -->
+                  <div class="form-group">
+                    <label>Gender</label>
+
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="genderRadios" id="genderRadios1" value="female"
+                        checked />
+                      <label class="form-check-label" for="genderRadios1">
+                        Female
+                      </label>
+                      <input class="form-check-input" type="radio" name="genderRadios" id="genderRadios2"
+                        value="male" />
+                      <label class="form-check-label" for="genderRadios2">
+                        Male
+                      </label>
+                      <input class="form-check-input" type="radio" name="genderRadios" id="genderRadios3"
+                        value="other" />
+                      <label class="form-check-label" for="genderRadios3">
+                        Other
+                      </label>
+                    </div>
+
+                    <!-- End of Radio -->
+                  </div>
+                  <div class="form-group">
+                    <label>Nationality</label>
+                    <select class="custom-select" id="nationality" required>
+                      <option value="" disabled selected style="display: none">
+                        Select Nationality
+                      </option>
+                      <option>Asia</option>
+                      <option>North America</option>
+                      <option>South America</option>
+                      <option>Europe</option>
+                      <option>Africa</option>
+                      <option>Oceania</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Interest</label>
+                    <select class="custom-select" id="firstInterestSelect" required>
+                      <option value="" disabled selected style="display: none">
+                        First Interest
+                      </option>
+                      <option value="politics">Politics</option>
+                      <option value="economics">Economics</option>
+                      <option value="IT">IT</option>
+                      <option value="fitness">Fitness</option>
+                      <option value="food">Food</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <select class="custom-select" id="secondInterestSelect" required>
+                      <option value="" disabled selected style="display: none">
+                        Second Interest
+                      </option>
+                      <option value="politics">Politics</option>
+                      <option value="economics">Economics</option>
+                      <option value="IT">IT</option>
+                      <option value="fitness">Fitness</option>
+                      <option value="food">Food</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Files Required for Authentication</label>
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="customFile" accept=".pdf" required />
+                      <label class="custom-file-label" id="showFiles" for="customFile">Choose file</label>
+                    </div>
+                  </div>
+                  <div class="form-check mb-4">
+                    <input class="form-check-input" type="checkbox" value="" id="terms" required />
+                    <label class="form-check-label" for="terms">
+                      <span class="small">I agree to the
+                        <a class="text-secondary" href="./terms.html">terms and conditions</a></span>
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="d-block d-sm-flex justify-content-center align-items-center mt-4">
+                    <span class="font-weight-normal">
+                      Already have an account?
+                      <a href="/members/signin" class="font-weight-bold">Login here</a>
+                    </span>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-block btn-primary" id="createAccount">
+                  Create an account
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Validation -->
+  <script src="/js/validate-tutor.js"></script>
+
+  <!-- Core -->
+  <script src="/vendor/jquery/dist/jquery.min.js"></script>
+  <script src="/vendor/popper.js/dist/umd/popper.min.js"></script>
+  <script src="/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="/vendor/headroom.js/dist/headroom.min.js"></script>
+  <script src="/vendor/onscreen/dist/on-screen.umd.min.js"></script>
+
+  <!-- NoUISlider -->
+  <script src="/vendor/nouislider/distribute/nouislider.min.js"></script>
+
+  <!-- Bootstrap Datepicker -->
+  <script src="/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+  <!-- jQuery Waypoints -->
+  <script src="/vendor/waypoints/lib/jquery.waypoints.min.js"></script>
+
+  <!-- Owl acrousel -->
+  <script src="/vendor/owl.carousel/dist/owl.carousel.min.js"></script>
+
+  <!-- Smooth scroll -->
+  <script src="/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+
+  <!-- Fancybox -->
+  <script src="/vendor/@fancyapps/fancybox/dist/jquery.fancybox.min.js"></script>
+
+  <!-- Sticky sidebar -->
+  <script src="/vendor/sticky-sidebar/dist/sticky-sidebar.min.js"></script>
+
+  <!-- Mapbox & Leaflet.js -->
+  <script src="/vendor/leaflet/dist/leaflet.js"></script>
+
+  <!-- Chartist -->
+  <script src="/vendor/chartist/dist/chartist.min.js"></script>
+  <script src="/vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+
+  <!-- Vector Maps -->
+  <script src="/vendor/jqvmap/dist/jquery.vmap.min.js"></script>
+  <script src="/vendor/jqvmap/dist/maps/jquery.vmap.usa.js"></script>
+
+  <!-- Sliderform -->
+  <script src="/js/jquery.slideform.js"></script>
+
+  <!-- Spaces custom Javascript -->
+  <script src="/js/spaces.js"></script>
+</body>
+
+</html>

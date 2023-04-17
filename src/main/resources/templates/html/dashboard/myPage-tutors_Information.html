@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!-- Primary Meta Tags -->
+    <title>MyPage - Tutor_Information</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="title" content="Spaces - Settings">
+    <meta name="author" content="Themesberg">
+    <meta name="description"
+          content="Premium Directory Listing Bootstrap 4 Template featuring 37 hand-crafted pages, a dashboard an Mapbox integration. Spaces also comes with a complete UI Kit featuring over 700 components by Themesberg.">
+    <meta name="keywords"
+          content="bootstrap, bootstrap 4 template, directory listing bootstrap, bootstrap 4 listing, bootstrap listing, bootstrap 4 directory listing template, vector map, leaflet js template, mapbox theme, mapbox template, dashboard, themesberg, user dashboard bootstrap, dashboard bootstrap, ui kit, bootstrap ui kit, premium bootstrap theme"/>
+    <link rel="canonical" href="https://themesberg.s3.us-east-2.amazonaws.com/public/products/spaces/thumbnail.jpg">
+
+    <!-- Fontawesome -->
+    <link type="text/css" href="/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/js/all.min.js"
+            integrity="sha512-Cvxz1E4gCrYKQfz6Ne+VoDiiLrbFBvc6BPh4iyKo2/ICdIodfgc5Q9cBjRivfQNUXBCEnQWcEInSXsvlNHY/ZQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Leaflet JS -->
+    <link type="text/css" href="/vendor/leaflet/dist/leaflet.css" rel="stylesheet">
+
+    <!-- Fancybox -->
+    <link rel="stylesheet" href="/vendor/@fancyapps/fancybox/dist/jquery.fancybox.min.css">
+
+    <!-- VectorMap -->
+    <link rel="stylesheet" href="/vendor/jqvmap/dist/jqvmap.min.css">
+
+    <!-- Main CSS -->
+    <link type="text/css" href="/css/spaces.css" rel="stylesheet">
+
+    <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.js"
+            integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+</head>
+
+<body style="min-height: 100vh;">
+<section style="padding: 0px; height: 50px;"
+         class="section section-image bg-primary overlay-primary text-white pb-4 pb-md-7"
+         data-background="/assets/img/hero-1.jpg">
+    <nav class="navbar navbar-expand-lg navbar-transparent navbar-dark "
+         style="padding-top: 25px; padding-bottom: 25px;">
+        <div class="container position-relative">
+
+            <a class="navbar-brand mr-lg-3" href="/main">
+                <img class="navbar-brand-dark" style="min-height: 60px;" src="/assets/img/Logo_white.png"
+                     alt="menuimage">
+            </a>
+            <div>
+                <button class="btn mb-2 mr-2 btn-white" type="button">MY PAGE</button>
+                <a href="./sign-in.html">
+                    <button class="btn mb-2 mr-2 btn-secondary" type="button">SIGN
+                        IN
+                    </button>
+                </a>
+            </div>
+        </div>
+    </nav>
+</section>
+<main>
+    <div class="section section-lg bg-soft" style="min-height: 100vh;">
+        <div class="container">
+            <div class="row pt-5 pt-md-0">
+
+                <div class="col-12 col-md-4 d-none d-lg-block">
+                    <!-- Navigation -->
+                    <div class="card border-light p-2">
+                        <div class="card-body p-2">
+                            <div class="profile-thumbnail small-thumbnail mx-auto">
+                                <input type="file" id="file" name="file" onchange="uploadFile(this)"
+                                       style="display: none" accept=".jpg, .png, .jpeg"/>
+                                <button type="button" id="profileImgButton" class="btn btn-sm p-0"
+                                        data-toggle="tooltip" data-placement="top" title="Edit Profile">
+                                    <img src="/assets/img/team/profile-picture-4.jpg"
+                                         class="card-img-top rounded-circle border-white" id="profileImg"
+                                         alt="Joseph Portrait"/>
+                                </button>
+                            </div>
+                            <h2 class="h5 font-weight-normal text-center mt-3 mb-0">Neil Sims</h2>
+                            <div class="list-group dashboard-menu list-group-sm mt-4">
+                                <a href="./myPage-tutors.html"
+                                   class="d-flex list-group-item list-group-item-action  active">Information<span
+                                        class="icon icon-xs ml-auto"><span
+                                        class="fas fa-chevron-right"></span></span> </a>
+                                <a href="myPage-tutors_Schedule.html"
+                                   class="d-flex list-group-item list-group-item-action ">Schedule<span
+                                        class="icon icon-xs ml-auto"><span
+                                        class="fas fa-chevron-right"></span></span> </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 d-lg-none">
+                    <div class="card bg-white border-light mb-4 mb-lg-5">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-10 d-flex">
+                                    <a href="./myPage-tutors.html"
+                                       class="list-group-item list-group-item-action border-0  active ">Information</a>
+                                    <a href="myPage-tutors_Schedule.html"
+                                       class="list-group-item list-group-item-action d-none d-sm-block border-0 ">Schedule</a>
+                                </div>
+                                <div class="col-2 d-flex justify-content-center">
+                                    <div class="btn-group dropleft">
+                                        <button
+                                                class="btn btn-link dropdown-toggle dropdown-toggle-split mr-2 m-0 p-0"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span class="icon icon-sm">
+                                                    <span class="fas fa-ellipsis-h icon-secondary fa-lg"></span>
+                                                </span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a href="./my-items.html"
+                                               class="list-group-item list-group-item-action d-sm-none border-0 ">Schedule</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-8">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card card-body bg-white border-light mb-4">
+                                <h2 class="h5 mb-4">General information</h2>
+                                <form id="signInForm">
+                                    <div class="row">
+                                        <div class="col-sm-12 mb-3">
+                                            <div class="form-group">
+                                                <label for="name">Name<span class="txt-error name"
+                                                                            style="padding-left:10px; font-size:13px;"></label>
+                                                <input class="form-control" id="name" type="text" placeholder="Sims"
+                                                       autocomplete="off" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center">
+                                        <div class="col-sm-12 mb-3">
+                                            <div class="form-group">
+                                                <label for="email">Email<span class="txt-error email"
+                                                                              style="padding-left:10px; font-size:13px;"></span></label>
+                                                <input class="form-control" id="email" type="text"
+                                                       placeholder="name@company.com" autocomplete="off" required
+                                                       readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <label>Interest</label>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-group">
+                                                <select class="custom-select" id="firstInterestSelect" required>
+                                                    <option value="politics">Politics</option>
+                                                    <option value="economics">Economics</option>
+                                                    <option value="IT">IT</option>
+                                                    <option value="fitness">Fitness</option>
+                                                    <option value="food">Food</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-group">
+                                                <select class="custom-select" id="secondInterestSelect" required>
+                                                    <option value="politics">Politics</option>
+                                                    <option value="economics">Economics</option>
+                                                    <option value="IT">IT</option>
+                                                    <option value="fitness">Fitness</option>
+                                                    <option value="food">Food</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center">
+                                        <div class="col-md-6 mb-3">
+                                            <div class="form-group">
+                                                <label>Nationality</label>
+                                                <select class="custom-select" id="nationality" required>
+                                                    <option>Asia</option>
+                                                    <option>North America</option>
+                                                    <option>South America</option>
+                                                    <option>Europe</option>
+                                                    <option>Afirica</option>
+                                                    <option>Oceania</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-6 mb-3">
+                                            <label>Gender</label>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="genderRadios"
+                                                       id="genderRadios1" value="female" checked>
+                                                <label class="form-check-label" for="genderRadios1">
+                                                    Female
+                                                </label>
+                                                <input class="form-check-input" type="radio" name="genderRadios"
+                                                       id="genderRadios2" value="male">
+                                                <label class="form-check-label" for="genderRadios2">
+                                                    Male
+                                                </label>
+                                                <input class="form-check-input" type="radio" name="genderRadios"
+                                                       id="genderRadios3" value="other">
+                                                <label class="form-check-label" for="genderRadios3">
+                                                    Other
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-6 mb-100">
+                                        </div>
+                                    </div>
+                                    <div class="mt-3">
+                                        <!--모달 시작-->
+                                        <!-- 버튼 클릭시 모달창 -->
+                                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                data-target="#modal-default">Save All
+                                        </button>
+                                        <div class="modal fade" id="modal-default" tabindex="-1" role="dialog"
+                                             aria-labelledby="modal-default" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h6 class="modal-title">
+                                                            Save All</h6>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form>
+                                                            <div class="mb-3">
+                                                                <label for="message-text"
+                                                                       class="col-form-label">Enter Password</label>
+                                                                <input type="password" class="form-control"
+                                                                       id="message-text" autocomplete="off"
+                                                                       style="border-color: rgb(141, 140, 140);"
+                                                                       required>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-sm btn-secondary">
+                                                            Authenticate
+                                                        </button>
+                                                        <button type="button"
+                                                                class="btn btn-link text-danger ml-auto"
+                                                                data-dismiss="modal">Close
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 모달 버튼-->
+                                        <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                data-target="#modal-default-2" style="float: right">
+                                            Withdrawal
+                                        </button>
+                                        <!--모달 시작-->
+                                        <!-- 버튼 클릭시 모달창 -->
+                                        <div class="modal fade" id="modal-default-2" tabindex="-1" role="dialog"
+                                             aria-labelledby="modal-default" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h6 class="modal-title">Withdrawal</h6>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form name="Withdrawal">
+                                                            <div class="mb-3">
+                                                                <label for="message-text" class="col-form-label">
+                                                                    Are you sure you want to unsubscribe?</label>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-sm btn-primary ml-auto"
+                                                                data-dismiss="modal">
+                                                            No.
+                                                        </button>
+                                                        <form id="">
+                                                            <button type="submit" class="btn btn-sm btn-secondary">
+                                                                Yes, I will unsubscribe.
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Modal End-->
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer class="footer pb-5 bg-primary text-white pt-2 st-n9">
+    <div class="container">
+        <div class="row mt-6 text-center">
+            <div class="col-12 col-xl-6 mb-5 mb-xl-0">
+                <img style="min-height: 60px; color: RGB(207, 209, 218);" src="/assets/img/Logo_white.png"
+                     height="50" class="mb-3" alt="Spaces logo">
+                <p>Newstopic English <br>Conversation Service</p>
+            </div>
+            <div class="col-12 col-xl-6 mb-5 mb-xl-0">
+                <span class="h5" style="color: RGB(207, 209, 218);">Git Link</span>
+                <p class="text-muted font-small mt-2">check out our progress</p>
+                <button class="btn btn-sm btn-black mb-xl-0 mr-2 mr-lg-2"><!-- 아이콘 변경-->
+                    <span class="d-flex align-items-center">
+                            <!-- 로고 -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor"
+                                 class="bi bi-github" viewBox="0 0 16 16">
+                                <path
+                                        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                            </svg>
+                        </span>
+                </button>
+                <button class="btn btn-sm btn-black">
+                    <img src="static/assets/img/notion-icon.png" alt="notion-icon" width="35" height="35">
+                </button>
+            </div>
+        </div>
+        <hr class="my-3 my-lg-2">
+        <div class="text-center">
+            <ul>
+                <li><span style="display:inline-block; height:20px; width:200px; color: RGB(207, 209, 218);"><a
+                        href="#">개인정보처리방침</a></span></li>
+                <li><span style="display:inline-block; height:20px; width:200px; color: RGB(207, 209, 218);"><a
+                        href="#">서비스소개</a></span></li>
+                <li><span style="display:inline-block; height:20px; width:200px; color: RGB(207, 209, 218);"><a
+                        href="#">이용약관</a></span></li>
+                <li><span style="display:inline-block; height:20px; width:200px; color: RGB(207, 209, 218);"><a
+                        href="#">광고상표소개</a></span></li>
+            </ul>
+        </div>
+        <hr class="my-3 my-lg-2">
+        <div class="row">
+            <div class="col mb-md-0 mt-3">
+                <div class="d-flex text-center justify-content-center align-items-center" role="contentinfo"
+                     style="color: RGB(207, 209, 218);">
+                    <p class="font-weight-normal font-small mb-0">
+                        Copyright ©️ WhyCodeRun <span class="current-year">2023</span>.
+                        All rights reserved.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="static/js/validate-tutor.js"></script>
+
+<!-- Core -->
+<script src="/vendor/jquery/dist/jquery.min.js"></script>
+<script src="/vendor/popper.js/dist/umd/popper.min.js"></script>
+<script src="/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/vendor/headroom.js/dist/headroom.min.js"></script>
+<script src="/vendor/onscreen/dist/on-screen.umd.min.js"></script>
+
+<!-- NoUISlider -->
+<script src="/vendor/nouislider/distribute/nouislider.min.js"></script>
+
+<!-- Bootstrap Datepicker -->
+<script src="/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+<!-- jQuery Waypoints -->
+<script src="/vendor/waypoints/lib/jquery.waypoints.min.js"></script>
+
+<!-- Owl acrousel -->
+<script src="/vendor/owl.carousel/dist/owl.carousel.min.js"></script>
+
+<!-- Smooth scroll -->
+<script src="/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+
+<!-- Fancybox -->
+<script src="/vendor/@fancyapps/fancybox/dist/jquery.fancybox.min.js"></script>
+
+<!-- Sticky sidebar -->
+<script src="/vendor/sticky-sidebar/dist/sticky-sidebar.min.js"></script>
+
+<!-- Mapbox & Leaflet.js -->
+<script src="/vendor/leaflet/dist/leaflet.js"></script>
+
+<!-- Chartist -->
+<script src="/vendor/chartist/dist/chartist.min.js"></script>
+<script src="/vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+
+<!-- Vector Maps -->
+<script src="/vendor/jqvmap/dist/jquery.vmap.min.js"></script>
+<script src="/vendor/jqvmap/dist/maps/jquery.vmap.usa.js"></script>
+
+<!-- Sliderform -->
+<script src="/js/jquery.slideform.js"></script>
+
+<!-- Spaces custom Javascript -->
+<script src="/js/spaces.js"></script>
+</body>
+
+</html>
