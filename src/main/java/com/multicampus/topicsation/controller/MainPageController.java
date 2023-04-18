@@ -1,5 +1,6 @@
 package com.multicampus.topicsation.controller;
 
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +26,10 @@ public class MainPageController {
     }
 
 
+
+
     @RestController
+    @RequestMapping("/main")
     public class MainPageRestController{
 
         @GetMapping(".get")
@@ -38,9 +42,10 @@ public class MainPageController {
 
         }
 
-        @GetMapping("/tutors/{tutor_id}.get")
-        public void tutors(){
-
+        @GetMapping("/tutors/{tutor_id}/get")
+        public String tutors(){
+            String jsonString = "{\"user_id\" : \"1234\",\"name\" : \"Tom hardy\",\"like\" : \"123\",\"nationality\" : \"europe\" ,\"interest1\" : \"fitness\",\"interest2\" : \"food\",\"introduce\" : \"안녕하세요~\",\"picture\" : \"image.jpg\"}";
+            return jsonString;
         }
 
     }

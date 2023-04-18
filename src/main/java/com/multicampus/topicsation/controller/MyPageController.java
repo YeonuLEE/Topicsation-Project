@@ -31,6 +31,7 @@ public class MyPageController {
 
 
     @RestController
+    @RequestMapping("/mypage")
     public class MyPageRestController{
 
         @GetMapping("/admin.get")
