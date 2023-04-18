@@ -93,20 +93,20 @@
                   <!-- End of Form -->
                   <!-- Form -->
                   <div class="form-group">
-                    <label for="password_confirm">비밀번호 확인<span class="txt-error password_confirm"
+                    <label for="password-confirm">비밀번호 확인<span class="txt-error password_confirm"
                         style="padding-left:10px; ; font-size:13px;"></span></label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><span class="fas fa-unlock-alt"></span></span>
                       </div>
-                      <input class="form-control" id="password_confirm" placeholder="Confirm password" type="password"
+                      <input class="form-control" id="password-confirm" placeholder="Confirm password" type="password"
                         aria-label="Password" name="password_confirm" />
                     </div>
                   </div>
                   <!-- 관심사 입력 -->
                   <div class="form-group">
                     <label>관심사</label>
-                    <select class="custom-select" id="firstInterestSelect" required>
+                    <select class="custom-select" id="first-interest" required>
                       <option value="" disabled selected style="display:none">첫번째 관심사</option>
                       <option value="politics">정치</option>
                       <option value="economics">경제</option>
@@ -116,7 +116,7 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <select class="custom-select" id="secondInterestSelect" required>
+                    <select class="custom-select" id="second-interest" required>
                       <option value="" disabled selected style="display:none">두번째 관심사</option>
                       <option value="politics">정치</option>
                       <option value="economics">경제</option>
@@ -134,7 +134,7 @@
                     </label>
                   </div>
                 </div>
-                <button type="submit" class="btn btn-block btn-primary">
+                <button type="submit" class="btn btn-block btn-primary" id="create-account">
                   Create an account
                 </button>
               </form>

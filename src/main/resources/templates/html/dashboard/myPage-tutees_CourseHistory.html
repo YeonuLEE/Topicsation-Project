@@ -48,10 +48,8 @@
                      alt="menuimage">
             </a>
             <div>
-                <button class="btn mb-2 mr-2 btn-white" type="button">MY PAGE</button>
-                <a href="./sign-in.html">
-                    <button class="btn mb-2 mr-2 btn-secondary" type="button">SIGN IN</button>
-                </a>
+                <a href="#"><button class="btn mb-2 mr-2 btn-white" type="button" id="mypage-btn">MY PAGE</button></a>
+                <a href="#"><button class="btn mb-2 mr-2 btn-secondary" type="button" id="sign-btn">SIGN OUT</button></a>
             </div>
         </div>
     </nav>
@@ -86,44 +84,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 d-lg-none">
-                    <div class="card bg-white border-light mb-4 mb-lg-5">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-10 d-flex">
-                                    <a href="myPage-tutees_Information.html"
-                                       class="list-group-item list-group-item-action d-none d-md-block border-0  ">회원
-                                        정보</a>
-                                    <a href="myPage-tutees_Schedule.html"
-                                       class="list-group-item list-group-item-action d-none d-sm-block border-0 ">수업
-                                        일정</a>
-                                    <a href="myPage-tutees_CourseHistory.html"
-                                       class="list-group-item list-group-item-action border-0 active">히스토리 정보</a>
-                                </div>
-                                <div class="col-2 d-flex justify-content-center">
-                                    <div class="btn-group dropleft">
-                                        <button
-                                                class="btn btn-link dropdown-toggle dropdown-toggle-split mr-2 m-0 p-0"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <span class="icon icon-sm">
-                                                    <span class="fas fa-ellipsis-h icon-secondary fa-lg"></span>
-                                                </span>
-                                            <span class="sr-only">Toggle Dropdown</span>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a href="myPage-tutees_Information.html"
-                                               class="list-group-item list-group-item-action d-md-none border-0 ">회원
-                                                정보</a>
-                                            <a href="myPage-tutees_Schedule.html"
-                                               class="list-group-item list-group-item-action d-sm-none border-0 ">수업
-                                                일정</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-12 col-lg-8">
                     <div class="row">
                         <div class="col-lg-12">
@@ -140,21 +100,21 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <c:forEach items="${}" var="dto">
+                                        <c:forEach items="${}" var="dto" id="tutee-history">
                                             <tr>
-                                                <th scope="row">
+                                                <th scope="row" id="tno">
                                                     <c:out value="${dto.tno}"/>
                                                     1
                                                 </th>
-                                                <td>
+                                                <td id="class-date">
                                                     <c:out value="${dto.dueDate}"/>
                                                     2023-04-11 11:30AM
                                                 </td>
-                                                <td>
+                                                <td id="tutor-name">
                                                     <c:out value="${dto.writer}"/>
                                                     Nail Sam
                                                 </td>
-                                                <td>
+                                                <td id="mamo">
                                                     <c:out value="${dto.finished}"/>
                                                     txt
                                                 </td>

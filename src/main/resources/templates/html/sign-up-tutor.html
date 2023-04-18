@@ -100,13 +100,13 @@
                   <!-- End of Form -->
                   <!-- Form -->
                   <div class="form-group">
-                    <label for="password_confirm">Confirm Password<span class="txt-error password_confirm"
+                    <label for="password-confirm">Confirm Password<span class="txt-error password_confirm"
                         style="padding-left: 10px; font-size: 13px"></span></label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><span class="fas fa-unlock-alt"></span></span>
                       </div>
-                      <input class="form-control" id="password_confirm" placeholder="Confirm password" type="password"
+                      <input class="form-control" id="password-confirm" placeholder="Confirm password" type="password"
                         aria-label="Password" required />
                     </div>
                   </div>
@@ -114,20 +114,20 @@
                   <div class="form-group">
                     <label>Gender</label>
 
-                    <div class="form-check">
-                      <input class="form-check-input" type="radio" name="genderRadios" id="genderRadios1" value="female"
+                    <div class="form-check" id="gender">
+                      <input class="form-check-input" type="radio" name="genderRadios" id="gender-female" value="female"
                         checked />
-                      <label class="form-check-label" for="genderRadios1">
+                      <label class="form-check-label" for="gender-female">
                         Female
                       </label>
-                      <input class="form-check-input" type="radio" name="genderRadios" id="genderRadios2"
+                      <input class="form-check-input" type="radio" name="genderRadios" id="gender-male"
                         value="male" />
-                      <label class="form-check-label" for="genderRadios2">
+                      <label class="form-check-label" for="gender-male">
                         Male
                       </label>
-                      <input class="form-check-input" type="radio" name="genderRadios" id="genderRadios3"
+                      <input class="form-check-input" type="radio" name="genderRadios" id="gender-other"
                         value="other" />
-                      <label class="form-check-label" for="genderRadios3">
+                      <label class="form-check-label" for="gender-other">
                         Other
                       </label>
                     </div>
@@ -136,7 +136,7 @@
                   </div>
                   <div class="form-group">
                     <label>Nationality</label>
-                    <select class="custom-select" id="nationality" required>
+                    <select class="custom-select" id="tutor-nation" required>
                       <option value="" disabled selected style="display: none">
                         Select Nationality
                       </option>
@@ -150,7 +150,7 @@
                   </div>
                   <div class="form-group">
                     <label>Interest</label>
-                    <select class="custom-select" id="firstInterestSelect" required>
+                    <select class="custom-select" id="first-interest" required>
                       <option value="" disabled selected style="display: none">
                         First Interest
                       </option>
@@ -162,7 +162,7 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <select class="custom-select" id="secondInterestSelect" required>
+                    <select class="custom-select" id="second-interest" required>
                       <option value="" disabled selected style="display: none">
                         Second Interest
                       </option>
@@ -177,7 +177,7 @@
                     <label>Files Required for Authentication</label>
                     <div class="custom-file">
                       <input type="file" class="custom-file-input" id="customFile" accept=".pdf" required />
-                      <label class="custom-file-label" id="showFiles" for="customFile">Choose file</label>
+                      <label class="custom-file-label" id="show-files" for="customFile">Choose file</label>
                     </div>
                   </div>
                   <div class="form-check mb-4">
@@ -196,7 +196,7 @@
                     </span>
                   </div>
                 </div>
-                <button type="submit" class="btn btn-block btn-primary" id="createAccount">
+                <button type="submit" class="btn btn-block btn-primary" id="create-account">
                   Create an account
                 </button>
               </form>

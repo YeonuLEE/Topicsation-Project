@@ -46,17 +46,13 @@
     <nav class="navbar navbar-expand-lg navbar-transparent navbar-dark "
          style="padding-top: 25px; padding-bottom: 25px;">
         <div class="container position-relative">
-
             <a class="navbar-brand mr-lg-3" href="/main">
                 <img class="navbar-brand-dark" style="min-height: 60px;" src="/assets/img/Logo_white.png"
                      alt="menuimage">
-
             </a>
             <div>
-                <button class="btn mb-2 mr-2 btn-white" type="button">MY PAGE</button>
-                <a href="./sign-in.html">
-                    <button class="btn mb-2 mr-2 btn-secondary" type="button">SIGN IN</button>
-                </a>
+                <a href="#"><button class="btn mb-2 mr-2 btn-white" type="button" id="mypage-btn">MY PAGE</button></a>
+                <a href="#"><button class="btn mb-2 mr-2 btn-secondary" type="button" id="sign-btn">SIGN OUT</button></a>
             </div>
         </div>
     </nav>
@@ -70,7 +66,7 @@
                     <div class="card border-light p-2">
                         <div class="card-body p-2">
                             <div class="profile-thumbnail small-thumbnail mx-auto"></div>
-                            <h2 class="h5 font-weight-normal text-center mt-3 mb-0">
+                            <h2 class="h5 font-weight-normal text-center mt-3 mb-0" id="tutee-name" >
                                 이연우
                             </h2>
                             <div class="list-group dashboard-menu list-group-sm mt-4">
@@ -91,43 +87,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 d-lg-none">
-                    <div class="card bg-white border-light mb-4 mb-lg-5">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-10 d-flex">
-                                    <a href="myPage-tutees_Information.html"
-                                       class="list-group-item list-group-item-action border-0 active">회원 정보</a>
-                                    <a href="myPage-tutees_Schedule.html"
-                                       class="list-group-item list-group-item-action d-none d-sm-block border-0">수업
-                                        일정</a>
-                                    <a href="myPage-tutees_CourseHistory.html"
-                                       class="list-group-item list-group-item-action d-none d-md-block border-0">히스토리
-                                        정보</a>
-                                </div>
-                                <div class="col-2 d-flex justify-content-center">
-                                    <div class="btn-group dropleft">
-                                        <button class="btn btn-link dropdown-toggle dropdown-toggle-split mr-2 m-0 p-0"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="icon icon-sm">
-                          <span class="fas fa-ellipsis-h icon-secondary fa-lg"></span>
-                        </span>
-                                            <span class="sr-only">Toggle Dropdown</span>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a href="myPage-tutees_Schedule.html"
-                                               class="list-group-item list-group-item-action d-sm-none border-0">수업
-                                                일정</a>
-                                            <a href="myPage-tutees_CourseHistory.html"
-                                               class="list-group-item list-group-item-action d-md-none border-0">히스토리
-                                                정보</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-12 col-lg-8">
                     <div class="row">
                         <div class="col-lg-12">
@@ -139,7 +98,7 @@
                                             <div class="form-group">
                                                 <label for="name">이름<span class="txt-error name"
                                                                           style="padding-left: 10px; font-size: 13px"></span></label>
-                                                <input class="form-control" id="name" type="text" placeholder="Sims"
+                                                <input class="form-control" id="name" type="text" value="Sims"
                                                        autocomplete="off"
                                                        required/>
                                             </div>
@@ -151,7 +110,7 @@
                                                 <label for="email">이메일<span class="txt-error email"
                                                                             style="padding-left: 10px; font-size: 13px"></span></label>
                                                 <input class="form-control" id="email" type="text"
-                                                       placeholder="name@company.com"
+                                                       value="name@company.com"
                                                        autocomplete="off" readonly required/>
                                             </div>
                                         </div>
@@ -160,7 +119,7 @@
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <div class="form-group">
-                                                <select class="custom-select" id="firstInterestSelect" required>
+                                                <select class="custom-select" id="first-interest" required>
                                                     <option value="politics">정치</option>
                                                     <option value="economics">경제</option>
                                                     <option value="IT">IT</option>
@@ -171,7 +130,7 @@
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <div class="form-group">
-                                                <select class="custom-select" id="secondInterestSelect" required>
+                                                <select class="custom-select" id="second-interest" required>
                                                     <option value="politics">정치</option>
                                                     <option value="economics">경제</option>
                                                     <option value="IT">IT</option>
@@ -184,12 +143,12 @@
                                     <div class="form-group">
                                         <div class="col-md-6 mb-100"></div>
                                     </div>
-                                    <!-- 회원 탈퇴 모달 버튼-->
                                     <div class="mt-3">
                                         <button type="button" class="btn btn-primary" data-toggle="modal"
                                                 data-target="#modal-default">
                                             저장하기
                                         </button>
+                                        <!-- 저장하기 모달-->
                                         <div class="modal fade" id="modal-default" tabindex="-1" role="dialog"
                                              aria-labelledby="modal-default" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -201,17 +160,17 @@
                                                     <div class="modal-body">
                                                         <form>
                                                             <div class="mb-3">
-                                                                <label for="message-text" class="col-form-label">비밀번호를
+                                                                <label for="enter-password" class="col-form-label">비밀번호를
                                                                     입력해주세요</label>
                                                                 <input type="password" class="form-control"
-                                                                       id="message-text" autocomplete="off"
+                                                                       id="enter-password" autocomplete="off"
                                                                        style="border-color: rgb(141, 140, 140);"
                                                                        required>
                                                             </div>
                                                         </form>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-sm btn-secondary">
+                                                        <button type="submit" class="btn btn-sm btn-secondary" id="authenticate">
                                                             인증하기
                                                         </button>
                                                         <button type="button" class="btn btn-link text-danger ml-auto"
@@ -241,21 +200,17 @@
                                                     <div class="modal-body">
                                                         <form>
                                                             <div class="mb-3">
-                                                                <label for="message-text" class="col-form-label">정말로
+                                                                <label class="col-form-label">정말로
                                                                     탈퇴하시겠습니까?</label>
                                                             </div>
                                                         </form>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <!-- <button type="submit" id=""
-                                                          class="btn btn-sm btn-secondary">
-                                                          예, 탈퇴하겠습니다.
-                                                          </button> -->
                                                         <button type="button" class="btn btn-sm btn-primary ml-auto"
                                                                 data-dismiss="modal">
                                                             아니오
                                                         </button>
-                                                        <form id="">
+                                                        <form id="withdrawal">
                                                             <button type="submit" class="btn btn-sm btn-secondary">
                                                                 예, 탈퇴하겠습니다.
                                                             </button>
