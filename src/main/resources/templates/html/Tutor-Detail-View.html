@@ -42,10 +42,10 @@
           <img class="navbar-brand-dark" style="min-height: 60px" src="/assets/img/Logo_white.png" alt="menuimage" />
         </a>
         <div>
-          <button class="btn mb-2 mr-2 btn-white" type="button">
+          <button class="btn mb-2 mr-2 btn-white" type="button" id="my-page">
             MY PAGE
           </button>
-          <a href="sign-in.html"><button class="btn mb-2 mr-2 btn-secondary" type="button">
+          <a href="sign-in.html"><button class="btn mb-2 mr-2 btn-secondary" type="button" id="sign-in">
               SIGN IN
             </button></a>
         </div>
@@ -62,12 +62,6 @@
     </div>
 
     <figure class="position-absolute bottom-0 left-0 w-100 d-none d-md-block mb-n2">
-      <!-- <svg
-      class="fill-white"
-      enable-background="new 0 0 1504 131.3"
-      viewBox="0 0 1504 131.3"
-      xmlns="http://www.w3.org/2000/svg"
-    > -->
       <path
         d="m877.8 85c139.5 24.4 348 33.5 632.2-48.2-.2 32.5-.3 65-.5 97.4-505.9 0-1011.6 0-1517.5 0 0-33.3 0-66.7 0-100.1 54.2-11.4 129.5-23.9 220-28.2 91-4.3 173.6 1 307.4 18.6 183.2 24.2 295.2 49.4 358.4 60.5z" />
       <!-- </svg> -->
@@ -77,12 +71,6 @@
 
 <body style="min-height: 100vh">
   <main>
-    <!-- Hero -->
-
-    <!-- 중간 Tutor Detail View 글씨 -->
-
-    <!-- End of Hero section -->
-    <!-- Section -->
     <div class="section section-lg pt-5" style="min-height: 100vh">
       <div class="container">
         <div class="row">
@@ -144,7 +132,7 @@
                           <form autocomplete="off">
                             <div class="card-header bg-dark">
                               <div class="mx-0 mb-0 row justify-content-sm-center justify-content-start px-1">
-                                <input type="text" id="yymmdd" class="datepicker" placeholder="Pick Date" name="date"
+                                <input type="text" id="day" class="datepicker" placeholder="Pick Date" name="date"
                                   readonly /><span class="fa fa-calendar"></span>
                               </div>
                             </div>
@@ -460,10 +448,10 @@
             <div class="card border-light text-center" style="box-shadow: none">
               <div class="profile-thumbnail mx-auto mt-n6">
                 <img src="/assets/img/team/profile-picture-1.jpg" class="card-img-top rounded-circle border-0"
-                     alt="Jose Avatar" />
+                     alt="Jose Avatar" id="profile-img"/>
               </div>
               <div class="card-body">
-                <h2 class="h4 card-title mb-4">Jose Leos</h2>
+                <h2 class="h4 card-title mb-4" id="tutor-name">Jose Leos</h2>
 
                 <div class="card-subtitle text-gray font-weight-normal mb-2">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#dc143c" class="bi bi-heart-fill"
@@ -471,14 +459,14 @@
                     <path fill-rule="evenodd"
                       d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
                   </svg>
-                  <span class="h5 mb-5">111+</span>
+                  <span class="h5 mb-5" id="tutor-like">111+</span>
                 </div>
 
                 <span class="fas fa-map-marker-alt"></span>
-                  <span>North America</span>
+                  <span id="tutor-nation">North America</span>
                 <div class="my-3">
-                  <span class="badge badge-pill badge-primary ml-2">#IT</span>
-                  <span class="badge badge-pill badge-primary ml-2">#Photo</span>
+                  <span class="badge badge-pill badge-primary ml-2" id="first-interest">#IT</span>
+                  <span class="badge badge-pill badge-primary ml-2" id="second-interest">#Photo</span>
                 </div>
               </div>
             </div>

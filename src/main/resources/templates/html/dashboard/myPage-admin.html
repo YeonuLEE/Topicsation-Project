@@ -50,12 +50,8 @@
 
             </a>
             <div>
-                <button class="btn mb-2 mr-2 btn-white" type="button">MY PAGE</button>
-                <a href="./sign-in.html">
-                    <button class="btn mb-2 mr-2 btn-secondary" type="button">SIGN
-                        IN
-                    </button>
-                </a>
+                <a href="#"><button class="btn mb-2 mr-2 btn-white" type="button" id="mypage-btn">MY PAGE</button></a>
+                <a href="#"><button class="btn mb-2 mr-2 btn-secondary" type="button" id="sign">SIGN IN</button></a>
             </div>
         </div>
     </nav>
@@ -95,7 +91,7 @@
                                     <div class="btn-group dropleft">
                                         <button
                                                 class="btn btn-link dropdown-toggle dropdown-toggle-split mr-2 m-0 p-0"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="toggle-dropdown">
                                                 <span class="icon icon-sm">
                                                     <span class="fas fa-ellipsis-h icon-secondary fa-lg"></span>
                                                 </span>
@@ -124,29 +120,29 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <c:forEach items="${}" var="dto">
+                                        <c:forEach items="${}" var="dto" id="spare-tutor">
                                             <tr>
-                                                <th scope="row">
+                                                <th scope="row" id="tno">
                                                     <c:out value="${dto.tno}"/>
                                                     1
                                                 </th>
-                                                <td>
+                                                <td id="tutor-name">
                                                     <c:out value="${dto.dueDate}"/>
                                                     튜터 이름
                                                 </td>
-                                                <td>
+                                                <td id="approval-date">
                                                     <c:out value="${dto.dueDate}"/>
                                                     날짜 시간
                                                 </td>
-                                                <td>
+                                                <td id="file">
                                                     <c:out value="${dto.writer}"/>
-                                                    승인 요청일
+                                                    승인 파일
                                                 </td>
                                                 <td>
                                                     <button type="submit" class="btn btn-primary"
-                                                            margin="15px">승인
+                                                            margin="15px" id="success">승인
                                                     </button>
-                                                    <button type="submit" class="btn btn-danger">거부</button>
+                                                    <button type="submit" class="btn btn-danger" id="fail">거부</button>
                                                 </td>
                                             </tr>
                                         </c:forEach>

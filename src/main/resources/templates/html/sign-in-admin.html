@@ -4,9 +4,9 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <!-- Primary Meta Tags -->
-  <title>Topicsation - Sign up Tutee</title>
+  <title>TopicSation - Sign in</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <meta name="title" content="Spaces - Sign up" />
+  <meta name="title" content="Spaces - Sign in" />
   <meta name="author" content="Themesberg" />
   <meta name="description"
     content="Premium Directory Listing Bootstrap 4 Template featuring 37 hand-crafted pages, a dashboard an Mapbox integration. Spaces also comes with a complete UI Kit featuring over 700 components by Themesberg." />
@@ -32,56 +32,40 @@
   <link type="text/css" href="/css/spaces.css" rel="stylesheet" />
 
   <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
-  <!-- Jquery -->
-  <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
-    crossorigin="anonymous"></script>
 </head>
 
 <body>
   <main>
+    <!-- 페이지 로딩 페이지 -->
     <!-- Section -->
-    <section class="min-vh-100 d-flex align-items-center section-image overlay-soft-dark py-5 py-lg-0"
-      data-background="/assets/img/form-image.jpg">
+    <section class="min-vh-100 d-flex align-items-center section-image overlay-soft-dark py-5 py-lg-0">
       <div class="container">
         <div class="row justify-content-center">
-
+          <div class="col-12">
+            <div class="text-center text-md-center mb-5 mt-md-0 text-white">
+              <h1 class="mb-0 h3">SIGN IN TOPICSATION</h1>
+            </div>
+          </div>
           <div class="col-12 d-flex align-items-center justify-content-center">
             <div
               class="signin-inner mt-3 mt-lg-0 bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
-              <form action="/members/signup/tutees" method="post" id="signInForm">
+              <form action="/members/signin" method="POST">
                 <!-- Form -->
                 <div class="form-group">
-                  <label for="email">이메일<span class="txt-error email"
-                      style="padding-left:10px; font-size:13px;"></span></label>
+                  <label for="email">Your email</label>
                   <div class="input-group mb-4">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><span class="fas fa-envelope"></span></span>
                     </div>
-                    <input class="form-control" id="email" placeholder="@E-mail" type="text" aria-label="email adress"
-                      autocomplete="off" required />
-                  </div>
-                  <!-- <p class="txt-error email" devTailMsg=""></p> -->
-                </div>
-                <!-- End of Form -->
-                <div class="form-group">
-                  <label for="password">이름<span class="txt-error name"
-                      style="padding-left:10px; font-size:13px;"></span></label>
-                  <div class="input-group mb-4">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                          fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                          <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-                        </svg></span>
-                    </div>
-                    <input class="form-control" id="name" placeholder="Name" type="text" aria-label="name" required />
+                    <input class="form-control" id="email" placeholder="@E-mail" type="text" aria-label="email address"
+                      required />
                   </div>
                 </div>
                 <!-- End of Form -->
                 <div class="form-group">
                   <!-- Form -->
                   <div class="form-group">
-                    <label for="password">비밀번호 입력<span class="txt-guide password"
-                        style="padding-left:10px; font-size:13px;"></span></label>
+                    <label for="password">Password</label>
                     <div class="input-group mb-4">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><span class="fas fa-unlock-alt"></span></span>
@@ -90,69 +74,17 @@
                         aria-label="Password" required />
                     </div>
                   </div>
-                  <!-- End of Form -->
-                  <!-- Form -->
-                  <div class="form-group">
-                    <label for="password-confirm">비밀번호 확인<span class="txt-error password_confirm"
-                        style="padding-left:10px; ; font-size:13px;"></span></label>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><span class="fas fa-unlock-alt"></span></span>
-                      </div>
-                      <input class="form-control" id="password-confirm" placeholder="Confirm password" type="password"
-                        aria-label="Password" name="password_confirm" />
-                    </div>
-                  </div>
-                  <!-- 관심사 입력 -->
-                  <div class="form-group">
-                    <label>관심사</label>
-                    <select class="custom-select" id="first-interest" required>
-                      <option value="" disabled selected style="display:none">첫번째 관심사</option>
-                      <option value="politics">정치</option>
-                      <option value="economics">경제</option>
-                      <option value="IT">IT</option>
-                      <option value="fitness">피트니스</option>
-                      <option value="food">요리</option>
-                    </select>
-                  </div>
-                  <div class="form-group">
-                    <select class="custom-select" id="second-interest" required>
-                      <option value="" disabled selected style="display:none">두번째 관심사</option>
-                      <option value="politics">정치</option>
-                      <option value="economics">경제</option>
-                      <option value="IT">IT</option>
-                      <option value="fitness">피트니스</option>
-                      <option value="food">요리</option>
-                    </select>
-                  </div>
-                  <!-- End of Form -->
-                  <div class="form-check mb-4">
-                    <input class="form-check-input" type="checkbox" value="" id="terms" required />
-                    <label class="form-check-label" for="terms">
-                      <span class="small">I agree to the
-                        <a class="text-secondary" href="./terms.html">terms and conditions</a></span>
-                    </label>
-                  </div>
                 </div>
-                <button type="submit" class="btn btn-block btn-primary" id="create-account">
-                  Create an account
+                <button type="submit" id="sign-in" class="btn btn-block btn-primary">
+                  Sign in
                 </button>
               </form>
-              <div class="d-block d-sm-flex justify-content-center align-items-center mt-4">
-                <span class="font-weight-normal">
-                  Already have an account?
-                  <a href="/members/signin" class="font-weight-bold">Login here</a>
-                </span>
-              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
   </main>
-
-  <!-- Validation -->
-  <script src="/js/validate-tutee.js"></script>
 
   <!-- Core -->
   <script src="/vendor/jquery/dist/jquery.min.js"></script>
@@ -198,7 +130,6 @@
 
   <!-- Spaces custom Javascript -->
   <script src="/js/spaces.js"></script>
-
 </body>
 
 </html>
