@@ -19,6 +19,7 @@ public class LessonController {
     }
 
     @RestController
+    @RequestMapping("/lesson")
     public class LessonRestController{
 
         @GetMapping("/{lesson_id}.get")

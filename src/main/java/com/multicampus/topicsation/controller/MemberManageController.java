@@ -52,6 +52,7 @@ public class MemberManageController {
     }
 
     @RestController
+    @RequestMapping("/members")
     public class MemberManageRestController{
 
 
