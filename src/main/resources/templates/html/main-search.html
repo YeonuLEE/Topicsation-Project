@@ -64,15 +64,14 @@
                 style="padding-top: 25px; padding-bottom: 25px;">
                 <div class="container position-relative">
 
-                    <a class="navbar-brand mr-lg-3" href="/main">
+                    <a class="navbar-brand mr-lg-3" href="#">
                         <img class="navbar-brand-dark" style="min-height: 60px;" src="/assets/img/Logo_white.png"
                             alt="menuimage">
 
                     </a>
                     <div>
-                        <button class="btn mb-2 mr-2 btn-white" type="button">MY PAGE</button>
-                        <a href="sign-in.html"><button class="btn mb-2 mr-2 btn-secondary" type="button">SIGN
-                                IN</button></a>
+                        <a href="#"><button class="btn mb-2 mr-2 btn-white" type="button" id="mypage-btn">MY PAGE</button></a>
+                        <a href="#"><button class="btn mb-2 mr-2 btn-secondary" type="button" id="sign-btn">SIGN IN</button></a>
                     </div>
                 </div>
             </nav>
@@ -89,7 +88,7 @@
                                         <div class="col-12 col-lg-4 pr-lg-1">
                                             <div class="form-group form-group-lg mb-lg-0">
                                                 <div class="input-group">
-                                                    <input id="search-activity" type="text"
+                                                    <input id="search-name" type="text"
                                                         class="form-control autocomplete" placeholder="튜터의 이름을 입력해주세요"
                                                         required>
                                                 </div>
@@ -98,7 +97,7 @@
                                         <div class="col-12 col-lg-4 pr-lg-1">
                                             <div class="form-group form-group-lg mb-lg-0">
                                                 <div class="input-group">
-                                                    <select class="form-control" id="firstInterestSelect" required>
+                                                    <select class="form-control" id="search-interest" required>
                                                         <option value="" disabled selected style="display:none">관심사
                                                         </option>
                                                         <option value="politics">정치</option>
@@ -116,12 +115,12 @@
                                                     <span class="input-group-text"><span
                                                             class="far fa-calendar-alt"></span></span>
                                                 </div>
-                                                <input class="form-control datepicker" placeholder="예약 날짜" type="text"
+                                                <input class="form-control datepicker" id="reservate-date" placeholder="예약 날짜" type="text"
                                                     required>
                                             </div>
                                         </div>
                                         <div class="col-12 col-lg-1 pl-lg-1">
-                                            <button class="btn btn-lg btn-dark btn-block" type="submit"><span
+                                            <button class="btn btn-lg btn-dark btn-block" id="search-btn" type="submit"><span
                                                     class="icon icon-sm"><span
                                                         class="fas fa-search-location"></span></span></button>
                                         </div>
@@ -147,7 +146,7 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col-12 col-lg-6 col-xl-4">
                                     <a href="#">
-                                        <img src="/assets/img/YeonuLEE.jpg" alt="loft space"
+                                        <img src="" alt="loft space" id="tutor-photo"
                                              class="card-img p-2 rounded-xl">
                                     </a>
                                 </div>
@@ -155,58 +154,22 @@
                                     <div class="card-body">
                                         <div class="mb-3">
                                             <a href="#">
-                                                <span class="h5 mb-3 mr-6">Yeonu LEE</span>
+                                                <span class="h5 mb-3 mr-6" id="tutor-name"></span>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                      fill="#dc143c" class="bi bi-heart-fill" viewBox="0 0 16 16">
                                                     <path fill-rule="evenodd"
                                                           d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
                                                 </svg>
-                                                <span class="h6 mb-3">111+</span>
+                                                <span class="h6 mb-3" id="tutor-like"></span>
                                             </a>
                                         </div>
                                         <div class="mb-5">
                                             <span class="fas fa-map-marker-alt"></span>
-                                            <span>North America</span>
+                                            <span id="tutor-nation"></span>
                                         </div>
                                         <div class="d-flex my-3">
-                                            <span class="badge badge-pill badge-primary ml-2">#IT</span>
-                                            <span class="badge badge-pill badge-primary ml-2">#Photo</span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 mb-3">
-                        <div class="card border-light mb-4 animate-up-5">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col-12 col-lg-6 col-xl-4">
-                                    <a href="./single-space.html">
-                                        <img src="/assets/img/YeonuLEE.jpg" alt="loft space"
-                                             class="card-img p-2 rounded-xl">
-                                    </a>
-                                </div>
-                                <div class="col-12 col-lg-6 col-xl-7">
-                                    <div class="card-body">
-                                        <div class="mb-3">
-                                            <a href="#">
-                                                <span class="h5 mb-3 mr-6">Yeonu LEE</span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                     fill="#dc143c" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                                                    <path fill-rule="evenodd"
-                                                          d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-                                                </svg>
-                                                <span class="h6 mb-3">111+</span>
-                                            </a>
-                                        </div>
-                                        <div class="mb-5">
-                                            <span class="fas fa-map-marker-alt"></span>
-                                            <span>North America</span>
-                                        </div>
-                                        <div class="d-flex my-3">
-                                            <span class="badge badge-pill badge-primary ml-2">#IT</span>
-                                            <span class="badge badge-pill badge-primary ml-2">#Photo</span>
+                                            <span class="badge badge-pill badge-primary ml-2" id="tutor-interest-1"></span>
+                                            <span class="badge badge-pill badge-primary ml-2" id="tutor-interest-2"></span>
                                         </div>
 
                                     </div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -42,16 +42,16 @@
     <nav class="navbar navbar-expand-lg navbar-transparent navbar-dark "
          style="padding-top: 25px; padding-bottom: 25px;">
         <div class="container position-relative">
-
             <a class="navbar-brand mr-lg-3" href="/main">
                 <img class="navbar-brand-dark" style="min-height: 60px;" src="/assets/img/Logo_white.png"
                      alt="menuimage">
-
             </a>
             <div>
-                <button class="btn mb-2 mr-2 btn-white" type="button">MY PAGE</button>
-                <a href="./sign-in.html">
-                    <button class="btn mb-2 mr-2 btn-secondary" type="button">SIGN IN</button>
+                <a href="#">
+                    <button class="btn mb-2 mr-2 btn-white" type="button" id="mypage-btn">MY PAGE</button>
+                </a>
+                <a href="#">
+                    <button class="btn mb-2 mr-2 btn-secondary" type="button" id="sign">SIGN IN</button>
                 </a>
             </div>
         </div>
@@ -73,42 +73,13 @@
                                 Neil Sims
                             </h2>
                             <div class="list-group dashboard-menu list-group-sm mt-4">
-                                <a href="./myPage-tutors.html" class="d-flex list-group-item list-group-item-action">Information<span
+                                <a href="#" class="d-flex list-group-item list-group-item-action">Information<span
                                         class="icon icon-xs ml-auto"><span class="fas fa-chevron-right"></span></span>
                                 </a>
-                                <a href="myPage-tutors_Schedule.html"
+                                <a href="#"
                                    class="d-flex list-group-item list-group-item-action active">Schedule<span
                                         class="icon icon-xs ml-auto"><span class="fas fa-chevron-right"></span></span>
                                 </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 d-lg-none">
-                    <div class="card bg-white border-light mb-4 mb-lg-5">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-10 d-flex">
-                                    <a href="./myPage-tutors.html"
-                                       class="list-group-item list-group-item-action border-0 active">Information</a>
-                                    <a href="myPage-tutors_Schedule.html"
-                                       class="list-group-item list-group-item-action d-none d-sm-block border-0">Suchedule</a>
-                                </div>
-                                <div class="col-2 d-flex justify-content-center">
-                                    <div class="btn-group dropleft">
-                                        <button class="btn btn-link dropdown-toggle dropdown-toggle-split mr-2 m-0 p-0"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="icon icon-sm">
-                          <span class="fas fa-ellipsis-h icon-secondary fa-lg"></span>
-                        </span>
-                                            <span class="sr-only">Toggle Dropdown</span>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a href="./my-items.html"
-                                               class="list-group-item list-group-item-action d-sm-none border-0">Suchedule</a>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -140,165 +111,264 @@
                                                                        readonly/><span class="fa fa-calendar"></span>
                                                             </div>
                                                         </div>
-                                                        <div class="card-body p-2 p-sm-4">
+                                                        <div class="card-body p-3 p-sm-5">
                                                             <div class="row text-center mx-0">
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">12:00AM</div>
+                                                                    <div class="cell py-1" id="1200AM">
+                                                                        12:00AM
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">12:30AM</div>
+                                                                    <div class="cell py-1" id="1230AM">
+                                                                        12:30AM
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">01:00AM</div>
+                                                                    <div class="cell py-1" id="0100AM">
+                                                                        01:00AM
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">01:30AM</div>
+                                                                    <div class="cell py-1" id="0130AM">
+                                                                        01:30AM
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">02:00AM</div>
+                                                                    <div class="cell py-1" id="0200AM">
+                                                                        02:00AM
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">02:30AM</div>
+                                                                    <div class="cell py-1" id="0230AM">
+                                                                        02:30AM
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div class="row text-center mx-0">
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">03:00AM</div>
+                                                                    <div class="cell py-1" id="0300AM">
+                                                                        03:00AM
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">03:30AM</div>
+                                                                    <div class="cell py-1" id="0330AM">
+                                                                        03:30AM
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">04:00AM</div>
+                                                                    <div class="cell py-1" id="0400AM">
+                                                                        04:00AM
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">04:30AM</div>
+                                                                    <div class="cell py-1" id="0430AM">
+                                                                        04:30AM
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">05:00AM</div>
+                                                                    <div class="cell py-1" id="0500AM">
+                                                                        05:00AM
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">05:30AM</div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row text-center mx-0">
-                                                                <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">06:00AM</div>
-                                                                </div>
-                                                                <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">06:30AM</div>
-                                                                </div>
-                                                                <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">07:00AM</div>
-                                                                </div>
-                                                                <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">07:30AM</div>
-                                                                </div>
-                                                                <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">08:00AM</div>
-                                                                </div>
-                                                                <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">08:30AM</div>
+                                                                    <div class="cell py-1" id="0530AM">
+                                                                        05:30AM
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div class="row text-center mx-0">
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">09:00AM</div>
+                                                                    <div class="cell py-1" id="0600AM">
+                                                                        06:00AM
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">09:30AM</div>
+                                                                    <div class="cell py-1" id="0630AM">
+                                                                        06:30AM
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">10:00AM</div>
+                                                                    <div class="cell py-1" id="0700AM">
+                                                                        07:00AM
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">10:30AM</div>
+                                                                    <div class="cell py-1" id="0730AM">
+                                                                        07:30AM
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">11:00AM</div>
+                                                                    <div class="cell py-1" id="0800AM">
+                                                                        08:00AM
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">11:30AM</div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row text-center mx-0">
-                                                                <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">12:00PM</div>
-                                                                </div>
-                                                                <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">12:30PM</div>
-                                                                </div>
-                                                                <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">01:00PM</div>
-                                                                </div>
-                                                                <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">01:30PM</div>
-                                                                </div>
-                                                                <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">02:00PM</div>
-                                                                </div>
-                                                                <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">02:30PM</div>
+                                                                    <div class="cell py-1" id="0830AM">
+                                                                        08:30AM
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div class="row text-center mx-0">
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">03:00PM</div>
+                                                                    <div class="cell py-1" id="0900AM">
+                                                                        09:00AM
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">03:30PM</div>
+                                                                    <div class="cell py-1" id="0930AM">
+                                                                        09:30AM
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">04:00PM</div>
+                                                                    <div class="cell py-1" id="1000AM">
+                                                                        10:00AM
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">04:30PM</div>
+                                                                    <div class="cell py-1" id="1030AM">
+                                                                        10:30AM
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">05:00PM</div>
+                                                                    <div class="cell py-1" id="1100AM">
+                                                                        11:00AM
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">05:30PM</div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row text-center mx-0">
-                                                                <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">06:00PM</div>
-                                                                </div>
-                                                                <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">06:30PM</div>
-                                                                </div>
-                                                                <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">07:00PM</div>
-                                                                </div>
-                                                                <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">07:30PM</div>
-                                                                </div>
-                                                                <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">08:00PM</div>
-                                                                </div>
-                                                                <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">08:30PM</div>
+                                                                    <div class="cell py-1" id="1130AM">
+                                                                        11:30AM
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div class="row text-center mx-0">
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">09:00PM</div>
+                                                                    <div class="cell py-1" id="1200PM">
+                                                                        12:00PM
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">09:30PM</div>
+                                                                    <div class="cell py-1" id="1230PM">
+                                                                        12:30PM
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">10:00PM</div>
+                                                                    <div class="cell py-1" id="0100PM">
+                                                                        01:00PM
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">10:30PM</div>
+                                                                    <div class="cell py-1" id="0130PM">
+                                                                        01:30PM
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">11:00PM</div>
+                                                                    <div class="cell py-1" id="0200PM">
+                                                                        02:00PM
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1">11:30PM</div>
+                                                                    <div class="cell py-1" id="0230PM">
+                                                                        02:30PM
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row text-center mx-0">
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1" id="0300PM">
+                                                                        03:00PM
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1" id="0330PM">
+                                                                        03:30PM
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1" id="0400PM">
+                                                                        04:00PM
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1" id="0430PM">
+                                                                        04:30PM
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1" id="0500PM">
+                                                                        05:00PM
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1" id="0530PM">
+                                                                        05:30PM
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row text-center mx-0">
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1" id="0600PM">
+                                                                        06:00PM
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1" id="0630PM">
+                                                                        06:30PM
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1" id="0700PM">
+                                                                        07:00PM
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1" id="0730PM">
+                                                                        07:30PM
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1" id="0800PM">
+                                                                        08:00PM
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1" id="0830PM">
+                                                                        08:30PM
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row text-center mx-0">
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1" id="0900PM">
+                                                                        09:00PM
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1" id="0930PM">
+                                                                        09:30PM
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1" id="1000PM">
+                                                                        10:00PM
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1" id="1030PM"
+                                                                         style="pointer-events: none">
+                                                                        10:30PM
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1" id="1100PM"
+                                                                         style="pointer-events: none">
+                                                                        11:00PM
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2 col-4 my-1 px-1">
+                                                                    <div class="cell py-1" id="1130PM"
+                                                                         style="pointer-events: none">
+                                                                        11:30PM
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -306,7 +376,8 @@
                                                     <div class="pr-2">
                                                         <button type="button" class="btn btn-danger m-3"
                                                                 data-toggle="modal"
-                                                                data-target="#modal-default" style="float: right">
+                                                                data-target="#modal-default" style="float: right"
+                                                                id="schedule-save">
                                                             Save All
                                                         </button>
                                                     </div>
@@ -324,23 +395,23 @@
                                                     <h6 class="modal-title">Save</h6>
                                                     <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
-                                                        <!-- <span aria-hidden="true">&times;</span> -->
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
                                                     <form>
                                                         <div class="mb-3">
-                                                            <label for="message-text" class="col-form-label">Enter
+                                                            <label for="enter-password" class="col-form-label">Enter
                                                                 Password</label>
                                                             <input type="password" class="form-control"
-                                                                   id="message-text" autocomplete="off"
+                                                                   id="enter-password" autocomplete="off"
                                                                    required/>
                                                         </div>
                                                     </form>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <form>
-                                                        <button type="submit" class="btn btn-sm btn-secondary">
+                                                        <button type="submit" id="authenticate"
+                                                                class="btn btn-sm btn-secondary">
                                                             Authenticate
                                                         </button>
                                                     </form>
@@ -361,7 +432,7 @@
                                                 Booking Time
                                             </th>
                                             <th scope="col" style="text-align: center">
-                                                Tutor
+                                                Tutee
                                             </th>
                                             <th scope="col" style="text-align: center">
                                                 Admission to class
@@ -369,30 +440,22 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <c:forEach items="${}" var="dto">
-                                            <tr>
-                                                <td scope="row" style="text-align: center">
-                                                    <c:out value="${dto.tno}"/>
-                                                    1
-                                                </td>
-                                                <td style="text-align: center">
-                                                    <c:out value="${dto.dueDate}"/>
-                                                    Date Time
-                                                </td>
-                                                <td style="text-align: center">
-                                                    <c:out value="${dto.writer}"/>
-                                                    Tutor
-                                                </td>
-                                                <td style="text-align: center">
-                                                    <div style="text-align: center">
-                                                        <a href="/templates/html/classroom-tutor.html"
-                                                           class="btn btn-primary" inline-block>
-                                                            Admission to class
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </c:forEach>
+                                        <td scope="row" style="text-align: center" id="tno">
+                                        </td>
+                                        <td style="text-align: center" id="booking-time">
+                                        </td>
+                                        <td style="text-align: center" id="booking-tutee">
+                                        </td>
+                                        <td style="text-align: center">
+                                            <div style="text-align: center">
+                                                <a href="/templates/html/classroom-tutor.html"
+                                                   class="btn btn-primary" inline-block
+                                                    id="admission-btn">
+                                                    Admission to class
+                                                </a>
+                                            </div>
+                                        </td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </form>

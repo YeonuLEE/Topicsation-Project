@@ -119,7 +119,7 @@ $("#firstInterestSelect").change(function () {
 });
 
 // 프로필 사진 수정
-$("#profileImg").hover(
+$("#profile-img").hover(
     function () {
         // $(this).attr("src","./image/p002.jpg");
         $(this).css("opacity", 0.3);

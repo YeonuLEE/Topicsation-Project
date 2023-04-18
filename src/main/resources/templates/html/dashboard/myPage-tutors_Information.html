@@ -51,11 +51,11 @@
                      alt="menuimage">
             </a>
             <div>
-                <button class="btn mb-2 mr-2 btn-white" type="button">MY PAGE</button>
-                <a href="./sign-in.html">
-                    <button class="btn mb-2 mr-2 btn-secondary" type="button">SIGN
-                        IN
-                    </button>
+                <a href="#">
+                    <button class="btn mb-2 mr-2 btn-white" type="button" id="mypage-btn">MY PAGE</button>
+                </a>
+                <a href="#">
+                    <button class="btn mb-2 mr-2 btn-secondary" type="button" id="sign">SIGN IN</button>
                 </a>
             </div>
         </div>
@@ -65,7 +65,6 @@
     <div class="section section-lg bg-soft" style="min-height: 100vh;">
         <div class="container">
             <div class="row pt-5 pt-md-0">
-
                 <div class="col-12 col-md-4 d-none d-lg-block">
                     <!-- Navigation -->
                     <div class="card border-light p-2">
@@ -76,11 +75,11 @@
                                 <button type="button" id="profileImgButton" class="btn btn-sm p-0"
                                         data-toggle="tooltip" data-placement="top" title="Edit Profile">
                                     <img src="/assets/img/team/profile-picture-4.jpg"
-                                         class="card-img-top rounded-circle border-white" id="profileImg"
+                                         class="card-img-top rounded-circle border-white" id="profile-img"
                                          alt="Joseph Portrait"/>
                                 </button>
                             </div>
-                            <h2 class="h5 font-weight-normal text-center mt-3 mb-0">Neil Sims</h2>
+                            <h2 class="h5 font-weight-normal text-center mt-3 mb-0" id="tutor-name">Neil Sims</h2>
                             <div class="list-group dashboard-menu list-group-sm mt-4">
                                 <a href="./myPage-tutors.html"
                                    class="d-flex list-group-item list-group-item-action  active">Information<span
@@ -94,36 +93,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 d-lg-none">
-                    <div class="card bg-white border-light mb-4 mb-lg-5">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-10 d-flex">
-                                    <a href="./myPage-tutors.html"
-                                       class="list-group-item list-group-item-action border-0  active ">Information</a>
-                                    <a href="myPage-tutors_Schedule.html"
-                                       class="list-group-item list-group-item-action d-none d-sm-block border-0 ">Schedule</a>
-                                </div>
-                                <div class="col-2 d-flex justify-content-center">
-                                    <div class="btn-group dropleft">
-                                        <button
-                                                class="btn btn-link dropdown-toggle dropdown-toggle-split mr-2 m-0 p-0"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <span class="icon icon-sm">
-                                                    <span class="fas fa-ellipsis-h icon-secondary fa-lg"></span>
-                                                </span>
-                                            <span class="sr-only">Toggle Dropdown</span>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a href="./my-items.html"
-                                               class="list-group-item list-group-item-action d-sm-none border-0 ">Schedule</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-12 col-lg-8">
                     <div class="row">
                         <div class="col-lg-12">
@@ -133,9 +102,10 @@
                                     <div class="row">
                                         <div class="col-sm-12 mb-3">
                                             <div class="form-group">
-                                                <label for="name">Name<span class="txt-error name"
-                                                                            style="padding-left:10px; font-size:13px;"></label>
-                                                <input class="form-control" id="name" type="text" placeholder="Sims"
+                                                <label for="name">Name
+                                                    <span class="txt-error name" style="padding-left:10px; font-size:13px;"></span>
+                                                </label>
+                                                <input class="form-control" id="name" type="text" value="Sims"
                                                        autocomplete="off" required>
                                             </div>
                                         </div>
@@ -146,7 +116,7 @@
                                                 <label for="email">Email<span class="txt-error email"
                                                                               style="padding-left:10px; font-size:13px;"></span></label>
                                                 <input class="form-control" id="email" type="text"
-                                                       placeholder="name@company.com" autocomplete="off" required
+                                                       value="test@test.com" autocomplete="off" required
                                                        readonly>
                                             </div>
                                         </div>
@@ -155,7 +125,7 @@
                                     <div class="row">
                                         <div class="col-md-6 mb-3">
                                             <div class="form-group">
-                                                <select class="custom-select" id="firstInterestSelect" required>
+                                                <select class="custom-select" id="first-interest" required>
                                                     <option value="politics">Politics</option>
                                                     <option value="economics">Economics</option>
                                                     <option value="IT">IT</option>
@@ -166,7 +136,7 @@
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <div class="form-group">
-                                                <select class="custom-select" id="secondInterestSelect" required>
+                                                <select class="custom-select" id="second-interest" required>
                                                     <option value="politics">Politics</option>
                                                     <option value="economics">Economics</option>
                                                     <option value="IT">IT</option>
@@ -196,18 +166,18 @@
                                             <label>Gender</label>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="genderRadios"
-                                                       id="genderRadios1" value="female" checked>
-                                                <label class="form-check-label" for="genderRadios1">
+                                                       id="gender-female" value="female" checked>
+                                                <label class="form-check-label" for="gender-female">
                                                     Female
                                                 </label>
                                                 <input class="form-check-input" type="radio" name="genderRadios"
-                                                       id="genderRadios2" value="male">
-                                                <label class="form-check-label" for="genderRadios2">
+                                                       id="gender-male" value="male">
+                                                <label class="form-check-label" for="gender-male">
                                                     Male
                                                 </label>
                                                 <input class="form-check-input" type="radio" name="genderRadios"
-                                                       id="genderRadios3" value="other">
-                                                <label class="form-check-label" for="genderRadios3">
+                                                       id="gender-other" value="other">
+                                                <label class="form-check-label" for="gender-other">
                                                     Other
                                                 </label>
                                             </div>
@@ -234,17 +204,17 @@
                                                     <div class="modal-body">
                                                         <form>
                                                             <div class="mb-3">
-                                                                <label for="message-text"
+                                                                <label for="enter-password"
                                                                        class="col-form-label">Enter Password</label>
                                                                 <input type="password" class="form-control"
-                                                                       id="message-text" autocomplete="off"
+                                                                       id="enter-password" autocomplete="off"
                                                                        style="border-color: rgb(141, 140, 140);"
                                                                        required>
                                                             </div>
                                                         </form>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-sm btn-secondary">
+                                                        <button type="submit" class="btn btn-sm btn-secondary" id="authenticate">
                                                             Authenticate
                                                         </button>
                                                         <button type="button"
@@ -257,7 +227,7 @@
                                         </div>
                                         <!-- 모달 버튼-->
                                         <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                data-target="#modal-default-2" style="float: right">
+                                                data-target="#modal-default-2" style="float: right" >
                                             Withdrawal
                                         </button>
                                         <!--모달 시작-->
@@ -273,7 +243,7 @@
                                                     <div class="modal-body">
                                                         <form name="Withdrawal">
                                                             <div class="mb-3">
-                                                                <label for="message-text" class="col-form-label">
+                                                                <label for="withdrawal" class="col-form-label">
                                                                     Are you sure you want to unsubscribe?</label>
                                                             </div>
                                                         </form>
@@ -283,8 +253,8 @@
                                                                 data-dismiss="modal">
                                                             No.
                                                         </button>
-                                                        <form id="">
-                                                            <button type="submit" class="btn btn-sm btn-secondary">
+                                                        <form id="withdrawal">
+                                                            <button type="submit" class="btn btn-sm btn-secondary" id="withdrawal-btn">
                                                                 Yes, I will unsubscribe.
                                                             </button>
                                                         </form>
@@ -357,7 +327,7 @@
     </div>
 </footer>
 
-<script src="static/js/validate-tutor.js"></script>
+<script src="/js/validate-tutor.js"></script>
 
 <!-- Core -->
 <script src="/vendor/jquery/dist/jquery.min.js"></script>

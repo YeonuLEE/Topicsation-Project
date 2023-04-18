@@ -1,38 +1,47 @@
 package com.multicampus.topicsation.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
-@RestController
+@Controller
 @RequestMapping("/main")
 public class MainPageController {
 
     @GetMapping("")
-    public ModelAndView main(){
-        ModelAndView modelAndView = new ModelAndView();
-
-        modelAndView.setViewName("html/main");
-
-        return modelAndView;
+    public String main(){
+        return "html/main";
     }
 
     @GetMapping("/search-all")
-    public ModelAndView mainSearch(){
-        ModelAndView modelAndView = new ModelAndView();
-
-        modelAndView.setViewName("html/main-search");
-
-        return modelAndView;
+    public String searchAll(){
+        return "html/main-search";
     }
 
     @GetMapping("/tutors/{tutor_id}")
-    public ModelAndView tutorSpec(){
-        ModelAndView modelAndView = new ModelAndView();
+    public String tutors(){
+        return "Tutor-Detail-View";
+    }
 
-        modelAndView.setViewName("html/Tutor-Detail-View");
 
-        return modelAndView;
+    @RestController
+    public class MainPageRestController{
+
+        @GetMapping(".get")
+        public void main(){
+
+        }
+
+        @GetMapping("/search-all.get")
+        public void searchAll(){
+
+        }
+
+        @GetMapping("/tutors/{tutor_id}.get")
+        public void tutors(){
+
+        }
+
     }
 }
