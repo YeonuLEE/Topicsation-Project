@@ -11,22 +11,22 @@ public class MyPageController {
 
     @GetMapping("/admin")
     public String adminPage(){
-        return "dashboard/myPage-admin";
+        return "html/dashboard/myPage-admin";
     }
 
     @GetMapping("/{user_id}")
     public String myPage(){
-        return "myPage-tutees_Information";
+        return "html/dashboard/myPage-tutees_Information";
     }
 
     @GetMapping("/{user_id}/schedule")
     public String schedulePage(){
-        return "myPage-tutees_Information";
+        return "html/dashboard/myPage-tutees_Information";
     }
 
     @GetMapping("/{user_id}/history")
     public String historyPage(){
-        return "myPage-tutees_CourseHistory";
+        return "html/dashboard/myPage-tutees_CourseHistory";
     }
 
 

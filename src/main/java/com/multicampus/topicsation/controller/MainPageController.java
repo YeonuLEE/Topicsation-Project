@@ -21,7 +21,7 @@ public class MainPageController {
 
     @GetMapping("/tutors/{tutor_id}")
     public String tutors(){
-        return "Tutor-Detail-View";
+        return "html/Tutor-Detail-View";
     }
 
 

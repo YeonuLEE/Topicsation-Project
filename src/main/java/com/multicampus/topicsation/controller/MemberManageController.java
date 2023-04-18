@@ -13,42 +13,42 @@ public class MemberManageController {
 
     @GetMapping("/admin")
     public String admin(){
-        return "sign-in-admin";
+        return "html/sign-in-admin";
     }
 
     @GetMapping("/signin")
     public String signin(){
-        return "sign-in";
+        return "html/sign-in";
     }
 
     @GetMapping("/signin/find")
     public String passwordFind(){
-        return "password-find";
+        return "html/password-find";
     }
 
     @GetMapping("/signin/change")
     public String passwordChange(){
-        return "password-change";
+        return "html/password-change";
     }
 
     @GetMapping("/signup-tutees")
     public String signupTutees(){
-        return "sign-up-tutee";
+        return "html/sign-up-tutee";
     }
 
     @GetMapping("/signup-tutors")
     public String signupTutors(){
-        return "sign-up-tutor";
+        return "html/sign-up-tutor";
     }
 
     @GetMapping("/signup/email")
     public String emailAuth(){
-        return "Email-Token";
+        return "html/Email-Token";
     }
 
     @GetMapping("/signup/success")
     public String success(){
-        return "sign-up-success";
+        return "html/sign-up-success";
     }
 
     @RestController
