@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -48,8 +48,8 @@
                      alt="menuimage">
             </a>
             <div>
-                <a href="#"><button class="btn mb-2 mr-2 btn-white" type="button" id="mypage-btn">MY PAGE</button></a>
-                <a href="#"><button class="btn mb-2 mr-2 btn-secondary" type="button" id="sign-btn">SIGN OUT</button></a>
+                <button class="btn mb-2 mr-2 btn-white" type="button" id="mypage-btn">MY PAGE</button>
+                <button class="btn mb-2 mr-2 btn-secondary" type="button" id="sign-btn">SIGN OUT</button>
             </div>
         </div>
     </nav>
@@ -66,14 +66,13 @@
                             <div class="profile-thumbnail small-thumbnail mx-auto">
 
                             </div>
-                            <h2 class="h5 font-weight-normal text-center mt-3 mb-0">이연우</h2>
+                            <h2 class="h5 font-weight-normal text-center mt-3 mb-0" id="name"></h2>
                             <div class="list-group dashboard-menu list-group-sm mt-4">
-                                <a href="myPage-tutees_Information.html"
-                                   class="d-flex list-group-item list-group-item-action ">회원 정보<span
+                                 <a href="myPage-tutees_Information.html" class="d-flex list-group-item list-group-item-action">회원 정보<span
                                         class="icon icon-xs ml-auto"><span
                                         class="fas fa-chevron-right"></span></span> </a>
                                 <a href="myPage-tutees_Schedule.html"
-                                   class="d-flex list-group-item list-group-item-action ">수업 일정<span
+                                   class="d-flex list-group-item list-group-item-action">수업 일정<span
                                         class="icon icon-xs ml-auto"><span
                                         class="fas fa-chevron-right"></span></span> </a>
                                 <a href="myPage-tutees_CourseHistory.html"
@@ -99,27 +98,7 @@
                                             <th scope="col">메모</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        <c:forEach items="${}" var="dto" id="tutee-history">
-                                            <tr>
-                                                <th scope="row" id="tno">
-                                                    <c:out value="${dto.tno}"/>
-                                                    1
-                                                </th>
-                                                <td id="class-date">
-                                                    <c:out value="${dto.dueDate}"/>
-                                                    2023-04-11 11:30AM
-                                                </td>
-                                                <td id="tutor-name">
-                                                    <c:out value="${dto.writer}"/>
-                                                    Nail Sam
-                                                </td>
-                                                <td id="memo">
-                                                    <c:out value="${dto.finished}"/>
-                                                    txt
-                                                </td>
-                                            </tr>
-                                        </c:forEach>
+                                        <tbody id="tutee-history">
                                         </tbody>
                                     </table>
                                 </form>
@@ -229,6 +208,52 @@
 
 <!-- Spaces custom Javascript -->
 <script src="/js/spaces.js"></script>
+
+<!-- Ajax get data -->
+<script type="text/javascript" th:inline="javascript">
+    $(document).ready(function() {
+        $.ajax({
+            type: "GET",
+            url: "/mypage/{user_id}/history/get",
+            dataType:"json",
+            success: function(data, status) {
+                var jsonData = JSON.parse(JSON.stringify(data));
+
+                //링크이동
+                var link = "/mypage/";
+                link += jsonData.user_id;
+                console.log(link);
+
+                //내정보로 이동
+                $("#tutee-info").attr("href", link);
+
+                $("#name").text(jsonData.name);
+
+                //테이블에 튜티의 정보 뿌려주기
+                var tbody = $("#tutee-history");
+                for(var i=0;i<jsonData.history.length;i++) {
+                    var tutee = jsonData.history[i];
+                    var tr = $("<tr>");
+                    var tno = $("<th scope=\"row\">").text(i+1);
+                    var classdate = $("<td>",{text:tutee.class_date});
+                    var tutorname = $("<td>",{text:tutee.tutor_name});
+                    var memo = $("<td>",{text:tutee.memo});
+
+                    tr.append(tno);
+                    tr.append(classdate);
+                    tr.append(tutorname);
+                    tr.append(memo);
+                    tbody.append(tr);
+                }
+            },
+            error: function (data, textStatus) {
+                alert("Error!")
+            },
+            complete: function (data, textStatus) {
+            },
+        });
+    });
+</script>
 </body>
 
 </html>
