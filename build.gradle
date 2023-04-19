@@ -16,6 +16,7 @@ dependencies {
     // spring
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    compileOnly 'org.springframework.boot:spring-boot-devtools'
 
     // database
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
