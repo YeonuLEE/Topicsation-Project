@@ -395,23 +395,25 @@
             },
         });
     });
-
+</script>
+<script>
     $("#withdrawal-btn").click(function (){
         $.ajax({
             type: "DELETE",
             url: "/mypage/{tutor_id}/delete",
             success: function(data, status) {
-                var jsonObject = JSON.parse(data);
+            var jsonObject = JSON.parse(data);
 
             },
             error: function (data, textStatus) {
-                alert("Error!")
+            alert("Error!")
             },
             complete: function (data, textStatus) {
             },
         });
     });
 </script>
+
 </body>
 
 </html>
