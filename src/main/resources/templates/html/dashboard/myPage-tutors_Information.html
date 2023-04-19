@@ -97,7 +97,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card card-body bg-white border-light mb-4">
-                                <h2 class="h5 mb-4">General information</h2>
+                                <h2 class="h5 mb-4">General information test</h2>
                                 <form id="signInForm">
                                     <div class="row">
                                         <div class="col-sm-12 mb-3">
@@ -150,13 +150,13 @@
                                         <div class="col-md-6 mb-3">
                                             <div class="form-group">
                                                 <label>Nationality</label>
-                                                <select class="custom-select" id="nationality" required>
-                                                    <option>Asia</option>
-                                                    <option>North America</option>
-                                                    <option>South America</option>
-                                                    <option>Europe</option>
-                                                    <option>Afirica</option>
-                                                    <option>Oceania</option>
+                                                <select class="custom-select" id="nationality"  required>
+                                                    <option value="Asia" >Asia</option>
+                                                    <option value="North America" selected>North America</option>
+                                                    <option value="South America">South America</option>
+                                                    <option value="Europe">Europe</option>
+                                                    <option value="Afirica">Afirica</option>
+                                                    <option value="Oceania">Oceania</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -373,6 +373,51 @@
 
 <!-- Spaces custom Javascript -->
 <script src="/js/spaces.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            type: "GET",
+            url: "/mypage/{tutor_id}/get",
+            success: function(data, status) {
+                var jsonObject = JSON.parse(data);
+
+                $('#tutor-name').text(jsonObject.tutorName);
+                $("#profile-img").attr("src",jsonObject.profileImg);
+                $('#name').val(jsonObject.name);
+                $('#email').val(jsonObject.email);
+                $('#nationality').val(jsonObject.nationality);
+                $('#first-interest').val(jsonObject.interest1).prop("selected",true);
+                $('#second-interest').val(jsonObject.interest2).prop("selected",true);
+                //$('#first-interest').val(jsonObject.interest1);
+                //$('#second-interest').val(jsonObject.interest2);
+                $(":radio[name='genderRadios'][value='" + jsonObject.genderRadios + "']").attr('checked', true);
+
+            },
+            error: function (data, textStatus) {
+                alert("Error!")
+            },
+            complete: function (data, textStatus) {
+            },
+        });
+    });
+
+    $("#withdrawal-btn").click(function (){
+        $.ajax({
+            type: "DELETE",
+            url: "/mypage/{tutor_id}/delete",
+            success: function(data, status) {
+                var jsonObject = JSON.parse(data);
+
+            },
+            error: function (data, textStatus) {
+                alert("Error!")
+            },
+            complete: function (data, textStatus) {
+            },
+        });
+    });
+</script>
 </body>
 
 </html>

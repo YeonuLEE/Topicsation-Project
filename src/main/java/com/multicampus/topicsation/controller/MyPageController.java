@@ -16,7 +16,7 @@ public class MyPageController {
 
     @GetMapping("/{user_id}")
     public String myPage(){
-        return "html/dashboard/myPage-tutees_Information";
+        return "html/dashboard/myPage-tutors_Information";
     }
 
     @GetMapping("/{user_id}/schedule")
@@ -34,13 +34,16 @@ public class MyPageController {
     @RequestMapping("/mypage")
     public class MyPageRestController{
 
-        @GetMapping("/admin.get")
-        public void adminPage(){
-
+        @GetMapping("/admin/get")
+        public String adminPage(){
+            String jsonString = "{\"tno\" : \"1\",\"tutorName\" : \"Tom hardy\",\"approlDate\" : \"2023-04-15\",\"file\" : \"hero-1.jpg\"}";
+            return jsonString;
         }
 
-        @GetMapping("/{user_id}.get")
-        public void myPage(){
+        @GetMapping("/{user_id}/get")
+        public String myPage(){
+            String jsonString = "{\"user_id\" : \"1234\",\"name\" : \"Tom hardy\",\"email\" : \"test@naver.com\",\"nationality\" : \"Europe\" ,\"interest1\" : \"fitness\",\"interest2\" : \"food\",\"genderRadios\" : \"male\",\"profileImg\" : \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==\",\"tutorName\" : \"DongHa\",\"withdrawal\" : \"\"}";
+            return jsonString;
 
         }
 
@@ -53,10 +56,6 @@ public class MyPageController {
         public void historyPage(){
 
         }
-
-
-
-
 
     }
 }
