@@ -60,6 +60,21 @@ public class MemberManageController {
             return "success";
         }
 
+        @PostMapping("/signin.post")
+        public String signin(@RequestBody JSONObject jsonObject){
+            String result;
+
+            String email = jsonObject.get("$email").toString();
+            String password = jsonObject.get("$password").toString();
+
+            if (email.equals("AngryCat") && password.equals("1234")){
+                result="loginSuccess";
+            }else{
+                result="loginFail";
+            }
+            return result;
+        }
+
 
 
     }
