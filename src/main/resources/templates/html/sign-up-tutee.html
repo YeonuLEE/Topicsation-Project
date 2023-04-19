@@ -48,7 +48,7 @@
           <div class="col-12 d-flex align-items-center justify-content-center">
             <div
               class="signin-inner mt-3 mt-lg-0 bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
-              <form action="/members/signup/tutees" method="post" id="signInForm">
+              <form action="/members/signup/email" method="post" id="signInForm">
                 <!-- Form -->
                 <div class="form-group">
                   <label for="email">이메일<span class="txt-error email"
@@ -198,7 +198,27 @@
 
   <!-- Spaces custom Javascript -->
   <script src="/js/spaces.js"></script>
+  <script>
+    $("#create-account").click(function (){
+      var email = $('#email').val();
+      var password = $('#password').val();
+      var name = $('#name').val();
+      var firstInterest = $('#first-interest').val();
+      var secondInterest = $('#second-interest').val();
+      sessionStorage.setItem("emailForm",email);
+      sessionStorage.setItem("passwordForm",password);
+      sessionStorage.setItem("nameForm",name);
+      sessionStorage.setItem("firstInterestForm",firstInterest);
+      sessionStorage.setItem("secondInterestForm",secondInterest);
+      // console.log(sessionStorage.getItem("emailForm"));
+      // console.log(sessionStorage.getItem("passwordForm"));
+      // console.log(sessionStorage.getItem("nameForm"));
+      // console.log(sessionStorage.getItem("firstInterestForm"));
+      // console.log(sessionStorage.getItem("secondInterestForm"));
+      // alert("대기");
 
+    });
+  </script>
 </body>
 
 </html>
