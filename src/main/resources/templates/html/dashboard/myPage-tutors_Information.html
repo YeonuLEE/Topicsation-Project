@@ -51,12 +51,8 @@
                      alt="menuimage">
             </a>
             <div>
-                <a href="#">
-                    <button class="btn mb-2 mr-2 btn-white" type="button" id="mypage-btn">MY PAGE</button>
-                </a>
-                <a href="#">
-                    <button class="btn mb-2 mr-2 btn-secondary" type="button" id="sign">SIGN IN</button>
-                </a>
+                <button class="btn mb-2 mr-2 btn-white" type="button" id="mypage-btn">MY PAGE</button>
+                <button class="btn mb-2 mr-2 btn-secondary" type="button" id="sign-btn">SIGN IN</button>
             </div>
         </div>
     </nav>
@@ -389,8 +385,6 @@
                 $('#nationality').val(jsonObject.nationality);
                 $('#first-interest').val(jsonObject.interest1).prop("selected",true);
                 $('#second-interest').val(jsonObject.interest2).prop("selected",true);
-                //$('#first-interest').val(jsonObject.interest1);
-                //$('#second-interest').val(jsonObject.interest2);
                 $(":radio[name='genderRadios'][value='" + jsonObject.genderRadios + "']").attr('checked', true);
 
             },
