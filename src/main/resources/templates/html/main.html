@@ -59,63 +59,59 @@
                 </div>
             </div>
         </nav>
-        <section class="section section-header pb-0">
-            <div class="container section-image overlay-soft text-dark rounded px-lg-5 py-6 overflow-hidden position-relative border border-light shadow-sm"
-                 data-background="/assets/img/hero-2.jpg">
-                <div class="row no-gutters justify-content-between align-items-center">
-                    <div class="col-12 order-lg-2">
-                        <h1 class="h2 mb-4" style="color: black;">Find Your Tutor</h1>
-                        <div class="card p-md-2 mb-3">
-                            <div class="card-body p-2 p-md-0">
-                                <form autocomplete="off" class="row justify-content-between" method="get"
-                                      action="./all-spaces.html">
-                                    <div class="col-12 col-lg-4 pr-lg-1">
-                                        <div class="form-group form-group-lg mb-lg-0">
-                                            <div class="input-group">
-                                                <input id="search-name" type="text"
-                                                       class="form-control autocomplete" placeholder="튜터의 이름을 입력해주세요"
-                                                       required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-4 pr-lg-1">
-                                        <div class="form-group form-group-lg mb-lg-0">
-                                            <div class="input-group">
-                                                <select class="form-control" id="search-interest" required>
-                                                    <option value="" disabled selected style="display:none">관심사
-                                                    </option>
-                                                    <option value="politics">정치</option>
-                                                    <option value="economics">경제</option>
-                                                    <option value="IT">IT</option>
-                                                    <option value="fitness">피트니스</option>
-                                                    <option value="food">요리</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-3 px-lg-1">
-                                        <div class="input-group input-group-lg mb-3 mb-lg-0">
-                                            <div class="input-group-prepend">
-                                                    <span class="input-group-text"><span
-                                                            class="far fa-calendar-alt"></span></span>
-                                            </div>
-                                            <input class="form-control datepicker" id="reservate-date"
-                                                   placeholder="예약 날짜" type="text"
-                                                   required>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-1 pl-lg-1">
-                                        <button class="btn btn-lg btn-dark btn-block" type="submit"><span
-                                                class="icon icon-sm" id="search-btn"><span
-                                                class="fas fa-search-location"></span></span></button>
-                                    </div>
-                                </form>
-                            </div>
+        <style>
+            #Carousel4 {
+                max-width: 700px; /*carousel의 최대 너비를 600px로 설정*/
+                margin: 0 auto; /*중앙 정렬을 위한 margin 속성 추가*/
+                text-align: center;
+                transform: translateY(-25%);
+            }
+        </style>
+        <section class="section section-header pb-0" >
+            <div id="Carousel4" class="carousel slide carousel-md" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#Carousel4" data-slide-to="0" class="active"></li>
+                    <li data-target="#Carousel4" data-slide-to="1"></li>
+                    <li data-target="#Carousel4" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item overlay-soft-dark active">
+                        <img class="d-block w-100" src="../../assets/img/carousel/carousel1.jpg" alt="First slide">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>최고의 튜터들과 함께하세요</h5>
+                            <p>TOPICSATION의 튜터들은 영어를 모국어 수준으로 구사합니다.<br>최고 수준의 튜터들과 함께하는 회화를 경험하세요.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="carousel-item overlay-soft-dark">
+                        <img class="d-block w-100" src="../../assets/img/carousel/carousel2.jpg" alt="Second slide">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>관심 있는 분야의 뉴스로 영어 회화를 학습하세요</h5>
+                            <p>이제 영어 회화를 할 때, 더 이상 답답한 상황에 직면하지 않아도 됩니다. TOPICSATION과 함께라면, 쉽고 재미있는 영어 학습을 경험할 수 있습니다.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="carousel-item overlay-soft-dark">
+                        <img class="d-block w-100" src="../../assets/img/carousel/carousel3.jpg" alt="Third slide">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>활용 가능한 회화를 학습하세요</h5>
+                            <p>영어를 배우는 것은 중요하지만, 실제로 말할 수 있는 능력은 더 중요합니다.<br>
+                                학생과 튜터에게 쉬운 학습법을 제공하여 실제로 회화를 가능하게 만듭니다.
+                            </p>
                         </div>
                     </div>
                 </div>
+                <a class="carousel-control-prev" href="#Carousel4" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#Carousel4" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
         </section>
+
     </section>
     <!-- Section -->
     <section class="section section-lg">
