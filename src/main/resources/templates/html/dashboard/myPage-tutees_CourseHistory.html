@@ -33,7 +33,9 @@
     <link type="text/css" href="/css/spaces.css" rel="stylesheet">
 
     <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
-
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+            crossorigin="anonymous"></script>
 </head>
 
 <body style="min-height: 100vh;">
@@ -164,6 +166,9 @@
     </div>
 </footer>
 
+<!-- ajax -->
+<script src="/js/myPage-tutees_CourseHistory.js"></script>
+
 <!-- Core -->
 <script src="/vendor/jquery/dist/jquery.min.js"></script>
 <script src="/vendor/popper.js/dist/umd/popper.min.js"></script>
@@ -208,52 +213,6 @@
 
 <!-- Spaces custom Javascript -->
 <script src="/js/spaces.js"></script>
-
-<!-- Ajax get data -->
-<script type="text/javascript" th:inline="javascript">
-    $(document).ready(function() {
-        $.ajax({
-            type: "GET",
-            url: "/mypage/{user_id}/history/get",
-            dataType:"json",
-            success: function(data, status) {
-                var jsonData = JSON.parse(JSON.stringify(data));
-
-                //링크이동
-                var link = "/mypage/";
-                link += jsonData.user_id;
-                console.log(link);
-
-                //내정보로 이동
-                $("#tutee-info").attr("href", link);
-
-                $("#name").text(jsonData.name);
-
-                //테이블에 튜티의 정보 뿌려주기
-                var tbody = $("#tutee-history");
-                for(var i=0;i<jsonData.history.length;i++) {
-                    var tutee = jsonData.history[i];
-                    var tr = $("<tr>");
-                    var tno = $("<th scope=\"row\">").text(i+1);
-                    var classdate = $("<td>",{text:tutee.class_date});
-                    var tutorname = $("<td>",{text:tutee.tutor_name});
-                    var memo = $("<td>",{text:tutee.memo});
-
-                    tr.append(tno);
-                    tr.append(classdate);
-                    tr.append(tutorname);
-                    tr.append(memo);
-                    tbody.append(tr);
-                }
-            },
-            error: function (data, textStatus) {
-                alert("Error!")
-            },
-            complete: function (data, textStatus) {
-            },
-        });
-    });
-</script>
 </body>
 
 </html>
