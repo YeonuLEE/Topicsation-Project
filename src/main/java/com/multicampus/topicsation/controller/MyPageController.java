@@ -1,5 +1,7 @@
 package com.multicampus.topicsation.controller;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,7 +38,22 @@ public class MyPageController {
 
         @GetMapping("/admin/get")
         public String adminPage(){
-            String jsonString = "{\"tno\" : \"1\",\"tutorName\" : \"Tom hardy\",\"approlDate\" : \"2023-04-15\",\"file\" : \"hero-1.jpg\"}";
+            JSONArray jsonArray = new JSONArray();
+            JSONObject obj1 = new JSONObject();
+            obj1.put("tutorName", "Jonny Dep");
+            obj1.put("approlDate", "2023-04-16 10:00AM");
+            obj1.put("file", "20200416.pdf");
+            jsonArray.add(obj1);
+
+            JSONObject obj2 = new JSONObject();
+            obj2.put("tutorName", "Angeli Remy");
+            obj2.put("approlDate", "2023-04-18 11:30AM");
+            obj2.put("file", "20200418.pdf");
+            jsonArray.add(obj2);
+
+            String jsonString = jsonArray.toString();
+            System.out.println(jsonString);
+
             return jsonString;
         }
 
