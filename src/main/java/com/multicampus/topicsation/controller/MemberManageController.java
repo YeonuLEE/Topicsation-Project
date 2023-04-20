@@ -75,6 +75,17 @@ public class MemberManageController {
             return result;
         }
 
+        @PostMapping("/signin/change.post")
+        public String passwordChange(@RequestBody JSONObject jsonObject){
+            String password = jsonObject.get("$password").toString();
+            String confirmPassword = jsonObject.get("$confirmPassword").toString();
+
+            System.out.println(password);
+            System.out.println(confirmPassword);
+
+            return "test!!";
+        }
+
 
 
     }
