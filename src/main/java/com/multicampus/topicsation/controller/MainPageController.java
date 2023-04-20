@@ -126,7 +126,7 @@ public class MainPageController {
                 jsonArray.add(jsonObject);
             }
             JSONObject jsonObject2 = new JSONObject();
-            jsonObject2.put("tutor_list",jsonArray);
+            jsonObject2.put("tutor_list", jsonArray);
 
 
             String jsonString = jsonObject2.toJSONString();
@@ -174,31 +174,31 @@ public class MainPageController {
             );
 
 
-                List<MemberDTO> tutorList = new ArrayList<MemberDTO>();
+            List<MemberDTO> tutorList = new ArrayList<MemberDTO>();
 
-                tutorList.add(memberDTO1);
-                tutorList.add(memberDTO2);
-                tutorList.add(memberDTO3);
-                tutorList.add(memberDTO4);
-                tutorList.add(memberDTO5);
-                tutorList.add(memberDTO6);
+            tutorList.add(memberDTO1);
+            tutorList.add(memberDTO2);
+            tutorList.add(memberDTO3);
+            tutorList.add(memberDTO4);
+            tutorList.add(memberDTO5);
+            tutorList.add(memberDTO6);
 
-                JSONArray jsonArray = new JSONArray();
-                for (MemberDTO tutor : tutorList) {
-                    JSONObject jsonObject = new JSONObject();
-                    if (tutor.getInterest1().equals(interest) || tutor.getInterest2().equals(interest)) {
-                        jsonObject.put("user_id", tutor.getUser_id());
-                        jsonObject.put("name", tutor.getName());
-                        jsonObject.put("tutor_image", tutor.getTutor_image());
-                        jsonObject.put("like", tutor.getLike());
-                        jsonObject.put("nationality", tutor.getNationality());
-                        jsonObject.put("interest1", tutor.getInterest1());
-                        jsonObject.put("interest2", tutor.getInterest2());
-                        jsonArray.add(jsonObject);
-                    }
+            JSONArray jsonArray = new JSONArray();
+            for (MemberDTO tutor : tutorList) {
+                JSONObject jsonObject = new JSONObject();
+                if (tutor.getInterest1().equals(interest) || tutor.getInterest2().equals(interest)) {
+                    jsonObject.put("user_id", tutor.getUser_id());
+                    jsonObject.put("name", tutor.getName());
+                    jsonObject.put("tutor_image", tutor.getTutor_image());
+                    jsonObject.put("like", tutor.getLike());
+                    jsonObject.put("nationality", tutor.getNationality());
+                    jsonObject.put("interest1", tutor.getInterest1());
+                    jsonObject.put("interest2", tutor.getInterest2());
+                    jsonArray.add(jsonObject);
                 }
+            }
             JSONObject jsonObject2 = new JSONObject();
-            jsonObject2.put("tutor_list",jsonArray);
+            jsonObject2.put("tutor_list", jsonArray);
 
 
             String jsonString = jsonObject2.toJSONString();
