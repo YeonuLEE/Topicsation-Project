@@ -13,12 +13,12 @@ $("#emailTokenForm").submit(function (){
         url: "/members/email.auth",
         contentType: 'application/json',
         data:JSON.stringify({
-            emailToken : token,
-            emailFormReq : emailForm,
-            nameFormReq : nameForm,
-            passwordFormReq : passwordForm,
-            firstInterestFormReq : firstInterestForm,
-            secondInterestFormReq : secondInterestForm,
+            $token : token,
+            $emailForm : emailForm,
+            $nameForm : nameForm,
+            $passwordForm : passwordForm,
+            $firstInterestForm : firstInterestForm,
+            $secondInterestForm : secondInterestForm,
             test :"test",
         }),
         success: function(data, status) {
