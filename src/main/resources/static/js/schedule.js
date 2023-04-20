@@ -1,4 +1,4 @@
-var tagId="";
+var tagId = "";
 
 //튜터 스케줄
 $(document).ready(function () {
@@ -183,6 +183,7 @@ $('.datepicker').change(function () {
         },
     });
 });
+
 // 숫자 앞에 0을 채우는 함수
 function pad(num, size) {
     var s = num + "";

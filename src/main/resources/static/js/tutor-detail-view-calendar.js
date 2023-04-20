@@ -40,7 +40,7 @@ $(document).ready(function () {
     $.ajax({
         type: "GET",
         url: apiUrl,
-        success: function(data, status) {
+        success: function (data, status) {
             var jsonObject = JSON.parse(data);
 
             $("#tutor-name").text(jsonObject.tutor_info.name);
@@ -49,9 +49,9 @@ $(document).ready(function () {
             $("#tutor-nation").text(jsonObject.tutor_info.nationality);
             $("#first-interest").append(jsonObject.tutor_info.interest1);
             $("#second-interest").append(jsonObject.tutor_info.interest2);
-            $("#profile-img").attr("src",jsonObject.tutor_info.picture);
+            $("#profile-img").attr("src", jsonObject.tutor_info.picture);
 
-            for(var i=0;i<jsonObject.schedule.length;i++) {
+            for (var i = 0; i < jsonObject.schedule.length; i++) {
                 $("#" + jsonObject.schedule[i].class_time).addClass("select");
             }
         },
@@ -62,7 +62,7 @@ $(document).ready(function () {
         },
     });
 
-    $('.datepicker').change(function() {
+    $('.datepicker').change(function () {
         var selectedDate = $(this).datepicker('getDate');
 
         // 년, 월, 일 추출
@@ -87,7 +87,7 @@ $(document).ready(function () {
         $.ajax({
             type: "GET",
             url: apiUrl,
-            success: function(data, status) {
+            success: function (data, status) {
                 var jsonObject = JSON.parse(data);
 
                 // $("#tutor-name").text(jsonObject.tutor_info.name);
@@ -98,7 +98,7 @@ $(document).ready(function () {
                 // $("#second-interest").append(jsonObject.tutor_info.interest2);
                 // $("#profile-img").attr("src",jsonObject.tutor_info.picture);
 
-                for(var i=0;i<jsonObject.schedule.length;i++) {
+                for (var i = 0; i < jsonObject.schedule.length; i++) {
                     $("#" + jsonObject.schedule[i].class_time).addClass("select");
                 }
             },
@@ -126,7 +126,7 @@ $(document).ready(function () {
         $.ajax({
             type: "GET",
             url: apiUrl,
-            success: function(data, status) {
+            success: function (data, status) {
                 var jsonObject = JSON.parse(data);
 
                 // $("#tutor-name").text(jsonObject.tutor_info.name);
@@ -137,7 +137,7 @@ $(document).ready(function () {
                 // $("#second-interest").append(jsonObject.tutor_info.interest2);
                 // $("#profile-img").attr("src",jsonObject.tutor_info.picture);
 
-                for(var i=0;i<jsonObject.schedule.length;i++) {
+                for (var i = 0; i < jsonObject.schedule.length; i++) {
                     $("#" + jsonObject.schedule[i].class_time).addClass("select");
                 }
             },

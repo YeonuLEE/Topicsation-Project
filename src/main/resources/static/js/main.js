@@ -4,11 +4,10 @@ $(document).ready(function () {
 
     console.log(pathURI);
 
-    if(pathURI == '/main') {
+    if (pathURI == '/main') {
         ajaxURI = pathURI + "/get";
         console.log(ajaxURI);
-    }
-    else if(pathURI == '/main/search-all') {
+    } else if (pathURI == '/main/search-all') {
         ajaxURI = pathURI + ".get";
         console.log(ajaxURI);
     }
@@ -21,13 +20,11 @@ $(document).ready(function () {
             var dataBody;
             var length;
 
-            if(ajaxURI == '/main/get'){
+            if (ajaxURI == '/main/get') {
                 jsonData = JSON.parse(data);
                 console.log(jsonData);
                 dataBody = $("#tutor-card");
-            }
-
-            else{
+            } else {
                 jsonData = JSON.parse(data);
                 console.log(jsonData);
                 console.log(jsonData.length)
@@ -127,7 +124,7 @@ $(document).ready(function () {
     });
 });
 
-$("#search-form").submit(function(event){
+$("#search-form").submit(function (event) {
     event.preventDefault();
     var name = $('#search-name').val();
     var interest = $('#search-interest').val();
