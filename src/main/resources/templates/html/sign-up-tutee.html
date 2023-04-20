@@ -198,27 +198,8 @@
 
   <!-- Spaces custom Javascript -->
   <script src="/js/spaces.js"></script>
-  <script>
-    $("#create-account").click(function (){
-      var email = $('#email').val();
-      var password = $('#password').val();
-      var name = $('#name').val();
-      var firstInterest = $('#first-interest').val();
-      var secondInterest = $('#second-interest').val();
-      sessionStorage.setItem("emailForm",email);
-      sessionStorage.setItem("passwordForm",password);
-      sessionStorage.setItem("nameForm",name);
-      sessionStorage.setItem("firstInterestForm",firstInterest);
-      sessionStorage.setItem("secondInterestForm",secondInterest);
-      // console.log(sessionStorage.getItem("emailForm"));
-      // console.log(sessionStorage.getItem("passwordForm"));
-      // console.log(sessionStorage.getItem("nameForm"));
-      // console.log(sessionStorage.getItem("firstInterestForm"));
-      // console.log(sessionStorage.getItem("secondInterestForm"));
-      // alert("대기");
 
-    });
-  </script>
+  <script src="/js/signup-tutee.js"></script>
 </body>
 
 </html>
