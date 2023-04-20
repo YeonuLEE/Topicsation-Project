@@ -38,7 +38,7 @@ $(document).ready(function () {
 
     // preloader
     var $preloader = $('.preloader');
-    if($preloader.length) {
+    if ($preloader.length) {
         $preloader.delay(1500).slideUp();
     }
 
@@ -97,12 +97,12 @@ $(document).ready(function () {
 
         var icon = L.icon({
             iconUrl: '../assets/img/marker.svg',
-        
-            iconSize:     [38, 95], // size of the icon
-            shadowSize:   [50, 64], // size of the shadow
-            iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+
+            iconSize: [38, 95], // size of the icon
+            shadowSize: [50, 64], // size of the shadow
+            iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
             shadowAnchor: [4, 62],  // the same for the shadow
-            popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+            popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
         });
 
         // modal listing view
@@ -114,7 +114,7 @@ $(document).ready(function () {
             accessToken: config.mapboxToken
         }).addTo(mapListings);
 
-        $.each(listings, function(index, listing) {
+        $.each(listings, function (index, listing) {
 
             var i;
             var ratingStarsHtml = '';
@@ -124,7 +124,7 @@ $(document).ready(function () {
                 } else {
                     ratingStarsHtml += '<i class="star far fa-star text-gray-500"></i>'
                 }
-              }
+            }
 
             var popupHtml = `
                 <a href="${listing.url}" class="card card-article-wide flex-column no-gutters no-hover">
@@ -152,15 +152,15 @@ $(document).ready(function () {
                 </a>
             `;
 
-            var marker = L.marker(listing.latLng, { icon: icon }).addTo(mapListings);
+            var marker = L.marker(listing.latLng, {icon: icon}).addTo(mapListings);
             marker.bindPopup(popupHtml);
         });
 
         // must render map again after modal is shown
-        $('#map-listings').on('shown.bs.modal', function() {
+        $('#map-listings').on('shown.bs.modal', function () {
             // preloader
             var $preloadermap = $('.preloadermap');
-            if($preloadermap.length) {
+            if ($preloadermap.length) {
                 $preloadermap.delay(1500).fadeOut('slow');
                 mapListings.invalidateSize();
             }
@@ -172,12 +172,12 @@ $(document).ready(function () {
 
         var icon = L.icon({
             iconUrl: '../assets/img/marker.svg',
-        
-            iconSize:     [38, 95], // size of the icon
-            shadowSize:   [50, 64], // size of the shadow
-            iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+
+            iconSize: [38, 95], // size of the icon
+            shadowSize: [50, 64], // size of the shadow
+            iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
             shadowAnchor: [4, 62],  // the same for the shadow
-            popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+            popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
         });
 
         // modal listing view
@@ -189,7 +189,7 @@ $(document).ready(function () {
             accessToken: config.mapboxToken
         }).addTo(mapListings);
 
-        $.each(listings, function(index, listing) {
+        $.each(listings, function (index, listing) {
 
             var i;
             var ratingStarsHtml = '';
@@ -199,7 +199,7 @@ $(document).ready(function () {
                 } else {
                     ratingStarsHtml += '<i class="star far fa-star text-gray-500"></i>'
                 }
-              }
+            }
 
             var popupHtml = `
                 <a href="${listing.url}" class="card card-article-wide flex-column no-gutters no-hover">
@@ -227,7 +227,7 @@ $(document).ready(function () {
                 </a>
             `;
 
-            var marker = L.marker(listing.latLng, { icon: icon }).addTo(mapListings);
+            var marker = L.marker(listing.latLng, {icon: icon}).addTo(mapListings);
             marker.bindPopup(popupHtml);
         });
 
@@ -270,48 +270,48 @@ $(document).ready(function () {
 
     });
 
-    $('.dropdown-menu a.dropdown-toggle').on('click', function(e) {
+    $('.dropdown-menu a.dropdown-toggle').on('click', function (e) {
         if (!$(this).next().hasClass('show')) {
-          $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
+            $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
         }
         var $subMenu = $(this).next(".dropdown-menu");
         $subMenu.toggleClass('show');
-      
-        $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
-          $('.dropdown-submenu .show').removeClass("show");
+
+        $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function (e) {
+            $('.dropdown-submenu .show').removeClass("show");
         });
-      
+
         return false;
     });
 
     if ($(document).width() >= breakpoints.lg) {
-        $('.nav-item.dropdown').hover(function() {
-            $(this).find('> .dropdown-toggle').dropdown('toggle');
-        },
-        function () {
-            $(this).removeClass('show');
-            $(this).find('.dropdown-menu').removeClass('show');
-            $(this).find('> .dropdown-toggle').attr('aria-expanded', 'false');
-        });
-    
-        $('.dropdown-menu a.dropdown-toggle').hover(function() {
-            if (!$(this).next().hasClass('show')) {
-                $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
-              }
-              var $subMenu = $(this).next(".dropdown-menu");
-              $subMenu.toggleClass('show');
-            
-              $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
-                $('.dropdown-submenu .show').removeClass("show");
-              });
-            
-              return false;
-        },
-        function () {
-            $(this).removeClass('show');
-            $(this).find('.dropdown-menu').removeClass('show');
-            $(this).attr('aria-expanded', false);
-        });
+        $('.nav-item.dropdown').hover(function () {
+                $(this).find('> .dropdown-toggle').dropdown('toggle');
+            },
+            function () {
+                $(this).removeClass('show');
+                $(this).find('.dropdown-menu').removeClass('show');
+                $(this).find('> .dropdown-toggle').attr('aria-expanded', 'false');
+            });
+
+        $('.dropdown-menu a.dropdown-toggle').hover(function () {
+                if (!$(this).next().hasClass('show')) {
+                    $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
+                }
+                var $subMenu = $(this).next(".dropdown-menu");
+                $subMenu.toggleClass('show');
+
+                $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function (e) {
+                    $('.dropdown-submenu .show').removeClass("show");
+                });
+
+                return false;
+            },
+            function () {
+                $(this).removeClass('show');
+                $(this).find('.dropdown-menu').removeClass('show');
+                $(this).attr('aria-expanded', false);
+            });
     }
 
     // Headroom - show/hide navbar on scroll
@@ -376,13 +376,13 @@ $(document).ready(function () {
 
     //Fancybox
     $('[data-fancybox="images"]').fancybox({
-        afterLoad : function(instance, current) {
-          var pixelRatio = window.devicePixelRatio || 1;
-      
-          if ( pixelRatio > 1.5 ) {
-            current.width  = current.width  / pixelRatio;
-            current.height = current.height / pixelRatio;
-          }
+        afterLoad: function (instance, current) {
+            var pixelRatio = window.devicePixelRatio || 1;
+
+            if (pixelRatio > 1.5) {
+                current.width = current.width / pixelRatio;
+                current.height = current.height / pixelRatio;
+            }
         }
     });
 
@@ -505,19 +505,19 @@ $(document).ready(function () {
 
     //Chartist
 
-    if($('.ct-chart-5').length) {
+    if ($('.ct-chart-5').length) {
         //Chart 5
-          new Chartist.Bar('.ct-chart-5', {
+        new Chartist.Bar('.ct-chart-5', {
             labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
             series: [
-              [5, 4, 3, 7, 5, 10, 3],
-              [3, 2, 9, 5, 4, 6, 4]
+                [5, 4, 3, 7, 5, 10, 3],
+                [3, 2, 9, 5, 4, 6, 4]
             ]
-          }, {
+        }, {
             low: 0,
             showArea: true,
             plugins: [
-              Chartist.plugins.tooltip()
+                Chartist.plugins.tooltip()
             ],
             axisX: {
                 // On the x-axis start means top and end means bottom
@@ -532,24 +532,26 @@ $(document).ready(function () {
         });
     }
 
-    if($('.ct-chart-7').length) {
+    if ($('.ct-chart-7').length) {
         var data = {
             series: [30, 40, 10, 20]
-          };
-          
-          var sum = function(a, b) { return a + b };
-          
-          new Chartist.Pie('.ct-chart-7', data, {
-            labelInterpolationFnc: function(value) {
-              return Math.round(value / data.series.reduce(sum) * 100) + '%';
-            },            
+        };
+
+        var sum = function (a, b) {
+            return a + b
+        };
+
+        new Chartist.Pie('.ct-chart-7', data, {
+            labelInterpolationFnc: function (value) {
+                return Math.round(value / data.series.reduce(sum) * 100) + '%';
+            },
             low: 0,
             high: 8,
             fullWidth: false,
             plugins: [
-              Chartist.plugins.tooltip()
+                Chartist.plugins.tooltip()
             ],
-        });         
+        });
     }
 
     $('#modal-notification').on('shown.bs.modal', function (event) {
@@ -558,12 +560,12 @@ $(document).ready(function () {
             series: [
                 [0, 0, 50, 60, 90, 140, 200, 330, 400, 500, 700, 760, 880, 900, 1000]
             ]
-            }, {
+        }, {
             low: 0,
             showArea: true,
             fullWidth: true,
             plugins: [
-              Chartist.plugins.tooltip()
+                Chartist.plugins.tooltip()
             ],
         });
     });
@@ -574,12 +576,12 @@ $(document).ready(function () {
             series: [
                 [0, 0, 50, 60, 90, 140, 200, 330, 400, 500, 700, 760, 880, 900, 1000]
             ]
-            }, {
+        }, {
             low: 0,
             showArea: true,
             fullWidth: true,
             plugins: [
-              Chartist.plugins.tooltip()
+                Chartist.plugins.tooltip()
             ],
         });
     });
@@ -590,12 +592,12 @@ $(document).ready(function () {
             series: [
                 [0, 0, 50, 60, 90, 140, 200, 330, 400, 500, 700, 760, 880, 900, 1000]
             ]
-            }, {
+        }, {
             low: 0,
             showArea: true,
             fullWidth: true,
             plugins: [
-              Chartist.plugins.tooltip()
+                Chartist.plugins.tooltip()
             ],
         });
     });
@@ -606,39 +608,38 @@ $(document).ready(function () {
             series: [
                 [0, 0, 50, 60, 90, 140, 200, 330, 400, 500, 700, 760, 880, 900, 1000]
             ]
-            }, {
+        }, {
             low: 0,
             showArea: true,
             fullWidth: true,
             plugins: [
-              Chartist.plugins.tooltip()
+                Chartist.plugins.tooltip()
             ],
         });
     });
 
     //vmap
-    if($('#vmap').length) {
+    if ($('#vmap').length) {
         $('#vmap').vectorMap(
-          {
-              map: 'usa_en',
-              backgroundColor: '#ffffff',
-              borderColor: '#ffffff',
-              borderOpacity: 0,
-              borderWidth: 1,
-              color: '#e9ecef',
-              enableZoom: false,
-              hoverColor: '#0E1B48',
-              hoverOpacity: null,
-              normalizeFunction: 'linear',
-              scaleColors: ['#b6d6ff', '#005ace'],
-              selectedColor: '#0E1B48',
-              selectedRegions: null,
-              showTooltip: true,
-              onLabelShow: function(event, label, code)
-              {
-                label.text(label.text() + ': ' + Math.floor((Math.random() * 10000) + 1) + ' session');
-              }
-          });
+            {
+                map: 'usa_en',
+                backgroundColor: '#ffffff',
+                borderColor: '#ffffff',
+                borderOpacity: 0,
+                borderWidth: 1,
+                color: '#e9ecef',
+                enableZoom: false,
+                hoverColor: '#0E1B48',
+                hoverOpacity: null,
+                normalizeFunction: 'linear',
+                scaleColors: ['#b6d6ff', '#005ace'],
+                selectedColor: '#0E1B48',
+                selectedRegions: null,
+                showTooltip: true,
+                onLabelShow: function (event, label, code) {
+                    label.text(label.text() + ': ' + Math.floor((Math.random() * 10000) + 1) + ' session');
+                }
+            });
     }
 
     $(".progress-bar").each(function () {
@@ -652,9 +653,9 @@ $(document).ready(function () {
                 opacity: "1"
             });
         }, {
-                triggerOnce: true,
-                offset: '60%'
-            });
+            triggerOnce: true,
+            offset: '60%'
+        });
     });
 
     //Owl Carousel
@@ -680,9 +681,9 @@ $(document).ready(function () {
             }
         },
         navText: [
-			'<span class="fas fa-chevron-left"</span>',
-			'<span class="fas fa-chevron-right"</span>'
-		],
+            '<span class="fas fa-chevron-left"</span>',
+            '<span class="fas fa-chevron-right"</span>'
+        ],
     });
 
     $('.clients-carousel').owlCarousel({
@@ -732,9 +733,9 @@ $(document).ready(function () {
     });
 
     // Review stars rating
-    $('.stars-rating .star').on('mouseover', function() {
+    $('.stars-rating .star').on('mouseover', function () {
         var rating = $(this).attr('data-rating-value');
-        $('.stars-rating .star').each(function(value) {
+        $('.stars-rating .star').each(function (value) {
             if (value + 1 <= rating) {
                 $(this).removeClass('text-gray');
                 $(this).addClass('text-warning');
@@ -746,9 +747,9 @@ $(document).ready(function () {
                 $(this).addClass('far');
             }
         });
-        $(this).on('click', function() {
+        $(this).on('click', function () {
             $(this).parent().addClass('rated');
-            $('.stars-rating .star').each(function(value) {
+            $('.stars-rating .star').each(function (value) {
                 if (value + 1 <= rating) {
                     $(this).removeClass('text-gray');
                     $(this).addClass('text-warning');
@@ -759,9 +760,9 @@ $(document).ready(function () {
             $('#rating').val(rating);
         });
     });
-    $('.stars-rating').on('mouseleave', function() {
+    $('.stars-rating').on('mouseleave', function () {
         if (!$(this).hasClass('rated')) {
-            $('.stars-rating .star').each(function() {
+            $('.stars-rating .star').each(function () {
                 $(this).addClass('text-gray');
                 $(this).removeClass('text-warning');
                 $(this).addClass('far');
@@ -770,7 +771,7 @@ $(document).ready(function () {
         }
     });
 
-    if($('#profile-sidebar').length) {
+    if ($('#profile-sidebar').length) {
         var profileSidebar = new StickySidebar('#profile-sidebar', {
             containerSelector: '#spaces-container',
             innerWrapperSelector: '.sidebar-inner',
@@ -818,7 +819,7 @@ $(document).ready(function () {
             $rotating_card_container.addClass('hover');
         }
     });
-    
+
     //Smooth scroll
     var scroll = new SmoothScroll('a[href*="#"]', {
         speed: 500,
@@ -839,7 +840,7 @@ $(document).ready(function () {
             var id = $(this).attr('data-equalize-height');
             if (!equalize.uniqueIds.includes(id)) {
                 equalize.uniqueIds.push(id)
-                equalize.elements.push({ id: id, elements: [] });
+                equalize.elements.push({id: id, elements: []});
             }
         });
 
@@ -930,7 +931,7 @@ $(document).ready(function () {
         }, 1500);
     });
 
-    if($('#filters-sidebar').length && $(window).width() > 1200) {
+    if ($('#filters-sidebar').length && $(window).width() > 1200) {
         var sidebar = new StickySidebar('#filters-sidebar', {
             containerSelector: '#filters-container',
             innerWrapperSelector: '.sidebar-inner',
@@ -940,19 +941,19 @@ $(document).ready(function () {
     } else {
         if ($('#filters-sidebar').length) {
             $('#show-filters-button').on('click', function () {
-                if($(this).text() === 'Show filters') {
+                if ($(this).text() === 'Show filters') {
                     $('#filters-sidebar').removeClass('d-none');
                     $(this).text('Hide filters');
                 } else {
                     $('#filters-sidebar').addClass('d-none');
                     $(this).text('Show filters');
                 }
-                
+
             });
         }
     }
 
-    if($('#profile-sidebar').length) {
+    if ($('#profile-sidebar').length) {
         var profileSidebar = new StickySidebar('#profile-sidebar', {
             containerSelector: '#spaces-container',
             innerWrapperSelector: '.sidebar-inner',
@@ -961,13 +962,13 @@ $(document).ready(function () {
         });
     }
 
-    $('a[href=".full-search"]').on('click', function(event) {
+    $('a[href=".full-search"]').on('click', function (event) {
         event.preventDefault();
         $('.full-search').addClass('open');
         $('.full-search > form > input[type="search"]').focus();
     });
-    
-    $('.full-search, .full-search button.close').on('click keyup', function(event) {
+
+    $('.full-search, .full-search button.close').on('click keyup', function (event) {
         if (event.target == this || event.target.className == 'close' || event.keyCode == 27) {
             $(this).removeClass('open');
         }

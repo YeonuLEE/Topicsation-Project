@@ -12,25 +12,25 @@ import javax.servlet.http.HttpServletRequest;
 public class LessonController {
 
     @GetMapping("/{lesson_id}")
-    public String lesson(){
+    public String lesson() {
         return "html/classroom";
     }
 
     @GetMapping("/{lesson_id}/evaluate")
-    public String evaluate(){
+    public String evaluate() {
         return "html/evaluate-popup";
     }
 
     @RestController
     @RequestMapping("/lesson")
-    public class LessonRestController{
+    public class LessonRestController {
 
         @GetMapping("/{lesson_id}.get")
-        public void lesson(){
+        public void lesson() {
         }
 
         @PutMapping("/{lesson_id}/evaluate.do")
-        public String evaluateTutor(@RequestBody JSONObject jsonObject){
+        public String evaluateTutor(@RequestBody JSONObject jsonObject) {
             String result;
             String evaluate = jsonObject.get("$evaluate").toString();
             String lessonId = jsonObject.get("$lesson_id").toString();
@@ -38,11 +38,10 @@ public class LessonController {
             System.out.println("evaluate : " + evaluate);
             System.out.println("lessonId : " + lessonId);
 
-            if(evaluate.equals("like")){
+            if (evaluate.equals("like")) {
                 result = "like + 1";
                 return result;
-            }
-            else{
+            } else {
                 result = "dislike + 1";
                 return result;
             }

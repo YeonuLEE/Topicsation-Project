@@ -1,4 +1,3 @@
-
 //Tutor Sign-up
 
 //Tutee Sign-up
@@ -11,7 +10,7 @@ $("#mypage-btn").click(function () {
 
 //sign
 $("#sign-btn").click(function () {
-    if($("#sign-btn").text() == "SIGN IN")
+    if ($("#sign-btn").text() == "SIGN IN")
         location.href = "/members/signin"
     else
         location.href = "/members/signout"

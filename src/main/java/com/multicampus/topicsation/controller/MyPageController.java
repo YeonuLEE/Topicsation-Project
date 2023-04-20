@@ -10,18 +10,18 @@ import org.springframework.web.bind.annotation.*;
 public class MyPageController {
 
     @GetMapping("/admin")
-    public String adminPage(){
+    public String adminPage() {
         return "html/dashboard/myPage-admin";
     }
 
     @GetMapping("/{user_id}")
-    public String myPage(){
+    public String myPage() {
         return "html/dashboard/myPage-tutors_Information";
     }
 
 
     @GetMapping("/{user_id}/schedule")
-    public String schedulePage(){
+    public String schedulePage() {
 
 //        return "html/dashboard/myPage-tutees_Schedule";
 
@@ -30,17 +30,17 @@ public class MyPageController {
     }
 
     @GetMapping("/{user_id}/history")
-    public String historyPage(){
+    public String historyPage() {
         return "html/dashboard/myPage-tutees_CourseHistory";
     }
 
 
     @RestController
     @RequestMapping("/mypage")
-    public class MyPageRestController{
+    public class MyPageRestController {
 
         @GetMapping("/admin/get")
-        public String adminPage(){
+        public String adminPage() {
             JSONArray jsonArray = new JSONArray();
             JSONObject obj1 = new JSONObject();
             obj1.put("tutorName", "Jonny Dep");
@@ -61,7 +61,7 @@ public class MyPageController {
         }
 
         @GetMapping("/{user_id}/get")
-        public String myPage(){
+        public String myPage() {
 
             String jsonString = "{\"user_id\" : \"1234\",\"name\" : \"Tom softy\",\"email\" : \"hardybrother@gmail.com\",\"interest1\" : \"fitness\",\"interest2\" : \"food\",\"password\" : \"1234\"}";
             return jsonString;
@@ -69,7 +69,7 @@ public class MyPageController {
 
 
         @GetMapping("/{user_id}/schedule/get")
-        public String schedulePage(){
+        public String schedulePage() {
             JSONArray jsonArray = new JSONArray();
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("tutee_name", "Tom Softy");
@@ -99,8 +99,9 @@ public class MyPageController {
 
             return jsonString;
         }
+
         @PutMapping("/{user_id}/schedule/cancel")
-        public String scheduleCancel(@RequestBody JSONObject jsonObject){
+        public String scheduleCancel(@RequestBody JSONObject jsonObject) {
             String class_id = jsonObject.get("$class_id").toString();
             System.out.println(class_id);
             return class_id;
@@ -109,7 +110,7 @@ public class MyPageController {
 
         @GetMapping("/{user_id}/schedule/getCalendar")
         public String schedulePageCalendar(@PathVariable("user_id") String tutorId,
-            @RequestParam("classDate") String classDate){
+                                           @RequestParam("classDate") String classDate) {
             String jsonString = "{\n" +
                     "\"name\" : \"Michael Jackson\",\n" +
                     "\"profile_img\" : \"profile-picture-3.jpg\",\n" +
@@ -143,7 +144,7 @@ public class MyPageController {
         }
 
         @GetMapping("/{user_id}/history/get")
-        public String historyPage(){
+        public String historyPage() {
             JSONObject jsonObject = new JSONObject();
             JSONArray jsonArray = new JSONArray();
             JSONObject obj1 = new JSONObject();
@@ -158,9 +159,9 @@ public class MyPageController {
             obj2.put("memo", "20200418.txt");
             jsonArray.add(obj2);
 
-            jsonObject.put("name","김명진");
-            jsonObject.put("user_id","3125");
-            jsonObject.put("history",jsonArray);
+            jsonObject.put("name", "김명진");
+            jsonObject.put("user_id", "3125");
+            jsonObject.put("history", jsonArray);
 
             String jsonString = jsonObject.toString();
 
