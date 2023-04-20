@@ -3,9 +3,7 @@ package com.multicampus.topicsation.controller;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/mypage")
@@ -21,9 +19,14 @@ public class MyPageController {
         return "html/dashboard/myPage-tutees_Information";
     }
 
+//    @GetMapping("/{user_id}/schedule")
+//    public String schedulePage(){
+//        return "html/dashboard/myPage-tutees_Information";
+//    }
+
     @GetMapping("/{user_id}/schedule")
     public String schedulePage(){
-        return "html/dashboard/myPage-tutees_Information";
+        return "html/dashboard/myPage-tutors_Schedule";
     }
 
     @GetMapping("/{user_id}/history")
@@ -46,9 +49,44 @@ public class MyPageController {
 
         }
 
-        @GetMapping("/{user_id}/schedule.get")
-        public void schedulePage(){
+//        @GetMapping("/{user_id}/schedule.get")
+//        public void schedulePage(){
+//
+//        }
 
+        @GetMapping("/{user_id}/schedule/getCalendar")
+        public String schedulePage(@PathVariable("user_id") String tutorId,
+            @RequestParam("classDate") String classDate){
+            String jsonString = "{\n" +
+                    "\"name\" : \"Michael Jackson\",\n" +
+                    "\"profile_img\" : \"profile-picture-3.jpg\",\n" +
+                    "\"schedule\" : \n" +
+                    "[{\n" +
+                    "\"class_id\" : \"5555\",\n" +
+                    "\"class_date\" : \"2023-04-20\",\n" +
+                    "\"class_time\" : \"0500PM\",\n" +
+//                    "\"tutee_id\" : \"null\",\n" +
+                    "\"tutee_name\" : \"null\",\n" +
+                    "\"tutor_id\" : \"1234\"\n" +
+                    "},\n" +
+                    "{\n" +
+                    "\"class_id\" : \"7777\",\n" +
+                    "\"class_date\" : \"2023-04-21\",\n" +
+                    "\"class_time\" : \"0200PM\",\n" +
+                    "\"tutee_id\" : \"1235\",\n" +
+                    "\"tutee_name\" : \"김명진\",\n" +
+                    "\"tutor_id\" : \"1234\"\n" +
+                    "}]\n" +
+                    "}";
+
+            return jsonString;
+        }
+
+        @PostMapping("/{user_id}/schedule/postCalender")
+        public String schedulePost(@RequestBody JSONObject jsonObject) {
+            String tutor_id = jsonObject.get("$tutor_id").toString();
+            System.out.println(tutor_id);
+            return tutor_id;
         }
 
         @GetMapping("/{user_id}/history/get")
@@ -72,7 +110,6 @@ public class MyPageController {
             jsonObject.put("history",jsonArray);
 
             String jsonString = jsonObject.toString();
-            System.out.println(jsonString);
 
             return jsonString;
         }

@@ -33,6 +33,10 @@
     <link type="text/css" href="/css/spaces.css" rel="stylesheet">
 
     <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
+
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+            crossorigin="anonymous"></script>
 </head>
 
 <body style="min-height: 100vh;">
@@ -65,12 +69,9 @@
                     <!-- Navigation -->
                     <div class="card border-light p-2">
                         <div class="card-body p-2">
-                            <div class="profile-thumbnail small-thumbnail mx-auto">
-                                <img src="/assets/img/team/profile-picture-4.jpg"
-                                     class="card-img-top rounded-circle border-white" alt="Joseph Portrait"/>
+                            <div class="profile-thumbnail small-thumbnail mx-auto" id="tutor-img">
                             </div>
-                            <h2 class="h5 font-weight-normal text-center mt-3 mb-0">
-                                Neil Sims
+                            <h2 class="h5 font-weight-normal text-center mt-3 mb-0" id="tutor-name">
                             </h2>
                             <div class="list-group dashboard-menu list-group-sm mt-4">
                                 <a href="#" class="d-flex list-group-item list-group-item-action">Information<span
@@ -353,20 +354,17 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1" id="1030PM"
-                                                                         style="pointer-events: none">
+                                                                    <div class="cell py-1" id="1030PM">
                                                                         10:30PM
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1" id="1100PM"
-                                                                         style="pointer-events: none">
+                                                                    <div class="cell py-1" id="1100PM">
                                                                         11:00PM
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-2 col-4 my-1 px-1">
-                                                                    <div class="cell py-1" id="1130PM"
-                                                                         style="pointer-events: none">
+                                                                    <div class="cell py-1" id="1130PM">
                                                                         11:30PM
                                                                     </div>
                                                                 </div>
@@ -394,7 +392,7 @@
                                                 <div class="modal-header">
                                                     <h6 class="modal-title">Save</h6>
                                                     <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
+                                                            aria-label="Close" id="save-btn">
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
@@ -439,23 +437,7 @@
                                             </th>
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        <td scope="row" style="text-align: center" id="tno">
-                                        </td>
-                                        <td style="text-align: center" id="booking-time">
-                                        </td>
-                                        <td style="text-align: center" id="booking-tutee">
-                                        </td>
-                                        <td style="text-align: center">
-                                            <div style="text-align: center">
-                                                <a href="/templates/html/classroom-tutor.html"
-                                                   class="btn btn-primary" inline-block
-                                                    id="admission-btn">
-                                                    Admission to class
-                                                </a>
-                                            </div>
-                                        </td>
-                                        </tr>
+                                        <tbody id="booking-list">
                                         </tbody>
                                     </table>
                                 </form>
