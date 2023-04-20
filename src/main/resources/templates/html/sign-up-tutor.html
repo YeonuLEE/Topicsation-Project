@@ -55,7 +55,7 @@
           <div class="col-12 d-flex align-items-center justify-content-center">
             <div
               class="signin-inner mt-3 mt-lg-0 bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
-              <form action="/members/signup/tutors" method="post" id="signInForm">
+              <form action="/members/signup-tutors.post" method="post" id="signInForm">
                 <!-- Form -->
                 <div class="form-group">
                   <label for="email">E-mail<span class="txt-error email"
@@ -114,7 +114,7 @@
                   <div class="form-group">
                     <label>Gender</label>
 
-                    <div class="form-check" id="gender">
+                    <div class="form-check" id="gender" >
                       <input class="form-check-input" type="radio" name="genderRadios" id="gender-female" value="female"
                         checked />
                       <label class="form-check-label" for="gender-female">
@@ -136,7 +136,7 @@
                   </div>
                   <div class="form-group">
                     <label>Nationality</label>
-                    <select class="custom-select" id="tutor-nation" required>
+                    <select class="custom-select" id="nationality" required>
                       <option value="" disabled selected style="display: none">
                         Select Nationality
                       </option>
@@ -254,6 +254,8 @@
 
   <!-- Spaces custom Javascript -->
   <script src="/js/spaces.js"></script>
+
+  <script src="/js/signup-tutor.js"></script>
 </body>
 
 </html>
