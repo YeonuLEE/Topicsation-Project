@@ -50,8 +50,8 @@
 
             </a>
             <div>
-                <a href="#"><button class="btn mb-2 mr-2 btn-white" type="button" id="mypage-btn">MY PAGE</button></a>
-                <a href="#"><button class="btn mb-2 mr-2 btn-secondary" type="button" id="sign">SIGN IN</button></a>
+                <button class="btn mb-2 mr-2 btn-white" type="button" id="mypage-btn">MY PAGE</button>
+                <button class="btn mb-2 mr-2 btn-secondary" type="button" id="sign-btn">SIGN IN</button>
             </div>
         </div>
     </nav>
@@ -107,7 +107,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card card-body bg-white border-light mb-4">
-                                <h2 class="h5 mb-4">Suchedule</h2>
+                                <h2 class="h5 mb-4">Waiting For Approval</h2>
                                 <form>
                                     <table class="table">
                                         <thead>
@@ -119,33 +119,27 @@
                                             <th scope="col">승인 여부</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        <c:forEach items="${}" var="dto" id="spare-tutor">
-                                            <tr>
-                                                <th scope="row" id="tno">
-                                                    <c:out value="${dto.tno}"/>
-                                                    1
-                                                </th>
-                                                <td id="tutor-name">
-                                                    <c:out value="${dto.dueDate}"/>
-                                                    튜터 이름
-                                                </td>
-                                                <td id="approval-date">
-                                                    <c:out value="${dto.dueDate}"/>
-                                                    날짜 시간
-                                                </td>
-                                                <td id="file">
-                                                    <c:out value="${dto.writer}"/>
-                                                    승인 파일
-                                                </td>
-                                                <td>
-                                                    <button type="submit" class="btn btn-primary"
-                                                            margin="15px" id="success">승인
-                                                    </button>
-                                                    <button type="submit" class="btn btn-danger" id="fail">거부</button>
-                                                </td>
-                                            </tr>
-                                        </c:forEach>
+                                        <tbody id="spare-tutor">
+<!--                                            <tr>-->
+<!--                                                <th scope="row"  >-->
+<!--                                                    <label id="tno" text="tno" ></label>-->
+<!--                                                </th>-->
+<!--                                                <td >-->
+<!--                                                    <span id="tutor-name" text="name"></span>-->
+<!--                                                </td>-->
+<!--                                                <td >-->
+<!--                                                    <span id="approval-date" text="dueDate"></span>-->
+<!--                                                </td>-->
+<!--                                                <td >-->
+<!--                                                    <a id="file" text="writer"></a>-->
+<!--                                                </td>-->
+<!--                                                <td>-->
+<!--                                                    <button type="submit" class="btn btn-primary"-->
+<!--                                                            margin="15px" id="success">승인-->
+<!--                                                    </button>-->
+<!--                                                    <button type="submit" class="btn btn-danger" id="fail">거부</button>-->
+<!--                                                </td>-->
+<!--                                            </tr>-->
                                         </tbody>
                                     </table>
                                 </form>
@@ -255,6 +249,9 @@
 
 <!-- Spaces custom Javascript -->
 <script src="/js/spaces.js"></script>
+
+<script type="text/javascript" th:inline="javascript" src="/js/mypage-admin.js"></script>
+
 </body>
 
 </html>
