@@ -249,74 +249,8 @@
 
 <!-- Spaces custom Javascript -->
 <script src="/js/spaces.js"></script>
-<script type="text/javascript" th:inline="javascript">
-    $(document).ready(function() {
-        $.ajax({
-            type: "GET",
-            url: "/mypage/admin/get",
-            dataType:"json",
-            success: function(data, status) {
-                console.log(data);
-                console.log(status);
-                var tbody = $("#spare-tutor");
-                for(var i=0;i<data.length;i++) {
-                    var spare = data[i];
-                    var tr = $("<tr>");
-                    var tno = $("<th scope=\"row\">").text(i+1);
-                    var tutorName = $("<td>",{text:spare.tutorName});
-                    var approlDate = $("<td>",{text:spare.approlDate});
-                    var file = $("<td>",{text:spare.file});
-                    var success =$("<td><button type=\"submit\" class=\"btn btn-primary\" margin=\"15px\" id=\"success\">승인</button>");
-                    var fail =$("<td><button type=\"submit\" class=\"btn btn-danger\" id=\"fail\">거부</button>");
 
-                    tr.append(tno);
-                    tr.append(tutorName);
-                    tr.append(approlDate);
-                    tr.append(file);
-                    tr.append(success);
-                    tr.append(fail);
-                    tbody.append(tr);
-                }
-            },
-            error: function (data, textStatus) {
-                alert("Error!")
-            },
-            complete: function (data, textStatus) {
-            },
-        });
-    });
-</script>
-<!--<script>-->
-<!--    $('#file').on('click', function () {-->
-
-<!--        $.ajax({-->
-<!--            url: "/mypage/admin/get",-->
-<!--            method: "get",-->
-<!--            dataType: "json",-->
-<!--            success: function (result) {-->
-<!--                var jsonObject = JSON.parse(data);-->
-<!--                console.log(jsonObject.file);-->
-<!--                var filename = jsonObject.file;-->
-<!--                if (result == false) {-->
-<!--                    alert("파일이 존재하지 않습니다.");-->
-
-<!--                    return;-->
-<!--                }-->
-
-<!--                var downloadLink = document.createElement("a");-->
-<!--                downloadLink.href = '/download?filename=' + filename;-->
-<!--                downloadLink.download = "data.csv";-->
-
-<!--                document.body.appendChild(downloadLink);-->
-<!--                downloadLink.click();-->
-<!--                document.body.removeChild(downloadLink);-->
-<!--            },-->
-<!--            error: function (xhr, status, error) {-->
-<!--                alert(xhr.status + " : 서버와의 통신이 원활하지 않습니다. 다시 시도해 주십시오.");-->
-<!--            }-->
-<!--        });-->
-<!--    })-->
-<!--</script>-->
+<script type="text/javascript" th:inline="javascript" src="/js/mypage-admin.js"></script>
 
 </body>
 
