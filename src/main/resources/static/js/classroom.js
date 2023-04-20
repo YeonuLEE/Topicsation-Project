@@ -87,7 +87,7 @@ function remaindTime() {
     $('#minutes').text(min + "분");
     $('#seconds').text(sec + "초");
 
-    if (min == 0 && sec == 0) {
+    if (min == 14 && sec == 30) {
         setTimeout(function () {
             var _width = '400';
             var _height = '300';
@@ -95,8 +95,15 @@ function remaindTime() {
             // 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
             var _left = Math.ceil((window.screen.width - _width) / 2);
             var _top = Math.ceil((window.screen.height - _height) / 2);
-            location.href = "main.html";
-            window.open("evaluate-popup.html", "Evaluate", 'width=' + _width + ', height=' + _height + ', left=' + _left + ', top=' + _top);
+            var pathURI = window.location.pathname
+            var apiURL = pathURI + "/evaluate";
+
+            var popup = window.open(apiURL, "Evaluate", 'width=' + _width + ', height=' + _height + ', left=' + _left + ', top=' + _top);
+
+            popup.onload = function() {
+                location.href = "/main";
+            };
+
             return false;
         }, 1000);
     }

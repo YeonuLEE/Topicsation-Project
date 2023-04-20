@@ -64,6 +64,7 @@ public class MemberManageController {
             String firstInterest = jsonObject.get("$firstInterest").toString();
             String secondInterest = jsonObject.get("$secondInterest").toString();
 
+
             if (!email.isEmpty() && !password.isEmpty() && !name.isEmpty()
                     && !firstInterest.isEmpty() && !secondInterest.isEmpty()){
                 result="signupSuccess";
@@ -72,6 +73,38 @@ public class MemberManageController {
             }
             return result;
         }
+
+    @PostMapping("/singin/find/post")
+    public String passwordFind(@RequestBody JSONObject jsonObject){
+         String email = jsonObject.get("$email").toString();
+         String user_id = jsonObject.get("$user_id").toString();
+         System.out.println(email);
+         System.out.println(user_id);
+         System.out.println("please");
+         return email;
+        }
+
+    @PostMapping("/email.auth")
+    public String emailAuth(@RequestBody JSONObject jsonObject){
+         System.out.println(jsonObject.get("test"));
+         return "success";
+        }
+
+    @PostMapping("/signin.post")
+    public String signin(@RequestBody JSONObject jsonObject){
+         String result;
+
+         String email = jsonObject.get("$email").toString();
+         String password = jsonObject.get("$password").toString();
+
+         if (email.equals("AngryCat") && password.equals("1234")){
+                result="loginSuccess";
+         }else{
+                result="loginFail";
+        }
+         return result;
+     }
+
 
 //        @RequestMapping(value = "/signup-tutors.post", method = RequestMethod.POST)
         @PostMapping("/signup-tutors.post")
