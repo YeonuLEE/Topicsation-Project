@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <!-- Primary Meta Tags -->
     <title>TOPICSATION</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="title" content="Spaces - Directory Listing Landing page 3">
     <meta name="author" content="Themesberg">
     <meta name="description"
-        content="Premium Directory Listing Bootstrap 4 Template featuring 37 hand-crafted pages, a dashboard an Mapbox integration. Spaces also comes with a complete UI Kit featuring over 700 components by Themesberg.">
+          content="Premium Directory Listing Bootstrap 4 Template featuring 37 hand-crafted pages, a dashboard an Mapbox integration. Spaces also comes with a complete UI Kit featuring over 700 components by Themesberg.">
     <meta name="keywords"
-        content="bootstrap, bootstrap 4 template, directory listing bootstrap, bootstrap 4 listing, bootstrap listing, bootstrap 4 directory listing template, vector map, leaflet js template, mapbox theme, mapbox template, dashboard, themesberg, user dashboard bootstrap, dashboard bootstrap, ui kit, bootstrap ui kit, premium bootstrap theme" />
+          content="bootstrap, bootstrap 4 template, directory listing bootstrap, bootstrap 4 listing, bootstrap listing, bootstrap 4 directory listing template, vector map, leaflet js template, mapbox theme, mapbox template, dashboard, themesberg, user dashboard bootstrap, dashboard bootstrap, ui kit, bootstrap ui kit, premium bootstrap theme"/>
     <link rel="canonical" href="https://themesberg.s3.us-east-2.amazonaws.com/public/products/spaces/thumbnail.jpg">
 
     <!-- Fontawesome -->
@@ -33,240 +33,206 @@
     <link type="text/css" href="/css/spaces.css" rel="stylesheet">
 
     <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
+    <script src="https://code.jquery.com/jquery-3.6.4.js"
+            integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
 
 </head>
 
 <body>
-    <main>
-        <!-- Hero -->
-        <section style="padding: 0px; height: 500px;"
-            class="section section-image bg-primary overlay-primary text-white pb-4 pb-md-7"
-            data-background="/assets/img/hero-1.jpg">
-            <nav class="navbar navbar-expand-lg navbar-transparent navbar-dark "
-                style="padding-top: 25px; padding-bottom: 25px;">
-                <div class="container position-relative">
+<main>
+    <!-- Hero -->
+    <section style="padding: 0px; height: 500px;"
+             class="section section-image bg-primary overlay-primary text-white pb-4 pb-md-7"
+             data-background="/assets/img/hero-1.jpg">
+        <nav class="navbar navbar-expand-lg navbar-transparent navbar-dark "
+             style="padding-top: 25px; padding-bottom: 25px;">
+            <div class="container position-relative">
 
-                    <a class="navbar-brand mr-lg-3" href="/main">
-                        <img class="navbar-brand-dark" style="min-height: 60px;" src="/assets/img/Logo_white.png"
-                            alt="menuimage">
+                <a class="navbar-brand mr-lg-3" href="/main">
+                    <img class="navbar-brand-dark" style="min-height: 60px;" src="/assets/img/Logo_white.png"
+                         alt="menuimage">
 
-                    </a>
-                    <div>
-                        <a href="#"><button class="btn mb-2 mr-2 btn-white" type="button" id="mypage-btn">MY PAGE</button></a>
-                        <a href="#"><button class="btn mb-2 mr-2 btn-secondary" type="button" id="sign-btn">SIGN IN</button></a>
-                    </div>
-                </div>
-            </nav>
-            <section class="section section-header pb-0">
-                <div class="container section-image overlay-soft text-dark rounded px-lg-5 py-6 overflow-hidden position-relative border border-light shadow-sm"
-                    data-background="/assets/img/hero-2.jpg">
-                    <div class="row no-gutters justify-content-between align-items-center">
-                        <div class="col-12 order-lg-2">
-                            <h1 class="h2 mb-4" style="color: black;">Find Your Tutor</h1>
-                            <div class="card p-md-2 mb-3">
-                                <div class="card-body p-2 p-md-0">
-                                    <form autocomplete="off" class="row justify-content-between" method="get"
-                                        action="./all-spaces.html">
-                                        <div class="col-12 col-lg-4 pr-lg-1">
-                                            <div class="form-group form-group-lg mb-lg-0">
-                                                <div class="input-group">
-                                                    <input id="search-name" type="text"
-                                                        class="form-control autocomplete" placeholder="튜터의 이름을 입력해주세요"
-                                                        required>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-lg-4 pr-lg-1">
-                                            <div class="form-group form-group-lg mb-lg-0">
-                                                <div class="input-group">
-                                                    <select class="form-control" id="search-interest" required>
-                                                        <option value="" disabled selected style="display:none">관심사
-                                                        </option>
-                                                        <option value="politics">정치</option>
-                                                        <option value="economics">경제</option>
-                                                        <option value="IT">IT</option>
-                                                        <option value="fitness">피트니스</option>
-                                                        <option value="food">요리</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-lg-3 px-lg-1">
-                                            <div class="input-group input-group-lg mb-3 mb-lg-0">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><span
-                                                            class="far fa-calendar-alt"></span></span>
-                                                </div>
-                                                <input class="form-control datepicker" id="reservate-date"
-                                                       placeholder="예약 날짜" type="text"
-                                                    required>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-lg-1 pl-lg-1">
-                                            <button class="btn btn-lg btn-dark btn-block" type="submit"><span
-                                                    class="icon icon-sm" id="search-btn"><span
-                                                        class="fas fa-search-location"></span></span></button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </section>
-        <!-- Section -->
-        <section class="section section-lg">
-            <div class="container">
-                <div class="row">
-                    <div class="col d-flex justify-content-start">
-                        <h3 class="h4 mb-5">가장 잘 맞는 튜터를 찾아보세요.</h3>
-                    </div>
-                    <div class="col d-flex justify-content-end">
-                        <a href="/main/search-all">모든 튜터 보기 <span class="icon icon-xs"><span
-                                    class="fas fa-chevron-right ml-2"></span></span></a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-md-6 mb-3">
-                        <div class="card border-light mb-4 animate-up-5">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col-12 col-lg-6 col-xl-4">
-                                    <a href="#">
-                                        <img src="" alt="loft space"
-                                             class="card-img p-2 rounded-xl" id="tutor-photo">
-                                    </a>
-                                </div>
-                                <div class="col-12 col-lg-6 col-xl-7">
-                                    <div class="card-body">
-                                        <div class="mb-3">
-                                            <a href="#">
-                                                <span class="h5 mb-3 mr-6" id="tutor-name"></span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                    fill="#dc143c" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                                                    <path fill-rule="evenodd"
-                                                        d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-                                                </svg>
-                                                <span class="h6 mb-3" id="tutor-like"></span>
-                                            </a>
-                                        </div>
-                                        <div class="mb-5">
-                                            <span class="fas fa-map-marker-alt"></span>
-                                            <span id="tutor-nation"></span>
-                                        </div>
-                                        <div class="d-flex my-3">
-                                            <span class="badge badge-pill badge-primary ml-2" id="first-interest"></span>
-                                            <span class="badge badge-pill badge-primary ml-2" id="second-interest"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                </a>
+                <div>
+                    <button class="btn mb-2 mr-2 btn-white" type="button" id="mypage-btn">MY PAGE</button>
+                    <button class="btn mb-2 mr-2 btn-secondary" type="button" id="sign-btn">SIGN IN</button>
                 </div>
             </div>
-        </section>
-    </main>
-    <footer class="footer pb-5 bg-primary text-white pt-2 st-n9">
-        <div class="container">
-            <div class="row mt-6 text-center">
-                <div class="col-12 col-xl-6 mb-5 mb-xl-0">
-                    <img style="min-height: 60px; color: RGB(207, 209, 218);" src="/assets/img/Logo_white.png"
-                        height="50" class="mb-3" alt="Spaces logo">
-                    <p>Newstopic English <br>Conversation Service</p>
+        </nav>
+        <style>
+            #Carousel4 {
+                max-width: 700px; /*carousel의 최대 너비를 600px로 설정*/
+                margin: 0 auto; /*중앙 정렬을 위한 margin 속성 추가*/
+                text-align: center;
+                transform: translateY(-25%);
+            }
+        </style>
+        <section class="section section-header pb-0" >
+            <div id="Carousel4" class="carousel slide carousel-md" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#Carousel4" data-slide-to="0" class="active"></li>
+                    <li data-target="#Carousel4" data-slide-to="1"></li>
+                    <li data-target="#Carousel4" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item overlay-soft-dark active">
+                        <img class="d-block w-100" src="../../assets/img/carousel/carousel1.jpg" alt="First slide">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>최고의 튜터들과 함께하세요</h5>
+                            <p>TOPICSATION의 튜터들은 영어를 모국어 수준으로 구사합니다.<br>최고 수준의 튜터들과 함께하는 회화를 경험하세요.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="carousel-item overlay-soft-dark">
+                        <img class="d-block w-100" src="../../assets/img/carousel/carousel2.jpg" alt="Second slide">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>관심 있는 분야의 뉴스로 영어 회화를 학습하세요</h5>
+                            <p>이제 영어 회화를 할 때, 더 이상 답답한 상황에 직면하지 않아도 됩니다. TOPICSATION과 함께라면, 쉽고 재미있는 영어 학습을 경험할 수 있습니다.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="carousel-item overlay-soft-dark">
+                        <img class="d-block w-100" src="../../assets/img/carousel/carousel3.jpg" alt="Third slide">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>활용 가능한 회화를 학습하세요</h5>
+                            <p>영어를 배우는 것은 중요하지만, 실제로 말할 수 있는 능력은 더 중요합니다.<br>
+                                학생과 튜터에게 쉬운 학습법을 제공하여 실제로 회화를 가능하게 만듭니다.
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-12 col-xl-6 mb-5 mb-xl-0">
-                    <span class="h5" style="color: RGB(207, 209, 218);">Git Link</span>
-                    <p class="text-muted font-small mt-2">check out our progress</p>
-                    <button class="btn btn-sm btn-black mb-xl-0 mr-2 mr-lg-2"><!-- 아이콘 변경-->
-                        <span class="d-flex align-items-center">
+                <a class="carousel-control-prev" href="#Carousel4" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#Carousel4" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </section>
+
+    </section>
+    <!-- Section -->
+    <section class="section section-lg">
+        <div class="container">
+            <div class="row">
+                <div class="col d-flex justify-content-start">
+                    <h3 class="h4 mb-5">가장 잘 맞는 튜터를 찾아보세요.</h3>
+                </div>
+                <div class="col d-flex justify-content-end">
+                    <a href="/main/search-all">모든 튜터 보기 <span class="icon icon-xs"><span
+                            class="fas fa-chevron-right ml-2"></span></span></a>
+                </div>
+            </div>
+            <div class="row" id="tutor-card">
+            </div>
+        </div>
+    </section>
+</main>
+<footer class="footer pb-5 bg-primary text-white pt-2 st-n9">
+    <div class="container">
+        <div class="row mt-6 text-center">
+            <div class="col-12 col-xl-6 mb-5 mb-xl-0">
+                <img style="min-height: 60px; color: RGB(207, 209, 218);" src="/assets/img/Logo_white.png"
+                     height="50" class="mb-3" alt="Spaces logo">
+                <p>Newstopic English <br>Conversation Service</p>
+            </div>
+            <div class="col-12 col-xl-6 mb-5 mb-xl-0">
+                <span class="h5" style="color: RGB(207, 209, 218);">Git Link</span>
+                <p class="text-muted font-small mt-2">check out our progress</p>
+                <button class="btn btn-sm btn-black mb-xl-0 mr-2 mr-lg-2"><!-- 아이콘 변경-->
+                    <span class="d-flex align-items-center">
                             <!-- 로고 -->
                             <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor"
-                                class="bi bi-github" viewBox="0 0 16 16">
+                                 class="bi bi-github" viewBox="0 0 16 16">
                                 <path
-                                    d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+                                        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
                             </svg>
                         </span>
-                    </button>
-                    <button class="btn btn-sm btn-black">
-                        <a href="https://fortunate-jitterbug-838.notion.site/cb1516898d3e4575821fa274d6cb8e2c">
-                            <img src="/assets/img/notion-icon.png" alt="notion-icon" width="35" height="35">
-                        </a>
-                    </button>
-                </div>
+                </button>
+                <button class="btn btn-sm btn-black">
+                    <a href="https://fortunate-jitterbug-838.notion.site/cb1516898d3e4575821fa274d6cb8e2c">
+                        <img src="/assets/img/notion-icon.png" alt="notion-icon" width="35" height="35">
+                    </a>
+                </button>
             </div>
-            <hr class="my-3 my-lg-2">
-            <div class="text-center">
-                <ul>
-                    <li><span style="display:inline-block; height:20px; width:200px; color: RGB(207, 209, 218);"><a
-                                href="#">개인정보처리방침</a></span></li>
-                    <li><span style="display:inline-block; height:20px; width:200px; color: RGB(207, 209, 218);"><a
-                                href="#">서비스소개</a></span></li>
-                    <li><span style="display:inline-block; height:20px; width:200px; color: RGB(207, 209, 218);"><a
-                                href="#">이용약관</a></span></li>
-                    <li><span style="display:inline-block; height:20px; width:200px; color: RGB(207, 209, 218);"><a
-                                href="#">광고상표소개</a></span></li>
-                </ul>
-            </div>
-            <hr class="my-3 my-lg-2">
-            <div class="row">
-                <div class="col mb-md-0 mt-3">
-                    <div class="d-flex text-center justify-content-center align-items-center" role="contentinfo"
-                        style="color: RGB(207, 209, 218);">
-                        <p class="font-weight-normal font-small mb-0">
-                            Copyright ©️ WhyCodeRun <span class="current-year">2023</span>.
-                            All rights reserved.
-                        </p>
-                    </div>
+        </div>
+        <hr class="my-3 my-lg-2">
+        <div class="text-center">
+            <ul>
+                <li><span style="display:inline-block; height:20px; width:200px; color: RGB(207, 209, 218);"><a
+                        href="#">개인정보처리방침</a></span></li>
+                <li><span style="display:inline-block; height:20px; width:200px; color: RGB(207, 209, 218);"><a
+                        href="#">서비스소개</a></span></li>
+                <li><span style="display:inline-block; height:20px; width:200px; color: RGB(207, 209, 218);"><a
+                        href="#">이용약관</a></span></li>
+                <li><span style="display:inline-block; height:20px; width:200px; color: RGB(207, 209, 218);"><a
+                        href="#">광고상표소개</a></span></li>
+            </ul>
+        </div>
+        <hr class="my-3 my-lg-2">
+        <div class="row">
+            <div class="col mb-md-0 mt-3">
+                <div class="d-flex text-center justify-content-center align-items-center" role="contentinfo"
+                     style="color: RGB(207, 209, 218);">
+                    <p class="font-weight-normal font-small mb-0">
+                        Copyright ©️ WhyCodeRun <span class="current-year">2023</span>.
+                        All rights reserved.
+                    </p>
                 </div>
             </div>
         </div>
-    </footer>
+    </div>
+</footer>
 
-    <!-- Core -->
-    <script src="/vendor/jquery/dist/jquery.min.js"></script>
-    <script src="/vendor/popper.js/dist/umd/popper.min.js"></script>
-    <script src="/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/vendor/headroom.js/dist/headroom.min.js"></script>
-    <script src="/vendor/onscreen/dist/on-screen.umd.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/move.js"></script>
 
-    <!-- NoUISlider -->
-    <script src="/vendor/nouislider/distribute/nouislider.min.js"></script>
+<!-- Core -->
+<script src="/vendor/jquery/dist/jquery.min.js"></script>
+<script src="/vendor/popper.js/dist/umd/popper.min.js"></script>
+<script src="/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/vendor/headroom.js/dist/headroom.min.js"></script>
+<script src="/vendor/onscreen/dist/on-screen.umd.min.js"></script>
 
-    <!-- Bootstrap Datepicker -->
-    <script src="/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<!-- NoUISlider -->
+<script src="/vendor/nouislider/distribute/nouislider.min.js"></script>
 
-    <!-- jQuery Waypoints -->
-    <script src="/vendor/waypoints/lib/jquery.waypoints.min.js"></script>
+<!-- Bootstrap Datepicker -->
+<script src="/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 
-    <!-- Owl acrousel -->
-    <script src="/vendor/owl.carousel/dist/owl.carousel.min.js"></script>
+<!-- jQuery Waypoints -->
+<script src="/vendor/waypoints/lib/jquery.waypoints.min.js"></script>
 
-    <!-- Smooth scroll -->
-    <script src="/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+<!-- Owl acrousel -->
+<script src="/vendor/owl.carousel/dist/owl.carousel.min.js"></script>
 
-    <!-- Fancybox -->
-    <script src="/vendor/@fancyapps/fancybox/dist/jquery.fancybox.min.js"></script>
+<!-- Smooth scroll -->
+<script src="/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
 
-    <!-- Sticky sidebar -->
-    <script src="/vendor/sticky-sidebar/dist/sticky-sidebar.min.js"></script>
+<!-- Fancybox -->
+<script src="/vendor/@fancyapps/fancybox/dist/jquery.fancybox.min.js"></script>
 
-    <!-- Mapbox & Leaflet.js -->
-    <script src="/vendor/leaflet/dist/leaflet.js"></script>
+<!-- Sticky sidebar -->
+<script src="/vendor/sticky-sidebar/dist/sticky-sidebar.min.js"></script>
 
-    <!-- Chartist -->
-    <script src="/vendor/chartist/dist/chartist.min.js"></script>
-    <script src="/vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+<!-- Mapbox & Leaflet.js -->
+<script src="/vendor/leaflet/dist/leaflet.js"></script>
 
-    <!-- Vector Maps -->
-    <script src="/vendor/jqvmap/dist/jquery.vmap.min.js"></script>
-    <script src="/vendor/jqvmap/dist/maps/jquery.vmap.usa.js"></script>
+<!-- Chartist -->
+<script src="/vendor/chartist/dist/chartist.min.js"></script>
+<script src="/vendor/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
 
-    <!-- Sliderform -->
-    <script src="/js/jquery.slideform.js"></script>
+<!-- Vector Maps -->
+<script src="/vendor/jqvmap/dist/jquery.vmap.min.js"></script>
+<script src="/vendor/jqvmap/dist/maps/jquery.vmap.usa.js"></script>
 
-    <!-- Spaces custom Javascript -->
-    <script src="/js/spaces.js"></script>
+<!-- Sliderform -->
+<script src="/js/jquery.slideform.js"></script>
+
+<!-- Spaces custom Javascript -->
+<script src="/js/spaces.js"></script>
 </body>
 
 </html>
