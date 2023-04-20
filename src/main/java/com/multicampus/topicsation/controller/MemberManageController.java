@@ -54,28 +54,37 @@ public class MemberManageController {
     @RequestMapping("/members")
     public class MemberManageRestController{
 
-        @PostMapping("/email.auth")
-        public String emailAuth(@RequestBody JSONObject jsonObject){
-            System.out.println(jsonObject.get("test"));
-            return "success";
+
+    @PostMapping("/singin/find/post")
+    public String passwordFind(@RequestBody JSONObject jsonObject){
+         String email = jsonObject.get("$email").toString();
+         String user_id = jsonObject.get("$user_id").toString();
+         System.out.println(email);
+         System.out.println(user_id);
+         System.out.println("please");
+         return email;
         }
 
-        @PostMapping("/signin.post")
-        public String signin(@RequestBody JSONObject jsonObject){
-            String result;
+    @PostMapping("/email.auth")
+    public String emailAuth(@RequestBody JSONObject jsonObject){
+         System.out.println(jsonObject.get("test"));
+         return "success";
+        }
 
-            String email = jsonObject.get("$email").toString();
-            String password = jsonObject.get("$password").toString();
+    @PostMapping("/signin.post")
+    public String signin(@RequestBody JSONObject jsonObject){
+         String result;
 
-            if (email.equals("AngryCat") && password.equals("1234")){
+         String email = jsonObject.get("$email").toString();
+         String password = jsonObject.get("$password").toString();
+
+         if (email.equals("AngryCat") && password.equals("1234")){
                 result="loginSuccess";
-            }else{
+         }else{
                 result="loginFail";
-            }
-            return result;
         }
-
-
+         return result;
+     }
 
     }
 }
