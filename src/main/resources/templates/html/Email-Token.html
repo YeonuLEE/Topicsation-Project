@@ -34,6 +34,10 @@
 
     <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
 
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.4.js"
+            integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
@@ -46,7 +50,7 @@
                     <div class="col-12 d-flex align-items-center justify-content-center">
                         <div
                             class="signin-inner mt-3 mt-lg-0 bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
-                            <form action="#">
+                            <form id="emailTokenForm">
                                 <!-- Form -->
                                 <div class="form-group">
                                     <label>Token 입력</label>
@@ -69,6 +73,9 @@
             </div>
         </section>
     </main>
+
+    <!-- Email Token Ajax script -->
+    <script src="/js/email.js"></script>
 
     <!-- Core -->
     <script src="/vendor/jquery/dist/jquery.min.js"></script>
