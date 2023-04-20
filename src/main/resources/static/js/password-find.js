@@ -3,7 +3,7 @@ $(document).ready(function () {
     $("#email").click(function () {
 
         var user_id = "1234";
-        var email = "kk@gmail.com";
+        var email = $("#email").val();
 
         $.ajax({
             type: "POST",
