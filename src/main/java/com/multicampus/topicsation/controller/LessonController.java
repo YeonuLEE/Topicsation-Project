@@ -1,10 +1,8 @@
 package com.multicampus.topicsation.controller;
 
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +16,11 @@ public class LessonController {
         return "html/classroom";
     }
 
+    @GetMapping("/{lesson_id}/evaluate")
+    public String evaluate(){
+        return "html/evaluate-popup";
+    }
+
     @RestController
     @RequestMapping("/lesson")
     public class LessonRestController{
@@ -26,6 +29,23 @@ public class LessonController {
         public void lesson(){
         }
 
+        @PutMapping("/{lesson_id}/evaluate.do")
+        public String evaluateTutor(@RequestBody JSONObject jsonObject){
+            String result;
+            String evaluate = jsonObject.get("$evaluate").toString();
+            String lessonId = jsonObject.get("$lesson_id").toString();
 
+            System.out.println("evaluate : " + evaluate);
+            System.out.println("lessonId : " + lessonId);
+
+            if(evaluate.equals("like")){
+                result = "like + 1";
+                return result;
+            }
+            else{
+                result = "dislike + 1";
+                return result;
+            }
+        }
     }
 }

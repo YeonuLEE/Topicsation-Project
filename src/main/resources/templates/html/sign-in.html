@@ -32,6 +32,9 @@
   <link type="text/css" href="/css/spaces.css" rel="stylesheet" />
 
   <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
+  <!-- jQuery CDN -->
+  <script src="https://code.jquery.com/jquery-3.6.4.js"
+          integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -50,10 +53,10 @@
           <div class="col-12 d-flex align-items-center justify-content-center">
             <div
               class="signin-inner mt-3 mt-lg-0 bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
-              <form action="/members/signin" method="POST">
+              <form id="loginForm">
                 <!-- Form -->
                 <div class="form-group">
-                  <label for="email">Your email</label>
+                  <label for="email">Your email<span class="txt-error email" style="padding-left:10px; font-size:13px;"></span></label>
                   <div class="input-group mb-4">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><span class="fas fa-envelope"></span></span>
@@ -77,9 +80,11 @@
                   </div>
                   <!-- End of Form -->
                   <div id="lostpassword" style="text-align: right">
-                    <div> <!--/members/signin/find -->
-                      <a href="password-find.html" class="small text-right">Lost password?</a>
-                    </div>
+
+                    <span > <!--/members/signin/find -->
+                      <span id="loginFail" class="small" style="float:left;color: #ff253a; font-weight: bold"></span>
+                      <a href="/members/signin/find" class="small text-right">Lost password?</a>
+                    </span>
                   </div>
                 </div>
                 <button type="submit" id="sign-in" class="btn btn-block btn-primary">
@@ -94,9 +99,9 @@
               <div class="d-block d-sm-flex justify-content-center align-items-center mt-4">
                 <span class="font-weight-normal">
                   <!--/members/signup/tutors -->
-                  <a href="sign-up-tutor.html" style="color: #c33c54; font-weight: 500">TUTOR?</a>
+                  <a href="/members/signup-tutors" style="color: #c33c54; font-weight: 500">TUTOR?</a>
                   or
-                  <a href="sign-up-tutee.html" style="color: #c33c54; font-weight: 500">TUTEE?</a>
+                  <a href="/members/signup-tutees" style="color: #c33c54; font-weight: 500">TUTEE?</a>
                 </span>
               </div>
             </div>
@@ -150,6 +155,13 @@
 
   <!-- Spaces custom Javascript -->
   <script src="/js/spaces.js"></script>
+
+  <!-- Email Token Ajax script -->
+  <script src="/js/signin.js"></script>
+
+  <!-- Validation  -->
+  <script src="/js/validate-tutee.js"></script>
+
 </body>
 
 </html>

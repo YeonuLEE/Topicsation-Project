@@ -106,9 +106,7 @@
               <!-- 소개 입력 란 -->
               <div class="tab-pane fade show active" id="nav-introduce" role="tabpanel"
                 aria-labelledby="nav-introduce-tab">
-                <h6>Hi, Tutees~</h6>
-                <h6>This is Jose Leos tutors</h6>
-                <h6>Let's conversate about our interest things!</h6>
+                <h6 id="introduce_content"></h6>
               </div>
 
               <!-- 예약 캘린더 창 -->
@@ -378,17 +376,17 @@
                                   </div>
                                 </div>
                                 <div class="col-md-2 col-4 my-1 px-1">
-                                  <div class="cell py-1" id="1030PM" style="pointer-events: none">
+                                  <div class="cell py-1" id="1030PM" >
                                     10:30PM
                                   </div>
                                 </div>
                                 <div class="col-md-2 col-4 my-1 px-1">
-                                  <div class="cell py-1" id="1100PM" style="pointer-events: none">
+                                  <div class="cell py-1" id="1100PM" >
                                     11:00PM
                                   </div>
                                 </div>
                                 <div class="col-md-2 col-4 my-1 px-1">
-                                  <div class="cell py-1" id="1130PM" style="pointer-events: none">
+                                  <div class="cell py-1" id="1130PM" >
                                     11:30PM
                                   </div>
                                 </div>
@@ -447,11 +445,11 @@
           <aside class="col-4 col-md-4 mt-6">
             <div class="card border-light text-center" style="box-shadow: none">
               <div class="profile-thumbnail mx-auto mt-n6">
-                <img src="/assets/img/team/profile-picture-1.jpg" class="card-img-top rounded-circle border-0"
+                <img src="" class="card-img-top rounded-circle border-0"
                      alt="Jose Avatar" id="profile-img"/>
               </div>
               <div class="card-body">
-                <h2 class="h4 card-title mb-4" id="tutor-name">Jose Leos</h2>
+                <h2 class="h4 card-title mb-4" id="tutor-name"></h2>
 
                 <div class="card-subtitle text-gray font-weight-normal mb-2">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#dc143c" class="bi bi-heart-fill"
@@ -459,14 +457,14 @@
                     <path fill-rule="evenodd"
                       d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
                   </svg>
-                  <span class="h5 mb-5" id="tutor-like">111+</span>
+                  <span class="h5 mb-5" id="tutor-like"></span>
                 </div>
 
                 <span class="fas fa-map-marker-alt"></span>
-                  <span id="tutor-nation">North America</span>
+                  <span id="tutor-nation"></span>
                 <div class="my-3">
-                  <span class="badge badge-pill badge-primary ml-2" id="first-interest">#IT</span>
-                  <span class="badge badge-pill badge-primary ml-2" id="second-interest">#Photo</span>
+                  <span class="badge badge-pill badge-primary ml-2" id="first-interest">#</span>
+                  <span class="badge badge-pill badge-primary ml-2" id="second-interest">#</span>
                 </div>
               </div>
             </div>
@@ -601,6 +599,8 @@
 
   <!-- Spaces custom Javascript -->
   <script src="/js/spaces.js"></script>
+
+
 </body>
 
 </html>
