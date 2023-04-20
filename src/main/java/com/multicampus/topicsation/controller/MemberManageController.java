@@ -1,10 +1,9 @@
 package com.multicampus.topicsation.controller;
 
+import org.json.simple.JSONObject;
 import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -55,6 +54,15 @@ public class MemberManageController {
     @RequestMapping("/members")
     public class MemberManageRestController{
 
+        @PostMapping("/singin/find/post")
+        public String passwordFind(@RequestBody JSONObject jsonObject){
+            String email = jsonObject.get("$email").toString();
+            String user_id = jsonObject.get("$user_id").toString();
+            System.out.println(email);
+            System.out.println(user_id);
+            System.out.println("please");
+            return email;
+        }
 
 
     }
