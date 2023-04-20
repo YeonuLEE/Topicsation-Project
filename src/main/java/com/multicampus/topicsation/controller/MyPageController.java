@@ -16,7 +16,7 @@ public class MyPageController {
 
     @GetMapping("/{user_id}")
     public String myPage(){
-        return "html/dashboard/myPage-tutees_Information";
+        return "html/dashboard/myPage-tutors_Information";
     }
 
 //    @GetMapping("/{user_id}/schedule")
@@ -39,13 +39,31 @@ public class MyPageController {
     @RequestMapping("/mypage")
     public class MyPageRestController{
 
-        @GetMapping("/admin.get")
-        public void adminPage(){
+        @GetMapping("/admin/get")
+        public String adminPage(){
+            JSONArray jsonArray = new JSONArray();
+            JSONObject obj1 = new JSONObject();
+            obj1.put("tutorName", "Jonny Dep");
+            obj1.put("approlDate", "2023-04-16 10:00AM");
+            obj1.put("file", "20200416.pdf");
+            jsonArray.add(obj1);
 
+            JSONObject obj2 = new JSONObject();
+            obj2.put("tutorName", "Angeli Remy");
+            obj2.put("approlDate", "2023-04-18 11:30AM");
+            obj2.put("file", "20200418.pdf");
+            jsonArray.add(obj2);
+
+            String jsonString = jsonArray.toString();
+            System.out.println(jsonString);
+
+            return jsonString;
         }
 
-        @GetMapping("/{user_id}.get")
-        public void myPage(){
+        @GetMapping("/{user_id}/get")
+        public String myPage(){
+            String jsonString = "{\"user_id\" : \"1234\",\"name\" : \"Tom hardy\",\"email\" : \"test@naver.com\",\"nationality\" : \"Europe\" ,\"interest1\" : \"fitness\",\"interest2\" : \"food\",\"genderRadios\" : \"male\",\"profileImg\" : \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==\",\"tutorName\" : \"DongHa\",\"withdrawal\" : \"\"}";
+            return jsonString;
 
         }
 
@@ -113,10 +131,6 @@ public class MyPageController {
 
             return jsonString;
         }
-
-
-
-
 
     }
 }
