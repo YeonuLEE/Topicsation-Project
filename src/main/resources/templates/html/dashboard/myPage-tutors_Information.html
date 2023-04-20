@@ -370,50 +370,6 @@
 <!-- Spaces custom Javascript -->
 <script src="/js/spaces.js"></script>
 
-<script>
-    $(document).ready(function() {
-        $.ajax({
-            type: "GET",
-            url: "/mypage/{tutor_id}/get",
-            success: function(data, status) {
-                var jsonObject = JSON.parse(data);
-
-                $('#tutor-name').text(jsonObject.tutorName);
-                $("#profile-img").attr("src",jsonObject.profileImg);
-                $('#name').val(jsonObject.name);
-                $('#email').val(jsonObject.email);
-                $('#nationality').val(jsonObject.nationality);
-                $('#first-interest').val(jsonObject.interest1).prop("selected",true);
-                $('#second-interest').val(jsonObject.interest2).prop("selected",true);
-                $(":radio[name='genderRadios'][value='" + jsonObject.genderRadios + "']").attr('checked', true);
-
-            },
-            error: function (data, textStatus) {
-                alert("Error!")
-            },
-            complete: function (data, textStatus) {
-            },
-        });
-    });
-</script>
-<script>
-    $("#withdrawal-btn").click(function (){
-        $.ajax({
-            type: "DELETE",
-            url: "/mypage/{tutor_id}/delete",
-            success: function(data, status) {
-            var jsonObject = JSON.parse(data);
-
-            },
-            error: function (data, textStatus) {
-            alert("Error!")
-            },
-            complete: function (data, textStatus) {
-            },
-        });
-    });
-</script>
-
 </body>
 
 </html>
