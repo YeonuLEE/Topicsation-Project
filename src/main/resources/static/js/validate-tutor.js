@@ -49,25 +49,25 @@ $("#password").change(function () {
         passwordCheck = false;
     } else {
         $(".password").text("");
-        $("#password_confirm").focus();
+        $("#password-confirm").focus();
         $("#password").attr("class", "form-control is-valid");
         passwordCheck = true;
     }
 });
 
 // 비밀번호 일치 여부 검사
-$("#password_confirm").change(function () {
+$("#password-confirm").change(function () {
     var pwd1 = $("#password").val();
-    var pwd2 = $("#password_confirm").val();
+    var pwd2 = $("#password-confirm").val();
 
     if (pwd1 != pwd2) {
-        $(".password_confirm").text("Password does not match.").css("color", "red");
-        $("#password_confirm").attr("class", "form-control is-invalid");
+        $(".password-confirm").text("Password does not match.").css("color", "red");
+        $("#password-confirm").attr("class", "form-control is-invalid");
         passwordConfirmCheck = false;
     } else {
-        $(".password_confirm").text("");
-        $("#password_confirm").focus();
-        $("#password_confirm").attr("class", "form-control is-valid");
+        $(".password-confirm").text("");
+        $("#password-confirm").focus();
+        $("#password-confirm").attr("class", "form-control is-valid");
         passwordConfirmCheck = true;
     }
 });
@@ -88,7 +88,7 @@ $("#signInForm").submit(function () {
         $("#password").focus();
         return false;
     } else if (!passwordConfirmCheck) {
-        $("#password_confirm").focus();
+        $("#password-confirm").focus();
         return false;
     } else if (!nameCheck) {
         $("#name").focus();
@@ -98,18 +98,18 @@ $("#signInForm").submit(function () {
 });
 
 // 두번째 관심사 제거
-$("#firstInterestSelect").change(function () {
+$("#first-interest").change(function () {
     // 남은 옵션 전체 삭제
-    $("#secondInterestSelect option").remove();
+    $("#second-interest option").remove();
 
     // 전체 옵션 다시 추가
-    $("#secondInterestSelect").html(
+    $("#second-interest").html(
         "<option value='politics'>Politics</option><option value='economics'>Economics</option><option value='IT'>IT</option><option value='fitness'>Fitness</option><option value='food'>Food</option>"
     );
 
     // 첫번째 관심사에서 뽑은 옵션 제거
-    selectedOption = $("#firstInterestSelect option:selected").val();
-    $("#secondInterestSelect")
+    selectedOption = $("#first-interest option:selected").val();
+    $("#second-interest")
         .find("option")
         .each(function () {
             if (this.value == selectedOption) {
@@ -144,5 +144,5 @@ function uploadFile(e) {
 $("#customFile").change(function () {
     var fileValue = $("#customFile").val().split("\\");
     var fileName = fileValue[fileValue.length - 1]; // 파일명
-    $("#showFiles").text(fileName);
+    $("#show-files").text(fileName);
 });

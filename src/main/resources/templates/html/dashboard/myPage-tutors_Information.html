@@ -51,12 +51,8 @@
                      alt="menuimage">
             </a>
             <div>
-                <a href="#">
-                    <button class="btn mb-2 mr-2 btn-white" type="button" id="mypage-btn">MY PAGE</button>
-                </a>
-                <a href="#">
-                    <button class="btn mb-2 mr-2 btn-secondary" type="button" id="sign">SIGN IN</button>
-                </a>
+                <button class="btn mb-2 mr-2 btn-white" type="button" id="mypage-btn">MY PAGE</button>
+                <button class="btn mb-2 mr-2 btn-secondary" type="button" id="sign-btn">SIGN IN</button>
             </div>
         </div>
     </nav>
@@ -97,7 +93,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card card-body bg-white border-light mb-4">
-                                <h2 class="h5 mb-4">General information</h2>
+                                <h2 class="h5 mb-4">General information test</h2>
                                 <form id="signInForm">
                                     <div class="row">
                                         <div class="col-sm-12 mb-3">
@@ -150,13 +146,13 @@
                                         <div class="col-md-6 mb-3">
                                             <div class="form-group">
                                                 <label>Nationality</label>
-                                                <select class="custom-select" id="nationality" required>
-                                                    <option>Asia</option>
-                                                    <option>North America</option>
-                                                    <option>South America</option>
-                                                    <option>Europe</option>
-                                                    <option>Afirica</option>
-                                                    <option>Oceania</option>
+                                                <select class="custom-select" id="nationality"  required>
+                                                    <option value="Asia" >Asia</option>
+                                                    <option value="North America" selected>North America</option>
+                                                    <option value="South America">South America</option>
+                                                    <option value="Europe">Europe</option>
+                                                    <option value="Afirica">Afirica</option>
+                                                    <option value="Oceania">Oceania</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -373,6 +369,7 @@
 
 <!-- Spaces custom Javascript -->
 <script src="/js/spaces.js"></script>
+
 </body>
 
 </html>
