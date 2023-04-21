@@ -1,13 +1,22 @@
 package com.multicampus.topicsation.controller;
 
+import com.multicampus.topicsation.dto.TutorMyPageDTO;
+import com.multicampus.topicsation.service.IMyPageService;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/mypage")
 public class MyPageController {
+
+    @Autowired
+    private IMyPageService service;
 
     @GetMapping("/admin")
     public String adminPage() {
@@ -61,10 +70,30 @@ public class MyPageController {
         }
 
         @GetMapping("/{user_id}/get")
-        public String myPage() {
+        public String myPage(@PathVariable("user_id") String tutorId) {
+            System.out.println(tutorId);
+            TutorMyPageDTO dto;
+            dto =service.view(tutorId);
+            System.out.println(dto);
 
-            String jsonString = "{\"user_id\" : \"1234\",\"name\" : \"Tom softy\",\"email\" : \"hardybrother@gmail.com\",\"interest1\" : \"fitness\",\"interest2\" : \"food\",\"password\" : \"1234\"}";
-            return jsonString;
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("tutor-name",dto.getName());
+            jsonObject.put("profileImg",dto.getProfileimg());
+            jsonObject.put("name",dto.getName());
+            jsonObject.put("email",dto.getEmail());
+            jsonObject.put("nationality",dto.getNationality());
+            jsonObject.put("interest1",dto.getInterest1());
+            jsonObject.put("interest2",dto.getInterest2());
+            jsonObject.put("genderRadios",dto.getGender());
+
+            System.out.println(jsonObject);
+            return jsonObject.toJSONString();
+        }
+
+        @PostMapping("/{user_id}/post")
+        public String myPageModify(TutorMyPageDTO tutorMyPageDTO, Model model){
+
+            return null;
         }
 
 
