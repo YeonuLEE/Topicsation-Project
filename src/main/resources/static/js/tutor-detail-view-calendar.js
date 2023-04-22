@@ -7,9 +7,11 @@ $(document).ready(function () {
     $(".datepicker").datepicker({
         format: "dd-mm-yyyy",
         autoclose: true,
-        startDate: "0d",
+        startDate: "+1d",
 
     });
+
+    today.setDate(today.getDate() + 1)
 
     $(".datepicker").datepicker("setDate", today);
 
@@ -43,6 +45,7 @@ $(document).ready(function () {
 
     apiUrl = apiUrl.replace("{tutor_id}", number);
     apiUrl = apiUrl + dateFormatted;
+    console.log(apiUrl)
     $.ajax({
         type: "GET",
         url: apiUrl,
