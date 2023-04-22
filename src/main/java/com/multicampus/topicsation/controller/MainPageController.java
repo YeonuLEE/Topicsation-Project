@@ -1,7 +1,6 @@
 package com.multicampus.topicsation.controller;
 
 
-import com.multicampus.topicsation.dto.MemberDTO;
 import com.multicampus.topicsation.dto.TutorScheduleDTO;
 import com.multicampus.topicsation.dto.TutorViewDTO;
 import com.multicampus.topicsation.service.ITutorListService;
@@ -9,11 +8,9 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @Controller
@@ -81,38 +78,38 @@ public class MainPageController {
 
         @GetMapping("/search-all.get")
         public String searchAll() {
-//            MemberDTO memberDTO1 = new MemberDTO(
+//            TestDTO memberDTO1 = new TestDTO(
 //                    "1001", "Yeonu Lee", "6.jpg",
 //                    "320", "North America",
 //                    "IT", "politics"
 //            );
-//            MemberDTO memberDTO2 = new MemberDTO(
+//            TestDTO memberDTO2 = new TestDTO(
 //                    "1004", "Ahyeon Lee", "1004.jpg",
 //                    "300", "Europe",
 //                    "fitness", "food"
 //            );
-//            MemberDTO memberDTO3 = new MemberDTO(
+//            TestDTO memberDTO3 = new TestDTO(
 //                    "1002", "Myeong Jin", "1002.jpg",
 //                    "233", "Europe",
 //                    "economics", "politics"
 //            );
-//            MemberDTO memberDTO4 = new MemberDTO(
+//            TestDTO memberDTO4 = new TestDTO(
 //                    "1010", "Dongyoung Son", "unknown.png",
 //                    "222", "South America",
 //                    "economics", "IT"
 //            );
-//            MemberDTO memberDTO5 = new MemberDTO(
+//            TestDTO memberDTO5 = new TestDTO(
 //                    "1011", "Dong-Ha Lee", "unknown.png",
 //                    "220", "Asia",
 //                    "economics", "food"
 //            );
-//            MemberDTO memberDTO6 = new MemberDTO(
+//            TestDTO memberDTO6 = new TestDTO(
 //                    "1050", "Sumin Jeon", "6.jpg",
 //                    "111", "Asia",
 //                    "fitness", "IT"
 //            );
 //
-//            List<MemberDTO> tutorList = new ArrayList<MemberDTO>();
+//            List<TestDTO> tutorList = new ArrayList<TestDTO>();
 //
 //            tutorList.add(memberDTO1);
 //            tutorList.add(memberDTO2);
@@ -122,7 +119,7 @@ public class MainPageController {
 //            tutorList.add(memberDTO6);
 //
 //            JSONArray jsonArray = new JSONArray();
-//            for (MemberDTO tutor : tutorList) {
+//            for (TestDTO tutor : tutorList) {
 //                JSONObject jsonObject = new JSONObject();
 //                jsonObject.put("user_id", tutor.getUser_id());
 //                jsonObject.put("name", tutor.getName());
@@ -148,42 +145,42 @@ public class MainPageController {
                              @RequestParam String interest,
                              @RequestParam String date) {
 
-            System.out.println("name : " + name);
-            System.out.println("interest : " + interest);
-            System.out.println("date : " + date);
-//            MemberDTO memberDTO1 = new MemberDTO(
+//            System.out.println("name : " + name);
+//            System.out.println("interest : " + interest);
+//            System.out.println("date : " + date);
+//            TestDTO memberDTO1 = new TestDTO(
 //                    "1001", "Yeonu Lee", "6.jpg",
 //                    "320", "North America",
 //                    "IT", "politics"
 //            );
-//            MemberDTO memberDTO2 = new MemberDTO(
+//            TestDTO memberDTO2 = new TestDTO(
 //                    "1004", "Ahyeon Lee", "1004.jpg",
 //                    "300", "Europe",
 //                    "fitness", "food"
 //            );
-//            MemberDTO memberDTO3 = new MemberDTO(
+//            TestDTO memberDTO3 = new TestDTO(
 //                    "1002", "Myeong Jin", "1002.jpg",
 //                    "233", "Europe",
 //                    "economics", "politics"
 //            );
-//            MemberDTO memberDTO4 = new MemberDTO(
+//            TestDTO memberDTO4 = new TestDTO(
 //                    "1010", "Dongyoung Son", "unknown.png",
 //                    "222", "South America",
 //                    "economics", "IT"
 //            );
-//            MemberDTO memberDTO5 = new MemberDTO(
+//            TestDTO memberDTO5 = new TestDTO(
 //                    "1011", "Dong-Ha Lee", "unknown.png",
 //                    "220", "Asia",
 //                    "economics", "food"
 //            );
-//            MemberDTO memberDTO6 = new MemberDTO(
+//            TestDTO memberDTO6 = new TestDTO(
 //                    "1050", "Sumin Jeon", "6.jpg",
 //                    "111", "Asia",
 //                    "fitness", "IT"
 //            );
 //
 //
-//            List<MemberDTO> tutorList = new ArrayList<MemberDTO>();
+//            List<TestDTO> tutorList = new ArrayList<TestDTO>();
 //
 //            tutorList.add(memberDTO1);
 //            tutorList.add(memberDTO2);
@@ -193,7 +190,7 @@ public class MainPageController {
 //            tutorList.add(memberDTO6);
 //
 //            JSONArray jsonArray = new JSONArray();
-//            for (MemberDTO tutor : tutorList) {
+//            for (TestDTO tutor : tutorList) {
 //                JSONObject jsonObject = new JSONObject();
 //                if (tutor.getInterest1().equals(interest) || tutor.getInterest2().equals(interest)) {
 //                    jsonObject.put("user_id", tutor.getUser_id());
