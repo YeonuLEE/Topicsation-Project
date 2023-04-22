@@ -1,15 +1,16 @@
 package com.multicampus.topicsation.controller;
 
 import com.multicampus.topicsation.dto.TutorMyPageDTO;
+import com.multicampus.topicsation.dto.TutorMypageScheduleDTO;
+import com.multicampus.topicsation.dto.TutorScheduleDTO;
 import com.multicampus.topicsation.service.IMyPageService;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @RequestMapping("/mypage")
@@ -71,10 +72,8 @@ public class MyPageController {
 
         @GetMapping("/{user_id}/get")
         public String myPage(@PathVariable("user_id") String tutorId) {
-            System.out.println(tutorId);
-            TutorMyPageDTO dto;
-            dto =service.view(tutorId);
-            System.out.println(dto);
+            TutorMyPageDTO dto=service.view(tutorId);
+            //System.out.println(tutorId);
 
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("tutor-name",dto.getName());
@@ -86,12 +85,12 @@ public class MyPageController {
             jsonObject.put("interest2",dto.getInterest2());
             jsonObject.put("genderRadios",dto.getGender());
 
-            System.out.println(jsonObject);
+            //System.out.println(jsonObject);
             return jsonObject.toJSONString();
         }
 
         @PostMapping("/{user_id}/post")
-        public String myPageModify(TutorMyPageDTO tutorMyPageDTO, Model model){
+        public String myPageModify(TutorMyPageDTO tutorMyPageDTO){
 
             return null;
         }
@@ -136,31 +135,31 @@ public class MyPageController {
             return class_id;
         }
 
-
         @GetMapping("/{user_id}/schedule/getCalendar")
-        public String schedulePageCalendar(@PathVariable("user_id") String tutorId,
-                                           @RequestParam("classDate") String classDate) {
-            String jsonString = "{\n" +
-                    "\"name\" : \"Michael Jackson\",\n" +
-                    "\"profile_img\" : \"profile-picture-3.jpg\",\n" +
-                    "\"schedule\" : \n" +
-                    "[{\n" +
-                    "\"class_id\" : \"5555\",\n" +
-                    "\"class_date\" : \"2023-04-20\",\n" +
-                    "\"class_time\" : \"0500PM\",\n" +
-//                    "\"tutee_id\" : \"null\",\n" +
-                    "\"tutee_name\" : \"null\",\n" +
-                    "\"tutor_id\" : \"1234\"\n" +
-                    "},\n" +
-                    "{\n" +
-                    "\"class_id\" : \"7777\",\n" +
-                    "\"class_date\" : \"2023-04-21\",\n" +
-                    "\"class_time\" : \"0200PM\",\n" +
-                    "\"tutee_id\" : \"1235\",\n" +
-                    "\"tutee_name\" : \"김명진\",\n" +
-                    "\"tutor_id\" : \"1234\"\n" +
-                    "}]\n" +
-                    "}";
+        public String schedulePageCalendar(@PathVariable("user_id") String tutorId) {
+            TutorMypageScheduleDTO profileDto = service.tutorProfile(tutorId);
+            List<TutorScheduleDTO> scheduleDTOList = service.schedule(tutorId);
+
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("tutor_id",profileDto.getTutor_id());
+            jsonObject.put("name",profileDto.getName());
+            jsonObject.put("profileimg",profileDto.getProfileimg());
+
+            JSONArray jsonArray = new JSONArray();
+            for(TutorScheduleDTO dto : scheduleDTOList){
+                JSONObject jsonObject2 =new JSONObject();
+                jsonObject2.put("class_id",dto.getClass_id());
+                jsonObject2.put("class_date",dto.getClass_date());
+                jsonObject2.put("class_time",dto.getClass_time());
+                jsonObject2.put("tutee_id",dto.getTutee_id());
+                jsonObject2.put("tutee_name",dto.getTutee_name());
+                jsonObject2.put("tutor_id",dto.getTutor_id());
+
+                jsonArray.add(jsonObject2);
+            }
+
+            jsonObject.put("schedule",jsonArray);
+            String jsonString = jsonObject.toJSONString();
 
             return jsonString;
         }

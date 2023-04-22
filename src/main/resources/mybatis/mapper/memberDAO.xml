@@ -14,4 +14,14 @@
         from tutor_info t where u.user_id = #{user_id}
         UPDATE tutor_info SET nationality = #{nationality}, info = #{info} WHERE tutor_id =#{user_id};
     </update>
+    <select id="tutorProfile" resultType="com.multicampus.topicsation.dto.TutorMypageScheduleDTO">
+        SELECT u.user_id, u.name,ti.profileimg
+        FROM user u
+                 INNER JOIN tutor_info ti ON u.user_id = ti.tutor_id where u.user_id = #{user_id}
+    </select>
+    <select id="scheduleDTO" resultType="com.multicampus.topicsation.dto.TutorScheduleDTO">
+        select t.class_id, t.class_date, t.class_time,t.tutee_Id, t.tutor_id,u.name
+        from tutor_class t
+                inner join USER u on t.tutee_id = u.user_id where t.tutor_id =#{tutor_id}
+    </select>
 </mapper>
