@@ -90,8 +90,8 @@ public class MyPageController {
         }
 
         @PostMapping("/{user_id}/post")
-        public String myPageModify(TutorMyPageDTO tutorMyPageDTO){
-
+        public String myPageModify(@RequestBody TutorMyPageDTO tutorMyPageDTO){
+            service.modify(tutorMyPageDTO);
             return null;
         }
 
