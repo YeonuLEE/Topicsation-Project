@@ -39,13 +39,3 @@ $(document).ready(function () {
         },
     });
 });
-
-$('#information').click(function (){
-    var pathURI = window.location.pathname
-    const regex = /\/mypage\/(\d+)/;
-    const match = pathURI.match(regex);
-    const userId= match[1];
-    console.log(userId)
-    var apiUrl = "/mypage/{user_id}/get";
-    href= apiUrl;
-});
