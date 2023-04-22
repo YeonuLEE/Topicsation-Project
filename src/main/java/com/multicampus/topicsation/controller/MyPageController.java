@@ -16,16 +16,18 @@ public class MyPageController {
 
     @GetMapping("/{user_id}")
     public String myPage() {
-        return "html/dashboard/myPage-tutors_Information";
+//        return "html/dashboard/myPage-tutors_Information";
+
+        return "html/dashboard/myPage-tutees_Information";
     }
 
 
     @GetMapping("/{user_id}/schedule")
     public String schedulePage() {
 
-//        return "html/dashboard/myPage-tutees_Schedule";
+//        return "html/dashboard/myPage-tutors_Schedule";
 
-        return "html/dashboard/myPage-tutors_Schedule";
+        return "html/dashboard/myPage-tutees_Schedule";
 
     }
 
