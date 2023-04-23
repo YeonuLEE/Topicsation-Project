@@ -1,15 +1,24 @@
 package com.multicampus.topicsation.controller;
 
+import com.multicampus.topicsation.service.ILessonService;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @RequestMapping("/lesson")
 public class LessonController {
+
+    @Autowired
+    ILessonService lessonService; // injection 수정 고려해볼 것
 
     @GetMapping("/{lesson_id}")
     public String lesson() {
@@ -47,6 +56,15 @@ public class LessonController {
                 result = "dislike + 1";
                 return result;
             }
+        }
+
+        @GetMapping("/{lesson_id}/getNews")
+        public ResponseEntity<Object> getNews(@PathVariable String lesson_id) throws ParseException {
+
+            System.out.println(lesson_id);
+            JSONObject jsonObject = lessonService.getNewsService(lesson_id);
+
+            return ResponseEntity.ok(jsonObject);
         }
     }
 }
