@@ -11,10 +11,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MemberDTO {
     private String user_id;
+    private String email;
     private String name;
-    private String tutor_image;
-    private String like;
-    private String nationality;
+    private String password;
     private String interest1;
     private String interest2;
+    private String regi_date;
+    private String role;
+    private boolean email_auth;
 }
