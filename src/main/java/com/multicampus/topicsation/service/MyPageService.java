@@ -18,13 +18,18 @@ public class MyPageService implements IMyPageService{
     IMemberDAO dao;
 
     @Override
-    public TutorMyPageDTO view(String user_id) {
+    public String check_role(String user_id) {
+        return dao.checkRole(user_id);
+    }
+
+    @Override
+    public MyPageDTO view_tutor(String user_id) {
         return dao.viewTutor(user_id);
     }
 
     @Override
-    public int modify(TutorMyPageDTO tutorMyPageDTO) {
-        return dao.modifyTutor(tutorMyPageDTO);
+    public int modify_tutor(MyPageDTO MyPageDTO) {
+        return dao.modifyTutor(MyPageDTO);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.multicampus.topicsation.controller;
 
-import com.multicampus.topicsation.dto.TutorMyPageDTO;
+import com.multicampus.topicsation.dto.MyPageDTO;
 import com.multicampus.topicsation.dto.TutorMypageScheduleDTO;
 import com.multicampus.topicsation.dto.TutorScheduleDTO;
 import com.multicampus.topicsation.service.IMyPageService;
@@ -25,18 +25,26 @@ public class MyPageController {
     }
 
     @GetMapping("/{user_id}")
-    public String myPage() {
-        return "html/dashboard/myPage-tutors_Information";
+    public String myPage(@PathVariable("user_id") String userId) {
+        String role = service.check_role(userId);
+        if(role.equals("tutee")){
+            return "html/dashboard/myPage-tutees_Information";
+        }else if(role.equals("tutor")){
+            return "html/dashboard/myPage-tutors_Information";
+        }
+        return "html/dashboard/myPage-admin";
     }
 
 
     @GetMapping("/{user_id}/schedule")
-    public String schedulePage() {
-
-//        return "html/dashboard/myPage-tutees_Schedule";
-
-        return "html/dashboard/myPage-tutors_Schedule";
-
+    public String schedulePage(@PathVariable("user_id") String userId) {
+        String role = service.check_role(userId);
+        if(role.equals("tutee")) {
+            return "html/dashboard/myPage-tutees_Schedule";
+        }else if(role.equals("tutor")){
+            return "html/dashboard/myPage-tutors_Schedule";
+        }
+        return "html/dashboard/myPage-admin";
     }
 
     @GetMapping("/{user_id}/history")
@@ -76,14 +84,18 @@ public class MyPageController {
             //System.out.println(tutorId);
 
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("tutor-name",dto.getName());
-            jsonObject.put("profileImg",dto.getProfileimg());
-            jsonObject.put("name",dto.getName());
-            jsonObject.put("email",dto.getEmail());
-            jsonObject.put("nationality",dto.getNationality());
-            jsonObject.put("interest1",dto.getInterest1());
-            jsonObject.put("interest2",dto.getInterest2());
-            jsonObject.put("genderRadios",dto.getGender());
+            String role = service.check_role(userId);
+            if (role.equals("tutor")) {
+                myPageDTO = service.view_tutor(userId);
+                //System.out.println(tutorId);
+
+                jsonObject.put("profileImg", myPageDTO.getProfileimg());
+                jsonObject.put("name", myPageDTO.getName());
+                jsonObject.put("email", myPageDTO.getEmail());
+                jsonObject.put("nationality", myPageDTO.getNationality());
+                jsonObject.put("interest1", myPageDTO.getInterest1());
+                jsonObject.put("interest2", myPageDTO.getInterest2());
+                jsonObject.put("genderRadios", myPageDTO.getGender());
 
             //System.out.println(jsonObject);
             return jsonObject.toJSONString();
