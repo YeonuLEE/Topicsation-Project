@@ -1,6 +1,6 @@
 package com.multicampus.topicsation.service;
 
-import com.multicampus.topicsation.dto.TutorMyPageDTO;
+import com.multicampus.topicsation.dto.MyPageDTO;
 import com.multicampus.topicsation.dto.TutorMypageScheduleDTO;
 import com.multicampus.topicsation.dto.TutorScheduleDTO;
 import com.multicampus.topicsation.repository.IMemberDAO;
@@ -38,8 +38,18 @@ public class MyPageService implements IMyPageService{
     }
 
     @Override
-    public List<TutorScheduleDTO> schedule(String user_id) {
+    public List<TutorScheduleDTO> schedule_tutor(String user_id) {
         return dao.scheduleDTO(user_id);
+    }
+
+    @Override
+    public MyPageDTO view_tutee(String user_id) {
+        return dao.viewTutee(user_id);
+    }
+
+    @Override
+    public int modify_tutee(MyPageDTO myPageDTO) {
+        return dao.modifyTutee(myPageDTO);
     }
 
 

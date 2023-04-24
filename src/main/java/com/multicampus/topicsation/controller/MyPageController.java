@@ -79,10 +79,8 @@ public class MyPageController {
         }
 
         @GetMapping("/{user_id}/get")
-        public String myPage(@PathVariable("user_id") String tutorId) {
-            TutorMyPageDTO dto=service.view(tutorId);
-            //System.out.println(tutorId);
-
+        public String myPage(@PathVariable("user_id") String userId) {
+            MyPageDTO myPageDTO;
             JSONObject jsonObject = new JSONObject();
             String role = service.check_role(userId);
             if (role.equals("tutor")) {
@@ -97,13 +95,30 @@ public class MyPageController {
                 jsonObject.put("interest2", myPageDTO.getInterest2());
                 jsonObject.put("genderRadios", myPageDTO.getGender());
 
-            //System.out.println(jsonObject);
+            } else if(role.equals("tutee")) {
+                myPageDTO = service.view_tutee(userId);
+                System.out.println(userId);
+//                System.out.println(myPageDTO);
+                jsonObject.put("tutor-name", myPageDTO.getName());
+                jsonObject.put("name", myPageDTO.getName());
+                jsonObject.put("email", myPageDTO.getEmail());
+                jsonObject.put("interest1", myPageDTO.getInterest1());
+                jsonObject.put("interest2", myPageDTO.getInterest2());
+
+            }
+
+            System.out.println(jsonObject);
             return jsonObject.toJSONString();
         }
 
         @PostMapping("/{user_id}/post")
-        public String myPageModify(@RequestBody TutorMyPageDTO tutorMyPageDTO){
-            service.modify(tutorMyPageDTO);
+        public String myPageModify(@RequestBody MyPageDTO myPageDTO){
+            String role = myPageDTO.getRole();
+            if(role.equals("tutee")){
+                service.modify_tutee(myPageDTO);
+            }else if(role.equals("tutor")){
+                service.modify_tutor(myPageDTO);
+            }
             return null;
         }
 
@@ -150,7 +165,7 @@ public class MyPageController {
         @GetMapping("/{user_id}/schedule/getCalendar")
         public String schedulePageCalendar(@PathVariable("user_id") String tutorId) {
             TutorMypageScheduleDTO profileDto = service.tutorProfile(tutorId);
-            List<TutorScheduleDTO> scheduleDTOList = service.schedule(tutorId);
+            List<TutorScheduleDTO> scheduleDTOList = service.schedule_tutor(tutorId);
 
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("tutor_id",profileDto.getTutor_id());

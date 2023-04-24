@@ -26,6 +26,14 @@
     <select id="scheduleDTO" resultType="com.multicampus.topicsation.dto.TutorScheduleDTO">
         select t.class_id, t.class_date, t.class_time,t.tutee_Id, t.tutor_id,u.name
         from tutor_class t
-                inner join USER u on t.tutee_id = u.user_id where t.tutor_id =#{tutor_id}
+                inner join USER u on t.tutee_id = u.user_id where t.tutor_id =#{tutor_id} and t.class_date > NOW()
     </select>
+    <!-- Tutee Page-->
+    <select id="viewTutee" resultType="com.multicampus.topicsation.dto.MyPageDTO">
+        SELECT u.user_id, u.name, u.email, u.interest1, u.interest2
+        FROM user u where u.user_id = #{user_id}
+    </select>
+    <update id="modifyTutee" parameterType="com.multicampus.topicsation.dto.MyPageDTO">
+        update user u set u.name=#{name}, u.intersert1=#{intersert1}, u.intersert2=#{intersert2} where u.user_id = #{user_id}
+    </update>
 </mapper>

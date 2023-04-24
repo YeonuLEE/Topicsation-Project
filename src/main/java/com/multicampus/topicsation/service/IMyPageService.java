@@ -12,5 +12,8 @@ public interface IMyPageService {
     MyPageDTO view_tutor(String user_id);
     int modify_tutor(MyPageDTO MyPageDTO);
     TutorMypageScheduleDTO tutorProfile(String user_id);
-    List<TutorScheduleDTO> schedule(String user_id);
+    List<TutorScheduleDTO> schedule_tutor(String user_id);
+
+    MyPageDTO view_tutee(String user_id);
+    int modify_tutee(MyPageDTO myPageDTO);
 }
