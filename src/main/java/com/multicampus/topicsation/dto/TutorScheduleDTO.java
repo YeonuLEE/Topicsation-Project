@@ -14,6 +14,7 @@ public class TutorScheduleDTO {
     private String class_id;
     private String class_date;
     private String class_time;
-    private int tutee_id;
-    private int tutor_id;
+    private String tutee_id;
+    private String tutee_name;
+    private String tutor_id;
 }

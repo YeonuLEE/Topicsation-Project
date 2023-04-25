@@ -67,15 +67,15 @@
                             </div>
                             <h2 class="h5 font-weight-normal text-center mt-3 mb-0" id="tutee-name">이연우</h2>
                             <div class="list-group dashboard-menu list-group-sm mt-4">
-                                <a href="myPage-tutees_Information.html"
+                                <a href="/mypage/{user_id}" id="information"
                                    class="d-flex list-group-item list-group-item-action ">회원 정보<span
                                         class="icon icon-xs ml-auto"><span
                                         class="fas fa-chevron-right"></span></span> </a>
-                                <a href="myPage-tutees_Schedule.html"
+                                <a href="/mypage/{user_id}/schedule" id="schedule"
                                    class="d-flex list-group-item list-group-item-action active">수업 일정<span
                                         class="icon icon-xs ml-auto"><span
                                         class="fas fa-chevron-right"></span></span> </a>
-                                <a href="myPage-tutees_CourseHistory.html"
+                                <a href="/mypage/{user_id}/history" id="history"
                                    class="d-flex list-group-item list-group-item-action ">수업 히스토리<span
                                         class="icon icon-xs ml-auto"><span
                                         class="fas fa-chevron-right"></span></span> </a>
@@ -255,6 +255,7 @@
 
 <!-- Ajax get data -->
 <script src="/js/myPage-tutees_Schedule.js"></script>
+
 </body>
 
 </html>

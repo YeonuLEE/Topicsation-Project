@@ -27,15 +27,30 @@ $(document).ready(function () {
     // 시간 포맷
     var timeFormatted = pad(hours, 2) + ':' + pad(minutes, 2);
 
-    console.log(dateFormatted)
+    //console.log(dateFormatted)
 
-    var tutorId = "1234";
-    var apiUrl = "/mypage/{user_id}/schedule/getCalendar?classDate=";
+    // uri 지정
+    var pathURI = window.location.pathname
+    const regex = /\/mypage\/(\d+)\/schedule/;
+    const match = pathURI.match(regex);
+    if (match && match[1]) {
+        const userId = match[1];
+        //console.log(userId)
+        var apiUrl2 = "/mypage/{user_id}";
+        var apiUrl3 = "/mypage/{user_id}/schedule";
+        //console.log(apiUrl2);
+        //console.log(apiUrl3);
+        apiUrl2 = apiUrl2.replace("{user_id}", userId);
+        apiUrl3 = apiUrl3.replace("{user_id}", userId);
+        var apiUrl = "/mypage/{user_id}/schedule/getCalendar?classDate=";
 
-    apiUrl = apiUrl.replace("{user_id}", tutorId);
-    apiUrl = apiUrl + dateFormatted
+        apiUrl = apiUrl.replace("{user_id}", userId);
+        apiUrl = apiUrl + dateFormatted;
 
-    console.log(apiUrl);
+        //console.log(apiUrl);
+    } else {
+        console.log("매치되는 문자열이 없습니다.");
+    }
 
     <!-- ajax get Date -->
     $.ajax({
@@ -45,6 +60,9 @@ $(document).ready(function () {
         success: function (data, status) {
             var jsonObject = JSON.parse(JSON.stringify(data));
 
+            $("#information").attr("href", apiUrl2);
+            $("#schedule").attr("href", apiUrl3);
+
             //링크 이동(수업입장)
             var link = "/lesson/";
 
@@ -53,7 +71,7 @@ $(document).ready(function () {
 
             //튜터 이미지
             var imgSrc = "/assets/img/team/";
-            imgSrc += jsonObject.profile_img;
+            imgSrc += jsonObject.profileimg;
 
             var img = $("<img>", {
                 src: imgSrc,
@@ -61,6 +79,7 @@ $(document).ready(function () {
             }).addClass("card-img-top rounded-circle border-white");
             $("#tutor-img").append(img);
 
+            var count = 1;
             //예약목록 출력
             var tbody = $("#booking-list");
             for (var i = 0; i < jsonObject.schedule.length; i++) {
@@ -71,7 +90,6 @@ $(document).ready(function () {
                 var admission_link = link + jsonObject.schedule[i].class_id;
                 console.log(admission_link);
 
-                var count = 1;
                 console.log(list.tutee_id);
                 if (list.tutee_id) {
                     var tr = $("<tr>");
