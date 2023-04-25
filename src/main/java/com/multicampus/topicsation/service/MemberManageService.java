@@ -1,5 +1,6 @@
 package com.multicampus.topicsation.service;
 
+
 import com.multicampus.topicsation.dto.LoginDTO;
 import com.multicampus.topicsation.repository.ILoginDAO;
 import lombok.RequiredArgsConstructor;
@@ -23,5 +24,5 @@ public class MemberManageService implements IMemberManageService{
         result.put("email",email);
         result.put("password",password);
         return dao.login(result);
-    };
+    }
 }

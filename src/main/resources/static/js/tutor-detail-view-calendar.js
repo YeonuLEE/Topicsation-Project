@@ -1,14 +1,17 @@
 var cell_id = "";
 var tagId = "";
-
+var tutorId = "";
+var pathURI = "";
 $(document).ready(function () {
     var today = new Date();
     $(".datepicker").datepicker({
         format: "dd-mm-yyyy",
         autoclose: true,
-        startDate: "0d",
+        startDate: "+1d",
 
     });
+
+    today.setDate(today.getDate() + 1)
 
     $(".datepicker").datepicker("setDate", today);
 
@@ -31,17 +34,24 @@ $(document).ready(function () {
 
     console.log(dateFormatted)
 
-    var tutorId = "1234";
+    pathURI = window.location.pathname
+    const regex = /\/(\d+)$/;
+    const match = pathURI.match(regex);
+    const number = match[1];
+
+    tutorId = number;
+
     var apiUrl = "/main/tutors/{tutor_id}/getInfo?calendarDate=";
 
-    apiUrl = apiUrl.replace("{tutor_id}", tutorId);
-    apiUrl = apiUrl + dateFormatted
-
+    apiUrl = apiUrl.replace("{tutor_id}", number);
+    apiUrl = apiUrl + dateFormatted;
+    console.log(apiUrl)
     $.ajax({
         type: "GET",
         url: apiUrl,
         success: function (data, status) {
             var jsonObject = JSON.parse(data);
+            console.log(jsonObject);
 
             $("#tutor-name").text(jsonObject.tutor_info.name);
             $("#introduce_content").text(jsonObject.tutor_info.introduce);
@@ -49,14 +59,14 @@ $(document).ready(function () {
             $("#tutor-nation").text(jsonObject.tutor_info.nationality);
             $("#first-interest").append(jsonObject.tutor_info.interest1);
             $("#second-interest").append(jsonObject.tutor_info.interest2);
-            $("#profile-img").attr("src", jsonObject.tutor_info.picture);
+            $("#profile-img").attr("src", "/"+jsonObject.tutor_info.picture);
 
             for (var i = 0; i < jsonObject.schedule.length; i++) {
-                $("#" + jsonObject.schedule[i].class_time).addClass("select");
+                reservation(jsonObject, i);
             }
         },
         error: function (data, textStatus) {
-            alert("Error!")
+            location.href = "/error/404";
         },
         complete: function (data, textStatus) {
         },
@@ -82,7 +92,15 @@ $(document).ready(function () {
 
         console.log(dateFormatted)
 
-        $(".cell").removeClass("select");
+        apiUrl = "/main/tutors/{tutor_id}/getInfo?calendarDate=";
+
+        apiUrl = apiUrl.replace("{tutor_id}", number);
+        apiUrl = apiUrl + dateFormatted;
+
+
+        $(".cell").css("color","");
+        $(".cell").css("background-color","");
+        $(".cell").css("pointer-events","none");
 
         $.ajax({
             type: "GET",
@@ -90,16 +108,8 @@ $(document).ready(function () {
             success: function (data, status) {
                 var jsonObject = JSON.parse(data);
 
-                // $("#tutor-name").text(jsonObject.tutor_info.name);
-                // $("#introduce_content").text(jsonObject.tutor_info.introduce);
-                // $("#tutor-like").text(jsonObject.tutor_info.like);
-                // $("#tutor-nation").text(jsonObject.tutor_info.nationality);
-                // $("#first-interest").append(jsonObject.tutor_info.interest1);
-                // $("#second-interest").append(jsonObject.tutor_info.interest2);
-                // $("#profile-img").attr("src",jsonObject.tutor_info.picture);
-
                 for (var i = 0; i < jsonObject.schedule.length; i++) {
-                    $("#" + jsonObject.schedule[i].class_time).addClass("select");
+                    reservation(jsonObject, i);
                 }
             },
             error: function (data, textStatus) {
@@ -121,30 +131,35 @@ $(document).ready(function () {
     });
 
     $("#booking").click(function () {
-        $("#" + tagId).addClass("select");// 이 자리에 db로 데이터 보내는거 넣으면 됨
+        $("#" + tagId).css("color", "white");
+        $("#" + tagId).css("background-color", "gray");
+        $("#" + tagId).css("pointer-events", "none");
+        var apiUrl2 = "/main/tutors/{tutor_id}/"
+        apiUrl2 = apiUrl2.replace("{tutor_id}", number);
+        apiUrl2 = apiUrl2 + "reservate";
 
         $.ajax({
-            type: "GET",
-            url: apiUrl,
+            url: apiUrl2,
+            type: "PUT",
+            contentType: 'application/json',
+            data: JSON.stringify({
+                $tutor_id: tutorId,
+                $tutee_id: "1",
+                $class_date: dateFormatted,
+                $class_time: tagId,
+                test: "test",
+            }),
             success: function (data, status) {
-                var jsonObject = JSON.parse(data);
-
-                // $("#tutor-name").text(jsonObject.tutor_info.name);
-                // $("#introduce_content").text(jsonObject.tutor_info.introduce);
-                // $("#tutor-like").text(jsonObject.tutor_info.like);
-                // $("#tutor-nation").text(jsonObject.tutor_info.nationality);
-                // $("#first-interest").append(jsonObject.tutor_info.interest1);
-                // $("#second-interest").append(jsonObject.tutor_info.interest2);
-                // $("#profile-img").attr("src",jsonObject.tutor_info.picture);
-
-                for (var i = 0; i < jsonObject.schedule.length; i++) {
-                    $("#" + jsonObject.schedule[i].class_time).addClass("select");
-                }
+                console.log(tagId + "예약완료");
             },
             error: function (data, textStatus) {
-                alert("Error!")
+                alert("예약에 실패하였습니다. 다시 시도해 주세요");
+                $("#" + jsonObject.schedule[i].class_time).css("color", "white");
+                $("#" + jsonObject.schedule[i].class_time).css("background-color", "green");
+                $("#" + jsonObject.schedule[i].class_time).css("pointer-events", "auto");
             },
             complete: function (data, textStatus) {
+                alert(tagId+"에 예약되었습니다.");
             },
         });
     });
@@ -155,4 +170,17 @@ function pad(num, size) {
     var s = num + "";
     while (s.length < size) s = "0" + s;
     return s;
+}
+
+function reservation(jsonObject, i){
+    for (var i = 0; i < jsonObject.schedule.length; i++) {
+        if (jsonObject.schedule[i].tutee_id != "") {
+            $("#" + jsonObject.schedule[i].class_time).css("color", "white");
+            $("#" + jsonObject.schedule[i].class_time).css("background-color", "gray");
+        } else if (jsonObject.schedule[i].tutee_id == "") {
+            $("#" + jsonObject.schedule[i].class_time).css("color", "white");
+            $("#" + jsonObject.schedule[i].class_time).css("background-color", "green");
+            $("#" + jsonObject.schedule[i].class_time).css("pointer-events", "auto");
+        }
+    }
 }
