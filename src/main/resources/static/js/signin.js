@@ -3,30 +3,33 @@ $("#loginForm").submit(function (event) {
     var email = $("#email").val()
     var password = $("#password").val()
 
+    console.log(email);
+    console.log(password);
+
     $.ajax({
         type: "POST",
         url: "/members/signin.post",
         contentType: 'application/json',
         data: JSON.stringify({
-            $email: email,
-            $password: password,
-            test: "test",
+            email: email,
+            password: password
         }),
         success: function (data, status) {
-            console.log(data)
-            if (data === "loginSuccess") {
-                window.location.href = "/main"
-            } // 성공 시 main 페이지로 이동
-            if (data === "loginFail") {
-                $("#loginFail").text("로그인 정보가 틀렸습니다")
-                $("#email").val("")
-                $("#password").val("")
-            }
-
-
-        },
+                if (data) {
+                    sessionStorage.setItem("token", data);
+                    // sessionStorage.setItem("expiration", data.expiration);
+                    history.pushState(null, null, "/main");
+                    location.reload();
+                } else {
+                    $("#loginFail").text("로그인 정보가 틀렸습니다")
+                    $("#email").val("").removeClass("is-valid").addClass("is-invalid")
+                    $("#password").val("").removeClass("is-valid").addClass("is-invalid")
+                }
+            },
         error: function (data, textStatus) {
-            alert("Error!")
+            $("#loginFail").text("로그인 정보가 틀렸습니다")
+            $("#email").val("").removeClass("is-valid").addClass("is-invalid")
+            $("#password").val("").removeClass("is-valid").addClass("is-invalid")
         },
         complete: function (data, textStatus) {
         },
