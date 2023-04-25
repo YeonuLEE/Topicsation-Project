@@ -97,7 +97,7 @@ public class MyPageController {
 
             } else if(role.equals("tutee")) {
                 myPageDTO = service.view_tutee(userId);
-                System.out.println(userId);
+//                System.out.println(userId);
 //                System.out.println(myPageDTO);
                 jsonObject.put("tutor-name", myPageDTO.getName());
                 jsonObject.put("name", myPageDTO.getName());
@@ -107,18 +107,28 @@ public class MyPageController {
 
             }
 
-            System.out.println(jsonObject);
+//            System.out.println(jsonObject);
             return jsonObject.toJSONString();
         }
 
         @PostMapping("/{user_id}/post")
-        public String myPageModify(@RequestBody MyPageDTO myPageDTO){
-            String role = myPageDTO.getRole();
+        public String myPageModify(@PathVariable("user_id") String userId, @RequestBody JSONObject jsonObject){
+//            System.out.println("들어옴");
+//            System.out.println(jsonObject);
+            MyPageDTO myPageDTO = new MyPageDTO();
+            myPageDTO.setUser_id(userId);
+            myPageDTO.setName(jsonObject.get("$name").toString());
+            myPageDTO.setInterest1(jsonObject.get("$interest1").toString());
+            myPageDTO.setInterest2(jsonObject.get("$interest2").toString());
+//            System.out.println(myPageDTO);
+
+            String role = service.check_role(userId);
             if(role.equals("tutee")){
                 service.modify_tutee(myPageDTO);
             }else if(role.equals("tutor")){
                 service.modify_tutor(myPageDTO);
             }
+
             return null;
         }
 

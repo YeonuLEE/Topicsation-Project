@@ -1,3 +1,6 @@
+var name;
+var first;
+var second;
 $(document).ready(function() {
     var pathURI = window.location.pathname
     const regex = /\/mypage\/(\d+)/;
@@ -29,11 +32,47 @@ $(document).ready(function() {
             $("#email").val(jsonObject.email);
             $("#first-interest").val(jsonObject.interest1).prop("selected",true);
             $("#second-interest").val(jsonObject.interest2).prop("selected",true);
+
+            name=$("#name").val(jsonObject.name);
+            first = $("#first-interest").val(jsonObject.interest1).prop("selected",true);
+            second = $("#second-interest").val(jsonObject.interest2).prop("selected",true);
         },
         error: function (data, textStatus) {
             alert("Error!")
         },
         complete: function (data, textStatus) {
         },
+    });
+
+    $("#authenticate").click(function () {
+        name = $("#name").val();
+        first = $("#first-interest").val();
+        second = $("#second-interest").val();
+
+        var user_id = userId;
+        var postlink = "/mypage/{user_id}/post";
+        postlink = postlink.replace("{user_id}", user_id);
+        console.log("실행");
+        alert("실행");
+        $.ajax({
+            type: "POST",
+            url :  postlink,
+            contentType: 'application/json',
+            data: JSON.stringify({
+                $name : name,
+                $interest1 : first,
+                $interest2 : second
+            }),
+            success: function (data, status) {
+                $("#modal-default").modal('hide'); // 모달 창 닫기
+                console.log(data);
+                $("#cancel-reservation-message").val("");
+            },
+            error: function (data, textStatus) {
+                alert("Error!")
+            },
+            complete: function (data, textStatus) {
+            },
+        });
     });
 });

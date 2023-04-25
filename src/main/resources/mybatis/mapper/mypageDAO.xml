@@ -34,7 +34,7 @@
         FROM user u where u.user_id = #{user_id}
     </select>
     <update id="modifyTutee" parameterType="com.multicampus.topicsation.dto.MyPageDTO">
-        update user u set u.name=#{name}, u.intersert1=#{intersert1}, u.intersert2=#{intersert2} where u.user_id = #{user_id}
+        UPDATE user SET name = #{name}, interest1 = #{interest1}, interest2 = #{interest2} WHERE user_id = #{user_id}
     </update>
     <select id="tuteeProfile" resultType="com.multicampus.topicsation.dto.MypageScheduleDTO">
         SELECT u.user_id, u.name
