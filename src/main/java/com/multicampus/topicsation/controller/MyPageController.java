@@ -127,28 +127,30 @@ public class MyPageController {
         public String schedulePage() {
             JSONArray jsonArray = new JSONArray();
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("tutee_name", "Tom Softy");
-            jsonObject.put("user_id", "1234");
 
-            JSONArray schedules = new JSONArray();
 
-            JSONObject scheduleObject1 = new JSONObject();
-            scheduleObject1.put("class_date", "2023-04-16");
-            scheduleObject1.put("class_time", "10:00AM");
-            scheduleObject1.put("tutor_name", "Jonny Dep");
-            scheduleObject1.put("class_id", "202304161000");
-            schedules.add(scheduleObject1);
-
-            JSONObject scheduleObject2 = new JSONObject();
-            scheduleObject2.put("class_date", "2023-04-18");
-            scheduleObject2.put("class_time", "11:30AM");
-            scheduleObject2.put("tutor_name", "Angeli Remy");
-            scheduleObject2.put("class_id", "202304181130");
-            schedules.add(scheduleObject2);
-
-            jsonObject.put("schedules", schedules);
-            jsonArray.add(jsonObject);
-
+//            jsonObject.put("tutee_name", "Tom Softy");
+//            jsonObject.put("user_id", "1234");
+//
+//            JSONArray schedules = new JSONArray();
+//
+//            JSONObject scheduleObject1 = new JSONObject();
+//            scheduleObject1.put("class_date", "2023-04-16");
+//            scheduleObject1.put("class_time", "10:00AM");
+//            scheduleObject1.put("tutor_name", "Jonny Dep");
+//            scheduleObject1.put("class_id", "202304161000");
+//            schedules.add(scheduleObject1);
+//
+//            JSONObject scheduleObject2 = new JSONObject();
+//            scheduleObject2.put("class_date", "2023-04-18");
+//            scheduleObject2.put("class_time", "11:30AM");
+//            scheduleObject2.put("tutor_name", "Angeli Remy");
+//            scheduleObject2.put("class_id", "202304181130");
+//            schedules.add(scheduleObject2);
+//
+//            jsonObject.put("schedules", schedules);
+//            jsonArray.add(jsonObject);
+//
             String jsonString = jsonArray.toString();
             System.out.println(jsonString);
 

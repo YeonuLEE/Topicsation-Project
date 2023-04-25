@@ -12,7 +12,7 @@ $(document).ready(function() {
     apiUrl1 = apiUrl1.replace("{user_id}", userId);
     apiUrl2 = apiUrl2.replace("{user_id}", userId);
     apiUrl3 = apiUrl3.replace("{user_id}", userId);
-    apiUrl4 = apiUrl3.replace("{user_id}", userId);
+    apiUrl4 = apiUrl4.replace("{user_id}", userId);
 
     $.ajax({
         type: "GET",
