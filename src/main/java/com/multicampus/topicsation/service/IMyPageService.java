@@ -1,8 +1,8 @@
 package com.multicampus.topicsation.service;
 
 import com.multicampus.topicsation.dto.MyPageDTO;
-import com.multicampus.topicsation.dto.TutorMypageScheduleDTO;
-import com.multicampus.topicsation.dto.TutorScheduleDTO;
+import com.multicampus.topicsation.dto.MypageScheduleDTO;
+import com.multicampus.topicsation.dto.ClassDTO;
 
 import java.util.List;
 
@@ -11,9 +11,12 @@ public interface IMyPageService {
 
     MyPageDTO view_tutor(String user_id);
     int modify_tutor(MyPageDTO MyPageDTO);
-    TutorMypageScheduleDTO tutorProfile(String user_id);
-    List<TutorScheduleDTO> schedule_tutor(String user_id);
+    MypageScheduleDTO tutorProfile(String user_id);
+    List<ClassDTO> schedule_tutor(String user_id);
 
     MyPageDTO view_tutee(String user_id);
     int modify_tutee(MyPageDTO myPageDTO);
+    MypageScheduleDTO tuteeProfile(String user_id);
+    List<ClassDTO> schedule_tutee(String user_id);
+
 }

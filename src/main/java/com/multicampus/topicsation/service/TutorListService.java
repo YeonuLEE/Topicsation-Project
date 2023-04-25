@@ -1,7 +1,6 @@
 package com.multicampus.topicsation.service;
 
-import com.multicampus.topicsation.dto.MemberDTO;
-import com.multicampus.topicsation.dto.TutorScheduleDTO;
+import com.multicampus.topicsation.dto.ClassDTO;
 import com.multicampus.topicsation.dto.TutorViewDTO;
 import com.multicampus.topicsation.repository.IMemberDAO;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +23,7 @@ public class TutorListService implements ITutorListService {
     }
 
     @Override
-    public List<TutorScheduleDTO> tutorSchedule(Map <String,Object> paramMap){
+    public List<ClassDTO> tutorSchedule(Map <String,Object> paramMap){
         return memberDAO.tutorSchedule(paramMap);
     }
 

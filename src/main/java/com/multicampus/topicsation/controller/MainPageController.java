@@ -1,7 +1,7 @@
 package com.multicampus.topicsation.controller;
 
 
-import com.multicampus.topicsation.dto.TutorScheduleDTO;
+import com.multicampus.topicsation.dto.ClassDTO;
 import com.multicampus.topicsation.dto.TutorViewDTO;
 import com.multicampus.topicsation.service.ITutorListService;
 import org.json.simple.JSONArray;
@@ -102,7 +102,7 @@ public class MainPageController {
             TutorViewDTO tutorViewDTO;
             tutorViewDTO = tutorListService.tutorInfo(paramMap);
 
-            List<TutorScheduleDTO> classTimeList = new ArrayList<>();
+            List<ClassDTO> classTimeList = new ArrayList<>();
 
             if (tutorViewDTO != null) {
                 classTimeList = tutorListService.tutorSchedule(paramMap);
