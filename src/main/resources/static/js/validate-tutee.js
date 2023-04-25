@@ -100,18 +100,18 @@ $("#signInForm").submit(function () {
 });
 
 // 두번째 관심사 제거
-$("#firstInterestSelect").change(function () {
+$("#first-interest").change(function () {
     // 남은 옵션 전체 삭제
-    $("#secondInterestSelect option").remove();
+    $("#second-interest option").remove();
 
     // 전체 옵션 다시 추가
-    $("#secondInterestSelect").html(
+    $("#second-interest").html(
         "<option value='politics'>정치</option><option value='economics'>경제</option><option value='IT'>IT</option><option value='fitness'>건강</option><option value='food'>음식</option>"
     );
 
     // 첫번째 관심사에서 뽑은 옵션 제거
-    selectedOption = $("#firstInterestSelect option:selected").val();
-    $("#secondInterestSelect")
+    selectedOption = $("#first-interest option:selected").val();
+    $("#second-interest")
         .find("option")
         .each(function () {
             if (this.value == selectedOption) {
