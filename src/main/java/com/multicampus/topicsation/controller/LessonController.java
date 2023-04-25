@@ -41,30 +41,23 @@ public class LessonController {
         }
 
         @PutMapping("/{lesson_id}/evaluate.do")
-        public String evaluateTutor(@RequestBody JSONObject jsonObject) {
-            String result;
+        public int evaluateTutor(@RequestBody JSONObject jsonObject) {
+
             String evaluate = jsonObject.get("$evaluate").toString();
             String lessonId = jsonObject.get("$lesson_id").toString();
 
-            System.out.println("evaluate : " + evaluate);
-            System.out.println("lessonId : " + lessonId);
-
-            if (evaluate.equals("like")) {
-                result = "like + 1";
-                return result;
-            } else {
-                result = "dislike + 1";
-                return result;
-            }
+            return lessonService.evaluateService(evaluate, lessonId);
         }
 
         @GetMapping("/{lesson_id}/getNews")
         public ResponseEntity<Object> getNews(@PathVariable String lesson_id) throws ParseException {
 
-            System.out.println(lesson_id);
+            System.out.println("레슨 아이디 : " + lesson_id);
             JSONObject jsonObject = lessonService.getNewsService(lesson_id);
 
             return ResponseEntity.ok(jsonObject);
         }
+
+
     }
 }

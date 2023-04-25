@@ -26,4 +26,13 @@
                     #{item}
                 </foreach>
     </select>
+
+    <update id="likeDAO" parameterType="java.lang.String" >
+        UPDATE tutor_info SET `LIKE` = `LIKE` + 1 WHERE TUTOR_ID = (SELECT TUTOR_ID FROM tutor_class WHERE CLASS_ID = #{classId});
+    </update>
+
+    <insert id="dislikeDAO" parameterType="java.lang.String">
+        INSERT INTO dislike (TUTEE_ID, TUTOR_ID)
+        SELECT TUTEE_ID, TUTOR_ID FROM tutor_class WHERE CLASS_ID = #{classId}
+    </insert>
 </mapper>
