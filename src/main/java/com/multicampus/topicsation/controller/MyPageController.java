@@ -124,34 +124,32 @@ public class MyPageController {
 
 
         @GetMapping("/{user_id}/schedule/get")
-        public String schedulePage() {
+        public String schedulePage(@PathVariable("user_id") String user_id) {
+
+            MypageScheduleDTO profileDto = service.tuteeProfile(user_id);
+            List<ClassDTO> scheduleDTOList = service.schedule_tutee(user_id);
+            System.out.println(profileDto);
+            System.out.println(scheduleDTOList);
             JSONArray jsonArray = new JSONArray();
             JSONObject jsonObject = new JSONObject();
 
+            jsonObject.put("user_id",profileDto.getUser_id());
+            jsonObject.put("tutee_name",profileDto.getName());
 
-//            jsonObject.put("tutee_name", "Tom Softy");
-//            jsonObject.put("user_id", "1234");
-//
-//            JSONArray schedules = new JSONArray();
-//
-//            JSONObject scheduleObject1 = new JSONObject();
-//            scheduleObject1.put("class_date", "2023-04-16");
-//            scheduleObject1.put("class_time", "10:00AM");
-//            scheduleObject1.put("tutor_name", "Jonny Dep");
-//            scheduleObject1.put("class_id", "202304161000");
-//            schedules.add(scheduleObject1);
-//
-//            JSONObject scheduleObject2 = new JSONObject();
-//            scheduleObject2.put("class_date", "2023-04-18");
-//            scheduleObject2.put("class_time", "11:30AM");
-//            scheduleObject2.put("tutor_name", "Angeli Remy");
-//            scheduleObject2.put("class_id", "202304181130");
-//            schedules.add(scheduleObject2);
-//
-//            jsonObject.put("schedules", schedules);
-//            jsonArray.add(jsonObject);
-//
-            String jsonString = jsonArray.toString();
+
+            for(ClassDTO dto : scheduleDTOList){
+                JSONObject jsonObject2 =new JSONObject();
+                jsonObject2.put("class_id",dto.getClass_id());
+                jsonObject2.put("class_date",dto.getClass_date());
+                jsonObject2.put("class_time",dto.getClass_time());
+                jsonObject2.put("tutee_id",dto.getTutee_id());
+                jsonObject2.put("tutor_name",dto.getName());
+                jsonObject2.put("tutor_id",dto.getTutor_id());
+
+                jsonArray.add(jsonObject2);
+            }
+            jsonObject.put("schedules",jsonArray);
+            String jsonString = jsonObject.toString();
             System.out.println(jsonString);
 
             return jsonString;
