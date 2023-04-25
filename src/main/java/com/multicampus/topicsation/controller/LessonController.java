@@ -25,8 +25,10 @@ public class LessonController {
     @RequestMapping("/lesson")
     public class LessonRestController {
 
-        @GetMapping("/{lesson_id}.get")
-        public void lesson() {
+        @PostMapping("/{lesson_id}/newsView")
+        public String lesson(@RequestBody JSONObject jsonObject) {
+            String news = jsonObject.get("$testNews1").toString();
+            return news;
         }
 
         @PutMapping("/{lesson_id}/evaluate.do")

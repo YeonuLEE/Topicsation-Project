@@ -67,15 +67,15 @@
                             </div>
                             <h2 class="h5 font-weight-normal text-center mt-3 mb-0" id="tutee-name">이연우</h2>
                             <div class="list-group dashboard-menu list-group-sm mt-4">
-                                <a href="myPage-tutees_Information.html"
+                                <a href="/mypage/{user_id}" id="information"
                                    class="d-flex list-group-item list-group-item-action ">회원 정보<span
                                         class="icon icon-xs ml-auto"><span
                                         class="fas fa-chevron-right"></span></span> </a>
-                                <a href="myPage-tutees_Schedule.html"
+                                <a href="/mypage/{user_id}/schedule" id="schedule"
                                    class="d-flex list-group-item list-group-item-action active">수업 일정<span
                                         class="icon icon-xs ml-auto"><span
                                         class="fas fa-chevron-right"></span></span> </a>
-                                <a href="myPage-tutees_CourseHistory.html"
+                                <a href="/mypage/{user_id}/history" id="history"
                                    class="d-flex list-group-item list-group-item-action ">수업 히스토리<span
                                         class="icon icon-xs ml-auto"><span
                                         class="fas fa-chevron-right"></span></span> </a>
@@ -100,46 +100,46 @@
                                         </thead>
                                         <tbody id="tutee-schedule">
 
-                                                    <!--모달 시작-->
-                                                    <!-- 버튼 클릭시 모달창 -->
-                                                    <div class="modal fade" id="modal-default" tabindex="-1"
-                                                         role="dialog" aria-labelledby="modal-default"
-                                                         aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered"
-                                                             role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h6 class="modal-title">예약취소</h6>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <form>
-                                                                        <div class="mb-3">
-                                                                            <label for="cancel-reservation-massage"
-                                                                                   class="col-form-label">"예약을
-                                                                                취소하겠습니다"를 입력해주세요</label>
-                                                                            <input type="text"
-                                                                                   class="form-control"
-                                                                                   id="cancel-reservation-massage"
-                                                                                   style="border-color: rgb(141, 140, 140);"
-                                                                                   autocomplete="off"/>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="submit" id="cancel-reservation"
-                                                                            class="btn btn-sm btn-secondary">
-                                                                        예약취소
-                                                                    </button>
-                                                                    <button type="button"
-                                                                            class="btn btn-link text-danger ml-auto"
-                                                                            data-dismiss="modal">
-                                                                        닫기
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                        <!--모달 시작-->
+                                        <!-- 버튼 클릭시 모달창 -->
+                                        <div class="modal fade" id="modal-default" tabindex="-1"
+                                             role="dialog" aria-labelledby="modal-default"
+                                             aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered"
+                                                 role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h6 class="modal-title">예약취소</h6>
                                                     </div>
-                                                    <!-- Modal End-->
+                                                    <div class="modal-body">
+                                                        <form>
+                                                            <div class="mb-3">
+                                                                <label for="cancel-reservation-message"
+                                                                       class="col-form-label">"예약을
+                                                                    취소하겠습니다"를 입력해주세요</label>
+                                                                <input type="text"
+                                                                       class="form-control"
+                                                                       id="cancel-reservation-message"
+                                                                       style="border-color: rgb(141, 140, 140);"
+                                                                       autocomplete="off"/>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" id="cancel-reservation"
+                                                                class="btn btn-sm btn-secondary">
+                                                            예약취소
+                                                        </button>
+                                                        <button type="button"
+                                                                class="btn btn-link text-danger ml-auto"
+                                                                data-dismiss="modal">
+                                                            닫기
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Modal End-->
                                         </tbody>
                                     </table>
                                 </form>
@@ -254,106 +254,8 @@
 <script src="/js/spaces.js"></script>
 
 <!-- Ajax get data -->
-<script type="text/javascript" th:inline="javascript">
-    $(document).ready(function() {
+<script src="/js/myPage-tutees_Schedule.js"></script>
 
-        // 변수선언
-        var dataParse;
-        $.ajax({
-            type: "GET",
-            url: "/mypage/{tutor_id}/schedule/get",
-            dataType:"json",
-            success: function(data, status) {
-                dataParse = JSON.parse(JSON.stringify(data));
-                console.log(dataParse);
-                console.log(status);
-                var tbody = $("#tutee-schedule");
-
-                // 프로필 이름 출력
-                $("#tutee-name").text(dataParse[0].tutee_name);
-
-                // 스케줄 테이블 출력
-                for(var i = 0; i < dataParse[0].schedules.length; i++) {
-                    var tutee = dataParse[0].schedules[i];
-                    var classUrl = "/lesson/" + tutee.class_id;
-                    var tr = $("<tr>");
-                    var tno = $("<th scope=\"row\">").css("text-align", "center").text(i + 1);
-                    var classdate = $("<td>").css("text-align", "center").text(tutee.class_date +" "+tutee.class_time);
-                    var tutorname = $("<td>").css("text-align", "center").text(tutee.tutor_name);
-
-                    // 수업 입장 버튼
-                    var goToClassBtn = $("<a>", {href: classUrl, text: "수업입장", class: "btn btn-primary"});
-
-                    // 예약 취소 버튼
-                    var cancelReservationBtn = $("<button>")
-                        .addClass("btn btn-danger cancelBtn")
-                        .attr("id", "cancelReservationBtn" + i)
-                        .text("예약취소")
-                        .attr("data-toggle", "modal")
-                        .attr("data-target", "#modal-default")
-                        .on("click", function(event) {
-                            event.preventDefault();
-                        }
-                        );
-                    tr.append(tno, classdate, tutorname, goToClassBtn, cancelReservationBtn);
-                    tbody.append(tr);
-                    console.log(tutee.class_date);
-                    console.log(tutee.tutor_name);
-                    console.log($('.cancelBtn').attr("id"));
-                }
-            },
-
-            error: function (data, textStatus) {
-                alert("Error!")
-            },
-            complete: function (data, textStatus) {
-            }
-        });
-
-        var id;
-        $('button').click(function() {
-            id = $(this).attr('id');
-            alert(id);
-        });
-
-        $("#" + id).click(function(event) {
-            event.preventDefault();
-            // $("#modal-default").modal();
-
-            alert("skd");
-            // 예약을 취소하겠습니다 입력 확인
-            if ($("#cancel-reservation-massage").val() === "예약을 취소하겠습니다") {
-                var user_id = dataParse[0].user_id;
-                var class_id = dataParse[0].class_id;
-                var postLink = "mypage/{user_id}/schedule/cancel";
-                var apiUrl = postLink.replace("{user_id}", user_id);
-                alert(apiUrl);
-
-                $("#cancel-reservation").click(function(event){
-                    event.preventDefault();
-                    $.ajax({
-                        type: "PUT",
-                        url: apiUrl,
-                        contentType: "application/json",
-                        data: JSON.stringify({$class_id: class_id}),
-                        success: function(data) {
-                            console.log(data);
-                        },
-                        error: function(data){
-                            alert("Error!")
-                        },
-                        complete: function (data, textStatus) {
-                        }
-                    });
-                })
-            } else {
-                $("#cancel-reservation-massage").focus();
-                return false;
-            }
-        })
-
-    });
-</script>
 </body>
 
 </html>

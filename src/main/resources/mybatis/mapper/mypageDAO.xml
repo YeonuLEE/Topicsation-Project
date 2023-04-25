@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.multicampus.topicsation.repository.IMemberDAO">
+    <select id="checkRole" resultType="string">
+        SELECT role FROM user where user_id = #{user_id}
+    </select>
+    <!-- Tutor Page-->
+    <select id="viewTutor" resultType="com.multicampus.topicsation.dto.MyPageDTO">
+        SELECT u.user_id, u.name, u.email, u.password, u.role, ti.gender, ti.nationality, ti.info, ti.like, ti.profileimg, u.interest1, u.interest2
+        FROM user u
+                 INNER JOIN tutor_info ti ON u.user_id = ti.tutor_id where u.user_id = #{user_id}
+    </select>
+    <update id="modifyTutor" parameterType="com.multicampus.topicsation.dto.MyPageDTO">
+        update user u set u.name=#{name}, u.intersert1=#{intersert1}, u.intersert2=#{intersert2}
+        from tutor_info t where u.user_id = #{user_id}
+        UPDATE tutor_info SET nationality = #{nationality}, info = #{info} WHERE tutor_id =#{user_id};
+    </update>
+    <select id="tutorProfile" resultType="com.multicampus.topicsation.dto.TutorMypageScheduleDTO">
+        SELECT u.user_id, u.name,ti.profileimg
+        FROM user u
+                 INNER JOIN tutor_info ti ON u.user_id = ti.tutor_id where u.user_id = #{user_id}
+    </select>
+    <select id="scheduleDTO" resultType="com.multicampus.topicsation.dto.TutorScheduleDTO">
+        select t.class_id, t.class_date, t.class_time,t.tutee_Id, t.tutor_id,u.name
+        from tutor_class t
+                inner join USER u on t.tutee_id = u.user_id where t.tutor_id =#{tutor_id} and t.class_date > NOW()
+    </select>
+    <!-- Tutee Page-->
+    <select id="viewTutee" resultType="com.multicampus.topicsation.dto.MyPageDTO">
+        SELECT u.user_id, u.name, u.email, u.interest1, u.interest2
+        FROM user u where u.user_id = #{user_id}
+    </select>
+    <update id="modifyTutee" parameterType="com.multicampus.topicsation.dto.MyPageDTO">
+        update user u set u.name=#{name}, u.intersert1=#{intersert1}, u.intersert2=#{intersert2} where u.user_id = #{user_id}
+    </update>
+</mapper>

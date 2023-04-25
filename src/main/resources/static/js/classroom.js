@@ -87,7 +87,7 @@ function remaindTime() {
     $('#minutes').text(min + "분");
     $('#seconds').text(sec + "초");
 
-    if (min == 14 && sec == 30) {
+    if (min == 0 && sec == 0) {
         setTimeout(function () {
             var _width = '400';
             var _height = '300';
