@@ -1,0 +1,10 @@
+## 튜티 수업 예약
+PUT http://localhost:8081/main/tutors/6/reservate
+Content-Type: application/json
+
+{
+  "$tutor_id": "6",
+  "$tutee_id": "1",
+  "$class_date": "2023-04-21",
+  "$class_time": "0100AM"
+}
