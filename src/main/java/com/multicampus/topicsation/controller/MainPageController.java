@@ -77,7 +77,7 @@ public class MainPageController {
         }
         @GetMapping("/search-all.get")
         public String searchAll() {
-           return jsonString;
+           return "";
         }
 
         @GetMapping("/search-all/search")
