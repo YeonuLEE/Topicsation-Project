@@ -15,6 +15,7 @@ repositories {
 dependencies {
     // spring
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     compileOnly 'org.springframework.boot:spring-boot-devtools'
 
@@ -43,6 +44,9 @@ dependencies {
     //JSON
     implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
 
+    // Java Mail API
+    implementation 'javax.mail:javax.mail-api:1.6.2'
+    implementation 'com.sun.mail:javax.mail:1.6.2'
 }
 
 
