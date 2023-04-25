@@ -1,4 +1,5 @@
 package com.multicampus.topicsation.service;
 
-public class MemberManageService {
+public class MemberManageService{
+
 }
