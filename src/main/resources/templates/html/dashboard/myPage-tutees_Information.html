@@ -70,16 +70,16 @@
                                 이연우
                             </h2>
                             <div class="list-group dashboard-menu list-group-sm mt-4">
-                                <a href="myPage-tutees_Information.html"
+                                <a href="./{user_id}" id="information"
                                    class="d-flex list-group-item list-group-item-action active">회원 정보<span
                                         class="icon icon-xs ml-auto"><span class="fas fa-chevron-right"></span></span>
                                 </a>
-                                <a href="myPage-tutees_Schedule.html"
+                                <a href="./{user_id}/schedule" id="schedule"
                                    class="d-flex list-group-item list-group-item-action">수업
                                     일정<span class="icon icon-xs ml-auto"><span
                                             class="fas fa-chevron-right"></span></span>
                                 </a>
-                                <a href="myPage-tutees_CourseHistory.html"
+                                <a href="/{user_id}/history" id="history"
                                    class="d-flex list-group-item list-group-item-action">히스토리 정보<span
                                         class="icon icon-xs ml-auto"><span class="fas fa-chevron-right"></span></span>
                                 </a>
@@ -288,6 +288,7 @@
 
 <!-- Validation -->
 <script src="/js/validate-tutee.js"></script>
+<script src="/js/myPage-tutee.js"></script>
 
 <!-- Core -->
 <script src="/vendor/jquery/dist/jquery.min.js"></script>
@@ -335,28 +336,7 @@
 <script src="/js/spaces.js"></script>
 
 <!-- Ajax get data -->
-<script>
-    $(document).ready(function() {
-        $.ajax({
-            type: "GET",
-            url: "/mypage/{tutor_id}/get",
-            success: function(data, status) {
-                var jsonObject = JSON.parse(data);
 
-                $("#tutee-name").text(jsonObject.name);
-                $("#name").val(jsonObject.name);
-                $("#email").val(jsonObject.email);
-                $("#first-interest").val(jsonObject.interest1).prop("selected",true);
-                $("#second-interest").val(jsonObject.interest2).prop("selected",true);
-            },
-            error: function (data, textStatus) {
-                alert("Error!")
-            },
-            complete: function (data, textStatus) {
-            },
-        });
-    });
-</script>
 </body>
 
 </html>

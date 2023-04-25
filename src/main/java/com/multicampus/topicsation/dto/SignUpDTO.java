@@ -1,7 +1,5 @@
 package com.multicampus.topicsation.dto;
 
-// 멤버의 정보를 갖는 DTO, 튜티 테이블과의 조인은 생각해 볼 것
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,14 +7,18 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberDTO {
+public class SignUpDTO {
+
     private String user_id;
     private String email;
     private String name;
     private String password;
+    private String tutor_image;
+    private String like;
+    private String nationality;
     private String interest1;
     private String interest2;
     private String regi_date;
-    private String role;
+    private MemberRole role;
     private boolean email_auth;
 }
