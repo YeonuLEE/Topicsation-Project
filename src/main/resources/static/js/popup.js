@@ -1,4 +1,11 @@
 $(document).ready(function () {
+
+    window.onload = function () {
+        setTimeout(function () {
+            window.opener.location.href = "http://localhost:8081/main";
+        }, 1000);
+    };
+
     $('#like-btn').click(function () {
         var pathURI = window.location.pathname
         const regex = /\/(\d+)\//;

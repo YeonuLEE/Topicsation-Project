@@ -100,46 +100,46 @@
                                         </thead>
                                         <tbody id="tutee-schedule">
 
-                                                    <!--모달 시작-->
-                                                    <!-- 버튼 클릭시 모달창 -->
-                                                    <div class="modal fade" id="modal-default" tabindex="-1"
-                                                         role="dialog" aria-labelledby="modal-default"
-                                                         aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered"
-                                                             role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h6 class="modal-title">예약취소</h6>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <form>
-                                                                        <div class="mb-3">
-                                                                            <label for="cancel-reservation-massage"
-                                                                                   class="col-form-label">"예약을
-                                                                                취소하겠습니다"를 입력해주세요</label>
-                                                                            <input type="text"
-                                                                                   class="form-control"
-                                                                                   id="cancel-reservation-massage"
-                                                                                   style="border-color: rgb(141, 140, 140);"
-                                                                                   autocomplete="off"/>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="submit" id="cancel-reservation"
-                                                                            class="btn btn-sm btn-secondary">
-                                                                        예약취소
-                                                                    </button>
-                                                                    <button type="button"
-                                                                            class="btn btn-link text-danger ml-auto"
-                                                                            data-dismiss="modal">
-                                                                        닫기
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                        <!--모달 시작-->
+                                        <!-- 버튼 클릭시 모달창 -->
+                                        <div class="modal fade" id="modal-default" tabindex="-1"
+                                             role="dialog" aria-labelledby="modal-default"
+                                             aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered"
+                                                 role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h6 class="modal-title">예약취소</h6>
                                                     </div>
-                                                    <!-- Modal End-->
+                                                    <div class="modal-body">
+                                                        <form>
+                                                            <div class="mb-3">
+                                                                <label for="cancel-reservation-message"
+                                                                       class="col-form-label">"예약을
+                                                                    취소하겠습니다"를 입력해주세요</label>
+                                                                <input type="text"
+                                                                       class="form-control"
+                                                                       id="cancel-reservation-message"
+                                                                       style="border-color: rgb(141, 140, 140);"
+                                                                       autocomplete="off"/>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" id="cancel-reservation"
+                                                                class="btn btn-sm btn-secondary">
+                                                            예약취소
+                                                        </button>
+                                                        <button type="button"
+                                                                class="btn btn-link text-danger ml-auto"
+                                                                data-dismiss="modal">
+                                                            닫기
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Modal End-->
                                         </tbody>
                                     </table>
                                 </form>
@@ -254,7 +254,8 @@
 <script src="/js/spaces.js"></script>
 
 <!-- Ajax get data -->
-<script src="/js/myPage-tutee_schedule.js" type="text/javascript" th:inline="javascript"></script>
+<script src="/js/myPage-tutees_Schedule.js"></script>
+
 </body>
 
 </html>
