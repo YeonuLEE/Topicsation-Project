@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.multicampus.topicsation.repository.ILessonDAO">
+
+    <!--뉴스 불러오기-->
+    <select id="getInterestsDAO" resultType="java.lang.String">
+        SELECT interest1 AS interests FROM user
+        WHERE user_id IN
+              (SELECT tutor_id AS user_id FROM tutor_class WHERE class_id = #{classID}
+               UNION ALL
+               SELECT tutee_id AS user_id FROM tutor_class WHERE class_id = #{classID})
+        UNION ALL
+        SELECT interest2 FROM user
+        WHERE user_id IN
+              (SELECT tutor_id AS user_id FROM tutor_class WHERE class_id = #{classID}
+               UNION ALL
+               SELECT tutee_id AS user_id FROM tutor_class WHERE class_id = #{classID})
+    </select>
+
+    <select id="getNewsDAO" parameterType="java.util.Set" resultType="com.multicampus.topicsation.dto.NewsDTO">
+        SELECT category, newsjson FROM news_suggestion
+            WHERE category IN
+                <foreach item="item" collection="interestsSet" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+    </select>
+</mapper>
