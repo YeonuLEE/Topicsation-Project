@@ -71,140 +71,140 @@ public class MainPageController {
             return jsonString;
         }
 
-        @GetMapping("/search-all.get")
-        public String searchAll() {
-            MemberDTO memberDTO1 = new MemberDTO(
-                    "1001", "Yeonu Lee", "1001.jpg",
-                    "320", "North America",
-                    "IT", "politics"
-            );
-            MemberDTO memberDTO2 = new MemberDTO(
-                    "1004", "Ahyeon Lee", "1004.jpg",
-                    "300", "Europe",
-                    "fitness", "food"
-            );
-            MemberDTO memberDTO3 = new MemberDTO(
-                    "1002", "Myeong Jin", "1002.jpg",
-                    "233", "Europe",
-                    "economics", "politics"
-            );
-            MemberDTO memberDTO4 = new MemberDTO(
-                    "1010", "Dongyoung Son", "unknown.png",
-                    "222", "South America",
-                    "economics", "IT"
-            );
-            MemberDTO memberDTO5 = new MemberDTO(
-                    "1011", "Dong-Ha Lee", "unknown.png",
-                    "220", "Asia",
-                    "economics", "food"
-            );
-            MemberDTO memberDTO6 = new MemberDTO(
-                    "1050", "Sumin Jeon", "1050.jpg",
-                    "111", "Asia",
-                    "fitness", "IT"
-            );
+//        @GetMapping("/search-all.get")
+//        public String searchAll() {
+//            MemberDTO memberDTO1 = new MemberDTO(
+//                    "1001", "Yeonu Lee", "1001.jpg",
+//                    "320", "North America",
+//                    "IT", "politics"
+//            );
+//            MemberDTO memberDTO2 = new MemberDTO(
+//                    "1004", "Ahyeon Lee", "1004.jpg",
+//                    "300", "Europe",
+//                    "fitness", "food"
+//            );
+//            MemberDTO memberDTO3 = new MemberDTO(
+//                    "1002", "Myeong Jin", "1002.jpg",
+//                    "233", "Europe",
+//                    "economics", "politics"
+//            );
+//            MemberDTO memberDTO4 = new MemberDTO(
+//                    "1010", "Dongyoung Son", "unknown.png",
+//                    "222", "South America",
+//                    "economics", "IT"
+//            );
+//            MemberDTO memberDTO5 = new MemberDTO(
+//                    "1011", "Dong-Ha Lee", "unknown.png",
+//                    "220", "Asia",
+//                    "economics", "food"
+//            );
+//            MemberDTO memberDTO6 = new MemberDTO(
+//                    "1050", "Sumin Jeon", "1050.jpg",
+//                    "111", "Asia",
+//                    "fitness", "IT"
+//            );
 
-            List<MemberDTO> tutorList = new ArrayList<MemberDTO>();
+//            List<MemberDTO> tutorList = new ArrayList<MemberDTO>();
+//
+//            tutorList.add(memberDTO1);
+//            tutorList.add(memberDTO2);
+//            tutorList.add(memberDTO3);
+//            tutorList.add(memberDTO4);
+//            tutorList.add(memberDTO5);
+//            tutorList.add(memberDTO6);
+//
+//            JSONArray jsonArray = new JSONArray();
+//            for (MemberDTO tutor : tutorList) {
+//                JSONObject jsonObject = new JSONObject();
+//                jsonObject.put("user_id", tutor.getUser_id());
+//                jsonObject.put("name", tutor.getName());
+//                jsonObject.put("tutor_image", tutor.getTutor_image());
+//                jsonObject.put("like", tutor.getLike());
+//                jsonObject.put("nationality", tutor.getNationality());
+//                jsonObject.put("interest1", tutor.getInterest1());
+//                jsonObject.put("interest2", tutor.getInterest2());
+//                jsonArray.add(jsonObject);
+//            }
+//            JSONObject jsonObject2 = new JSONObject();
+//            jsonObject2.put("tutor_list", jsonArray);
+//
+//
+//            String jsonString = jsonObject2.toJSONString();
+//            System.out.println(jsonString);
+//            return jsonString;
+//        }
 
-            tutorList.add(memberDTO1);
-            tutorList.add(memberDTO2);
-            tutorList.add(memberDTO3);
-            tutorList.add(memberDTO4);
-            tutorList.add(memberDTO5);
-            tutorList.add(memberDTO6);
-
-            JSONArray jsonArray = new JSONArray();
-            for (MemberDTO tutor : tutorList) {
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("user_id", tutor.getUser_id());
-                jsonObject.put("name", tutor.getName());
-                jsonObject.put("tutor_image", tutor.getTutor_image());
-                jsonObject.put("like", tutor.getLike());
-                jsonObject.put("nationality", tutor.getNationality());
-                jsonObject.put("interest1", tutor.getInterest1());
-                jsonObject.put("interest2", tutor.getInterest2());
-                jsonArray.add(jsonObject);
-            }
-            JSONObject jsonObject2 = new JSONObject();
-            jsonObject2.put("tutor_list", jsonArray);
-
-
-            String jsonString = jsonObject2.toJSONString();
-            System.out.println(jsonString);
-            return jsonString;
-        }
-
-        @GetMapping("/search-all/search")
-        public String search(@RequestParam String name,
-                             @RequestParam String interest,
-                             @RequestParam String date) {
-
-            System.out.println("name : " + name);
-            System.out.println("interest : " + interest);
-            System.out.println("date : " + date);
-            MemberDTO memberDTO1 = new MemberDTO(
-                    "1001", "Yeonu Lee", "1001.jpg",
-                    "320", "North America",
-                    "IT", "politics"
-            );
-            MemberDTO memberDTO2 = new MemberDTO(
-                    "1004", "Ahyeon Lee", "1004.jpg",
-                    "300", "Europe",
-                    "fitness", "food"
-            );
-            MemberDTO memberDTO3 = new MemberDTO(
-                    "1002", "Myeong Jin", "1002.jpg",
-                    "233", "Europe",
-                    "economics", "politics"
-            );
-            MemberDTO memberDTO4 = new MemberDTO(
-                    "1010", "Dongyoung Son", "unknown.png",
-                    "222", "South America",
-                    "economics", "IT"
-            );
-            MemberDTO memberDTO5 = new MemberDTO(
-                    "1011", "Dong-Ha Lee", "unknown.png",
-                    "220", "Asia",
-                    "economics", "food"
-            );
-            MemberDTO memberDTO6 = new MemberDTO(
-                    "1050", "Sumin Jeon", "1050.jpg",
-                    "111", "Asia",
-                    "fitness", "IT"
-            );
-
-
-            List<MemberDTO> tutorList = new ArrayList<MemberDTO>();
-
-            tutorList.add(memberDTO1);
-            tutorList.add(memberDTO2);
-            tutorList.add(memberDTO3);
-            tutorList.add(memberDTO4);
-            tutorList.add(memberDTO5);
-            tutorList.add(memberDTO6);
-
-            JSONArray jsonArray = new JSONArray();
-            for (MemberDTO tutor : tutorList) {
-                JSONObject jsonObject = new JSONObject();
-                if (tutor.getInterest1().equals(interest) || tutor.getInterest2().equals(interest)) {
-                    jsonObject.put("user_id", tutor.getUser_id());
-                    jsonObject.put("name", tutor.getName());
-                    jsonObject.put("tutor_image", tutor.getTutor_image());
-                    jsonObject.put("like", tutor.getLike());
-                    jsonObject.put("nationality", tutor.getNationality());
-                    jsonObject.put("interest1", tutor.getInterest1());
-                    jsonObject.put("interest2", tutor.getInterest2());
-                    jsonArray.add(jsonObject);
-                }
-            }
-            JSONObject jsonObject2 = new JSONObject();
-            jsonObject2.put("tutor_list", jsonArray);
+//        @GetMapping("/search-all/search")
+//        public String search(@RequestParam String name,
+//                             @RequestParam String interest,
+//                             @RequestParam String date) {
+//
+//            System.out.println("name : " + name);
+//            System.out.println("interest : " + interest);
+//            System.out.println("date : " + date);
+//            MemberDTO memberDTO1 = new MemberDTO(
+//                    "1001", "Yeonu Lee", "1001.jpg",
+//                    "320", "North America",
+//                    "IT", "politics"
+//            );
+//            MemberDTO memberDTO2 = new MemberDTO(
+//                    "1004", "Ahyeon Lee", "1004.jpg",
+//                    "300", "Europe",
+//                    "fitness", "food"
+//            );
+//            MemberDTO memberDTO3 = new MemberDTO(
+//                    "1002", "Myeong Jin", "1002.jpg",
+//                    "233", "Europe",
+//                    "economics", "politics"
+//            );
+//            MemberDTO memberDTO4 = new MemberDTO(
+//                    "1010", "Dongyoung Son", "unknown.png",
+//                    "222", "South America",
+//                    "economics", "IT"
+//            );
+//            MemberDTO memberDTO5 = new MemberDTO(
+//                    "1011", "Dong-Ha Lee", "unknown.png",
+//                    "220", "Asia",
+//                    "economics", "food"
+//            );
+//            MemberDTO memberDTO6 = new MemberDTO(
+//                    "1050", "Sumin Jeon", "1050.jpg",
+//                    "111", "Asia",
+//                    "fitness", "IT"
+//            );
 
 
-            String jsonString = jsonObject2.toJSONString();
-            System.out.println(jsonString);
-            return jsonString;
-        }
+//            List<MemberDTO> tutorList = new ArrayList<MemberDTO>();
+//
+//            tutorList.add(memberDTO1);
+//            tutorList.add(memberDTO2);
+//            tutorList.add(memberDTO3);
+//            tutorList.add(memberDTO4);
+//            tutorList.add(memberDTO5);
+//            tutorList.add(memberDTO6);
+//
+//            JSONArray jsonArray = new JSONArray();
+//            for (MemberDTO tutor : tutorList) {
+//                JSONObject jsonObject = new JSONObject();
+//                if (tutor.getInterest1().equals(interest) || tutor.getInterest2().equals(interest)) {
+//                    jsonObject.put("user_id", tutor.getUser_id());
+//                    jsonObject.put("name", tutor.getName());
+//                    jsonObject.put("tutor_image", tutor.getTutor_image());
+//                    jsonObject.put("like", tutor.getLike());
+//                    jsonObject.put("nationality", tutor.getNationality());
+//                    jsonObject.put("interest1", tutor.getInterest1());
+//                    jsonObject.put("interest2", tutor.getInterest2());
+//                    jsonArray.add(jsonObject);
+//                }
+//            }
+//            JSONObject jsonObject2 = new JSONObject();
+//            jsonObject2.put("tutor_list", jsonArray);
+//
+//
+//            String jsonString = jsonObject2.toJSONString();
+//            System.out.println(jsonString);
+//            return jsonString;
+//        }
 
 
         @GetMapping("/tutors/{tutor_id}/getInfo")
