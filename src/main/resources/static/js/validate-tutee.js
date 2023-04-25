@@ -1,7 +1,7 @@
 // 정규식 선언
 let regName = RegExp(/^[A-Za-z가-힣 ]+$/);
 let regEmail = RegExp(/^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/);
-let regPwd = RegExp(/^[a-zA-Z0-9]{6,12}$/);
+let regPwd = RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/);
 
 // 변수 선언
 var emailCheck = true;

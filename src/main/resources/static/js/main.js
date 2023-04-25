@@ -1,4 +1,15 @@
 $(document).ready(function () {
+
+    var token = sessionStorage.getItem('token');
+    if (token != null) {
+        $.ajaxSetup({
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+            }
+        });
+        $('#sign-btn').text('SIGN OUT');
+    }
+
     var pathURI = window.location.pathname
     var ajaxURI;
 
