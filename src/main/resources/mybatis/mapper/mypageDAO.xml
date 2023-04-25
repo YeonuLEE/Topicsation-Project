@@ -45,4 +45,9 @@
         from tutor_class t
                  inner join USER u on t.tutor_id = u.user_id where t.tutee_Id =#{tutee_id} and t.class_date > NOW() order by t.class_date,t.class_time
     </select>
+    <select id="historyTuteeDTO" resultType="com.multicampus.topicsation.dto.ClassDTO">
+    select t.class_id, t.class_date, t.class_time, u.name
+    from tutor_class t
+             inner join USER u on t.tutor_id = u.user_id where t.tutee_Id =#{tutee_id} and  NOW() > t.class_date order by t.class_date asc ,t.class_time asc
+    </select>
 </mapper>

@@ -128,8 +128,7 @@ public class MyPageController {
 
             MypageScheduleDTO profileDto = service.tuteeProfile(user_id);
             List<ClassDTO> scheduleDTOList = service.schedule_tutee(user_id);
-            System.out.println(profileDto);
-            System.out.println(scheduleDTOList);
+
             JSONArray jsonArray = new JSONArray();
             JSONObject jsonObject = new JSONObject();
 
@@ -199,26 +198,27 @@ public class MyPageController {
         }
 
         @GetMapping("/{user_id}/history/get")
-        public String historyPage() {
-            JSONObject jsonObject = new JSONObject();
+        public String historyPage(@PathVariable("user_id") String user_id) {
+            MypageScheduleDTO profileDto = service.tuteeProfile(user_id);
+            List<ClassDTO> scheduleDTOList = service.history_tutee(user_id);
+
             JSONArray jsonArray = new JSONArray();
-            JSONObject obj1 = new JSONObject();
-            obj1.put("class_date", "2023-04-16 10:00AM");
-            obj1.put("tutor_name", "Jonny Dep");
-            obj1.put("memo", "20200416.txt");
-            jsonArray.add(obj1);
+            JSONObject jsonObject = new JSONObject();
 
-            JSONObject obj2 = new JSONObject();
-            obj2.put("class_date", "2023-04-18 11:30AM");
-            obj2.put("tutor_name", "Angeli Remy");
-            obj2.put("memo", "20200418.txt");
-            jsonArray.add(obj2);
+            jsonObject.put("name",profileDto.getName());
 
-            jsonObject.put("name", "김명진");
-            jsonObject.put("user_id", "3125");
-            jsonObject.put("history", jsonArray);
 
+            for(ClassDTO dto : scheduleDTOList){
+                JSONObject jsonObject2 =new JSONObject();
+                jsonObject2.put("class_date",dto.getClass_date());
+                jsonObject2.put("class_time",dto.getClass_time());
+                jsonObject2.put("tutor_name",dto.getName());
+
+                jsonArray.add(jsonObject2);
+            }
+            jsonObject.put("history",jsonArray);
             String jsonString = jsonObject.toString();
+//            System.out.println(jsonString);
 
             return jsonString;
         }

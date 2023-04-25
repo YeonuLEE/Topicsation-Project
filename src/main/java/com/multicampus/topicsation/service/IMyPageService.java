@@ -18,5 +18,6 @@ public interface IMyPageService {
     int modify_tutee(MyPageDTO myPageDTO);
     MypageScheduleDTO tuteeProfile(String user_id);
     List<ClassDTO> schedule_tutee(String user_id);
+    List<ClassDTO> history_tutee(String user_id);
 
 }

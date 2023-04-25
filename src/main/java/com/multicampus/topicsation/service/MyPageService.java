@@ -60,5 +60,10 @@ public class MyPageService implements IMyPageService{
         return dao.scheduleTuteeDTO(user_id);
     }
 
+    @Override
+    public List<ClassDTO> history_tutee(String user_id) {
+        return dao.historyTuteeDTO(user_id);
+    }
+
 
 }
