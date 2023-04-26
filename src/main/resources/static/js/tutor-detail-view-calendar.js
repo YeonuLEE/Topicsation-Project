@@ -174,10 +174,10 @@ function pad(num, size) {
 
 function reservation(jsonObject, i){
     for (var i = 0; i < jsonObject.schedule.length; i++) {
-        if (jsonObject.schedule[i].tutee_id != "") {
+        if (jsonObject.schedule[i].tutee_id != null) {
             $("#" + jsonObject.schedule[i].class_time).css("color", "white");
             $("#" + jsonObject.schedule[i].class_time).css("background-color", "gray");
-        } else if (jsonObject.schedule[i].tutee_id == "") {
+        } else if (jsonObject.schedule[i].tutee_id == null) {
             $("#" + jsonObject.schedule[i].class_time).css("color", "white");
             $("#" + jsonObject.schedule[i].class_time).css("background-color", "green");
             $("#" + jsonObject.schedule[i].class_time).css("pointer-events", "auto");
