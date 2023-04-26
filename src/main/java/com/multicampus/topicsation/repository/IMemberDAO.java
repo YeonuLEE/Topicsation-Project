@@ -15,6 +15,7 @@ public interface IMemberDAO {
 
     MyPageDTO viewTutor(String user_id);
     int modifyTutor(MyPageDTO myPageDTO);
+    int modifyTutor2(MyPageDTO myPageDTO);
     MypageScheduleDTO tutorProfile(String user_id);
     List<ClassDTO> scheduleDTO(String tutor_id);
 

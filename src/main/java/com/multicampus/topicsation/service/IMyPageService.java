@@ -10,7 +10,7 @@ public interface IMyPageService {
     String check_role(String user_id);
 
     MyPageDTO view_tutor(String user_id);
-    int modify_tutor(MyPageDTO MyPageDTO);
+    int modify_tutor(MyPageDTO myPageDTO);
     MypageScheduleDTO tutorProfile(String user_id);
     List<ClassDTO> schedule_tutor(String user_id);
 

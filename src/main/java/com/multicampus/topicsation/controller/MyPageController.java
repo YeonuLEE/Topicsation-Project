@@ -94,6 +94,7 @@ public class MyPageController {
                 jsonObject.put("interest1", myPageDTO.getInterest1());
                 jsonObject.put("interest2", myPageDTO.getInterest2());
                 jsonObject.put("genderRadios", myPageDTO.getGender());
+                jsonObject.put("password",myPageDTO.getPassword());
 
             } else if(role.equals("tutee")) {
                 myPageDTO = service.view_tutee(userId);
@@ -117,16 +118,26 @@ public class MyPageController {
 //            System.out.println("들어옴");
 //            System.out.println(jsonObject);
             MyPageDTO myPageDTO = new MyPageDTO();
-            myPageDTO.setUser_id(userId);
-            myPageDTO.setName(jsonObject.get("$name").toString());
-            myPageDTO.setInterest1(jsonObject.get("$interest1").toString());
-            myPageDTO.setInterest2(jsonObject.get("$interest2").toString());
-//            System.out.println(myPageDTO);
 
             String role = service.check_role(userId);
+            System.out.println(role);
             if(role.equals("tutee")){
+                myPageDTO.setUser_id(userId);
+                myPageDTO.setName(jsonObject.get("$name").toString());
+                myPageDTO.setInterest1(jsonObject.get("$interest1").toString());
+                myPageDTO.setInterest2(jsonObject.get("$interest2").toString());
+                System.out.println(myPageDTO);
+
                 service.modify_tutee(myPageDTO);
             }else if(role.equals("tutor")){
+                myPageDTO.setUser_id(userId);
+                myPageDTO.setName(jsonObject.get("$name").toString());
+                myPageDTO.setProfileimg(jsonObject.get("$profileImg").toString());
+                myPageDTO.setNationality(jsonObject.get("$nationality").toString());
+                myPageDTO.setInterest1(jsonObject.get("$interest1").toString());
+                myPageDTO.setInterest2(jsonObject.get("$interest2").toString());
+                System.out.println(myPageDTO);
+
                 service.modify_tutor(myPageDTO);
             }
 

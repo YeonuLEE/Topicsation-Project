@@ -28,8 +28,11 @@ public class MyPageService implements IMyPageService{
     }
 
     @Override
-    public int modify_tutor(MyPageDTO MyPageDTO) {
-        return dao.modifyTutor(MyPageDTO);
+    public int modify_tutor(MyPageDTO myPageDTO) {
+        System.out.println(myPageDTO);
+        dao.modifyTutor(myPageDTO);
+        dao.modifyTutor2(myPageDTO);
+        return 0;
     }
 
     @Override

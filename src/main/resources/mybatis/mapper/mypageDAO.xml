@@ -4,6 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.multicampus.topicsation.repository.IMemberDAO">
+    <!-- 직종 검색 -->
     <select id="checkRole" resultType="string">
         SELECT role FROM user where user_id = #{user_id}
     </select>
@@ -14,9 +15,10 @@
                  INNER JOIN tutor_info ti ON u.user_id = ti.tutor_id where u.user_id = #{user_id}
     </select>
     <update id="modifyTutor" parameterType="com.multicampus.topicsation.dto.MyPageDTO">
-        update user u set u.name=#{name}, u.intersert1=#{intersert1}, u.intersert2=#{intersert2}
-        from tutor_info t where u.user_id = #{user_id}
-        UPDATE tutor_info SET nationality = #{nationality}, info = #{info} WHERE tutor_id =#{user_id};
+        update user  set name=#{name}, interest1=#{interest1}, interest2=#{interest2} where user_id = #{user_id}
+    </update>
+    <update id="modifyTutor2" parameterType="com.multicampus.topicsation.dto.MyPageDTO">
+        UPDATE tutor_info SET nationality = #{nationality} WHERE tutor_id =#{user_id}
     </update>
     <select id="tutorProfile" resultType="com.multicampus.topicsation.dto.MypageScheduleDTO">
         SELECT u.user_id, u.name,ti.profileimg
@@ -28,6 +30,7 @@
         from tutor_class t
                 inner join USER u on t.tutee_id = u.user_id where t.tutor_id =#{tutor_id} and t.class_date > NOW() order by t.class_date,t.class_time
     </select>
+
     <!-- Tutee Page-->
     <select id="viewTutee" resultType="com.multicampus.topicsation.dto.MyPageDTO">
         SELECT u.user_id, u.name, u.email, u.interest1, u.interest2, u.password
@@ -45,6 +48,8 @@
     <update id="chageClass" parameterType="com.multicampus.topicsation.dto.ClassDTO">
         UPDATE tutor_class SET tutee_id = null where tutee_id = #{tutee_id}
     </update>
+
+    <!-- Schedule -->
     <select id="tuteeProfile" resultType="com.multicampus.topicsation.dto.MypageScheduleDTO">
         SELECT u.user_id, u.name
         FROM user u where u.user_id = #{user_id}
