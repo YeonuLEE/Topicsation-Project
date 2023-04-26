@@ -102,17 +102,10 @@ public class MainPageController {
             tutorViewDTO = tutorListService.tutorInfo(paramMap, tutorViewDTO);
             // Service에 paramMap과 DTO를 보내서 불러온 DTO 반환
 
-//            System.out.println(tutorViewDTO.getName());
-//            System.out.println(tutorViewDTO.getNationality());
-//            System.out.println(tutorViewDTO.getInfo());
-//            System.out.println(tutorViewDTO.getLike());
-//            System.out.println(tutorViewDTO.getProfileimg());
-//            System.out.println(tutorViewDTO.getInterest1());
-//            System.out.println(tutorViewDTO.getInterest2());
-//            System.out.println();
 
             JSONObject jsonObject_info = new JSONObject(); //JSON의 info부분
             JSONArray jsonArray_schedule = new JSONArray(); //JSON의 schedule부분 (schedule이 List이기 때문에 Array로 선언
+            JSONArray jsonArray_Review = new JSONArray();
 
             jsonObject_info.put("user_id",tutorId);
             jsonObject_info.put("name", tutorViewDTO.getName());
@@ -133,12 +126,22 @@ public class MainPageController {
                 jsonObject_schedule.put("tutor_id", tutorViewDTO.getClassTimeList().get(i).getTutor_id());
                 jsonArray_schedule.add(jsonObject_schedule);
             }
+
+
+            for(int i = 0; i<tutorViewDTO.getTutorReviewList().size(); i++){
+                JSONObject jsonObject_Review = new JSONObject();
+                jsonObject_Review.put("tutee_name", tutorViewDTO.getTutorReviewList().get(i).getName());
+                jsonObject_Review.put("review_date", tutorViewDTO.getTutorReviewList().get(i).getReviewDate());
+                jsonObject_Review.put("review_content", tutorViewDTO.getTutorReviewList().get(i).getReviewContent());
+                jsonArray_Review.add(jsonObject_Review);
+            }
             //List의 처음부터 끝까지 순회하여 각각의 jsonObject를 생성해서 jsonArray에 add
 
             JSONObject jsonObject = new JSONObject(); //jsonInfo와 jsonSchedule을 담아줄 json생성
 
             jsonObject.put("tutor_info", jsonObject_info);
             jsonObject.put("schedule", jsonArray_schedule);
+            jsonObject.put("review",jsonArray_Review);
 
             String jsonString = jsonObject.toJSONString(); //response로 보내기 위해 String화
             System.out.println(jsonString);

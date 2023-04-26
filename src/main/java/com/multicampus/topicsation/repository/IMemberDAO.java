@@ -1,11 +1,7 @@
 package com.multicampus.topicsation.repository;
 
-import com.multicampus.topicsation.dto.MyPageDTO;
-import com.multicampus.topicsation.dto.TutorMypageScheduleDTO;
+import com.multicampus.topicsation.dto.*;
 import com.multicampus.topicsation.dto.TutorScheduleDTO;
-import com.multicampus.topicsation.dto.MemberDTO;
-import com.multicampus.topicsation.dto.TutorScheduleDTO;
-import com.multicampus.topicsation.dto.TutorViewDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -25,6 +21,7 @@ public interface IMemberDAO {
     
     TutorViewDTO tutorInfo(Map <String,Object> paramMap);
     List<TutorScheduleDTO> tutorSchedule(Map <String,Object> paramMap);
+    List<TutorReviewDTO> tutorReview(String tutorId);
     int classReservate(Map <String,Object> paramMap);
 
 }

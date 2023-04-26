@@ -22,6 +22,7 @@ public class TutorListService implements ITutorListService {
     public TutorViewDTO tutorInfo(Map<String, Object> paramMap, TutorViewDTO tutorViewDTO){
         tutorViewDTO = memberDAO.tutorInfo(paramMap);
         tutorViewDTO.setClassTimeList(memberDAO.tutorSchedule(paramMap));
+        tutorViewDTO.setTutorReviewList(memberDAO.tutorReview(paramMap.get("tutorId").toString()));
 
         return tutorViewDTO;
     }

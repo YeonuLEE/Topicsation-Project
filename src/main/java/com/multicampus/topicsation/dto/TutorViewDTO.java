@@ -19,5 +19,5 @@ public class TutorViewDTO {
     private String interest1;
     private String interest2;
     private List<TutorScheduleDTO> classTimeList;
-
+    private List<TutorReviewDTO> tutorReviewList;
 }

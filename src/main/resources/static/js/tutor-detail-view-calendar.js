@@ -52,6 +52,7 @@ $(document).ready(function () {
         success: function (data, status) {
             var jsonObject = JSON.parse(data);
             console.log(jsonObject);
+            var dataBody = $("#reviewCard");
 
             $("#tutor-name").text(jsonObject.tutor_info.name);
             $("#introduce_content").text(jsonObject.tutor_info.introduce);
@@ -60,6 +61,37 @@ $(document).ready(function () {
             $("#first-interest").append(jsonObject.tutor_info.interest1);
             $("#second-interest").append(jsonObject.tutor_info.interest2);
             $("#profile-img").attr("src", "/"+jsonObject.tutor_info.picture);
+
+            for(var i = 0; i < jsonObject.review.length; i++){
+                var reviewer = jsonObject.review[i];
+
+                var div1 = $("<div>", {
+                    class: "card bg-white border-light p-4 mb-4 col-8 col-lg-8",
+                    style: "box-shadow: none"
+                });
+                var div2 = $("<div>", {class: "d-flex justify-content-between align-items-center mb-2"});
+                var span1 = $("<span>",{class: "font-small"});
+                var span2 = $("<span>",{
+                    class: "font-weight-bold",
+                    text: reviewer.tutee_name
+                }); //name
+                var span3 = $("<span>",{
+                    class: "ml-2",
+                    text: reviewer.review_date
+                }); //date
+                var p = $("<p>", {
+                    class: "m-0",
+                    text: reviewer.review_content
+                }); //reviewContent
+
+                dataBody.append(div1);
+                div1.append(div2);
+                div2.append(span1);
+                span1.append(span2);
+                span1.append(span3);
+                div1.append(p);
+            }
+
 
             for (var i = 0; i < jsonObject.schedule.length; i++) {
                 reservation(jsonObject, i);

@@ -13,6 +13,12 @@
         SELECT * FROM TUTOR_CLASS
         WHERE TUTOR_ID = #{tutorId} and CLASS_DATE = #{classDate}
     </select>
+    <select id="tutorReview" resultType="com.multicampus.topicsation.dto.TutorReviewDTO">
+        SELECT u.NAME, r.REVIEW_CONTENT as reviewContent, r.REVIEW_DATE as reviewDate, r.TUTEE_ID as tuteeId
+        FROM REVIEW r
+                 INNER JOIN USER u ON r.TUTEE_ID = u.USER_ID
+        WHERE r.TUTOR_ID = #{tutorId}
+    </select>
     <update id="classReservate" parameterType="map">
         UPDATE TUTOR_CLASS SET TUTEE_ID = #{tuteeId} WHERE CLASS_DATE = #{classDate} and CLASS_TIME = #{classTime};
     </update>
