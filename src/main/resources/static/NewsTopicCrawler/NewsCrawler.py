@@ -74,7 +74,8 @@ def crawl_bbc_news():
                         continue
                     data[category_key].append({
                         'title': title,
-                        'content': content
+                        'content': content,
+                        'url': article_url
                     })
 
     # Home 카테고리 뉴스를 추가합니다.
@@ -111,7 +112,8 @@ def crawl_home_news():
             continue
         today_news.append({
             'title': title,
-            'content': content
+            'content': content,
+            'url': article_url
         })
 
     data = {
@@ -119,34 +121,7 @@ def crawl_home_news():
     }
 
     return data
-    # if url == 'https://www.bbc.com/news':
-    #     articles = soup.select('div[data-entityid^="container-top-stories#1"] .gs-c-promo')
-    # else:
-    #     articles = soup.find_all('div', {'class': 'gs-c-promo'})
-    #
-    # for article in articles:
-    #     title_element = article.find('h3', {'class': 'gs-c-promo-heading__title'})
-    #     link_element = article.find('a', {'class': 'gs-c-promo-heading'})
-    #
-    #     if title_element is None or link_element is None:
-    #         continue
-    #
-    #     title = title_element.get_text(strip=True)
-    #     article_url = link_element['href']
-    #
-    #     # article_url이 올바른 형식인지 확인
-    #     if not article_url.startswith('http'):
-    #         article_url = f"https://www.bbc.com{article_url}"
-    #
-    #     # 올바른 형식일 때만 content를 가져옵니다.
-    #     content = get_article_content(article_url)
-    #
-    #     for category_key in data.keys():
-    #         if category_key.lower() in article_url:
-    #             data[category_key].append({
-    #                 'title': title,
-    #                 'content': content
-    #             })
+
 def save_news_to_database(data):
     for category_key, category_value in data.items():
         if category_key == 'business':
