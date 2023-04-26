@@ -145,9 +145,15 @@ public class MyPageController {
         }
 
         @PostMapping("/{user_id}/delete")
-        public String myPageDelete(@PathVariable("user_id") String userId,@RequestBody JSONObject jsonObject){
-            System.out.println(userId);
-            service.delete_tutee(userId);
+        public String myPageDelete(@PathVariable("user_id") String userId){
+            String role = service.check_role(userId);
+            System.out.println(role);
+            if(role.equals("tutee")){
+                service.delete_tutee(userId);
+            }else if(role.equals("tutor")){
+                service.delete_tutor(userId);
+            }
+
             return null;
         }
 

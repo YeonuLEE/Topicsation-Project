@@ -46,6 +46,15 @@ public class MyPageService implements IMyPageService{
     }
 
     @Override
+    public void delete_tutor(String user_id) {
+        dao.deleteClass(user_id);
+        dao.deleteDislike(user_id);
+        dao.deleteTutorInfo(user_id);
+        dao.deleteTutor(user_id);
+
+    }
+
+    @Override
     public MyPageDTO view_tutee(String user_id) { return dao.viewTutee(user_id); }
 
     @Override

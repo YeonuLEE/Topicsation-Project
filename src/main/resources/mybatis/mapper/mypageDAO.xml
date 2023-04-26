@@ -30,6 +30,18 @@
         from tutor_class t
                 inner join USER u on t.tutee_id = u.user_id where t.tutor_id =#{tutor_id} and t.class_date > NOW() order by t.class_date,t.class_time
     </select>
+    <delete id="deleteTutor">
+        delete from user where user_id = #{user_id}
+    </delete>
+    <delete id="deleteTutorInfo">
+        delete from tutor_info where tutor_id = #{user_id}
+    </delete>
+    <delete id="deleteClass">
+        delete from tutor_class where tutor_id = #{user_id}
+    </delete>
+    <delete id="deleteDislike">
+        delete from dislike where tutor_id = #{user_id}
+    </delete>
 
     <!-- Tutee Page-->
     <select id="viewTutee" resultType="com.multicampus.topicsation.dto.MyPageDTO">
