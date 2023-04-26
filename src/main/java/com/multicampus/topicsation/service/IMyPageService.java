@@ -20,5 +20,6 @@ public interface IMyPageService {
     List<ClassDTO> schedule_tutee(String user_id);
     List<ClassDTO> history_tutee(String user_id);
     void delete_tutee(String user_id);
+    void schedule_cancel(String class_id);
 
 }

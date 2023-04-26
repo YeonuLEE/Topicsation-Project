@@ -71,5 +71,10 @@ public class MyPageService implements IMyPageService{
         dao.chageClass(user_id);
     }
 
+    @Override
+    public void schedule_cancel(String class_id) {
+        dao.cancelSchedule(class_id);
+    }
+
 
 }

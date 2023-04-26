@@ -172,9 +172,11 @@ public class MyPageController {
         }
 
         @PutMapping("/{user_id}/schedule/cancel")
-        public String scheduleCancel(@RequestBody JSONObject jsonObject) {
+        public String scheduleCancel(@RequestBody JSONObject jsonObject,@PathVariable("user_id") String user_id) {
             String class_id = jsonObject.get("$class_id").toString();
             System.out.println(class_id);
+
+            service.schedule_cancel(class_id);
             return class_id;
         }
 

@@ -39,7 +39,7 @@ $(document).ready(function () {
             for (var i = 0; i < dataParse.schedules.length; i++) {
                 var tutee = dataParse.schedules[i];
                 console.log("tutee : " + tutee.class_id);
-                classId_Val = tutee.class_id;
+
                 var classUrl = "/lesson/" + tutee.class_id;
                 var tr = $("<tr>");
                 var tno = $("<th scope=\"row\">").css("text-align", "center").text(i + 1);
@@ -58,19 +58,35 @@ $(document).ready(function () {
                     .attr("data-target", "#modal-default")
                     .on("click", function (event) {
                         event.preventDefault();
+                        var id = $(this).attr("id");
+                        // console.log(id);
 
+                        const inputString = id;
+                        let letters = "";
+                        let numbers = "";
+                        for (let i = 0; i < inputString.length; i++) {
+                            const char = inputString.charAt(i);
+                            if (isNaN(char)) {
+                                letters += char;
+                            } else {
+                                numbers += char;
+                            }
+                        }
+                        // console.log("Letters:", letters);
+                        // console.log("Numbers:", numbers);
 
                         // 예약 취소 버튼을 클릭하면 실행될 함수
                         function cancelReservation() {
                             if ($("#cancel-reservation-message").val() == "예약을 취소하겠습니다") {
-                                var user_id = dataParse[0].user_id;
-                                // var index = parseInt(id.replace("cancelReservationBtn", ""));
-                                var class_id = dataParse[0].schedules[0].class_id;
+                                var user_id = dataParse.user_id;
                                 console.log("user_id : " + user_id)
+
+                                var class_id = dataParse.schedules[numbers].class_id;
                                 console.log("class_id : " + class_id)
+
                                 var postLink = "/mypage/{user_id}/schedule/cancel";
                                 var apiUrl = postLink.replace("{user_id}", user_id);
-                                alert(apiUrl);
+                                // alert(apiUrl);
 
                                 $.ajax({
                                     type: "PUT",
@@ -83,6 +99,8 @@ $(document).ready(function () {
                                         $("#modal-default").modal('hide'); // 모달 창 닫기
                                         console.log(data);
                                         $("#cancel-reservation-message").val("");
+                                        // 실행창 초기화
+                                        window.location.href = apiUrl3;
                                     },
                                     error: function (data) {
                                         alert("Error!")
@@ -103,15 +121,16 @@ $(document).ready(function () {
 
                         // 모달 내부의 버튼 클릭 이벤트 핸들러 등록
                         $("#cancel-reservation").on("click", function (event) {
+                            // alert("확인중");
                             event.preventDefault();
                             cancelReservation();
                         });
                     });
                 tr.append(tno, classdate, tutorname, goToClassBtn, cancelReservationBtn);
                 tbody.append(tr);
-                console.log(tutee.class_date);
-                console.log(tutee.tutor_name);
-                console.log($('.cancelBtn').attr("id"));
+                // console.log(tutee.class_date);
+                // console.log(tutee.tutor_name);
+                // console.log($('.cancelBtn').attr("id"));
             }
         },
 
@@ -120,5 +139,9 @@ $(document).ready(function () {
         },
         complete: function (data, textStatus) {
         }
+    });
+
+    $("#reset").click(function (){
+        $("#cancel-reservation-message").val("");
     });
 });

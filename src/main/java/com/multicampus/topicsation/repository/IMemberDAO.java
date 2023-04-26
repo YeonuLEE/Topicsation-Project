@@ -25,6 +25,7 @@ public interface IMemberDAO {
     List<ClassDTO> historyTuteeDTO(String user_id);
     void deleteTutee(String user_id);
     void chageClass(String user_id);
+    void cancelSchedule(String user_id);
 
     TutorViewDTO tutorInfo(Map <String,Object> paramMap);
     List<ClassDTO> tutorSchedule(Map <String,Object> paramMap);
