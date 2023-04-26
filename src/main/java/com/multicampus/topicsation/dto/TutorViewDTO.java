@@ -18,4 +18,6 @@ public class TutorViewDTO {
     private String profileimg;
     private String interest1;
     private String interest2;
+    private List<TutorScheduleDTO> classTimeList;
+
 }
