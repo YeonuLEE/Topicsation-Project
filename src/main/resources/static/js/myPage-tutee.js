@@ -89,6 +89,7 @@ $(document).ready(function() {
         }
     });
 
+    //비밀번호 확인
     $("#enter-password").change(function () {
         var pwd1 = $("#enter-password").val().toString();
         console.log(pwd1);
@@ -106,6 +107,7 @@ $(document).ready(function() {
         }
     });
 
+    //회원 삭제
     $('#delete').click(function (){
         var userid = userId;
         var postlink = "/mypage/{user_id}/delete";
@@ -133,6 +135,10 @@ $(document).ready(function() {
             complete: function (data, textStatus) {
             },
         });
+    });
+
+    $("#reset").click(function (){
+        $("#cancel-reservation-message").val("");
     });
 });
 
