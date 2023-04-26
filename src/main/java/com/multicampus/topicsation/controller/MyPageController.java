@@ -133,6 +133,12 @@ public class MyPageController {
             return null;
         }
 
+        @PostMapping("/{user_id}/delete")
+        public String myPageDelete(@PathVariable("user_id") String userId,@RequestBody JSONObject jsonObject){
+            System.out.println(userId);
+            service.delete_tutee(userId);
+            return null;
+        }
 
         @GetMapping("/{user_id}/schedule/get")
         public String schedulePage(@PathVariable("user_id") String user_id) {

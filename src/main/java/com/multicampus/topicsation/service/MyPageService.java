@@ -65,5 +65,11 @@ public class MyPageService implements IMyPageService{
         return dao.historyTuteeDTO(user_id);
     }
 
+    @Override
+    public void delete_tutee(String user_id) {
+        dao.deleteTutee(user_id);
+        dao.chageClass(user_id);
+    }
+
 
 }

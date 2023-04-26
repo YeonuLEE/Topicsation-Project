@@ -95,7 +95,6 @@ $(document).ready(function() {
         console.log(password);
 
         if (password != pwd1) {
-            console.log("들어옴")
             $(".form-control")
                 .text("비밀번호가 다름니다");
             $("#enter-password").attr("class", "form-control is-invalid");
@@ -106,4 +105,34 @@ $(document).ready(function() {
             passwordCheck = true;
         }
     });
+
+    $('#delete').click(function (){
+        var userid = userId;
+        var postlink = "/mypage/{user_id}/delete";
+        postlink = postlink.replace("{user_id}", userid);
+        console.log(postlink);
+        alert("실행");
+
+        $.ajax({
+            type: "post",
+            url: postlink,
+            contentType: "application/json",
+            data: JSON.stringify({
+                $user_id: userid,
+            }),
+            success: function (data, status) {
+                alert("삭제 성공")
+                $("#modal-default").modal('hide'); // 모달 창 닫기
+                console.log(data);
+                $("#cancel-reservation-message").val("");
+                window.location.href = "/main"; // 페이지 이동
+            },
+            error: function (data, textStatus) {
+                alert("Error!")
+            },
+            complete: function (data, textStatus) {
+            },
+        });
+    });
 });
+

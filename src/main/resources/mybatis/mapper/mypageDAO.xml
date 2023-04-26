@@ -36,6 +36,12 @@
     <update id="modifyTutee" parameterType="com.multicampus.topicsation.dto.MyPageDTO">
         UPDATE user SET name = #{name}, interest1 = #{interest1}, interest2 = #{interest2} WHERE user_id = #{user_id}
     </update>
+    <delete id="deleteTutee">
+        delete from user where user_id = #{user_id}
+    </delete>
+    <update id="chageClass" parameterType="com.multicampus.topicsation.dto.ClassDTO">
+        UPDATE tutor_class SET tutee_id = null where tutee_id = #{tutee_id}
+    </update>
     <select id="tuteeProfile" resultType="com.multicampus.topicsation.dto.MypageScheduleDTO">
         SELECT u.user_id, u.name
         FROM user u where u.user_id = #{user_id}
