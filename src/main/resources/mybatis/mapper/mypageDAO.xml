@@ -30,7 +30,7 @@
     </select>
     <!-- Tutee Page-->
     <select id="viewTutee" resultType="com.multicampus.topicsation.dto.MyPageDTO">
-        SELECT u.user_id, u.name, u.email, u.interest1, u.interest2
+        SELECT u.user_id, u.name, u.email, u.interest1, u.interest2, u.password
         FROM user u where u.user_id = #{user_id}
     </select>
     <update id="modifyTutee" parameterType="com.multicampus.topicsation.dto.MyPageDTO">

@@ -104,6 +104,7 @@ public class MyPageController {
                 jsonObject.put("email", myPageDTO.getEmail());
                 jsonObject.put("interest1", myPageDTO.getInterest1());
                 jsonObject.put("interest2", myPageDTO.getInterest2());
+                jsonObject.put("password",myPageDTO.getPassword());
 
             }
 
