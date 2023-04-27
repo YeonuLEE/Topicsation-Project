@@ -5,10 +5,10 @@
 
 //myPage
 $("#mypage-btn").click(function () {
-    location.href = "#"
+    window.location.replace("/mypage/admin")
 })
 
-//sign
+//sign - main은 적용 X해야함 이해안되면 명진에게 물어보세영
 $('#sign-btn').click(function() {
     const token = sessionStorage.getItem('token');
     if (token != null) {
@@ -18,7 +18,7 @@ $('#sign-btn').click(function() {
             type: 'POST',
             success: function (data) {
                 console.log('Signed out successfully');
-                location.reload();
+                location.href = "/main"
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.error('Error signing out:', textStatus, errorThrown);

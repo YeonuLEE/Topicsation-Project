@@ -21,4 +21,5 @@ public class MyPageDTO{
     private String info;
     private int like;
     private String profileimg;
+    private String certificate;
 }

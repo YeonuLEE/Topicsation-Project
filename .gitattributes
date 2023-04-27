@@ -1,2 +1,4 @@
 *.css linguist-detectable=false
 *.html linguist-detectable=false
+*.pug linguist-detectable=false
+*.mustache linguist-detectable=false

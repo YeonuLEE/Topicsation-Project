@@ -62,8 +62,22 @@ public class LessonService implements ILessonService{
 
             jsonObject.put(category, newsJson);
         }
+        System.out.println("뉴스!: "+ jsonObject);
 
         // 뉴스 세개 JSONArray에 담아서 return
         return jsonObject;
     }
+
+    @Override
+    public int evaluateService(String likeOrDislike, String classId) {
+        if(likeOrDislike.equals("like")){
+            return lessonDAO.likeDAO(classId);
+        }else if(likeOrDislike.equals("dislike")){
+            return lessonDAO.dislikeDAO(classId);
+        }
+        System.out.println("service 실패");
+        return 0;
+    }
+
+
 }
