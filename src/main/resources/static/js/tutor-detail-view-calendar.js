@@ -136,7 +136,10 @@ $(document).ready(function () {
         $("#" + tagId).css("pointer-events", "none");
         var apiUrl2 = "/main/tutors/{tutor_id}/"
         apiUrl2 = apiUrl2.replace("{tutor_id}", number);
-        apiUrl2 = apiUrl2 + "reservate";
+        apiUrl2 = apiUrl2 + "reserve";
+
+        console.log(apiUrl2)
+        console.log(window.location.pathname)
 
         $.ajax({
             url: apiUrl2,
@@ -174,10 +177,10 @@ function pad(num, size) {
 
 function reservation(jsonObject, i){
     for (var i = 0; i < jsonObject.schedule.length; i++) {
-        if (jsonObject.schedule[i].tutee_id != "") {
+        if (jsonObject.schedule[i].tutee_id != null) {
             $("#" + jsonObject.schedule[i].class_time).css("color", "white");
             $("#" + jsonObject.schedule[i].class_time).css("background-color", "gray");
-        } else if (jsonObject.schedule[i].tutee_id == "") {
+        } else if (jsonObject.schedule[i].tutee_id == null) {
             $("#" + jsonObject.schedule[i].class_time).css("color", "white");
             $("#" + jsonObject.schedule[i].class_time).css("background-color", "green");
             $("#" + jsonObject.schedule[i].class_time).css("pointer-events", "auto");
