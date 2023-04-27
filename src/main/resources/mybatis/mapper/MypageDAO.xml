@@ -14,6 +14,15 @@
         FROM user u
         INNER JOIN tutor_info ti ON u.user_id = ti.tutor_id where ti.approval = 0
     </select>
+    <update id="successAdmin" parameterType="com.multicampus.topicsation.dto.MyPageDTO">
+        UPDATE tutor_info SET approval = 1 where tutor_id = #{user_id}
+    </update>
+    <delete id="failAdmin">
+        delete from user where user_id =#{user_id}
+    </delete>
+    <delete id="failAdmin2">
+        delete from tutor_info where TUTOR_ID =#{user_id}
+    </delete>
     <!-- Tutor Page-->
     <select id="viewTutor" resultType="com.multicampus.topicsation.dto.MyPageDTO">
         SELECT u.user_id, u.name, u.email, u.password, u.role, ti.gender, ti.nationality, ti.info, ti.like, ti.profileimg, u.interest1, u.interest2

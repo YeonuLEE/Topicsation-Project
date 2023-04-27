@@ -1,26 +1,28 @@
 $(document).ready(function () {
 
-    var token = sessionStorage.getItem('token');
-    console.log(token)
-    if (token != null) {
-        $.ajaxSetup({
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader('Authorization', 'Bearer ' + token);
-            }
-            // headers: {
-            //     'Authorization': 'Bearer' + token
-            // }
-        });
-        $('#sign-btn').text('SIGN OUT');
-    }
+
+    // var token = sessionStorage.getItem('token');
+    // // console.log(token)
+    // if (token != null) {
+    //     $.ajaxSetup({
+    //         beforeSend: function(xhr) {
+    //             xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+    //         }
+    //         // headers: {
+    //         //     'Authorization': 'Bearer' + token
+    //         // }
+    //     });
+    //     $('#sign-btn').text('SIGN OUT');
+    // }
 
     $.ajax({
         type: "GET",
         url: "/mypage/admin/get",
         dataType: "json",
         success: function (data, status) {
+            $("#manage-tutor").attr("href","/mypage/admin");
+
             console.log(data);
-            console.log(status);
             var tbody = $("#spare-tutor");
             for (var i = 0; i < data.length; i++) {
                 var spare = data[i];
@@ -29,15 +31,96 @@ $(document).ready(function () {
                 var tutorName = $("<td>", {text: spare.tutorName});
                 var approlDate = $("<td>", {text: spare.approlDate});
                 var file = $("<td>", {text: spare.file});
-                var success = $("<td><button type=\"submit\" class=\"btn btn-primary\" margin=\"15px\" id=\"success\">승인</button>");
-                var fail = $("<td><button type=\"submit\" class=\"btn btn-danger\" id=\"fail\">거부</button>");
 
+                var successBtn = $("<td><button>")
+                    .addClass("btn btn-primary")
+                    .attr("id", "successBtn" + i)
+                    .text("승인")
+                    .on("click", function () {
+                        var id = $(this).attr("id");
+                        // console.log(id);
+
+                        const inputString = id;
+                        let letters = "";
+                        let numbers = "";
+                        for (let i = 0; i < inputString.length; i++) {
+                            const char = inputString.charAt(i);
+                            if (isNaN(char)) {
+                                letters += char;
+                            } else {
+                                numbers += char;
+                            }
+                        }
+                        console.log("Letters:", letters);
+                        console.log("Numbers:", numbers);
+                        console.log(data)
+                        var userId = data[numbers].userId;
+                        alert("tutorName : " + userId)
+
+                        $.ajax({
+                            type: "post",
+                            url: "/mypage/admin/success",
+                            contentType: "application/String",
+                            data: userId,
+                            success: function (data) {
+                                alert("성공")
+                                window.location.href = "/mypage/admin";
+                            },
+                            error: function (data) {
+                                alert("Error!")
+                            },
+                            complete: function (data, textStatus) {
+                            },
+                        });
+                    });
+
+                var failBtn = $("<td><button>")
+                    .addClass("btn btn-danger")
+                    .attr("id", "failBtn" + i)
+                    .text("거부")
+                    .on("click", function () {
+                        var id = $(this).attr("id");
+                        // console.log(id);
+
+                        const inputString = id;
+                        let letters = "";
+                        let numbers = "";
+                        for (let i = 0; i < inputString.length; i++) {
+                            const char = inputString.charAt(i);
+                            if (isNaN(char)) {
+                                letters += char;
+                            } else {
+                                numbers += char;
+                            }
+                        }
+                        console.log("Letters:", letters);
+                        console.log("Numbers:", numbers);
+
+                        var userId = data[numbers].userId;
+                        alert("userId : " + userId)
+
+                        $.ajax({
+                            type: "post",
+                            url: "/mypage/admin/fail",
+                            contentType: "application/String",
+                            data: userId,
+                            success: function (data) {
+                                alert("실패")
+                                window.location.href = "/mypage/admin";
+                            },
+                            error: function (data) {
+                                alert("Error!")
+                            },
+                            complete: function (data, textStatus) {
+                            },
+                        });
+                    });
                 tr.append(tno);
                 tr.append(tutorName);
                 tr.append(approlDate);
                 tr.append(file);
-                tr.append(success);
-                tr.append(fail);
+                tr.append(successBtn);
+                tr.append(failBtn);
                 tbody.append(tr);
             }
         },

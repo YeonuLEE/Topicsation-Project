@@ -60,12 +60,12 @@ public class MyPageController {
 
         @GetMapping("/admin/get")
         public String adminPage() {
-            System.out.println("실행");
             List<MyPageDTO> list =service.view_admin();
             JSONArray jsonArray = new JSONArray();
 
             for (MyPageDTO dto : list){
                 JSONObject jsonObject = new JSONObject();
+                jsonObject.put("userId",dto.getUser_id());
                 jsonObject.put("tutorName",dto.getName());
                 jsonObject.put("approlDate",dto.getRegi_date());
                 jsonObject.put("file",dto.getCertificate());
@@ -74,9 +74,24 @@ public class MyPageController {
             }
 
             String jsonString = jsonArray.toString();
-            System.out.println(jsonString);
+//            System.out.println(jsonString);
 
             return jsonString;
+        }
+
+        @PostMapping("/admin/success")
+        public String adminSuccess(@RequestBody String userId){
+            service.success(userId);
+            System.out.println(userId);
+            return null;
+        }
+
+        @PostMapping("/admin/fail")
+        public String adminFail(@RequestBody String userId){
+            service.fail(userId);
+            System.out.println("fail");
+            System.out.println(userId);
+            return null;
         }
 
         @GetMapping("/{user_id}/get")

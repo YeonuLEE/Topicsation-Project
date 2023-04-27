@@ -11,6 +11,9 @@ public interface IMemberDAO {
     String checkRole(String user_id);
 
     List<MyPageDTO> viewAdmin();
+    void successAdmin(String user_id);
+    void failAdmin(String user_id);
+    void failAdmin2(String user_id);
 
     MyPageDTO viewTutor(String user_id);
     int modifyTutor(MyPageDTO myPageDTO);

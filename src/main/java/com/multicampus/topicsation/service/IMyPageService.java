@@ -9,6 +9,10 @@ import java.util.List;
 public interface IMyPageService {
     String check_role(String user_id);
 
+    List<MyPageDTO> view_admin();
+    void success(String user_id);
+    void fail(String user_id);
+
     MyPageDTO view_tutor(String user_id);
     int modify_tutor(MyPageDTO myPageDTO);
     MypageScheduleDTO tutorProfile(String user_id);
@@ -22,7 +26,4 @@ public interface IMyPageService {
     List<ClassDTO> history_tutee(String user_id);
     void delete_tutee(String user_id);
     void schedule_cancel(String class_id);
-
-    List<MyPageDTO> view_admin();
-
 }

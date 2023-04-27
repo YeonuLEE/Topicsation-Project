@@ -96,5 +96,16 @@ public class MyPageService implements IMyPageService{
         return list;
     }
 
+    @Override
+    public void success(String user_id) {
+        dao.successAdmin(user_id);
+    }
+
+    @Override
+    public void fail(String user_id) {
+        dao.failAdmin2(user_id);
+        dao.failAdmin(user_id);
+    }
+
 
 }
