@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpSession;
 import java.util.Random;
 
 @Service
@@ -18,7 +19,6 @@ import java.util.Random;
 public class MailService {
 
     private JavaMailSender mailSender;
-    private static final String FROM_ADDRESS = "bornthislee@gmail.com";
 
     public void sendMail(MailDTO mailDTO){
 

@@ -2,8 +2,8 @@ package com.multicampus.topicsation.service;
 
 import com.multicampus.topicsation.dto.SignUpDTO;
 
+import java.util.Map;
+
 public interface ISignUpService {
-    void checkEmail(SignUpDTO dto);
-    int addTutee(SignUpDTO dto);
-    int addTutor(SignUpDTO dto);
+    boolean signUpProcess(SignUpDTO signUpDTO);
 }

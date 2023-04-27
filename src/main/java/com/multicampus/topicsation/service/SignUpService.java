@@ -3,9 +3,12 @@ package com.multicampus.topicsation.service;
 import com.multicampus.topicsation.dto.SignUpDTO;
 import com.multicampus.topicsation.repository.ISignUpDAO;
 import lombok.RequiredArgsConstructor;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -18,33 +21,21 @@ public class SignUpService implements ISignUpService {
 
     // 아이디가 중복되는 경우 true룰 반환하며 그렇지 않은 경우 false를 반환
     @Override
-    public void checkEmail(SignUpDTO dto) {
-        String email = dto.getEmail();
-        int existEmail = dao.checkEmailDAO(email);
+    public boolean signUpProcess(SignUpDTO signUpDTO) {
+
+        int existEmail = dao.checkEmailDAO(signUpDTO.getEmail());
         if(existEmail != 0) {
-            throw new IllegalStateException("이미 존재하는 회원입니다.");
+            return false;
         }else{
             System.out.println("신규 회원입니다.");
+            if(signUpDTO.getRole().equals("tutee")){
+                dao.addTuteeDAO(signUpDTO);
+            } else {
+                dao.addTutorDAO(signUpDTO);
+            }
+            return true;
         }
+
     }
 
-    // 회원으로 등록되었을 때 true를, 어떠한 이유때문에 등록되지 않은 경우 false를 반환
-    @Override
-    public int addTutee(SignUpDTO dto) {
-//        //비밀번호 암호화
-//        String encodedPassword = passwordEncoder.encode(dto.getPassword());
-//        //인코딩한 비밀번호로 대체
-//        dto.setPassword(encodedPassword);
-        return dao.addTuteeDAO(dto);
-    }
-
-    @Override
-    public int addTutor(SignUpDTO dto) {
-//        //비밀번호 암호화
-//        String encodedPassword = passwordEncoder.encode(dto.getPassword());
-//        //인코딩한 비밀번호로 대체
-//        dto.setPassword(encodedPassword);
-//        System.out.println("signupservice: " + dto);
-        return dao.addTutorDAO(dto);
-    }
 }

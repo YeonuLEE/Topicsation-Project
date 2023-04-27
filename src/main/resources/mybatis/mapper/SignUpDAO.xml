@@ -9,7 +9,7 @@
     </select>
 
     <insert id="addTuteeDAO" parameterType="com.multicampus.topicsation.dto.SignUpDTO">
-        insert into user (name, email, password,  interest1, interest2, role) values (#{name}, #{email}, #{password}, #{interest1}, #{interest2}, #{role})
+        insert into user (name, email, password,  interest1, interest2, role) values (#{name}, #{email}, #{password}, #{firstInterest}, #{secondInterest}, #{role})
     </insert>
 
     <insert id="addTutorDAO" parameterType="com.multicampus.topicsation.dto.SignUpDTO">
