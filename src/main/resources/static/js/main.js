@@ -13,11 +13,12 @@ $(document).ready(function () {
 
     var pathURI = window.location.pathname
     var ajaxURI;
+    var userId = 1;
 
     console.log(pathURI);
 
     if (pathURI == '/main') {
-        ajaxURI = pathURI + "/get";
+        ajaxURI = pathURI + "/get" + "?userId=";
         console.log(ajaxURI);
     } else if (pathURI == '/main/search-all') {
         ajaxURI = pathURI + ".get";

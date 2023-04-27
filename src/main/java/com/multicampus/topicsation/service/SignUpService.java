@@ -1,25 +1,29 @@
 package com.multicampus.topicsation.service;
 
+import com.multicampus.topicsation.dto.MailDTO;
 import com.multicampus.topicsation.dto.SignUpDTO;
 import com.multicampus.topicsation.repository.ISignUpDAO;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class SignUpService implements ISignUpService {
+
     @Autowired
     private final ISignUpDAO dao;
 
-//    @Autowired
-//    private final PasswordEncoder passwordEncoder;
+    private JavaMailSender mailSender;
 
-    // 아이디가 중복되는 경우 true룰 반환하며 그렇지 않은 경우 false를 반환
     @Override
     public boolean signUpProcess(SignUpDTO signUpDTO) {
 
@@ -35,7 +39,28 @@ public class SignUpService implements ISignUpService {
             }
             return true;
         }
-
     }
 
+    @Override
+    public boolean sendMail(MailDTO mailDTO){
+
+        System.out.println("service sendmail" + mailDTO);
+        SimpleMailMessage message = new SimpleMailMessage();
+
+        message.setTo(mailDTO.getEmail());
+        message.setSubject(mailDTO.getTitle());
+        message.setText(mailDTO.getMessage());
+
+        System.out.println(message);
+
+        try{
+            mailSender.send(message);
+            System.out.println(mailDTO.getEmail() + " 메일 전송 성공");
+            return true;
+        } catch (MailException e){
+            e.printStackTrace();
+            System.out.println(mailDTO.getEmail() + " 메일 전송 실패");
+            return false;
+        }
+    }
 }

@@ -18,23 +18,5 @@ import java.util.Random;
 @AllArgsConstructor
 public class MailService {
 
-    private JavaMailSender mailSender;
 
-    public void sendMail(MailDTO mailDTO){
-
-        System.out.println("service sendmail" + mailDTO);
-        SimpleMailMessage message = new SimpleMailMessage();
-
-        message.setTo(mailDTO.getToAddress());
-        message.setSubject(mailDTO.getTitle());
-        message.setText(mailDTO.getMessage());
-
-        try{
-            mailSender.send(message);
-            System.out.println(mailDTO.getToAddress() + " 메일 전송 성공");
-        } catch (MailException e){
-            e.printStackTrace();
-            System.out.println(mailDTO.getToAddress() + " 메일 전송 실패");
-        }
-    }
 }

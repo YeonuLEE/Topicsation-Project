@@ -2,6 +2,7 @@ package com.multicampus.topicsation.controller;
 
 import com.multicampus.topicsation.dto.MemberRole;
 import com.multicampus.topicsation.dto.SignUpDTO;
+import com.multicampus.topicsation.service.ISignUpService;
 import com.multicampus.topicsation.service.MailService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,6 +29,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 //import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.security.SecureRandom;
 import java.security.Security;
@@ -40,10 +44,7 @@ import java.util.Random;
 public class MemberManageController {
 
     @Autowired
-    private SignUpService signUpService;
-
-    @Autowired
-    private MailService mailService;
+    ISignUpService signUpService;
 
     @GetMapping("/admin")
     public String admin() {
@@ -77,7 +78,7 @@ public class MemberManageController {
     }
 
     @GetMapping("/signup/email")
-    public String emailAuth(String email, HttpSession session) throws Exception{
+    public String emailAuth(String email, HttpSession session) throws Exception {
 
 
         return "html/Email-Token";
@@ -106,6 +107,7 @@ public class MemberManageController {
 
         @Autowired
         private IMemberManageService service;
+
         //        private final AuthenticationManagerBuilder authenticationManagerBuilder;
 //
         public MemberManageRestController(TokenProvider tokenProvider, BCrypt bCrypt) {
@@ -115,25 +117,12 @@ public class MemberManageController {
 
         @PostMapping("/signup-tutees.post")
         public String signUpTutee(@RequestBody SignUpDTO signUpDTO) {
-
-            boolean result;
-
-//            Map<String, String> signUpMap = new HashMap<>();
-//            signUpMap.put("email", jsonObject.get("email").toString());
-//            signUpMap.put("password", jsonObject.get("password").toString());
-//            signUpMap.put("name", jsonObject.get("name").toString());
-//            signUpMap.put("firstInterest", jsonObject.get("firstInterest").toString());
-//            signUpMap.put("secondInterest", jsonObject.get("secondInterest").toString());
-//            signUpMap.put("role", "tutee");
-
-            result = signUpService.signUpProcess(signUpDTO);
-
-            if(result){
-            return "signupSuccess";
-            } else{
+            boolean result = signUpService.signUpProcess(signUpDTO);
+            if (result) {
+                return signUpDTO.getEmail();
+            } else {
                 return "signupFail";
             }
-
         }
 
         @PostMapping("/signin.post")
@@ -190,30 +179,23 @@ public class MemberManageController {
             return email;
         }
 
-        @PostMapping("/email.auth")
-        public String emailAuth(@RequestBody JSONObject jsonObject, HttpSession session) {
-//            System.out.println(jsonObject.get("test"));
-//            String token = jsonObject.get("$token").toString();
-//            System.out.println("email auth post: " + token);
+        @PostMapping("/email.send")
+        public String emailAuth(@RequestBody MailDTO mailDTO) {
+            boolean result;
+            Random random = new Random();
+            String authKey = String.valueOf(random.nextInt(888888) + 111111); // 범위: 111111~999999
 
-            // 세션에 저장된 email로 메일 전송
-//            String email = session.getAttribute("email").toString();
-//
-//            // 랜덤 인증코드 생성
-//            Random random = new Random();
-//            String authKey = String.valueOf(random.nextInt(888888) + 111111); // 범위: 111111~999999
-//
-//            MailDTO mailDTO = new MailDTO();
-//            mailDTO.setToAddress(email);
-//            mailDTO.setTitle("TOPICSATION 인증코드입니다.");
-//            mailDTO.setMessage("인증코드: " + authKey);
-//
-//            session.setAttribute("authKey", authKey);
-//
-//            mailService.sendMail(mailDTO);
-//
-//            String authKey = session.getAttribute("authKey").toString();
-            return "authKey";
+            mailDTO.setTitle("TOPICSATION 인증코드입니다.");
+            mailDTO.setMessage("인증코드: " + authKey);
+
+            result = signUpService.sendMail(mailDTO);
+
+            if(result){
+                return authKey;
+            }
+            else {
+                return "sendFail";
+            }
         }
 
         @PostMapping("/signup-tutors.post")
