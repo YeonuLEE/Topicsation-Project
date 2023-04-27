@@ -21,6 +21,13 @@ public class MyPageController {
 
     @GetMapping("/admin")
     public String adminPage() {
+//        System.out.println("admin controller");
+//        System.out.println("user정보 "+user.getUsername());
+//        @AuthenticationPrincipal UserDetails user
+//        String username = user.getUsername();
+//        List<String> authorities = user.getAuthorities().stream()
+//                .map(GrantedAuthority::getAuthority)
+//                .collect(Collectors.toList());
         return "html/dashboard/myPage-admin";
     }
 
@@ -59,6 +66,11 @@ public class MyPageController {
 
         @GetMapping("/admin/get")
         public String adminPage() {
+//            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//            System.out.println(principal.toString());
+//            System.out.println("admin rest controller");
+//            System.out.println(principal);
+//            System.out.println("user정보 "+user.getUsername());
             JSONArray jsonArray = new JSONArray();
             JSONObject obj1 = new JSONObject();
             obj1.put("tutorName", "Jonny Dep");

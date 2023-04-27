@@ -1,3 +1,4 @@
+$(document).ready(function() {
 $("#loginForm").submit(function (event) {
     event.preventDefault();
     var email = $("#email").val()
@@ -21,17 +22,21 @@ $("#loginForm").submit(function (event) {
                     history.pushState(null, null, "/main");
                     location.reload();
                 } else {
+                    console.log(status)
+                    console.log(data)
                     $("#loginFail").text("로그인 정보가 틀렸습니다")
                     $("#email").val("").removeClass("is-valid").addClass("is-invalid")
                     $("#password").val("").removeClass("is-valid").addClass("is-invalid")
                 }
             },
         error: function (data, textStatus) {
+            console.log(textStatus)
+            console.log(data)
             $("#loginFail").text("로그인 정보가 틀렸습니다")
             $("#email").val("").removeClass("is-valid").addClass("is-invalid")
             $("#password").val("").removeClass("is-valid").addClass("is-invalid")
-        },
-        complete: function (data, textStatus) {
+            return false;
         },
     });
+})
 })

@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
     var token = sessionStorage.getItem('token');
+    console.log(token);
     if (token != null) {
         $.ajaxSetup({
             beforeSend: function(xhr) {
@@ -255,3 +256,40 @@ $("#search-form").submit(function (event) {
         }
     });
 })
+
+$('#sign-btn').click(function() {
+    const token = sessionStorage.getItem('token');
+    if (token != null) {
+        sessionStorage.removeItem('token');
+        $.ajax({
+            url: '/members/signout',
+            type: 'POST',
+            success: function (data) {
+                console.log('Signed out successfully');
+                location.reload();
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('Error signing out:', textStatus, errorThrown);
+            }
+        });
+    }else{
+        location.href = "/members/signin"
+    }
+});
+
+//myPage
+$("#mypage-btn").click(function () {
+    window.location.replace("/mypage/admin")
+})
+
+// $(window).on('load', function() {
+//     var token = sessionStorage.getItem('token');
+//     if (token != null) {
+//         $.ajaxSetup({
+//             beforeSend: function(xhr) {
+//                 xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+//             }
+//         });
+//     }
+// });
