@@ -59,18 +59,18 @@ public class MyPageController {
 
         @GetMapping("/admin/get")
         public String adminPage() {
+            System.out.println("실행");
+            List<MyPageDTO> list =service.view_admin();
             JSONArray jsonArray = new JSONArray();
-            JSONObject obj1 = new JSONObject();
-            obj1.put("tutorName", "Jonny Dep");
-            obj1.put("approlDate", "2023-04-16 10:00AM");
-            obj1.put("file", "20200416.pdf");
-            jsonArray.add(obj1);
 
-            JSONObject obj2 = new JSONObject();
-            obj2.put("tutorName", "Angeli Remy");
-            obj2.put("approlDate", "2023-04-18 11:30AM");
-            obj2.put("file", "20200418.pdf");
-            jsonArray.add(obj2);
+            for (MyPageDTO dto : list){
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("tutorName",dto.getName());
+                jsonObject.put("approlDate",dto.getRegi_date());
+                jsonObject.put("file",dto.getCertificate());
+
+                jsonArray.add(jsonObject);
+            }
 
             String jsonString = jsonArray.toString();
             System.out.println(jsonString);

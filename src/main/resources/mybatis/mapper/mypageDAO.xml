@@ -8,6 +8,12 @@
     <select id="checkRole" resultType="string">
         SELECT role FROM user where user_id = #{user_id}
     </select>
+    <!-- Admin-->
+    <select id="viewAdmin" resultType="com.multicampus.topicsation.dto.MyPageDTO">
+        SELECT u.user_id, u.name, u.regi_date, ti.certificate
+        FROM user u
+                 INNER JOIN tutor_info ti ON u.user_id = ti.tutor_id where ti.approval = 0
+    </select>
     <!-- Tutor Page-->
     <select id="viewTutor" resultType="com.multicampus.topicsation.dto.MyPageDTO">
         SELECT u.user_id, u.name, u.email, u.password, u.role, ti.gender, ti.nationality, ti.info, ti.like, ti.profileimg, u.interest1, u.interest2

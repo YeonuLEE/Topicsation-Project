@@ -32,6 +32,8 @@ public interface IMemberDAO {
     void chageClass(String user_id);
     void cancelSchedule(String user_id);
 
+    List<MyPageDTO> viewAdmin();
+
     TutorViewDTO tutorInfo(Map <String,Object> paramMap);
     List<ClassDTO> tutorSchedule(Map <String,Object> paramMap);
     int classReservate(Map <String,Object> paramMap);

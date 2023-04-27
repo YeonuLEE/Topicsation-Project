@@ -88,5 +88,12 @@ public class MyPageService implements IMyPageService{
         dao.cancelSchedule(class_id);
     }
 
+    @Override
+    public List<MyPageDTO> view_admin() {
+        List<MyPageDTO> list =dao.viewAdmin();
+        System.out.println("List : "+list);
+        return list;
+    }
+
 
 }

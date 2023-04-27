@@ -23,4 +23,6 @@ public interface IMyPageService {
     void delete_tutee(String user_id);
     void schedule_cancel(String class_id);
 
+    List<MyPageDTO> view_admin();
+
 }
