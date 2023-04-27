@@ -147,8 +147,6 @@ $(document).ready(function () {
             success: function (data, status) {
                 alert("삭제 성공")
                 $("#modal-default").modal('hide'); // 모달 창 닫기
-                console.log(data);
-                $("#cancel-reservation-message").val("");
                 window.location.href = "/main"; // 페이지 이동
             },
             error: function (data, textStatus) {

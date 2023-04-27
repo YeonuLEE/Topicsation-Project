@@ -10,12 +10,26 @@ import java.util.Map;
 public interface IMemberDAO {
     String checkRole(String user_id);
 
+    List<MyPageDTO> viewAdmin();
+
     MyPageDTO viewTutor(String user_id);
     int modifyTutor(MyPageDTO myPageDTO);
     int modifyTutor2(MyPageDTO myPageDTO);
     MypageScheduleDTO tutorProfile(String user_id);
-    List<ClassDTO> scheduleDTO(String tutor_id);
+    List<ClassDTO> schedule(String tutor_id);
+    void deleteClass(String user_id);
+    void tutorDislike(String user_id);
+    void deleteTutorInfo(String user_id);
+    void deleteTutor(String user_id);
 
     MyPageDTO viewTutee(String user_id);
     int modifyTutee(MyPageDTO myPageDTO);
+    MypageScheduleDTO tuteeProfile(String user_id);
+    List<ClassDTO> scheduleTutee(String user_id);
+    List<ClassDTO> historyTutee(String user_id);
+    void deleteTutee(String user_id);
+    void chageClass(String user_id);
+    void cancelSchedule(String class_id);
+    void tuteeDislike(String user_id);
+
 }

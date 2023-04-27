@@ -31,7 +31,7 @@
         FROM user u
         INNER JOIN tutor_info ti ON u.user_id = ti.tutor_id where u.user_id = #{user_id}
     </select>
-    <select id="scheduleDTO" resultType="com.multicampus.topicsation.dto.ClassDTO">
+    <select id="schedule" resultType="com.multicampus.topicsation.dto.ClassDTO">
         select t.class_id, t.class_date, t.class_time,t.tutee_Id, t.tutor_id,u.name
         from tutor_class t
         inner join USER u on t.tutee_id = u.user_id where t.tutor_id =#{tutor_id} and t.class_date > NOW() order by t.class_date,t.class_time
@@ -45,7 +45,7 @@
     <delete id="deleteClass">
         delete from tutor_class where tutor_id = #{user_id}
     </delete>
-    <delete id="deleteDislike">
+    <delete id="tutorDislike">
         delete from dislike where tutor_id = #{user_id}
     </delete>
 
@@ -66,18 +66,21 @@
     <update id="chageClass" parameterType="com.multicampus.topicsation.dto.ClassDTO">
         UPDATE tutor_class SET tutee_id = null where tutee_id = #{tutee_id}
     </update>
+    <delete id="tuteeDislike">
+        delete from dislike where tutee_id = #{user_id}
+    </delete>
 
     <!-- Schedule -->
     <select id="tuteeProfile" resultType="com.multicampus.topicsation.dto.MypageScheduleDTO">
         SELECT u.user_id, u.name
         FROM user u where u.user_id = #{user_id}
     </select>
-    <select id="scheduleTuteeDTO" resultType="com.multicampus.topicsation.dto.ClassDTO">
+    <select id="scheduleTutee" resultType="com.multicampus.topicsation.dto.ClassDTO">
         select t.class_id, t.class_date, t.class_time,t.tutee_Id, t.tutor_id,u.name
         from tutor_class t
         inner join USER u on t.tutor_id = u.user_id where t.tutee_Id =#{tutee_id} and t.class_date > NOW() order by t.class_date,t.class_time
     </select>
-    <select id="historyTuteeDTO" resultType="com.multicampus.topicsation.dto.ClassDTO">
+    <select id="historyTutee" resultType="com.multicampus.topicsation.dto.ClassDTO">
         select t.class_id, t.class_date, t.class_time, u.name
         from tutor_class t
         inner join USER u on t.tutor_id = u.user_id where t.tutee_Id =#{tutee_id} and  NOW() > t.class_date order by t.class_date asc ,t.class_time asc
