@@ -1,4 +1,19 @@
 $(document).ready(function () {
+
+    var token = sessionStorage.getItem('token');
+    console.log(token)
+    if (token != null) {
+        $.ajaxSetup({
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+            }
+            // headers: {
+            //     'Authorization': 'Bearer' + token
+            // }
+        });
+        $('#sign-btn').text('SIGN OUT');
+    }
+
     $.ajax({
         type: "GET",
         url: "/mypage/admin/get",

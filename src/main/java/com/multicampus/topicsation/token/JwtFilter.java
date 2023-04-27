@@ -33,22 +33,22 @@ public class JwtFilter extends GenericFilterBean {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
-//        System.out.println("doFilter");
+        System.out.println("doFilter");
 
         //resolveToken을 통해 토큰을 받아옴
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         String token = resolveToken(httpServletRequest);
-//        System.out.println(token);
+        System.out.println(token);
         String requestURI = httpServletRequest.getRequestURI();
-//        System.out.println(requestURI);
+        System.out.println(requestURI);
 
         //토큰 유효성 검증 후 정상이면 SecurityContext에 저장
-        if(StringUtils.hasText(token) && tokenProvider.validateToken(token)) {
-            Authentication authentication = tokenProvider.getAuthentication(token);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+//        if(StringUtils.hasText(token) && tokenProvider.validateToken(token)) {
+//            Authentication authentication = tokenProvider.getAuthentication(token);
+//            SecurityContextHolder.getContext().setAuthentication(authentication);
 //            logger.debug("Security Context에 '{}' 인증 정보를 저장했습니다. uri: {}",authentication.getName(),requestURI);
-        }
-        else
+//        }
+//        else
 //            logger.debug("유효하지 않은 JWT토큰입니다. uri: {}",requestURI);
 
         //생성한 필터 실행
@@ -59,9 +59,9 @@ public class JwtFilter extends GenericFilterBean {
     //request Header에서 토큰 정보를 꺼내오기
     private String resolveToken(HttpServletRequest httpServletRequest) {
         String bearerToken = httpServletRequest.getHeader(AUTHORIZATION_HEADER);
-//        System.out.println(bearerToken);
+        System.out.println(bearerToken);
         if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-//            System.out.println("token : "+bearerToken);
+            System.out.println("token : "+bearerToken);
 
             return bearerToken.substring(7);
         }

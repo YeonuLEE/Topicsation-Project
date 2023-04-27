@@ -4,23 +4,17 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.multicampus.topicsation.dto.LoginDTO;
 import com.multicampus.topicsation.service.IMemberManageService;
-import com.multicampus.topicsation.service.security.CustomUserDetailsService;
 import com.multicampus.topicsation.token.JwtFilter;
 import com.multicampus.topicsation.token.TokenProvider;
 import org.json.simple.JSONObject;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import java.security.SecureRandom;
 import java.security.Security;
@@ -78,12 +72,15 @@ public class MemberManageController {
 
         //토큰 주입
         private final TokenProvider tokenProvider;
-        private final AuthenticationManagerBuilder authenticationManagerBuilder;
+        private final BCrypt bCrypt;
 
-        public MemberManageRestController(TokenProvider tokenProvider,
-                                          AuthenticationManagerBuilder authenticationManagerBuilder) {
+        @Autowired
+        private IMemberManageService service;
+//        private final AuthenticationManagerBuilder authenticationManagerBuilder;
+//
+        public MemberManageRestController(TokenProvider tokenProvider, BCrypt bCrypt) {
             this.tokenProvider = tokenProvider;
-            this.authenticationManagerBuilder = authenticationManagerBuilder;
+            this.bCrypt = bCrypt;
         }
 
         @PostMapping("/signup-tutees.post")
@@ -107,37 +104,36 @@ public class MemberManageController {
 
         @PostMapping("/signin.post")
         public String signin(@RequestBody Map<String, String> params) throws JsonProcessingException {
-
+//            //더미 데이터 암호화 테스트 진행
+//            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+////            String hashedPassword = passwordEncoder.encode(password);
+////            System.out.println(hashedPassword);
+//
             String email = params.get("email");
             System.out.println(email);
             String password = params.get("password");
             System.out.println(password);
+//
+//          //email과 password 검증
+            LoginDTO dto = service.login(params);
 
-            //더미 데이터 암호화 테스트 진행
-            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            String hashedPassword = passwordEncoder.encode(password);
-            System.out.println(hashedPassword);
+                if (dto == null || !BCrypt.checkpw(password, dto.getPassword())) {
+//                    throw new IllegalArgumentException("일치하는 회원이 없습니다.");
+                    return "일치하는 회원이 없습니다.";
+                }else {
+                    //accesstoken 생성
+                    String token = tokenProvider.createAccessToken(dto.getEmail(), dto.getRole());
+                    System.out.println(token);
 
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(email, password);
+                    //accesstioken 반환
+                    return token;
+                }
 
-            System.out.println("authenticationToken: "+authenticationToken);
-
-            Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-            System.out.println("authenticationManagerBuilder: "+authenticationManagerBuilder.getObject().toString());
-            System.out.println("authenticatication"+authentication);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            System.out.println("authenticatication"+ SecurityContextHolder.getContext());
-
-            String token = tokenProvider.createToken(authentication);
-            System.out.println(token);
-
-            HttpHeaders httpHeaders = new HttpHeaders();
-            httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER,"Bearer " + token);
-            System.out.println(httpHeaders);
-
-            System.out.println(token);
-
-            return token;
+//            HttpHeaders httpHeaders = new HttpHeaders();
+//            httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER,"Bearer " + token);
+//            System.out.println(httpHeaders);
+//
+//            System.out.println(tok
         }
 
         @PostMapping("/signout")
