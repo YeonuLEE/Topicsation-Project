@@ -96,7 +96,7 @@ $(document).ready(function () {
     $("#minutes").text(min + "분");
     $("#seconds").text(sec + "초");
 
-    if (min == 28 && sec == 0) {
+    if (min == 08 && sec == 40) {
       setTimeout(function () {
         var _width = "400";
         var _height = "300";

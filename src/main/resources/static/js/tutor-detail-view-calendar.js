@@ -168,7 +168,10 @@ $(document).ready(function () {
         $("#" + tagId).css("pointer-events", "none");
         var apiUrl2 = "/main/tutors/{tutor_id}/"
         apiUrl2 = apiUrl2.replace("{tutor_id}", number);
-        apiUrl2 = apiUrl2 + "reservate";
+        apiUrl2 = apiUrl2 + "reserve";
+
+        console.log(apiUrl2)
+        console.log(window.location.pathname)
 
         $.ajax({
             url: apiUrl2,

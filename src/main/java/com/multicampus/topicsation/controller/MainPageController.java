@@ -148,7 +148,7 @@ public class MainPageController {
             return jsonString;
         }
 
-        @PutMapping("/tutors/{tutor_id}/reservate")
+        @PutMapping("/tutors/{tutor_id}/reserve")
         public String tutors(@RequestBody JSONObject jsonObject) {
 
             String tuteeId = jsonObject.get("$tutee_id").toString();
@@ -169,7 +169,7 @@ public class MainPageController {
 
             boolean result_update;
 
-            result_update = tutorListService.ClassReservate(paramMap);
+            result_update = tutorListService.ClassReserve(paramMap);
 
             if(result_update == true)
                 return "success";

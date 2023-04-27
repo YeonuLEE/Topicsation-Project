@@ -2,6 +2,7 @@ import http from "http";
 import { Server } from "socket.io";
 import { instrument } from "@socket.io/admin-ui";
 import nodemon from "nodemon";
+import { wordsToCensor, filtering } from './censoredWords.js';
 
 const app = require("./app");
 
@@ -32,9 +33,14 @@ wsServer.on("connection", (socket) => {
     // wsServer.sockets.emit("room_change", publicRooms());
   });
 
+
+
   socket.on("new_message", (msg, room, done) => {
     console.log("새로운 메세지 : ", msg);
-    socket.to(room).emit("new_message", `${socket.nickname}: ${msg}`);
+    // 메시지 금지어 필터링
+    let filteredMsg = filtering(msg, wordsToCensor)
+    console.log(filteredMsg)
+    socket.to(room).emit("new_message", `${socket.nickname}: ${filteredMsg}`);
     done();
   });
   socket.on("nickname", (nickname) => {
