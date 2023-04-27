@@ -1,6 +1,8 @@
 package com.multicampus.topicsation.token;
 
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
 
@@ -27,6 +29,7 @@ public class JwtFilter extends GenericFilterBean {
     }
 
     //필터링 로직 작성
+    //doFilter : 토큰의 인증 정보를 SecurityContext에 저장
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
@@ -45,14 +48,11 @@ public class JwtFilter extends GenericFilterBean {
 //            SecurityContextHolder.getContext().setAuthentication(authentication);
 //            logger.debug("Security Context에 '{}' 인증 정보를 저장했습니다. uri: {}",authentication.getName(),requestURI);
 //        }
-//        else logger.debug("유효하지 않은 JWT토큰입니다. uri: {}",requestURI);
+//        else
+//            logger.debug("유효하지 않은 JWT토큰입니다. uri: {}",requestURI);
 
-        try {
-            //생성한 필터 실행
-            chain.doFilter(httpServletRequest, response);
-        } finally {
-//            SecurityContextHolder.clearContext();
-        }
+        //생성한 필터 실행
+        chain.doFilter(httpServletRequest,response);
 
     }
 

@@ -99,14 +99,9 @@ public class MainPageController {
             paramMap.put("tutorId", tutorId);
             paramMap.put("classDate", calendarDate);
 
-            TutorViewDTO tutorViewDTO;
-            tutorViewDTO = tutorListService.tutorInfo(paramMap);
+            TutorViewDTO tutorViewDTO = new TutorViewDTO();
+            tutorViewDTO = tutorListService.tutorInfo(paramMap, tutorViewDTO);
 
-            List<TutorScheduleDTO> classTimeList = new ArrayList<>();
-
-            if (tutorViewDTO != null) {
-                classTimeList = tutorListService.tutorSchedule(paramMap);
-            }
 
 
             System.out.println(tutorViewDTO.getName());

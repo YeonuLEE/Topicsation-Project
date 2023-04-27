@@ -19,13 +19,12 @@ public class TutorListService implements ITutorListService {
     IMemberDAO memberDAO;
 
     @Override
-    public TutorViewDTO tutorInfo(Map<String, Object> paramMap){
-        return memberDAO.tutorInfo(paramMap);
-    }
+    public TutorViewDTO tutorInfo(Map<String, Object> paramMap, TutorViewDTO tutorViewDTO){
+        tutorViewDTO = memberDAO.tutorInfo(paramMap);
+        tutorViewDTO.setClassTimeList(memberDAO.tutorSchedule(paramMap));
+        tutorViewDTO.setTutorReviewList(memberDAO.tutorReview(paramMap.get("tutorId").toString()));
 
-    @Override
-    public List<TutorScheduleDTO> tutorSchedule(Map <String,Object> paramMap){
-        return memberDAO.tutorSchedule(paramMap);
+        return tutorViewDTO;
     }
 
     @Override

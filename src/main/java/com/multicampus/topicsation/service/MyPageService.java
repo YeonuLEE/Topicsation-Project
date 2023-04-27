@@ -1,8 +1,8 @@
 package com.multicampus.topicsation.service;
 
 import com.multicampus.topicsation.dto.MyPageDTO;
-import com.multicampus.topicsation.dto.TutorMypageScheduleDTO;
-import com.multicampus.topicsation.dto.TutorScheduleDTO;
+import com.multicampus.topicsation.dto.MypageScheduleDTO;
+import com.multicampus.topicsation.dto.ClassDTO;
 import com.multicampus.topicsation.repository.IMemberDAO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,28 +28,71 @@ public class MyPageService implements IMyPageService{
     }
 
     @Override
-    public int modify_tutor(MyPageDTO MyPageDTO) {
-        return dao.modifyTutor(MyPageDTO);
+    public int modify_tutor(MyPageDTO myPageDTO) {
+        System.out.println(myPageDTO);
+        dao.modifyTutor(myPageDTO);
+        dao.modifyTutor2(myPageDTO);
+        return 0;
     }
 
     @Override
-    public TutorMypageScheduleDTO tutorProfile(String user_id) {
+    public MypageScheduleDTO tutorProfile(String user_id) {
         return dao.tutorProfile(user_id);
     }
 
     @Override
-    public List<TutorScheduleDTO> schedule_tutor(String user_id) {
+    public List<ClassDTO> schedule_tutor(String user_id) {
         return dao.scheduleDTO(user_id);
     }
 
     @Override
-    public MyPageDTO view_tutee(String user_id) {
-        return dao.viewTutee(user_id);
+    public void delete_tutor(String user_id) {
+        dao.deleteClass(user_id);
+        dao.deleteDislike(user_id);
+        dao.deleteTutorInfo(user_id);
+        dao.deleteTutor(user_id);
+
     }
+
+    @Override
+    public MyPageDTO view_tutee(String user_id) { return dao.viewTutee(user_id); }
 
     @Override
     public int modify_tutee(MyPageDTO myPageDTO) {
         return dao.modifyTutee(myPageDTO);
+    }
+
+    @Override
+    public MypageScheduleDTO tuteeProfile(String user_id) {
+        return dao.tuteeProfile(user_id);
+    }
+
+    @Override
+    public List<ClassDTO> schedule_tutee(String user_id) {
+        return dao.scheduleTuteeDTO(user_id);
+    }
+
+    @Override
+    public List<ClassDTO> history_tutee(String user_id) {
+        return dao.historyTuteeDTO(user_id);
+    }
+
+    @Override
+    public void delete_tutee(String user_id) {
+        dao.deleteTutee(user_id);
+        dao.chageClass(user_id);
+    }
+
+    @Override
+    public void schedule_cancel(String class_id) {
+        dao.cancelSchedule(class_id);
+    }
+
+    @Override
+    public List<MyPageDTO> view_admin() {
+        List<MyPageDTO> list =dao.viewAdmin();
+        System.out.println("List : "+list);
+        return list;
     }
 
 
