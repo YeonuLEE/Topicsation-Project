@@ -8,6 +8,5 @@ import java.util.Map;
 
 public interface ITutorListService {
     TutorViewDTO tutorInfo(Map<String,Object> paramMap);
-    List<TutorScheduleDTO> tutorSchedule(Map <String,Object> paramMap);
-    boolean ClassReserve(Map <String,Object> paramMap);
+    boolean ClassReservate(Map <String,Object> paramMap);
 }

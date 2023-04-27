@@ -5,10 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class TutorMypageScheduleDTO {
-    private String tutor_id;
+@AllArgsConstructor
+public class TutorReviewDTO {
     private String name;
-    private String profileimg;
+    private String reviewContent;
+    private String reviewDate;
+    private String tuteeId;
 }

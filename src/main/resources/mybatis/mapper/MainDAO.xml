@@ -2,18 +2,24 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.multicampus.topicsation.repository.ITutorListDAO">
+<mapper namespace="com.multicampus.topicsation.repository.IMemberDAO">
     <select id="tutorInfo" parameterType="map" resultType="com.multicampus.topicsation.dto.TutorViewDTO">
         SELECT u.NAME, ti.NATIONALITY, ti.INFO, ti.LIKE, ti.PROFILEIMG, u.INTEREST1, u.INTEREST2
         FROM USER u
                  INNER JOIN TUTOR_INFO ti ON u.USER_ID = ti.TUTOR_ID
         WHERE u.USER_ID = #{tutorId}
     </select>
-    <select id="tutorSchedule" parameterType="map" resultType="com.multicampus.topicsation.dto.TutorScheduleDTO">
+    <select id="tutorSchedule" parameterType="map" resultType="com.multicampus.topicsation.dto.ClassDTO">
         SELECT * FROM TUTOR_CLASS
         WHERE TUTOR_ID = #{tutorId} and CLASS_DATE = #{classDate}
     </select>
-    <update id="classReserve" parameterType="map">
+    <select id="tutorReview" resultType="com.multicampus.topicsation.dto.TutorReviewDTO">
+        SELECT u.NAME, r.REVIEW_CONTENT as reviewContent, r.REVIEW_DATE as reviewDate, r.TUTEE_ID as tuteeId
+        FROM REVIEW r
+                 INNER JOIN USER u ON r.TUTEE_ID = u.USER_ID
+        WHERE r.TUTOR_ID = #{tutorId}
+    </select>
+    <update id="classReservate" parameterType="map">
         UPDATE TUTOR_CLASS SET TUTEE_ID = #{tuteeId} WHERE CLASS_DATE = #{classDate} and CLASS_TIME = #{classTime};
     </update>
 </mapper>
