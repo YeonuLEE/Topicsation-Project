@@ -47,10 +47,10 @@ public class MyPageService implements IMyPageService{
 
     @Override
     public void delete_tutor(String user_id) {
-        dao.deleteClass(user_id);
-        dao.deleteDislike(user_id);
-        dao.deleteTutorInfo(user_id);
-        dao.deleteTutor(user_id);
+//        dao.deleteClass(user_id);
+//        dao.deleteDislike(user_id);
+//        dao.deleteTutorInfo(user_id);
+//        dao.deleteTutor(user_id);
 
     }
 
@@ -64,36 +64,66 @@ public class MyPageService implements IMyPageService{
 
     @Override
     public MypageScheduleDTO tuteeProfile(String user_id) {
-        return dao.tuteeProfile(user_id);
+        return null;
     }
 
     @Override
     public List<ClassDTO> schedule_tutee(String user_id) {
-        return dao.scheduleTuteeDTO(user_id);
+        return null;
     }
 
     @Override
     public List<ClassDTO> history_tutee(String user_id) {
-        return dao.historyTuteeDTO(user_id);
+        return null;
     }
+
+//    @Override
+//    public MypageScheduleDTO tuteeProfile(String user_id) {
+//        return dao.tuteeProfile(user_id);
+//    }
+
+//    @Override
+//    public List<ClassDTO> schedule_tutee(String user_id) {
+//        return dao.scheduleTuteeDTO(user_id);
+//    }
+//
+//    @Override
+//    public List<ClassDTO> history_tutee(String user_id) {
+//        return dao.historyTuteeDTO(user_id);
+//    }
 
     @Override
     public void delete_tutee(String user_id) {
-        dao.deleteTutee(user_id);
-        dao.chageClass(user_id);
+
     }
 
     @Override
     public void schedule_cancel(String class_id) {
-        dao.cancelSchedule(class_id);
+
     }
 
     @Override
     public List<MyPageDTO> view_admin() {
-        List<MyPageDTO> list =dao.viewAdmin();
-        System.out.println("List : "+list);
-        return list;
+        return null;
     }
+
+//    @Override
+//    public void delete_tutee(String user_id) {
+//        dao.deleteTutee(user_id);
+//        dao.chageClass(user_id);
+//    }
+
+//    @Override
+//    public void schedule_cancel(String class_id) {
+//        dao.cancelSchedule(class_id);
+//    }
+
+//    @Override
+//    public List<MyPageDTO> view_admin() {
+//        List<MyPageDTO> list =dao.viewAdmin();
+//        System.out.println("List : "+list);
+//        return list;
+//    }
 
 
 }

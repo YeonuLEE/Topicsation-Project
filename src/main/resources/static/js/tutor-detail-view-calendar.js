@@ -92,7 +92,6 @@ $(document).ready(function () {
                 div1.append(p);
             }
 
-
             for (var i = 0; i < jsonObject.schedule.length; i++) {
                 reservation(jsonObject, i);
             }
@@ -176,7 +175,7 @@ $(document).ready(function () {
         $.ajax({
             url: apiUrl2,
             type: "PUT",
-            contentType: 'application/json',
+            contentType: 'application/json; charset=utf-8',
             data: JSON.stringify({
                 $tutor_id: tutorId,
                 $tutee_id: "1",

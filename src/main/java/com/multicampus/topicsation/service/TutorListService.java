@@ -4,6 +4,7 @@ import com.multicampus.topicsation.dto.MemberDTO;
 import com.multicampus.topicsation.dto.TutorScheduleDTO;
 import com.multicampus.topicsation.dto.TutorViewDTO;
 import com.multicampus.topicsation.repository.IMemberDAO;
+import com.multicampus.topicsation.repository.ITutorListDAO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,20 +17,20 @@ import java.util.Map;
 public class TutorListService implements ITutorListService {
 
     @Autowired
-    IMemberDAO memberDAO;
+    ITutorListDAO tutorListDAO;
 
     @Override
     public TutorViewDTO tutorInfo(Map<String, Object> paramMap, TutorViewDTO tutorViewDTO){
-        tutorViewDTO = memberDAO.tutorInfo(paramMap);
-        tutorViewDTO.setClassTimeList(memberDAO.tutorSchedule(paramMap));
-        tutorViewDTO.setTutorReviewList(memberDAO.tutorReview(paramMap.get("tutorId").toString()));
+        tutorViewDTO = tutorListDAO.tutorInfo(paramMap);
+        tutorViewDTO.setClassTimeList(tutorListDAO.tutorSchedule(paramMap));
+        tutorViewDTO.setTutorReviewList(tutorListDAO.tutorReview(paramMap.get("tutorId").toString()));
 
         return tutorViewDTO;
     }
 
     @Override
-    public boolean ClassReservate(Map<String, Object> paramMap) {
-        int result = memberDAO.classReservate(paramMap);
+    public boolean ClassReserve(Map<String, Object> paramMap) {
+        int result = tutorListDAO.classReserve(paramMap);
 
         if(result == 1)
             return true;

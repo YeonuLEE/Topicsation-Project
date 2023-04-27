@@ -102,8 +102,6 @@ public class MainPageController {
             TutorViewDTO tutorViewDTO = new TutorViewDTO();
             tutorViewDTO = tutorListService.tutorInfo(paramMap, tutorViewDTO);
 
-
-
             System.out.println(tutorViewDTO.getName());
             System.out.println(tutorViewDTO.getNationality());
             System.out.println(tutorViewDTO.getInfo());
@@ -117,7 +115,8 @@ public class MainPageController {
 
             JSONObject jsonObject_info = new JSONObject();
             JSONArray jsonArray_schedule = new JSONArray();
-            JSONArray jsonArray_info = new JSONArray();
+            JSONArray jsonArray_Review = new JSONArray();
+
             jsonObject_info.put("user_id",tutorId);
             jsonObject_info.put("name", tutorViewDTO.getName());
             jsonObject_info.put("nationality", tutorViewDTO.getNationality());
@@ -127,20 +126,29 @@ public class MainPageController {
             jsonObject_info.put("interest1", tutorViewDTO.getInterest1());
             jsonObject_info.put("interest2", tutorViewDTO.getInterest2());
 
-            for(int i = 0; i<classTimeList.size(); i++) {
+            for(int i = 0; i<tutorViewDTO.getClassTimeList().size(); i++) {
                 JSONObject jsonObject_schedule = new JSONObject();
-                jsonObject_schedule.put("class_id", classTimeList.get(i).getClass_id());
-                jsonObject_schedule.put("class_date", classTimeList.get(i).getClass_date());
-                jsonObject_schedule.put("class_time", classTimeList.get(i).getClass_time());
-                jsonObject_schedule.put("tutee_id", classTimeList.get(i).getTutee_id());
-                jsonObject_schedule.put("tutor_id", classTimeList.get(i).getTutor_id());
+                jsonObject_schedule.put("class_id", tutorViewDTO.getClassTimeList().get(i).getClass_id());
+                jsonObject_schedule.put("class_date", tutorViewDTO.getClassTimeList().get(i).getClass_date());
+                jsonObject_schedule.put("class_time", tutorViewDTO.getClassTimeList().get(i).getClass_time());
+                jsonObject_schedule.put("tutee_id", tutorViewDTO.getClassTimeList().get(i).getTutee_id());
+                jsonObject_schedule.put("tutor_id", tutorViewDTO.getClassTimeList().get(i).getTutor_id());
                 jsonArray_schedule.add(jsonObject_schedule);
+            }
+
+            for(int i = 0; i<tutorViewDTO.getTutorReviewList().size(); i++){
+                JSONObject jsonObject_Review = new JSONObject();
+                jsonObject_Review.put("tutee_name", tutorViewDTO.getTutorReviewList().get(i).getName());
+                jsonObject_Review.put("review_date", tutorViewDTO.getTutorReviewList().get(i).getReviewDate());
+                jsonObject_Review.put("review_content", tutorViewDTO.getTutorReviewList().get(i).getReviewContent());
+                jsonArray_Review.add(jsonObject_Review);
             }
 
             JSONObject jsonObject = new JSONObject();
 
             jsonObject.put("tutor_info", jsonObject_info);
             jsonObject.put("schedule", jsonArray_schedule);
+            jsonObject.put("review",jsonArray_Review);
 
             String jsonString = jsonObject.toJSONString();
             System.out.println(jsonString);

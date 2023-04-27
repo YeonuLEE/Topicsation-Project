@@ -1,7 +1,8 @@
 package com.multicampus.topicsation.controller;
 
+import com.multicampus.topicsation.dto.ClassDTO;
 import com.multicampus.topicsation.dto.MyPageDTO;
-import com.multicampus.topicsation.dto.TutorMypageScheduleDTO;
+import com.multicampus.topicsation.dto.MypageScheduleDTO;
 import com.multicampus.topicsation.dto.TutorScheduleDTO;
 import com.multicampus.topicsation.service.IMyPageService;
 import org.json.simple.JSONArray;
@@ -166,22 +167,22 @@ public class MyPageController {
 
         @GetMapping("/{user_id}/schedule/getCalendar")
         public String schedulePageCalendar(@PathVariable("user_id") String tutorId) {
-            TutorMypageScheduleDTO profileDto = service.tutorProfile(tutorId);
-            List<TutorScheduleDTO> scheduleDTOList = service.schedule_tutor(tutorId);
+            MypageScheduleDTO profileDto = service.tutorProfile(tutorId);
+            List<ClassDTO> scheduleDTOList = service.schedule_tutor(tutorId);
 
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("tutor_id",profileDto.getTutor_id());
+            jsonObject.put("tutor_id",profileDto.getUser_id());
             jsonObject.put("name",profileDto.getName());
             jsonObject.put("profileimg",profileDto.getProfileimg());
 
             JSONArray jsonArray = new JSONArray();
-            for(TutorScheduleDTO dto : scheduleDTOList){
+            for(ClassDTO dto : scheduleDTOList){
                 JSONObject jsonObject2 =new JSONObject();
                 jsonObject2.put("class_id",dto.getClass_id());
                 jsonObject2.put("class_date",dto.getClass_date());
                 jsonObject2.put("class_time",dto.getClass_time());
                 jsonObject2.put("tutee_id",dto.getTutee_id());
-                jsonObject2.put("tutee_name",dto.getTutee_name());
+                jsonObject2.put("tutee_name",dto.getName());
                 jsonObject2.put("tutor_id",dto.getTutor_id());
 
                 jsonArray.add(jsonObject2);
