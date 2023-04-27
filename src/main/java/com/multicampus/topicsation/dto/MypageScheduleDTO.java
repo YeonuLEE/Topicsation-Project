@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TutorMypageScheduleDTO {
-    private String tutor_id;
+public class MypageScheduleDTO {
+    private String user_id;
     private String name;
     private String profileimg;
 }
