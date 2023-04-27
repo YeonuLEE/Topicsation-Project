@@ -14,7 +14,7 @@ $("#emailTokenForm").submit(function () {
         contentType: 'application/json',
         data: JSON.stringify({
             $token: token,
-            $emailFormq: emailForm,
+            $emailForm: emailForm,
             $nameForm: nameForm,
             $passwordForm: passwordForm,
             $firstInterestForm: firstInterestForm,
