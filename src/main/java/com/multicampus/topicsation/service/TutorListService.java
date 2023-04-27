@@ -1,9 +1,8 @@
 package com.multicampus.topicsation.service;
 
-import com.multicampus.topicsation.dto.MemberDTO;
 import com.multicampus.topicsation.dto.TutorScheduleDTO;
 import com.multicampus.topicsation.dto.TutorViewDTO;
-import com.multicampus.topicsation.repository.IMemberDAO;
+import com.multicampus.topicsation.repository.ITutorListDAO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,21 +15,21 @@ import java.util.Map;
 public class TutorListService implements ITutorListService {
 
     @Autowired
-    IMemberDAO memberDAO;
+    ITutorListDAO tutorListDAO;
 
     @Override
     public TutorViewDTO tutorInfo(Map<String, Object> paramMap){
-        return memberDAO.tutorInfo(paramMap);
+        return tutorListDAO.tutorInfo(paramMap);
     }
 
     @Override
     public List<TutorScheduleDTO> tutorSchedule(Map <String,Object> paramMap){
-        return memberDAO.tutorSchedule(paramMap);
+        return tutorListDAO.tutorSchedule(paramMap);
     }
 
     @Override
-    public boolean ClassReservate(Map<String, Object> paramMap) {
-        int result = memberDAO.classReservate(paramMap);
+    public boolean ClassReserve(Map<String, Object> paramMap) {
+        int result = tutorListDAO.classReserve(paramMap);
 
         if(result == 1)
             return true;

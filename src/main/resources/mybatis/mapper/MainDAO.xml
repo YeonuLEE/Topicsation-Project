@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.multicampus.topicsation.repository.IMemberDAO">
+<mapper namespace="com.multicampus.topicsation.repository.ITutorListDAO">
     <select id="tutorInfo" parameterType="map" resultType="com.multicampus.topicsation.dto.TutorViewDTO">
         SELECT u.NAME, ti.NATIONALITY, ti.INFO, ti.LIKE, ti.PROFILEIMG, u.INTEREST1, u.INTEREST2
         FROM USER u
@@ -13,7 +13,7 @@
         SELECT * FROM TUTOR_CLASS
         WHERE TUTOR_ID = #{tutorId} and CLASS_DATE = #{classDate}
     </select>
-    <update id="classReservate" parameterType="map">
+    <update id="classReserve" parameterType="map">
         UPDATE TUTOR_CLASS SET TUTEE_ID = #{tuteeId} WHERE CLASS_DATE = #{classDate} and CLASS_TIME = #{classTime};
     </update>
 </mapper>

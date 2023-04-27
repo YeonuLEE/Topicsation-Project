@@ -23,8 +23,6 @@ public interface IMemberDAO {
     MyPageDTO viewTutee(String user_id);
     int modifyTutee(MyPageDTO myPageDTO);
     
-    TutorViewDTO tutorInfo(Map <String,Object> paramMap);
-    List<TutorScheduleDTO> tutorSchedule(Map <String,Object> paramMap);
-    int classReservate(Map <String,Object> paramMap);
+
 
 }
