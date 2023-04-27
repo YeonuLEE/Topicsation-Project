@@ -13,4 +13,6 @@ public interface ISignUpDAO {
 
     //    public int addUserDAO(Map<String, String> map);
     public int addTutorDAO(SignUpDTO dto); //sql 쿼리문를 실행한 결과로 영향받은 행의 수를 반환
+
+//    public int addTutorDAO(@Param("MemberDTO") MemberDTO memberDTO, @Param("TutorDTO") TutorDTO tutorDTO);
 }

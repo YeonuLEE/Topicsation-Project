@@ -1,9 +1,15 @@
 package com.multicampus.topicsation.controller;
 
+import com.multicampus.topicsation.dto.MemberRole;
+import com.multicampus.topicsation.dto.SignUpDTO;
+import com.multicampus.topicsation.service.MailService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.multicampus.topicsation.dto.LoginDTO;
+import com.multicampus.topicsation.dto.MailDTO;
 import com.multicampus.topicsation.service.IMemberManageService;
+import com.multicampus.topicsation.service.SignUpService;
+import com.multicampus.topicsation.service.security.CustomUserDetailsService;
 import com.multicampus.topicsation.token.JwtFilter;
 import com.multicampus.topicsation.token.TokenProvider;
 import org.json.simple.JSONObject;
@@ -12,18 +18,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+//import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+//import org.springframework.security.core.Authentication;
+//import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import java.security.SecureRandom;
 import java.security.Security;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 @Controller
 @RequestMapping("/members")
 public class MemberManageController {
+
+    @Autowired
+    private SignUpService signUpService;
+
+    @Autowired
+    private MailService mailService;
 
     @GetMapping("/admin")
     public String admin() {
@@ -57,7 +75,19 @@ public class MemberManageController {
     }
 
     @GetMapping("/signup/email")
-    public String emailAuth() {
+    public String emailAuth(String email) throws Exception{
+
+        email = "ah_611@naver.com";
+        System.out.println("controller get email:" + email);
+        Random random = new Random();
+        String authKey = String.valueOf(random.nextInt(888888) + 111111); // 범위: 111111~999999
+
+        MailDTO mailDTO = new MailDTO();
+        mailDTO.setToAddress(email);
+        mailDTO.setTitle("TOPICSATION 인증코드입니다.");
+        mailDTO.setMessage("인증코드: " + authKey);
+
+        mailService.sendMail(mailDTO);
         return "html/Email-Token";
     }
 
@@ -76,7 +106,7 @@ public class MemberManageController {
 
         @Autowired
         private IMemberManageService service;
-//        private final AuthenticationManagerBuilder authenticationManagerBuilder;
+        //        private final AuthenticationManagerBuilder authenticationManagerBuilder;
 //
         public MemberManageRestController(TokenProvider tokenProvider, BCrypt bCrypt) {
             this.tokenProvider = tokenProvider;
@@ -117,23 +147,17 @@ public class MemberManageController {
 //          //email과 password 검증
             LoginDTO dto = service.login(params);
 
-                if (dto == null || !BCrypt.checkpw(password, dto.getPassword())) {
+            if (dto == null || !BCrypt.checkpw(password, dto.getPassword())) {
 //                    throw new IllegalArgumentException("일치하는 회원이 없습니다.");
-                    return "일치하는 회원이 없습니다.";
-                }else {
-                    //accesstoken 생성
-                    String token = tokenProvider.createAccessToken(dto.getEmail(), dto.getRole());
-                    System.out.println(token);
+                return "일치하는 회원이 없습니다.";
+            } else {
+                //accesstoken 생성
+                String token = tokenProvider.createAccessToken(dto.getEmail(), dto.getRole());
+                System.out.println(token);
 
-                    //accesstioken 반환
-                    return token;
-                }
-
-//            HttpHeaders httpHeaders = new HttpHeaders();
-//            httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER,"Bearer " + token);
-//            System.out.println(httpHeaders);
-//
-//            System.out.println(tok
+                //accesstioken 반환
+                return token;
+            }
         }
 
         @PostMapping("/signout")
@@ -169,25 +193,41 @@ public class MemberManageController {
         }
 
         @PostMapping("/signup-tutors.post")
-        public String signUpTutor(@RequestBody JSONObject jsonObject) {
-            String result;
-            String email = jsonObject.get("$email").toString();
-            String password = jsonObject.get("$password").toString();
-            String name = jsonObject.get("$name").toString();
-            String gender = jsonObject.get("$gender").toString();
-            String nationality = jsonObject.get("$nationality").toString();
-            String firstInterest = jsonObject.get("$firstInterest").toString();
-            String secondInterest = jsonObject.get("$secondInterest").toString();
-            //String formData = jsonObject.get("$formData").toString();
+        public boolean signUpTutor(@RequestBody Map<String, String> jsonMap) {
 
-            if (!email.isEmpty() && !password.isEmpty() && !name.isEmpty() && !nationality.isEmpty()
-                    && !firstInterest.isEmpty() && !secondInterest.isEmpty() && !gender.isEmpty()) {
-                result = "success";
-            } else {
-                result = "fail";
+            String email = jsonMap.get("$email").toString();
+            String password = jsonMap.get("$password").toString();
+            String name = jsonMap.get("$name").toString();
+            String gender = jsonMap.get("$gender").toString();
+            String nationality = jsonMap.get("$nationality").toString();
+            String firstInterest = jsonMap.get("$firstInterest").toString();
+            String secondInterest = jsonMap.get("$secondInterest").toString();
+//            String certificate = jsonMap.get("$certificate").toString();
+
+            System.out.println(password);
+
+
+            if (email.isEmpty() || password.isEmpty() || name.isEmpty() || gender.isEmpty() || nationality.isEmpty()
+                    || firstInterest.isEmpty() || secondInterest.isEmpty()) {
+                System.out.println("signup Fail");
+                return false;
             }
-            System.out.println("result : " + result);
-            return result;
+
+            SignUpDTO dto = new SignUpDTO();
+            dto.setEmail(jsonMap.get("$email").toString());
+            dto.setPassword(jsonMap.get("$password").toString());
+            dto.setName(jsonMap.get("$name").toString());
+            dto.setGender(jsonMap.get("$gender").toString());
+            dto.setNationality(jsonMap.get("$nationality").toString());
+            dto.setInterest1(jsonMap.get("$firstInterest").toString());
+            dto.setInterest2(jsonMap.get("$secondInterest").toString());
+//            dto.setCertificate(jsonMap.get("$certificate").toString());
+            dto.setRole(MemberRole.TUTOR);
+
+            System.out.println("controller: " + dto);
+            signUpService.addTutor(dto);
+
+            return true;
         }
     }
 }
