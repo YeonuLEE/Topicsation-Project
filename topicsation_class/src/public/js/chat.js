@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
   const socket = io();
 
@@ -32,7 +33,7 @@ $(document).ready(function () {
     // event.preventDefault();
     // const input = room.querySelector("#name input");
     // const value = input.value;
-    socket.emit("nickname", "임시 닉네임");
+    socket.emit("nickname", "Chat partner");
   }
 
   function showRoom() {
