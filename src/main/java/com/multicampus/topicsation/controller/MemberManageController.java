@@ -9,7 +9,7 @@ import com.multicampus.topicsation.dto.LoginDTO;
 import com.multicampus.topicsation.dto.MailDTO;
 import com.multicampus.topicsation.service.IMemberManageService;
 import com.multicampus.topicsation.service.SignUpService;
-import com.multicampus.topicsation.service.security.CustomUserDetailsService;
+//import com.multicampus.topicsation.service.security.CustomUserDetailsService;
 import com.multicampus.topicsation.token.JwtFilter;
 import com.multicampus.topicsation.token.TokenProvider;
 import org.json.simple.JSONObject;
