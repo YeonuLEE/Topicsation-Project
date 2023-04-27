@@ -15,10 +15,12 @@ public class SignUpDTO {
     private String password;
     private String tutor_image;
     private String like;
+    private String gender;
     private String nationality;
     private String interest1;
     private String interest2;
     private String regi_date;
     private MemberRole role;
+    private String certificate;
     private boolean email_auth;
 }

@@ -49,27 +49,27 @@ $("#password").change(function () {
         passwordCheck = false;
     } else {
         $(".password").text("");
-        $("#password_confirm").focus();
+        $("#password-confirm").focus();
         $("#password").attr("class", "form-control is-valid");
         passwordCheck = true;
     }
 });
 
 // 비밀번호 일치 여부 검사
-$("#password_confirm").change(function () {
+$("#password-confirm").change(function () {
     var pwd1 = $("#password").val();
-    var pwd2 = $("#password_confirm").val();
+    var pwd2 = $("#password-confirm").val();
 
     if (pwd1 != pwd2) {
-        $(".password_confirm")
+        $(".password-confirm")
             .text("비밀번호가 일치하지 않습니다.")
             .css("color", "red");
-        $("#password_confirm").attr("class", "form-control is-invalid");
+        $("#password-confirm").attr("class", "form-control is-invalid");
         passwordConfirmCheck = false;
     } else {
-        $(".password_confirm").text("");
-        $("#password_confirm").focus();
-        $("#password_confirm").attr("class", "form-control is-valid");
+        $(".password-confirm").text("");
+        $("#password-confirm").focus();
+        $("#password-confirm").attr("class", "form-control is-valid");
         passwordConfirmCheck = true;
     }
 });
@@ -90,7 +90,7 @@ $("#signInForm").submit(function () {
         $("#password").focus();
         return false;
     } else if (!passwordConfirmCheck) {
-        $("#password_confirm").focus();
+        $("#password-confirm").focus();
         return false;
     } else if (!nameCheck) {
         $("#name").focus();
