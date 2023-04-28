@@ -3,7 +3,6 @@ package com.multicampus.topicsation.controller;
 import com.multicampus.topicsation.dto.ClassDTO;
 import com.multicampus.topicsation.dto.MyPageDTO;
 import com.multicampus.topicsation.dto.MypageScheduleDTO;
-import com.multicampus.topicsation.dto.TutorScheduleDTO;
 import com.multicampus.topicsation.service.IMyPageService;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -74,7 +73,6 @@ public class MyPageController {
             }
 
             String jsonString = jsonArray.toString();
-//            System.out.println(jsonString);
 
             return jsonString;
         }
@@ -82,15 +80,12 @@ public class MyPageController {
         @PostMapping("/admin/success")
         public String adminSuccess(@RequestBody String userId){
             service.success(userId);
-            System.out.println(userId);
             return null;
         }
 
         @PostMapping("/admin/fail")
         public String adminFail(@RequestBody String userId){
             service.fail(userId);
-            System.out.println("fail");
-            System.out.println(userId);
             return null;
         }
 
@@ -101,7 +96,6 @@ public class MyPageController {
             String role = service.check_role(userId);
             if (role.equals("tutor")) {
                 myPageDTO = service.view_tutor(userId);
-                //System.out.println(tutorId);
 
                 jsonObject.put("profileImg", myPageDTO.getProfileimg());
                 jsonObject.put("name", myPageDTO.getName());
@@ -114,8 +108,6 @@ public class MyPageController {
 
             } else if(role.equals("tutee")) {
                 myPageDTO = service.view_tutee(userId);
-//                System.out.println(userId);
-//                System.out.println(myPageDTO);
                 jsonObject.put("tutor-name", myPageDTO.getName());
                 jsonObject.put("name", myPageDTO.getName());
                 jsonObject.put("email", myPageDTO.getEmail());
@@ -125,7 +117,6 @@ public class MyPageController {
 
             }
 
-//            System.out.println(jsonObject);
             return jsonObject.toJSONString();
         }
 
@@ -181,9 +172,7 @@ public class MyPageController {
                 jsonArray.add(object);
             }
             jsonObject.put("schedules",jsonArray);
-
             String jsonString = jsonObject.toString();
-            System.out.println(jsonString);
 
             return jsonString;
         }
@@ -254,7 +243,6 @@ public class MyPageController {
 
             jsonObject.put("history",jsonArray);
             String jsonString = jsonObject.toString();
-            System.out.println(jsonString);
 
             return jsonString;
         }

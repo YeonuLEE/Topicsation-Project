@@ -29,7 +29,6 @@ public class MyPageService implements IMyPageService{
 
     @Override
     public int modify_tutor(MyPageDTO myPageDTO) {
-        System.out.println(myPageDTO);
         dao.modifyTutor(myPageDTO);
         dao.modifyTutor2(myPageDTO);
         return 0;
@@ -92,7 +91,6 @@ public class MyPageService implements IMyPageService{
     @Override
     public List<MyPageDTO> view_admin() {
         List<MyPageDTO> list =dao.viewAdmin();
-//        System.out.println("List : "+list);
         return list;
     }
 

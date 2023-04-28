@@ -38,7 +38,6 @@ $(document).ready(function () {
                     .text("승인")
                     .on("click", function () {
                         var id = $(this).attr("id");
-                        // console.log(id);
 
                         const inputString = id;
                         let letters = "";
@@ -51,11 +50,7 @@ $(document).ready(function () {
                                 numbers += char;
                             }
                         }
-                        console.log("Letters:", letters);
-                        console.log("Numbers:", numbers);
-                        console.log(data)
                         var userId = data[numbers].userId;
-                        alert("tutorName : " + userId)
 
                         $.ajax({
                             type: "post",
@@ -63,7 +58,6 @@ $(document).ready(function () {
                             contentType: "application/String",
                             data: userId,
                             success: function (data) {
-                                alert("성공")
                                 window.location.href = "/mypage/admin";
                             },
                             error: function (data) {
@@ -80,7 +74,6 @@ $(document).ready(function () {
                     .text("거부")
                     .on("click", function () {
                         var id = $(this).attr("id");
-                        // console.log(id);
 
                         const inputString = id;
                         let letters = "";
@@ -93,11 +86,7 @@ $(document).ready(function () {
                                 numbers += char;
                             }
                         }
-                        console.log("Letters:", letters);
-                        console.log("Numbers:", numbers);
-
                         var userId = data[numbers].userId;
-                        alert("userId : " + userId)
 
                         $.ajax({
                             type: "post",
@@ -105,7 +94,6 @@ $(document).ready(function () {
                             contentType: "application/String",
                             data: userId,
                             success: function (data) {
-                                alert("실패")
                                 window.location.href = "/mypage/admin";
                             },
                             error: function (data) {
