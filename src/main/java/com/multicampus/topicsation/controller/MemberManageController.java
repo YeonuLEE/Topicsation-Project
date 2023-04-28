@@ -13,9 +13,18 @@ import com.multicampus.topicsation.token.JwtUtils;
 import org.json.simple.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+//import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+//import org.springframework.security.core.Authentication;
+//import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 import java.util.Random;
 
@@ -28,6 +37,9 @@ public class MemberManageController {
 
     @Autowired
     private MailService mailService;
+
+    @Autowired
+    private IMemberManageService service;
 
     @GetMapping("/signin")
     public String signin() {
@@ -84,9 +96,6 @@ public class MemberManageController {
         //토큰 주입
         private final JwtUtils jwtUtils;
 
-        @Autowired
-        private IMemberManageService service;
-
         public MemberManageRestController(JwtUtils jwtUtils) {
             this.jwtUtils = jwtUtils;
         }
@@ -111,12 +120,11 @@ public class MemberManageController {
         }
 
         @PostMapping("/signin.post")
-        public String signin(@RequestBody Map<String, String> params) throws Exception {
+        public ResponseEntity<Object> signin(@RequestBody Map<String, String> params, HttpServletResponse response) throws Exception {
 
             String email = params.get("email");
             System.out.println(email);
             String password = params.get("password");
-//            params.put("password", BCrypt.hashpw(password, BCrypt.gensalt()));
             System.out.println(password);
 
               //email과 password 검증
@@ -131,17 +139,20 @@ public class MemberManageController {
                 String refreshToken = jwtUtils.createRefreshToken(dto.getRole(), dto.getUser_id());
                 System.out.println(refreshToken);
 
-                String response = "{\"accessToken\":\"" + accessToken + "\", \"refreshToken\":\"" + refreshToken + "\"}";
+                //Header에 accesstoken 정보 담아서 응답
+                response.setHeader("Authorization", "Bearer " + accessToken);
 
-//                Cookie cookie = new Cookie("refreshToken", refreshToken);
-//                cookie.setHttpOnly(true);
-//                cookie.setMaxAge(refreshTokenValiditySeconds);
-//                cookie.setPath("/");
-//                response.addCookie(cookie);
+                //쿠키설정
+                Cookie cookie = new Cookie("refreshToken", refreshToken);
+                cookie.setHttpOnly(true);
 
-                return response;
+                //Cookie에 refreshtoken 정보 담아서 응답
+                response.addCookie(cookie);
+
+                //200 전달
+                return ResponseEntity.ok().build();
             }
-            return null;
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
         @PostMapping("/signout")

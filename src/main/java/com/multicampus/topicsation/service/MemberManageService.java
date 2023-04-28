@@ -35,12 +35,6 @@ public class MemberManageService implements IMemberManageService{
         Map<String, String> result = new HashMap<>();
         result.put("email",email);
 
-        LoginDTO dto = dao.login(result);
-
-//        if (dto == null || !BCrypt.checkpw(password, dto.getPassword())) {
-//            throw new RuntimeException("일치하는 회원이 없습니다.");
-//        }
-
-        return dto;
+       return dao.login(result);
     }
 }

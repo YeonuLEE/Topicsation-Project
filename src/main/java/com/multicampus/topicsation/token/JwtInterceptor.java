@@ -46,7 +46,10 @@ public class JwtInterceptor implements HandlerInterceptor {
                 String roles = jwtUtils.getRole(refreshToken);
                 String userid = jwtUtils.getId(refreshToken);
 
-                jwtUtils.createAccessToken(roles, userid);
+                String newAccessToken = jwtUtils.createAccessToken(roles, userid);
+
+                //Header에 accesstoken 정보 담아서 응답
+                response.setHeader("Authorization", "Bearer " + newAccessToken);
             } else {
                 //둘 다 유효하지 않을 때
                 logger.debug("유효하지 않은 JWT 토큰입니다. uri: {}", requestURI);
@@ -54,13 +57,6 @@ public class JwtInterceptor implements HandlerInterceptor {
             }
         }
 
-        Cookie cookie = new Cookie("refreshToken", refreshToken);
-        cookie.setHttpOnly(true);
-
-        //Header에 accesstoken 정보 담아서 응답
-        response.setHeader("Authorization", "Bearer " + accessToken);
-        //Cookie에 refreshtoken 정보 담아서 응답
-        response.addCookie(cookie);
         return true;
     }
 

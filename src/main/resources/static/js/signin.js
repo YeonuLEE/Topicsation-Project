@@ -15,28 +15,15 @@ $("#loginForm").submit(function (event) {
             email: email,
             password: password
         }),
-        success: function (response, status) {
-            console.log(response)
-            var data = JSON.parse(response);
-                if (data !== null) {
-                    //accesstoken 저장
-                    // sessionStorage.setItem("accessToken", data.accessToken);
-                    // console.log(data.accessToken)
+        success: function (data, textStatus, xhr) {
+            const authorization = xhr.getResponseHeader("Authorization");
+            const accessToken = authorization.substring(7);
+            //accesstoken 저장
+            sessionStorage.setItem("accessToken", accessToken);
+            console.log(accessToken);
 
-
-                    //refreshtoken 저장
-                    document.cookie = "refreshToken=" + data.refreshToken + "; path=/; SameSite=Strict";
-                    console.log(data.refreshToken)
-
-                    history.pushState(null, null, "/main");
-                    location.reload();
-                } else {
-                    console.log(status)
-                    console.log(data)
-                    $("#loginFail").text("로그인 정보가 틀렸습니다")
-                    $("#email").val("").removeClass("is-valid").addClass("is-invalid")
-                    $("#password").val("").removeClass("is-valid").addClass("is-invalid")
-                }
+            history.pushState(null, null, "/main");
+            location.reload();
             },
         error: function (data, textStatus) {
             console.log(textStatus)
