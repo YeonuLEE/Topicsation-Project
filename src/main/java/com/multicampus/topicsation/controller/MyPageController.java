@@ -7,11 +7,14 @@ import com.multicampus.topicsation.dto.TutorScheduleDTO;
 import com.multicampus.topicsation.service.IMyPageService;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/mypage")
@@ -166,39 +169,70 @@ public class MyPageController {
         }
 
         @GetMapping("/{user_id}/schedule/getCalendar")
-        public String schedulePageCalendar(@PathVariable("user_id") String tutorId) {
-            MypageScheduleDTO profileDto = service.tutorProfile(tutorId);
-            List<ClassDTO> scheduleDTOList = service.schedule_tutor(tutorId);
+        public String schedulePageCalendar(@PathVariable("user_id") String tutorId,
+                                            @RequestParam("calendarDate") String calendarDate) {
 
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("tutor_id",profileDto.getUser_id());
-            jsonObject.put("name",profileDto.getName());
-            jsonObject.put("profileimg",profileDto.getProfileimg());
+            MypageScheduleDTO mypageScheduleDTO = new MypageScheduleDTO();
+            Map<String, Object> paramMap = new HashMap<>();
+            paramMap.put("tutorId",tutorId);
+            paramMap.put("classDate", calendarDate);
 
-            JSONArray jsonArray = new JSONArray();
-            for(ClassDTO dto : scheduleDTOList){
-                JSONObject jsonObject2 =new JSONObject();
-                jsonObject2.put("class_id",dto.getClass_id());
-                jsonObject2.put("class_date",dto.getClass_date());
-                jsonObject2.put("class_time",dto.getClass_time());
-                jsonObject2.put("tutee_id",dto.getTutee_id());
-                jsonObject2.put("tutee_name",dto.getName());
-                jsonObject2.put("tutor_id",dto.getTutor_id());
+            mypageScheduleDTO = service.schedule_tutor(paramMap, mypageScheduleDTO);
 
-                jsonArray.add(jsonObject2);
+            System.out.println(mypageScheduleDTO.getUser_id());
+            System.out.println(mypageScheduleDTO.getName());
+            System.out.println(mypageScheduleDTO.getProfileimg());
+
+            JSONObject jsonObject_info = new JSONObject();
+            JSONArray jsonArray_schedule = new JSONArray();
+
+            jsonObject_info.put("user_id",tutorId);
+            jsonObject_info.put("name", mypageScheduleDTO.getName());
+            jsonObject_info.put("picture", mypageScheduleDTO.getProfileimg());
+
+            for(int i = 0; i<mypageScheduleDTO.getScheduleDTOList().size(); i++) {
+                JSONObject jsonObject_schedule = new JSONObject();
+                jsonObject_schedule.put("class_id", mypageScheduleDTO.getScheduleDTOList().get(i).getClass_id());
+                jsonObject_schedule.put("class_date", mypageScheduleDTO.getScheduleDTOList().get(i).getClass_date());
+                jsonObject_schedule.put("class_time", mypageScheduleDTO.getScheduleDTOList().get(i).getClass_time());
+                jsonObject_schedule.put("tutee_id", mypageScheduleDTO.getScheduleDTOList().get(i).getTutee_id());
+                jsonObject_schedule.put("tutor_id", mypageScheduleDTO.getScheduleDTOList().get(i).getTutor_id());
+                jsonObject_schedule.put("name", mypageScheduleDTO.getScheduleDTOList().get(i).getName());
+                jsonArray_schedule.add(jsonObject_schedule);
             }
+            
+            JSONObject jsonObject = new JSONObject();
 
-            jsonObject.put("schedule",jsonArray);
+            jsonObject.put("tutor_info", jsonObject_info);
+            jsonObject.put("schedule", jsonArray_schedule);
+
             String jsonString = jsonObject.toJSONString();
+            System.out.println(jsonString);
 
             return jsonString;
         }
 
         @PostMapping("/{user_id}/schedule/postCalender")
-        public String schedulePost(@RequestBody JSONObject jsonObject) {
-            String tutor_id = jsonObject.get("$tutor_id").toString();
-            System.out.println(tutor_id);
-            return tutor_id;
+        public String schedulePost(@RequestBody String jsonString) {
+            JSONParser parser = new JSONParser();
+            JSONObject jsonObject;
+            JSONObject jsonUserInfo;
+            JSONArray jsonSchedule;
+            int result = 0;
+            try {
+                jsonObject = (JSONObject) parser.parse(jsonString);
+                jsonUserInfo = (JSONObject) jsonObject.get("user_info");
+                jsonSchedule = (JSONArray) jsonObject.get("schedule");
+                System.out.println("jsonUserInfo : " + jsonUserInfo);
+                System.out.println("jsonSchedule : " + jsonSchedule);
+                result = service.scheduleUpdate(jsonUserInfo, jsonSchedule);
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+            if(result == 1 || result == 0)
+                return "success";
+            else
+                return "fail";
         }
 
         @GetMapping("/{user_id}/history/get")

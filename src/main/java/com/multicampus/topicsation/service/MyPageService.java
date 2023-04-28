@@ -5,10 +5,14 @@ import com.multicampus.topicsation.dto.MypageScheduleDTO;
 import com.multicampus.topicsation.dto.ClassDTO;
 import com.multicampus.topicsation.repository.IMemberDAO;
 import lombok.RequiredArgsConstructor;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -36,13 +40,43 @@ public class MyPageService implements IMyPageService{
     }
 
     @Override
-    public MypageScheduleDTO tutorProfile(String user_id) {
-        return dao.tutorProfile(user_id);
+    public MypageScheduleDTO schedule_tutor(Map<String, Object> paramMap, MypageScheduleDTO mypageScheduleDTO) {
+        mypageScheduleDTO = dao.tutorProfile(paramMap.get("tutorId").toString());
+        mypageScheduleDTO.setScheduleDTOList(dao.tutorSchedule(paramMap));
+        return mypageScheduleDTO;
     }
 
     @Override
-    public List<ClassDTO> schedule_tutor(String user_id) {
-        return dao.scheduleDTO(user_id);
+    public int scheduleUpdate(JSONObject jsonUserInfo, JSONArray jsonSchedule) {
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("user_id", jsonUserInfo.get("user_id"));
+        paramMap.put("password",jsonUserInfo.get("password"));
+
+        Map<String, Object> paramMap2 = new HashMap<>();
+        paramMap2.put("tutor_id", jsonUserInfo.get("user_id"));
+        paramMap2.put("class_date", jsonUserInfo.get("class_date"));
+
+        int findResult = dao.findUser(paramMap);
+        System.out.println("findResult : " + findResult);
+        if(findResult == 1) {
+            dao.scheduleDelete(paramMap2);
+            if (!jsonSchedule.isEmpty()) {
+                int countResult = 0;
+                Map<String, Object> scheduleMap = new HashMap<>();
+                for (int i = 0; i < jsonSchedule.size(); i++) {
+                    JSONObject schedule = new JSONObject();
+                    schedule = (JSONObject) jsonSchedule.get(i);
+                    scheduleMap.put("tutor_id",paramMap2.get("tutor_id"));
+                    scheduleMap.put("class_date", paramMap2.get("class_date"));
+                    scheduleMap.put("class_time", schedule.get("class_time"));
+                    countResult += dao.scheduleUpdate(scheduleMap);
+                }
+                return 1; //스케쥴 업데이트 완료
+            } else {
+                return 0; // 업데이트할 스케쥴이 없음
+            }
+        }
+        return 2; // 비밀번호 오류
     }
 
     @Override
