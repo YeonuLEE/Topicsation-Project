@@ -8,4 +8,5 @@ import java.util.Map;
 public interface ISignUpService {
     boolean signUpProcess(SignUpDTO signUpDTO);
     boolean sendMail(MailDTO mailDTO);
+    void successEmailAuth(SignUpDTO signUpDTO);
 }

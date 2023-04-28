@@ -44,34 +44,50 @@ $(document).ready(function () {
                 email: email
             }),
             success: function (data, status) {
-                if(data == "sendFail"){
+                if (data == "sendFail") {
                     alert("인증코드 전송에 실패하였습니다.");
-                    location.href="/members/signup/email";
-                }
-                else{
+                    location.href = "/members/signup/email";
+                } else {
                     authKey = data;
-                    $("#auth-btn").click(function(event) {
+                    $("#auth-btn").click(function (event) {
                         event.preventDefault();
                         var token = $("#email-token").val();
-                        if(token == authKey)
+                        if (token == authKey) {
                             //여기에 ajax해주는데, location.href 이거는 그 ajax에 success에 넣어야함.
-                            location.href = "/members/signup/success";
-                        else{
+                            $.ajax({
+                                type: "POST",
+                                url: "/members/signup/success.post",
+                                contentType: 'application/json',
+                                data: JSON.stringify({
+                                    email: email
+                                }),
+                                success: function (data, status) {
+                                    if (data == "emailAuthSuccess") {
+                                        location.href = "/members/signup/success";
+                                    }
+                                },
+                                error: function (data, textStatus) {
+                                    alert("Error!")
+                                },
+                                complete: function (data, textStatus) {
+                                },
+                            });
+                        }
+                        // location.href = "/members/signup/success";
+                        else {
                             alert("인증코드가 일치하지 않습니다.");
-                            location.href = "/members/signup/email";
+                            event.preventDefault();
+                            // location.href = "/members/signup/email";
                         }
                     });
                 }
-
             },
             error: function (data, textStatus) {
-                alert("111")
+                alert("Error!")
                 // location.href="/members/signup/email";
             },
             complete: function (data, textStatus) {
             },
         });
     });
-
 });
-

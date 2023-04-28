@@ -1,6 +1,5 @@
 package com.multicampus.topicsation.controller;
 
-import com.multicampus.topicsation.dto.MemberRole;
 import com.multicampus.topicsation.dto.SignUpDTO;
 import com.multicampus.topicsation.service.ISignUpService;
 import com.multicampus.topicsation.service.MailService;
@@ -15,7 +14,6 @@ import com.multicampus.topicsation.token.JwtFilter;
 import com.multicampus.topicsation.token.TokenProvider;
 import org.json.simple.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.http.HttpHeaders;
@@ -86,14 +84,6 @@ public class MemberManageController {
 
     @GetMapping("/signup/success")
     public String success(HttpSession session) {
-
-//        ModelMapper modelMapper = new ModelMapper();
-//        SignUpDTO dto = modelMapper.map(session.getAttribute("dto"), SignUpDTO.class);
-//
-//
-//        // 세션 초기화
-//        session.invalidate();
-
         return "html/sign-up-success";
     }
 
@@ -199,43 +189,22 @@ public class MemberManageController {
         }
 
         @PostMapping("/signup-tutors.post")
-        public boolean signUpTutor(@RequestBody Map<String, String> jsonMap) {
+        public String signUpTutor(@RequestBody SignUpDTO signUpDTO) {
+            boolean result = signUpService.signUpProcess(signUpDTO);
+            if (result) {
+                return signUpDTO.getEmail();
+            } else {
+                return "signupFail";
+            }
+        }
 
-//            String email = jsonMap.get("$email").toString();
-//            String password = jsonMap.get("$password").toString();
-//            String name = jsonMap.get("$name").toString();
-//            String gender = jsonMap.get("$gender").toString();
-//            String nationality = jsonMap.get("$nationality").toString();
-//            String firstInterest = jsonMap.get("$firstInterest").toString();
-//            String secondInterest = jsonMap.get("$secondInterest").toString();
-////            String certificate = jsonMap.get("$certificate").toString();
-//
-//            System.out.println(password);
-//
-//
-//            if (email.isEmpty() || password.isEmpty() || name.isEmpty() || gender.isEmpty() || nationality.isEmpty()
-//                    || firstInterest.isEmpty() || secondInterest.isEmpty()) {
-//                System.out.println("signup Fail");
-//                return false;
-//            }
-//
-//            SignUpDTO dto = new SignUpDTO();
-//            dto.setEmail(jsonMap.get("$email").toString());
-//            dto.setPassword(jsonMap.get("$password").toString());
-//            dto.setName(jsonMap.get("$name").toString());
-//            dto.setGender(jsonMap.get("$gender").toString());
-//            dto.setNationality(jsonMap.get("$nationality").toString());
-//            dto.setInterest1(jsonMap.get("$firstInterest").toString());
-//            dto.setInterest2(jsonMap.get("$secondInterest").toString());
-////            dto.setCertificate(jsonMap.get("$certificate").toString());
-//            dto.setRole(MemberRole.TUTOR);
-//
-//
-//
-//            System.out.println("controller: " + dto);
-//            signUpService.addTutor(dto);
-
-            return true;
+        @PostMapping("/signup/success.post")
+        public String successEmailAuth(@RequestBody SignUpDTO signUpDTO) {
+            System.out.println("controller email확인" + signUpDTO.getEmail());
+            signUpService.successEmailAuth(signUpDTO);
+//        // 세션 초기화
+//        session.invalidate();
+            return "emailAuthSuccess";
         }
     }
 }

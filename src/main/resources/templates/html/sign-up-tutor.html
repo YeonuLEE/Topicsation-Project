@@ -55,7 +55,7 @@
           <div class="col-12 d-flex align-items-center justify-content-center">
             <div
               class="signin-inner mt-3 mt-lg-0 bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
-              <form action="/members/signup-tutors.post" method="post" id="signInForm">
+              <form id="signUpForm">
                 <!-- Form -->
                 <div class="form-group">
                   <label for="email">E-mail<span class="txt-error email"
@@ -64,7 +64,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><span class="fas fa-envelope"></span></span>
                     </div>
-                    <input class="form-control" id="email" placeholder="@E-mail" type="text" aria-label="email adress"
+                    <input class="form-control" id="email" name="email" placeholder="@E-mail" type="text" aria-label="email adress"
                       autocomplete="off" required />
                   </div>
                 </div>
@@ -81,7 +81,7 @@
                         </svg>
                       </span>
                     </div>
-                    <input class="form-control" id="name" placeholder="Name" type="text" aria-label="Name" required />
+                    <input class="form-control" id="name" name="name" placeholder="Name" type="text" aria-label="Name" autocomplete="off" required />
                   </div>
                 </div>
                 <div class="form-group">
@@ -93,7 +93,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><span class="fas fa-unlock-alt"></span></span>
                       </div>
-                      <input class="form-control" id="password" placeholder="Password" type="password"
+                      <input class="form-control" id="password" name="password" placeholder="Password" type="password"
                         aria-label="Password" required />
                     </div>
                   </div>
@@ -106,7 +106,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><span class="fas fa-unlock-alt"></span></span>
                       </div>
-                      <input class="form-control" id="password-confirm" placeholder="Confirm password" type="password"
+                      <input class="form-control" id="password-confirm" name="passwordConfirm" placeholder="Confirm password" type="password"
                         aria-label="Password" required />
                     </div>
                   </div>
@@ -114,7 +114,7 @@
                   <div class="form-group">
                     <label>Gender</label>
 
-                    <div class="form-check" id="gender" >
+                    <div class="form-check" id="gender">
                       <input class="form-check-input" type="radio" name="genderRadios" id="gender-female" value="female"
                         checked />
                       <label class="form-check-label" for="gender-female">
@@ -136,7 +136,7 @@
                   </div>
                   <div class="form-group">
                     <label>Nationality</label>
-                    <select class="custom-select" id="nationality" required>
+                    <select class="custom-select" id="nationality" name="nationality" required>
                       <option value="" disabled selected style="display: none">
                         Select Nationality
                       </option>
@@ -150,7 +150,7 @@
                   </div>
                   <div class="form-group">
                     <label>Interest</label>
-                    <select class="custom-select" id="first-interest" required>
+                    <select class="custom-select" id="first-interest" name="firstInterest"required>
                       <option value="" disabled selected style="display: none">
                         First Interest
                       </option>
@@ -162,7 +162,7 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <select class="custom-select" id="second-interest" required>
+                    <select class="custom-select" id="second-interest" name="secondInterest" equired>
                       <option value="" disabled selected style="display: none">
                         Second Interest
                       </option>
