@@ -55,9 +55,6 @@ dependencies {
     //Mail
     implementation 'org.springframework.boot:spring-boot-starter-mail'
 
-    //Redis
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-
     //JBCrypt
     implementation group: 'org.mindrot', name: 'jbcrypt', version: '0.4'
 }

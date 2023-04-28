@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    var token = sessionStorage.getItem('token');
+    const token = sessionStorage.getItem('accessToken');
     console.log(token);
     if (token != null) {
         $.ajaxSetup({
@@ -258,9 +258,9 @@ $("#search-form").submit(function (event) {
 })
 
 $('#sign-btn').click(function() {
-    const token = sessionStorage.getItem('token');
+    const token = sessionStorage.getItem('accessToken');
     if (token != null) {
-        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('accessToken');
         $.ajax({
             url: '/members/signout',
             type: 'POST',

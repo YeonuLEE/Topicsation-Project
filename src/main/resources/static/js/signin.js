@@ -15,10 +15,19 @@ $("#loginForm").submit(function (event) {
             email: email,
             password: password
         }),
-        success: function (data, status) {
-                if (data) {
-                    sessionStorage.setItem("token", data);
-                    // sessionStorage.setItem("expiration", data.expiration);
+        success: function (response, status) {
+            console.log(response)
+            var data = JSON.parse(response);
+                if (data !== null) {
+                    //accesstoken 저장
+                    // sessionStorage.setItem("accessToken", data.accessToken);
+                    // console.log(data.accessToken)
+
+
+                    //refreshtoken 저장
+                    document.cookie = "refreshToken=" + data.refreshToken + "; path=/; SameSite=Strict";
+                    console.log(data.refreshToken)
+
                     history.pushState(null, null, "/main");
                     location.reload();
                 } else {

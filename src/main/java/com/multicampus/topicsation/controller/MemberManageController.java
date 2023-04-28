@@ -4,32 +4,18 @@ import com.multicampus.topicsation.dto.MemberRole;
 import com.multicampus.topicsation.dto.SignUpDTO;
 import com.multicampus.topicsation.service.MailService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.multicampus.topicsation.dto.LoginDTO;
 import com.multicampus.topicsation.dto.MailDTO;
 import com.multicampus.topicsation.service.IMemberManageService;
 import com.multicampus.topicsation.service.SignUpService;
 //import com.multicampus.topicsation.service.security.CustomUserDetailsService;
-import com.multicampus.topicsation.token.JwtFilter;
-import com.multicampus.topicsation.token.TokenProvider;
+import com.multicampus.topicsation.token.JwtUtils;
 import org.json.simple.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-//import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
-import java.security.SecureRandom;
-import java.security.Security;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -42,11 +28,6 @@ public class MemberManageController {
 
     @Autowired
     private MailService mailService;
-
-    @GetMapping("/admin")
-    public String admin() {
-        return "html/sign-in-admin";
-    }
 
     @GetMapping("/signin")
     public String signin() {
@@ -101,16 +82,13 @@ public class MemberManageController {
     public class MemberManageRestController {
 
         //토큰 주입
-        private final TokenProvider tokenProvider;
-        private final BCrypt bCrypt;
+        private final JwtUtils jwtUtils;
 
         @Autowired
         private IMemberManageService service;
-        //        private final AuthenticationManagerBuilder authenticationManagerBuilder;
-//
-        public MemberManageRestController(TokenProvider tokenProvider, BCrypt bCrypt) {
-            this.tokenProvider = tokenProvider;
-            this.bCrypt = bCrypt;
+
+        public MemberManageRestController(JwtUtils jwtUtils) {
+            this.jwtUtils = jwtUtils;
         }
 
         @PostMapping("/signup-tutees.post")
@@ -133,31 +111,37 @@ public class MemberManageController {
         }
 
         @PostMapping("/signin.post")
-        public String signin(@RequestBody Map<String, String> params) throws JsonProcessingException {
-//            //더미 데이터 암호화 테스트 진행
-//            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-////            String hashedPassword = passwordEncoder.encode(password);
-////            System.out.println(hashedPassword);
-//
+        public String signin(@RequestBody Map<String, String> params) throws Exception {
+
             String email = params.get("email");
             System.out.println(email);
             String password = params.get("password");
+//            params.put("password", BCrypt.hashpw(password, BCrypt.gensalt()));
             System.out.println(password);
-//
-//          //email과 password 검증
+
+              //email과 password 검증
             LoginDTO dto = service.login(params);
 
-            if (dto == null || !BCrypt.checkpw(password, dto.getPassword())) {
-//                    throw new IllegalArgumentException("일치하는 회원이 없습니다.");
-                return "일치하는 회원이 없습니다.";
-            } else {
+            if (dto != null && BCrypt.checkpw(password, dto.getPassword())) {
                 //accesstoken 생성
-                String token = tokenProvider.createAccessToken(dto.getEmail(), dto.getRole());
-                System.out.println(token);
+                String accessToken = jwtUtils.createAccessToken(dto.getRole(), dto.getUser_id());
+                System.out.println(accessToken);
 
-                //accesstioken 반환
-                return token;
+                //refreshtoken 생성
+                String refreshToken = jwtUtils.createRefreshToken(dto.getRole(), dto.getUser_id());
+                System.out.println(refreshToken);
+
+                String response = "{\"accessToken\":\"" + accessToken + "\", \"refreshToken\":\"" + refreshToken + "\"}";
+
+//                Cookie cookie = new Cookie("refreshToken", refreshToken);
+//                cookie.setHttpOnly(true);
+//                cookie.setMaxAge(refreshTokenValiditySeconds);
+//                cookie.setPath("/");
+//                response.addCookie(cookie);
+
+                return response;
             }
+            return null;
         }
 
         @PostMapping("/signout")
