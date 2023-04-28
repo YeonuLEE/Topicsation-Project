@@ -12,6 +12,6 @@ public class ClassDTO {
     private String class_date;
     private String class_time;
     private String tutee_id;
-    private String name;
     private String tutor_id;
+    private String name;
 }
