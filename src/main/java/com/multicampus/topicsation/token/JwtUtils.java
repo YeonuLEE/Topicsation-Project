@@ -43,7 +43,7 @@ public class JwtUtils {
                 .signWith(secretKey)
                 .compact();
 
-        System.out.println(accessToken);
+        System.out.println("JwtUtils accessToken : " + accessToken);
 
         return accessToken;
     }
@@ -66,7 +66,7 @@ public class JwtUtils {
                 .signWith(secretKey)
                 .compact();
 
-        System.out.println(refreshToken);
+        System.out.println("JwtUtils refreshToken : " + refreshToken);
 
         return refreshToken;
     }
@@ -105,10 +105,8 @@ public class JwtUtils {
     //request Header에서 access토큰 정보를 꺼내오기
     public String getAccessToken(HttpServletRequest httpServletRequest) {
         String bearerToken = httpServletRequest.getHeader(AUTHORIZATION_HEADER);
-        System.out.println(bearerToken);
+        System.out.println("JwtUtils bearerToken : " +bearerToken);
         if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
-            System.out.println("token : "+bearerToken);
-
             return bearerToken.substring(7);
         }
         return null;

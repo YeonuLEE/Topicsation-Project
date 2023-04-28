@@ -20,6 +20,12 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(jwtInterceptor())
                 .addPathPatterns("/**")
+                .excludePathPatterns("/resources/**")
+                .excludePathPatterns("/vendor/**")
+                .excludePathPatterns("/static/**")
+                .excludePathPatterns("/js/**")
+                .excludePathPatterns("/css/**")
+                .excludePathPatterns("/assets/**")
                 .excludePathPatterns("/members/**")
                 .excludePathPatterns("/main","/main/search-all","/main/tutors/{tutor_id}")
                 .excludePathPatterns("/mypage/admin","/mypage/{user_id}","/mypage/{user_id}/schedule", "/mypage/{user_id}/history")

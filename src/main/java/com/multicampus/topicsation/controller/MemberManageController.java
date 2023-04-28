@@ -133,11 +133,9 @@ public class MemberManageController {
             if (dto != null && BCrypt.checkpw(password, dto.getPassword())) {
                 //accesstoken 생성
                 String accessToken = jwtUtils.createAccessToken(dto.getRole(), dto.getUser_id());
-                System.out.println(accessToken);
 
                 //refreshtoken 생성
                 String refreshToken = jwtUtils.createRefreshToken(dto.getRole(), dto.getUser_id());
-                System.out.println(refreshToken);
 
                 //Header에 accesstoken 정보 담아서 응답
                 response.setHeader("Authorization", "Bearer " + accessToken);

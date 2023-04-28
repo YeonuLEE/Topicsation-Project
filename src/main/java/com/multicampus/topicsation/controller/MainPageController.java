@@ -73,8 +73,10 @@ public class MainPageController {
                     "        }\n" +
                     "    ]\n" +
                     "}";
+
             return jsonString;
         }
+
         @GetMapping("/search-all.get")
         public String searchAll() {
            return "";

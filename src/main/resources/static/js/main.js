@@ -1,16 +1,21 @@
+import { setupAjax } from './checkTokenExpiration.js';
+
 $(document).ready(function () {
 
+    alert("main.js 실행!!!!")
+
     const token = sessionStorage.getItem('accessToken');
-    console.log(token);
+    
+    // access token 만료 기간 검증 및 req header에 삽입
+    setupAjax(token)
+
+
+    // 로그인 로그아웃 버튼 바꾸기
     if (token != null) {
-        $.ajaxSetup({
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader('Authorization', 'Bearer ' + token);
-            }
-        });
         $('#sign-btn').text('SIGN OUT');
     }
 
+    // main 관련
     var pathURI = window.location.pathname
     var ajaxURI;
 
@@ -18,10 +23,10 @@ $(document).ready(function () {
 
     if (pathURI == '/main') {
         ajaxURI = pathURI + "/get";
-        console.log(ajaxURI);
+        console.log("ajaxURI :", ajaxURI);
     } else if (pathURI == '/main/search-all') {
         ajaxURI = pathURI + ".get";
-        console.log(ajaxURI);
+        console.log("ajaxURI :", ajaxURI);
     }
 
     $.ajax({
