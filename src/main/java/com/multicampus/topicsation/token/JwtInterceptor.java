@@ -22,11 +22,18 @@ public class JwtInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         String accessToken = jwtUtils.getAccessToken(request);
-        String refreshToken = jwtUtils.getRefreshToken(request);
         String requestURI = request.getRequestURI();
+
+        // 비회원일 때
+        if(accessToken == null){
+            logger.debug("비회원 유저입니다 URI: {}", requestURI);
+            return true;
+        }
+
+        String refreshToken = jwtUtils.getRefreshToken(request);
         System.out.println(requestURI);
 
-        if(StringUtils.hasText(accessToken) && jwtUtils.validateToken(accessToken)) {
+        if(jwtUtils.validateToken(accessToken)) {
             //accesstoke이 유효할 때
             logger.debug("유효한 access 토큰 정보입니다. URI: {}", requestURI);
         } else {
@@ -51,7 +58,7 @@ public class JwtInterceptor implements HandlerInterceptor {
         cookie.setHttpOnly(true);
 
         //Header에 accesstoken 정보 담아서 응답
-        response.setHeader("Authorization", "Bearer "+accessToken);
+        response.setHeader("Authorization", "Bearer " + accessToken);
         //Cookie에 refreshtoken 정보 담아서 응답
         response.addCookie(cookie);
         return true;
