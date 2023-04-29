@@ -1,28 +1,35 @@
+import { setupAjax } from './checkTokenExpiration.js';
+
 $(document).ready(function () {
 
-    var token = sessionStorage.getItem('token');
-    console.log(token);
+    const token = sessionStorage.getItem('accessToken');
+    alert(token)
+    
+    // access token 만료 기간 검증 및 req header에 삽입
+    setupAjax(token)
+
+    // $("#mypage-btn").click(function () {
+    //     location.href = "/mypage/admin";
+    // });
+
+
+    // 로그인 로그아웃 버튼 바꾸기
     if (token != null) {
-        $.ajaxSetup({
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader('Authorization', 'Bearer ' + token);
-            }
-        });
         $('#sign-btn').text('SIGN OUT');
     }
 
+    // main 관련
     var pathURI = window.location.pathname
     var ajaxURI;
-    var userId = 1;
 
     console.log(pathURI);
 
     if (pathURI == '/main') {
-        ajaxURI = pathURI + "/get" + "?userId=";
-        console.log(ajaxURI);
+        ajaxURI = pathURI + "/get";
+        console.log("ajaxURI :", ajaxURI);
     } else if (pathURI == '/main/search-all') {
         ajaxURI = pathURI + ".get";
-        console.log(ajaxURI);
+        console.log("ajaxURI :", ajaxURI);
     }
 
     $.ajax({
@@ -32,6 +39,7 @@ $(document).ready(function () {
             var jsonData;
             var dataBody;
             var length;
+
 
             if (ajaxURI == '/main/get') {
                 jsonData = JSON.parse(data);
@@ -259,16 +267,15 @@ $("#search-form").submit(function (event) {
 })
 
 $('#sign-btn').click(function() {
-    const token = sessionStorage.getItem('token');
+    const token = sessionStorage.getItem('accessToken');
     if (token != null) {
-        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('accessToken');
         $.ajax({
             url: '/members/signout',
             type: 'POST',
             success: function (data) {
                 console.log('Signed out successfully');
                 location.reload();
-
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.error('Error signing out:', textStatus, errorThrown);
@@ -280,9 +287,10 @@ $('#sign-btn').click(function() {
 });
 
 //myPage
-$("#mypage-btn").click(function () {
-    window.location.replace("/mypage/admin")
-})
+// $("#mypage-btn").click(function () {
+//
+//     location.href = "/mypage/1"
+// })
 
 // $(window).on('load', function() {
 //     var token = sessionStorage.getItem('token');

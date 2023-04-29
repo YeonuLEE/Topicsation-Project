@@ -15,19 +15,17 @@ $("#loginForm").submit(function (event) {
             email: email,
             password: password
         }),
-        success: function (data, status) {
-                if (data) {
-                    sessionStorage.setItem("token", data);
-                    // sessionStorage.setItem("expiration", data.expiration);
-                    history.pushState(null, null, "/main");
-                    location.reload();
-                } else {
-                    console.log(status)
-                    console.log(data)
-                    $("#loginFail").text("로그인 정보가 틀렸습니다")
-                    $("#email").val("").removeClass("is-valid").addClass("is-invalid")
-                    $("#password").val("").removeClass("is-valid").addClass("is-invalid")
-                }
+        success: function (data, textStatus, xhr) {
+            //accesstoken 뽑아내기
+            const authorization = xhr.getResponseHeader("Authorization");
+            const accessToken = authorization.substring(7);
+            //accesstoken 저장
+            sessionStorage.setItem("accessToken", accessToken);
+            console.log(accessToken);
+
+            //현재 페이지의 URL을 /main으로 변경하고, 변경된 URL을 새로고침
+            history.pushState(null, null, "/main");
+            location.reload();
             },
         error: function (data, textStatus) {
             console.log(textStatus)
