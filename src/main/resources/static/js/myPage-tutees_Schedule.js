@@ -4,7 +4,7 @@ $(document).ready(function () {
     const regex = /\/mypage\/(\d+)\/schedule/;
     const match = pathURI.match(regex);
     const userId= match[1];
-    // console.log(userId)
+
     var apiUrl1 = "/mypage/{user_id}/schedule/get";
     var apiUrl2 = "/mypage/{user_id}";
     var apiUrl3 = "/mypage/{user_id}/schedule";
@@ -28,8 +28,6 @@ $(document).ready(function () {
             $("#history").attr("href", apiUrl4);
 
             dataParse = JSON.parse(JSON.stringify(data));
-            console.log(dataParse);
-            // console.log(status);
             var tbody = $("#tutee-schedule");
 
             // 프로필 이름 출력
@@ -38,7 +36,6 @@ $(document).ready(function () {
             // 스케줄 테이블 출력
             for (var i = 0; i < dataParse.schedules.length; i++) {
                 var tutee = dataParse.schedules[i];
-                console.log("tutee : " + tutee.class_id);
 
                 var classUrl = "/lesson/" + tutee.class_id;
                 var tr = $("<tr>");
@@ -59,7 +56,6 @@ $(document).ready(function () {
                     .on("click", function (event) {
                         event.preventDefault();
                         var id = $(this).attr("id");
-                        // console.log(id);
 
                         const inputString = id;
                         let letters = "";
@@ -72,21 +68,15 @@ $(document).ready(function () {
                                 numbers += char;
                             }
                         }
-                        // console.log("Letters:", letters);
-                        // console.log("Numbers:", numbers);
 
                         // 예약 취소 버튼을 클릭하면 실행될 함수
                         function cancelReservation() {
                             if ($("#cancel-reservation-message").val() == "예약을 취소하겠습니다") {
                                 var user_id = dataParse.user_id;
-                                console.log("user_id : " + user_id)
-
                                 var class_id = dataParse.schedules[numbers].class_id;
-                                console.log("class_id : " + class_id)
 
                                 var postLink = "/mypage/{user_id}/schedule/cancel";
                                 var apiUrl = postLink.replace("{user_id}", user_id);
-                                // alert(apiUrl);
 
                                 $.ajax({
                                     type: "PUT",
@@ -97,7 +87,6 @@ $(document).ready(function () {
                                     }),
                                     success: function (data) {
                                         $("#modal-default").modal('hide'); // 모달 창 닫기
-                                        console.log(data);
                                         $("#cancel-reservation-message").val("");
                                         // 실행창 초기화
                                         window.location.href = apiUrl3;
@@ -121,16 +110,12 @@ $(document).ready(function () {
 
                         // 모달 내부의 버튼 클릭 이벤트 핸들러 등록
                         $("#cancel-reservation").on("click", function (event) {
-                            // alert("확인중");
                             event.preventDefault();
                             cancelReservation();
                         });
                     });
                 tr.append(tno, classdate, tutorname, goToClassBtn, cancelReservationBtn);
                 tbody.append(tr);
-                // console.log(tutee.class_date);
-                // console.log(tutee.tutor_name);
-                // console.log($('.cancelBtn').attr("id"));
             }
         },
 

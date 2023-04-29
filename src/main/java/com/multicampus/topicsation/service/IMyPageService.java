@@ -12,6 +12,10 @@ import java.util.Map;
 public interface IMyPageService {
     String check_role(String user_id);
 
+    List<MyPageDTO> view_admin();
+    void success(String user_id);
+    void fail(String user_id);
+
     MyPageDTO view_tutor(String user_id);
     int modify_tutor(MyPageDTO myPageDTO);
     MypageScheduleDTO schedule_tutor(Map<String, Object> paramMap, MypageScheduleDTO mypageScheduleDTO);
@@ -25,7 +29,4 @@ public interface IMyPageService {
     List<ClassDTO> history_tutee(String user_id);
     void delete_tutee(String user_id);
     void schedule_cancel(String class_id);
-
-    List<MyPageDTO> view_admin();
-
 }

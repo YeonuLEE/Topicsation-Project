@@ -4,7 +4,7 @@ $(document).ready(function () {
     const regex = /\/mypage\/(\d+)\/history/;
     const match = pathURI.match(regex);
     const userId= match[1];
-    // console.log(userId)
+
     var apiUrl1 = "/mypage/{user_id}/history/get";
     var apiUrl2 = "/mypage/{user_id}";
     var apiUrl3 = "/mypage/{user_id}/schedule";
@@ -28,7 +28,6 @@ $(document).ready(function () {
             var jsonData = JSON.parse(JSON.stringify(data));
 
             $("#name").text(jsonData.name);
-            console.log(jsonData.name);
 
             //테이블에 튜티의 정보 뿌려주기
             var tbody = $("#tutee-history");

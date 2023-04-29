@@ -1,6 +1,7 @@
 package com.multicampus.topicsation.service;
 
 import com.multicampus.topicsation.dto.MemberDTO;
+import com.multicampus.topicsation.dto.RecommendDTO;
 import com.multicampus.topicsation.dto.TutorScheduleDTO;
 import com.multicampus.topicsation.dto.TutorViewDTO;
 import com.multicampus.topicsation.repository.IMemberDAO;
@@ -36,5 +37,34 @@ public class TutorListService implements ITutorListService {
             return true;
         else
             return false;
+    }
+
+    @Override
+    public List<RecommendDTO> recommend(String user_id) {
+
+        MemberDTO memberDTO = tutorListDAO.tuteeInterest(user_id);
+        List<RecommendDTO> interestList = tutorListDAO.recommendList(memberDTO.getInterest1(), memberDTO.getInterest2());
+
+        int size = 6 - interestList.size();
+        if(size > 0) {
+            List<RecommendDTO> spareList1 = tutorListDAO.spareList(memberDTO.getInterest1());
+            List<RecommendDTO> spareList2 = tutorListDAO.spareList(memberDTO.getInterest2());
+
+            for(RecommendDTO dto : spareList1) {
+                if(interestList.size() >= 6) break;
+                if(!interestList.contains(dto)) interestList.add(dto);
+            }
+
+            for(RecommendDTO dto : spareList2) {
+                if(interestList.size() >= 6) break;
+                if(!interestList.contains(dto)) interestList.add(dto);
+            }
+        }
+        return interestList;
+    }
+
+    @Override
+    public List<RecommendDTO> Non_members() {
+        return tutorListDAO.nonMembers();
     }
 }

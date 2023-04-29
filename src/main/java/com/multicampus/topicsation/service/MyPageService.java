@@ -33,7 +33,6 @@ public class MyPageService implements IMyPageService{
 
     @Override
     public int modify_tutor(MyPageDTO myPageDTO) {
-        System.out.println(myPageDTO);
         dao.modifyTutor(myPageDTO);
         dao.modifyTutor2(myPageDTO);
         return 0;
@@ -47,6 +46,7 @@ public class MyPageService implements IMyPageService{
     }
 
     @Override
+
     public int scheduleUpdate(JSONObject jsonUserInfo, JSONArray jsonSchedule) {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("user_id", jsonUserInfo.get("user_id"));
@@ -77,14 +77,18 @@ public class MyPageService implements IMyPageService{
             }
         }
         return 2; // 비밀번호 오류
+
+    public List<ClassDTO> schedule_tutor(String user_id) {
+        return dao.schedule(user_id);
+
     }
 
     @Override
     public void delete_tutor(String user_id) {
-//        dao.deleteClass(user_id);
-//        dao.deleteDislike(user_id);
-//        dao.deleteTutorInfo(user_id);
-//        dao.deleteTutor(user_id);
+        dao.deleteClass(user_id);
+        dao.tutorDislike(user_id);
+        dao.deleteTutorInfo(user_id);
+        dao.deleteTutor(user_id);
 
     }
 
@@ -98,66 +102,47 @@ public class MyPageService implements IMyPageService{
 
     @Override
     public MypageScheduleDTO tuteeProfile(String user_id) {
-        return null;
+        return dao.tuteeProfile(user_id);
     }
 
     @Override
     public List<ClassDTO> schedule_tutee(String user_id) {
-        return null;
+        return dao.scheduleTutee(user_id);
     }
 
     @Override
     public List<ClassDTO> history_tutee(String user_id) {
-        return null;
+        return dao.historyTutee(user_id);
     }
-
-//    @Override
-//    public MypageScheduleDTO tuteeProfile(String user_id) {
-//        return dao.tuteeProfile(user_id);
-//    }
-
-//    @Override
-//    public List<ClassDTO> schedule_tutee(String user_id) {
-//        return dao.scheduleTuteeDTO(user_id);
-//    }
-//
-//    @Override
-//    public List<ClassDTO> history_tutee(String user_id) {
-//        return dao.historyTuteeDTO(user_id);
-//    }
 
     @Override
     public void delete_tutee(String user_id) {
-
+        dao.deleteTutee(user_id);
+        dao.chageClass(user_id);
+        dao.tuteeDislike(user_id);
     }
 
     @Override
     public void schedule_cancel(String class_id) {
-
+        dao.cancelSchedule(class_id);
     }
 
     @Override
     public List<MyPageDTO> view_admin() {
-        return null;
+        List<MyPageDTO> list =dao.viewAdmin();
+        return list;
     }
 
-//    @Override
-//    public void delete_tutee(String user_id) {
-//        dao.deleteTutee(user_id);
-//        dao.chageClass(user_id);
-//    }
+    @Override
+    public void success(String user_id) {
+        dao.successAdmin(user_id);
+    }
 
-//    @Override
-//    public void schedule_cancel(String class_id) {
-//        dao.cancelSchedule(class_id);
-//    }
-
-//    @Override
-//    public List<MyPageDTO> view_admin() {
-//        List<MyPageDTO> list =dao.viewAdmin();
-//        System.out.println("List : "+list);
-//        return list;
-//    }
+    @Override
+    public void fail(String user_id) {
+        dao.failAdmin2(user_id);
+        dao.failAdmin(user_id);
+    }
 
 
 }

@@ -3,7 +3,6 @@ package com.multicampus.topicsation.controller;
 import com.multicampus.topicsation.dto.ClassDTO;
 import com.multicampus.topicsation.dto.MyPageDTO;
 import com.multicampus.topicsation.dto.MypageScheduleDTO;
-import com.multicampus.topicsation.dto.TutorScheduleDTO;
 import com.multicampus.topicsation.service.IMyPageService;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -63,12 +62,12 @@ public class MyPageController {
 
         @GetMapping("/admin/get")
         public String adminPage() {
-            System.out.println("실행");
             List<MyPageDTO> list =service.view_admin();
             JSONArray jsonArray = new JSONArray();
 
             for (MyPageDTO dto : list){
                 JSONObject jsonObject = new JSONObject();
+                jsonObject.put("userId",dto.getUser_id());
                 jsonObject.put("tutorName",dto.getName());
                 jsonObject.put("approlDate",dto.getRegi_date());
                 jsonObject.put("file",dto.getCertificate());
@@ -77,9 +76,20 @@ public class MyPageController {
             }
 
             String jsonString = jsonArray.toString();
-            System.out.println(jsonString);
 
             return jsonString;
+        }
+
+        @PostMapping("/admin/success")
+        public String adminSuccess(@RequestBody String userId){
+            service.success(userId);
+            return null;
+        }
+
+        @PostMapping("/admin/fail")
+        public String adminFail(@RequestBody String userId){
+            service.fail(userId);
+            return null;
         }
 
         @GetMapping("/{user_id}/get")
@@ -89,7 +99,6 @@ public class MyPageController {
             String role = service.check_role(userId);
             if (role.equals("tutor")) {
                 myPageDTO = service.view_tutor(userId);
-                //System.out.println(tutorId);
 
                 jsonObject.put("profileImg", myPageDTO.getProfileimg());
                 jsonObject.put("name", myPageDTO.getName());
@@ -98,74 +107,85 @@ public class MyPageController {
                 jsonObject.put("interest1", myPageDTO.getInterest1());
                 jsonObject.put("interest2", myPageDTO.getInterest2());
                 jsonObject.put("genderRadios", myPageDTO.getGender());
+                jsonObject.put("password",myPageDTO.getPassword());
 
             } else if(role.equals("tutee")) {
                 myPageDTO = service.view_tutee(userId);
-                System.out.println(userId);
-//                System.out.println(myPageDTO);
                 jsonObject.put("tutor-name", myPageDTO.getName());
                 jsonObject.put("name", myPageDTO.getName());
                 jsonObject.put("email", myPageDTO.getEmail());
                 jsonObject.put("interest1", myPageDTO.getInterest1());
                 jsonObject.put("interest2", myPageDTO.getInterest2());
+                jsonObject.put("password",myPageDTO.getPassword());
 
             }
 
-            System.out.println(jsonObject);
             return jsonObject.toJSONString();
         }
 
         @PostMapping("/{user_id}/post")
-        public String myPageModify(@RequestBody MyPageDTO myPageDTO){
-            String role = myPageDTO.getRole();
+        public String myPageModify(@RequestBody JSONObject jsonObject,@PathVariable("user_id") String userId){
+            MyPageDTO myPageDTO = new MyPageDTO();
+            String role = service.check_role(userId);
+
+            myPageDTO.setUser_id(userId);
+            myPageDTO.setName(jsonObject.get("$name").toString());
+            myPageDTO.setInterest1(jsonObject.get("$interest1").toString());
+            myPageDTO.setInterest2(jsonObject.get("$interest2").toString());
+
             if(role.equals("tutee")){
                 service.modify_tutee(myPageDTO);
             }else if(role.equals("tutor")){
+                myPageDTO.setProfileimg(jsonObject.get("$profileImg").toString());
+                myPageDTO.setNationality(jsonObject.get("$nationality").toString());
                 service.modify_tutor(myPageDTO);
             }
             return null;
         }
 
+        @PostMapping("/{user_id}/delete")
+        public String myPageDelete(@PathVariable("user_id") String userId){
+            String role = service.check_role(userId);
+            if(role.equals("tutee")){
+                service.delete_tutee(userId);
+            }else if(role.equals("tutor")){
+                service.delete_tutor(userId);
+            }
+
+            return null;
+        }
 
         @GetMapping("/{user_id}/schedule/get")
-        public String schedulePage() {
+        public String schedulePage(@PathVariable("user_id") String userId) {
+            MypageScheduleDTO mypageScheduleDTO = service.tuteeProfile(userId);
+            List<ClassDTO> classDTOList = service.schedule_tutee(userId);
+
             JSONArray jsonArray = new JSONArray();
             JSONObject jsonObject = new JSONObject();
+            jsonObject.put("tutee_name",mypageScheduleDTO.getName());
 
+            for(ClassDTO dto :  classDTOList){
+                JSONObject object = new JSONObject();
+                object.put("class_id",dto.getClass_id());
+                object.put("class_date",dto.getClass_date());
+                object.put("class_time",dto.getClass_time());
+                object.put("tutor_name",dto.getName());
+                object.put("class_id",dto.getClass_id());
 
-//            jsonObject.put("tutee_name", "Tom Softy");
-//            jsonObject.put("user_id", "1234");
-//
-//            JSONArray schedules = new JSONArray();
-//
-//            JSONObject scheduleObject1 = new JSONObject();
-//            scheduleObject1.put("class_date", "2023-04-16");
-//            scheduleObject1.put("class_time", "10:00AM");
-//            scheduleObject1.put("tutor_name", "Jonny Dep");
-//            scheduleObject1.put("class_id", "202304161000");
-//            schedules.add(scheduleObject1);
-//
-//            JSONObject scheduleObject2 = new JSONObject();
-//            scheduleObject2.put("class_date", "2023-04-18");
-//            scheduleObject2.put("class_time", "11:30AM");
-//            scheduleObject2.put("tutor_name", "Angeli Remy");
-//            scheduleObject2.put("class_id", "202304181130");
-//            schedules.add(scheduleObject2);
-//
-//            jsonObject.put("schedules", schedules);
-//            jsonArray.add(jsonObject);
-//
-            String jsonString = jsonArray.toString();
-            System.out.println(jsonString);
+                jsonArray.add(object);
+            }
+            jsonObject.put("schedules",jsonArray);
+            String jsonString = jsonObject.toString();
 
             return jsonString;
         }
 
         @PutMapping("/{user_id}/schedule/cancel")
         public String scheduleCancel(@RequestBody JSONObject jsonObject) {
-            String class_id = jsonObject.get("$class_id").toString();
-            System.out.println(class_id);
-            return class_id;
+            service.schedule_cancel(jsonObject.get("$class_id").toString());
+//            String class_id = jsonObject.get("$class_id").toString();
+//            System.out.println(class_id);
+            return null;
         }
 
         @GetMapping("/{user_id}/schedule/getCalendar")
@@ -236,25 +256,26 @@ public class MyPageController {
         }
 
         @GetMapping("/{user_id}/history/get")
-        public String historyPage() {
+        public String historyPage(@PathVariable("user_id") String user_id) {
+            MypageScheduleDTO mypageScheduleDTO = service.tuteeProfile(user_id);
+            List<ClassDTO> dtoList = service.history_tutee(user_id);
+
             JSONObject jsonObject = new JSONObject();
             JSONArray jsonArray = new JSONArray();
-            JSONObject obj1 = new JSONObject();
-            obj1.put("class_date", "2023-04-16 10:00AM");
-            obj1.put("tutor_name", "Jonny Dep");
-            obj1.put("memo", "20200416.txt");
-            jsonArray.add(obj1);
 
-            JSONObject obj2 = new JSONObject();
-            obj2.put("class_date", "2023-04-18 11:30AM");
-            obj2.put("tutor_name", "Angeli Remy");
-            obj2.put("memo", "20200418.txt");
-            jsonArray.add(obj2);
+            jsonObject.put("name",mypageScheduleDTO.getName());
+            jsonObject.put("user_id",user_id);
 
-            jsonObject.put("name", "김명진");
-            jsonObject.put("user_id", "3125");
-            jsonObject.put("history", jsonArray);
+            for(ClassDTO dto : dtoList){
+                JSONObject object = new JSONObject();
+                object.put("class_date",dto.getClass_date());
+                object.put("tutor_name",dto.getName());
+                object.put("memo", null);
 
+                jsonArray.add(object);
+            }
+
+            jsonObject.put("history",jsonArray);
             String jsonString = jsonObject.toString();
 
             return jsonString;

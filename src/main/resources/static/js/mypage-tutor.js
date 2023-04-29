@@ -13,7 +13,7 @@ $(document).ready(function () {
     const regex = /\/mypage\/(\d+)/;
     const match = pathURI.match(regex);
     const userId= match[1];
-    console.log(userId)
+
     var apiUrl1 = "/mypage/{user_id}/get";
     var apiUrl2 = "/mypage/{user_id}";
     var apiUrl3 = "/mypage/{user_id}/schedule";
@@ -71,12 +71,6 @@ $(document).ready(function () {
             first = $("#first-interest").val();
             second = $("#second-interest").val();
 
-            console.log(name);
-            console.log(profileImg);
-            console.log(nationality);
-            console.log(first);
-            console.log(second);
-
             var user_id = userId;
             var postlink = "/mypage/{user_id}/post";
             postlink = postlink.replace("{user_id}", user_id);
@@ -95,7 +89,6 @@ $(document).ready(function () {
                 }),
                 success: function (data, status) {
                     $("#modal-default").modal('hide'); // 모달 창 닫기
-                    console.log(data);
                     $("#cancel-reservation-message").val("");
                 },
                 error: function (data, textStatus) {
@@ -110,8 +103,6 @@ $(document).ready(function () {
     //비밀번호 확인
     $("#enter-password").change(function () {
         var pwd1 = $("#enter-password").val().toString();
-        console.log(pwd1);
-        console.log(password);
 
         if (password != pwd1) {
             $(".form-control")
@@ -134,8 +125,6 @@ $(document).ready(function () {
         var userid = userId;
         var postlink = "/mypage/{user_id}/delete";
         postlink = postlink.replace("{user_id}", userid);
-        console.log(postlink);
-        alert("실행");
 
         $.ajax({
             type: "post",
@@ -145,10 +134,7 @@ $(document).ready(function () {
                 $user_id: userid,
             }),
             success: function (data, status) {
-                alert("삭제 성공")
                 $("#modal-default").modal('hide'); // 모달 창 닫기
-                console.log(data);
-                $("#cancel-reservation-message").val("");
                 window.location.href = "/main"; // 페이지 이동
             },
             error: function (data, textStatus) {
