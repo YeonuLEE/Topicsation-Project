@@ -19,11 +19,18 @@ public interface IMemberDAO {
     int modifyTutor(MyPageDTO myPageDTO);
     int modifyTutor2(MyPageDTO myPageDTO);
     MypageScheduleDTO tutorProfile(String user_id);
+
+    List<ClassDTO> tutorSchedule(Map<String, Object> paramMap);
+    int findUser(Map<String, Object> paramMap);
+    void scheduleDelete(Map<String, Object> scheduleMap);
+    int scheduleUpdate(Map<String, Object> scheduleMap);
+
     List<ClassDTO> schedule(String tutor_id);
     void deleteClass(String user_id);
     void tutorDislike(String user_id);
     void deleteTutorInfo(String user_id);
     void deleteTutor(String user_id);
+
 
     MyPageDTO viewTutee(String user_id);
     int modifyTutee(MyPageDTO myPageDTO);

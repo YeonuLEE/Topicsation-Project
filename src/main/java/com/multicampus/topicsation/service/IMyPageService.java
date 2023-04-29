@@ -3,8 +3,11 @@ package com.multicampus.topicsation.service;
 import com.multicampus.topicsation.dto.MyPageDTO;
 import com.multicampus.topicsation.dto.MypageScheduleDTO;
 import com.multicampus.topicsation.dto.ClassDTO;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IMyPageService {
     String check_role(String user_id);
@@ -15,8 +18,8 @@ public interface IMyPageService {
 
     MyPageDTO view_tutor(String user_id);
     int modify_tutor(MyPageDTO myPageDTO);
-    MypageScheduleDTO tutorProfile(String user_id);
-    List<ClassDTO> schedule_tutor(String user_id);
+    MypageScheduleDTO schedule_tutor(Map<String, Object> paramMap, MypageScheduleDTO mypageScheduleDTO);
+    int scheduleUpdate(JSONObject jsonUserInfo, JSONArray jsonSchedule);
     void delete_tutor(String user_id);
 
     MyPageDTO view_tutee(String user_id);

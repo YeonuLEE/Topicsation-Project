@@ -106,9 +106,6 @@ public class MainPageController {
             System.out.println(tutorViewDTO.getInterest1());
             System.out.println(tutorViewDTO.getInterest2());
 
-//            for(int i = 0; i<tutorViewDTO.getClass_time().size(); i++)
-//                System.out.println(tutorViewDTO.getClass_time());
-
             JSONObject jsonObject_info = new JSONObject();
             JSONArray jsonArray_schedule = new JSONArray();
             JSONArray jsonArray_Review = new JSONArray();

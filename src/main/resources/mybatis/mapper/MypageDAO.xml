@@ -94,4 +94,21 @@
         from tutor_class t
         inner join USER u on t.tutor_id = u.user_id where t.tutee_Id =#{tutee_id} and  NOW() > t.class_date order by t.class_date asc ,t.class_time asc
     </select>
+    <select id="tutorSchedule" parameterType="map" resultType="com.multicampus.topicsation.dto.ClassDTO">
+        SELECT c.class_id, c.class_date, c.class_time, c.tutee_id, c.tutor_id, u.name
+        FROM TUTOR_CLASS c
+                 LEFT JOIN user u ON c.tutee_id = u.user_id
+        WHERE c.TUTOR_ID = #{tutorId} AND c.CLASS_DATE = #{classDate}
+    </select>
+    <select id="findUser" parameterType="map" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM USER
+        WHERE USER_ID = #{user_id} AND PASSWORD = #{password}
+    </select>
+    <delete id="scheduleDelete" parameterType="map">
+        DELETE FROM TUTOR_CLASS WHERE CLASS_DATE = #{class_date} AND TUTOR_ID = #{tutor_id} AND TUTEE_ID IS NULL
+    </delete>
+    <insert id="scheduleUpdate" parameterType="map">
+        INSERT INTO TUTOR_CLASS (CLASS_ID, CLASS_DATE, CLASS_TIME, TUTOR_ID) VALUES (CONCAT(#{tutor_id}, '_', #{class_date}, '_', #{class_time}), #{class_date}, #{class_time}, #{tutor_id})
+    </insert>
 </mapper>

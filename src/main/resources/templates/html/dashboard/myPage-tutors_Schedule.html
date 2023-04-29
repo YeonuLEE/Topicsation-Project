@@ -35,7 +35,8 @@
     <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
 
     <!-- Jquery -->
-    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+    <script src="https://code.jquery.com/jquery-3.6.4.js"
+            integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
             crossorigin="anonymous"></script>
 </head>
 
@@ -396,29 +397,27 @@
                                                             aria-label="Close" id="save-btn">
                                                     </button>
                                                 </div>
-                                                <div class="modal-body">
-                                                    <form>
+                                                <form id="modal-form">
+                                                    <div class="modal-body">
                                                         <div class="mb-3">
                                                             <label for="enter-password" class="col-form-label">Enter
                                                                 Password</label>
                                                             <input type="password" class="form-control"
-                                                                   id="enter-password" autocomplete="off"
-                                                                   required/>
+                                                                   id="enter-password" autocomplete="off" required/>
+                                                            <div id="modal-data"></div>
                                                         </div>
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <form>
+                                                    </div>
+                                                    <div class="modal-footer">
                                                         <button type="submit" id="authenticate"
                                                                 class="btn btn-sm btn-secondary">
                                                             Authenticate
                                                         </button>
-                                                    </form>
-                                                    <button type="button" class="btn btn-link text-danger ml-auto"
-                                                            data-dismiss="modal">
-                                                        Close
-                                                    </button>
-                                                </div>
+                                                        <button type="button" id="modal-close" class="btn btn-link text-danger ml-auto"
+                                                                data-dismiss="modal">
+                                                            Close
+                                                        </button>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
