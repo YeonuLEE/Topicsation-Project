@@ -5,12 +5,14 @@ import com.multicampus.topicsation.dto.MyPageDTO;
 import com.multicampus.topicsation.dto.MypageScheduleDTO;
 import com.multicampus.topicsation.dto.TutorScheduleDTO;
 import com.multicampus.topicsation.service.IMyPageService;
+import com.multicampus.topicsation.token.JwtUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -20,20 +22,26 @@ public class MyPageController {
     @Autowired
     private IMyPageService service;
 
-    @GetMapping("/admin")
-    public String adminPage() {
-        return "html/dashboard/myPage-admin";
-    }
+    @Autowired
+    private JwtUtils jwtUtils;
+
+//    @PostMapping("/checkRole")
+//    public String test(HttpServletRequest request) {
+//        return jwtUtils.authByRole(request);
+//    }
+
 
     @GetMapping("/{user_id}")
-    public String myPage(@PathVariable("user_id") String userId) {
-        String role = service.check_role(userId);
-        if(role.equals("tutee")){
-            return "html/dashboard/myPage-tutees_Information";
-        }else if(role.equals("tutor")){
-            return "html/dashboard/myPage-tutors_Information";
-        }
-        return "html/dashboard/myPage-admin";
+    public String myPage(HttpServletRequest request) {
+//        String role = service.check_role(userId);
+//        return jwtUtils.authByRole(request, "html/dashboard/myPage-tutees_Information", "html/dashboard/myPage-tutors_Information", "html/dashboard/myPage-admin");
+            return "html/dashboard/myPage-admin";
+//        if(role.equals("tutee")){
+//            return "html/dashboard/myPage-tutees_Information";
+//        }else if(role.equals("tutor")){
+//            return "html/dashboard/myPage-tutors_Information";
+//        }
+//        return "html/dashboard/myPage-admin";
     }
 
 

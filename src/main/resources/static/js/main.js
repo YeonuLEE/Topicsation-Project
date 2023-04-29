@@ -3,9 +3,14 @@ import { setupAjax } from './checkTokenExpiration.js';
 $(document).ready(function () {
 
     const token = sessionStorage.getItem('accessToken');
+    alert(token)
     
     // access token 만료 기간 검증 및 req header에 삽입
     setupAjax(token)
+
+    // $("#mypage-btn").click(function () {
+    //     location.href = "/mypage/admin";
+    // });
 
 
     // 로그인 로그아웃 버튼 바꾸기
@@ -271,7 +276,6 @@ $('#sign-btn').click(function() {
             success: function (data) {
                 console.log('Signed out successfully');
                 location.reload();
-
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.error('Error signing out:', textStatus, errorThrown);
@@ -283,9 +287,10 @@ $('#sign-btn').click(function() {
 });
 
 //myPage
-$("#mypage-btn").click(function () {
-    window.location.replace("/mypage/admin")
-})
+// $("#mypage-btn").click(function () {
+//
+//     location.href = "/mypage/1"
+// })
 
 // $(window).on('load', function() {
 //     var token = sessionStorage.getItem('token');

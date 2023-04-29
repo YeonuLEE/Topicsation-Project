@@ -23,6 +23,7 @@ $("#loginForm").submit(function (event) {
             sessionStorage.setItem("accessToken", accessToken);
             console.log(accessToken);
 
+            //현재 페이지의 URL을 /main으로 변경하고, 변경된 URL을 새로고침
             history.pushState(null, null, "/main");
             location.reload();
             },

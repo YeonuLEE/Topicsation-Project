@@ -1,9 +1,25 @@
+import { setupAjax } from './checkTokenExpiration.js';
+
 var name;
 var first;
 var second;
 var password;
 var passwordCheck = false;
 $(document).ready(function() {
+
+    const token = sessionStorage.getItem('accessToken');
+    console.log(token)
+
+    // access token 만료 기간 검증 및 req header에 삽입
+    setupAjax(token)
+
+
+    // 로그인 로그아웃 버튼 바꾸기
+    if (token != null) {
+        $('#sign-btn').text('SIGN OUT');
+    }
+
+    // mypage-tutee관련
     var pathURI = window.location.pathname
     const regex = /\/mypage\/(\d+)/;
     const match = pathURI.match(regex);
