@@ -2,8 +2,6 @@ import { setupAjax } from './checkTokenExpiration.js';
 
 $(document).ready(function () {
 
-    alert("main.js 실행!!!!")
-
     const token = sessionStorage.getItem('accessToken');
     
     // access token 만료 기간 검증 및 req header에 삽입
@@ -36,6 +34,7 @@ $(document).ready(function () {
             var jsonData;
             var dataBody;
             var length;
+
 
             if (ajaxURI == '/main/get') {
                 jsonData = JSON.parse(data);

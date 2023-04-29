@@ -93,19 +93,19 @@ public class JwtUtils {
     public String getRole(String token) {
         System.out.println("getRoles");
 
-        return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJwt(token).getBody().get("roles").toString();
+        return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody().get("roles").toString();
     }
 
     public String getId(String token) {
         System.out.println("getId");
 
-        return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJwt(token).getBody().getSubject();
+        return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody().getSubject();
     }
 
     //request Header에서 access토큰 정보를 꺼내오기
     public String getAccessToken(HttpServletRequest httpServletRequest) {
         String bearerToken = httpServletRequest.getHeader(AUTHORIZATION_HEADER);
-        System.out.println("JwtUtils bearerToken : " +bearerToken);
+        System.out.println("JwtUtils getAccessToken : " + bearerToken);
         if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
         }
@@ -118,6 +118,7 @@ public class JwtUtils {
         if(cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("refreshToken")) {
+                    System.out.println("JwtUtils getRefreshToken : " + cookie.getValue());
                     return cookie.getValue();
                 }
             }
@@ -139,5 +140,7 @@ public class JwtUtils {
         }
         return null;
     }
+
+
 
 }

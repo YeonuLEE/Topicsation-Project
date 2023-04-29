@@ -25,19 +25,20 @@ public class JwtInterceptor implements HandlerInterceptor {
         System.out.println("preHandle 실행!!!!!!!!!");
         String accessToken = jwtUtils.getAccessToken(request);
         String refreshToken = jwtUtils.getRefreshToken(request);
-        System.out.println(" Interceptor accessToken : " +accessToken);
-
+        System.out.println("Interceptor accessToken : " + accessToken);
+        System.out.println("Interceptor refreshToken : " + refreshToken);
         // 로깅용 URI
         String requestURI = request.getRequestURI();
 
         // 비회원일 때
-        if(accessToken == null & refreshToken == null){
+        if(accessToken == null && refreshToken == null){
             logger.debug("비회원 유저입니다 URI: {}", requestURI);
             return true;
         }else if(accessToken == null){ // 액세스 토큰 만료되었을 때
+            logger.debug("액세스토큰만 만료되었습니다.");
             // 리프래쉬 토큰 이용해서 액세스 토큰 재발급
             if(StringUtils.hasText(refreshToken) && jwtUtils.validateToken(refreshToken)) {
-                logger.debug("유효한 refresh 토큰 정보입니다. URI: {}", requestURI);
+                logger.debug("유효한 refresh 토큰입니다. URI: {}", requestURI);
 
                 String roles = jwtUtils.getRole(refreshToken);
                 String userid = jwtUtils.getId(refreshToken);
@@ -52,6 +53,7 @@ public class JwtInterceptor implements HandlerInterceptor {
                 return false;
             }
         }else{ // 액세스, 리프래쉬 토큰 둘 다 있을 때
+            logger.debug("access, refresh 토큰 둘 다 존재합니다.");
             if(jwtUtils.validateToken(accessToken)) {
                 //accesstoke이 유효할 때
                 logger.debug("유효한 access 토큰 정보입니다. URI: {}", requestURI);
