@@ -4,7 +4,10 @@ package com.multicampus.topicsation.controller;
 import com.multicampus.topicsation.dto.RecommendDTO;
 import com.multicampus.topicsation.dto.TutorScheduleDTO;
 import com.multicampus.topicsation.dto.TutorViewDTO;
+import com.multicampus.topicsation.dto.pageDTO.PageReqeustDTO;
+import com.multicampus.topicsation.dto.pageDTO.PageResponseDTO;
 import com.multicampus.topicsation.service.ITutorListService;
+import com.multicampus.topicsation.service.SearchService;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +44,9 @@ public class MainPageController {
         @Autowired
         ITutorListService tutorListService;
 
+        @Autowired
+        SearchService searchService;
+
         @GetMapping("/get")
         public String main() {
             String userId = "";
@@ -73,15 +79,25 @@ public class MainPageController {
         }
         @GetMapping("/search-all.get")
         public String searchAll() {
+
            return "";
         }
 
+
         @GetMapping("/search-all/search")
-        public String search(@RequestParam String name,
-                             @RequestParam String interest,
-                             @RequestParam String date) {
+        public String search(@RequestBody PageReqeustDTO pageReqeustDTO) {
+            searchService.searchList(pageReqeustDTO);
+
             return "";
         }
+
+
+//        @GetMapping("/search-all/search")
+//        public String search(@RequestParam String name,
+//                             @RequestParam String interest,
+//                             @RequestParam String date) {
+//            return "";
+//        }
 
 
         @GetMapping("/tutors/{tutor_id}/getInfo")

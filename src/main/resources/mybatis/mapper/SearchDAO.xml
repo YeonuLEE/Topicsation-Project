@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.multicampus.topicsation.repository.ISearchDAO">
+
+<!--    비회원일때는 좋아요 순으로 정렬-->
+    <select id="allListDAO" resultType="com.multicampus.topicsation.dto.pageDTO.PageResponseDTO">
+        select u.NAME, ti.NATIONALITY, ti.INFO, ti.LIKE, ti.PROFILEIMG, u.INTEREST1, u.INTEREST2
+        FROM USER u
+                 INNER JOIN TUTOR_INFO ti ON u.USER_ID = ti.TUTOR_ID
+        order by ti.like desc
+        limit #{startData}, #{dataPerPage}
+    </select>
+
+<!--    튜터이름, 관심사, 예약가능날짜를 검색하면 좋아요가 많은 순으로 정렬-->
+    <select id="searchListDAO" resultType="com.multicampus.topicsation.dto.pageDTO.PageResponseDTO">
+        select u.NAME, ti.NATIONALITY, ti.INFO, ti.LIKE, ti.PROFILEIMG, u.INTEREST1, u.INTEREST2
+        FROM USER u
+                 INNER JOIN TUTOR_INFO ti ON u.USER_ID = ti.TUTOR_ID
+                 inner join tutor_class tc on u.user_id = tc.tutor_id
+        where
+            <if test="name != null">
+                lower(u.name) like concat('%', lower(#{name}), '%') and
+            </if>
+            <if test="interest != null">
+                (u.interest1 = #{interest} or u.interest2 = #{interest}) and
+            </if>
+            <if test="classDate != null">
+                tc.class_date = #{classDate} and tc.tutee_id is null
+            </if>
+        order by ti.like desc
+        limit #{startData}, #{dataPerPage}
+    </select>
+
+    <!--    페이징-->
+    <select id="searchCountDAO" resultType="int">
+        select count(*)
+        FROM USER u
+                INNER JOIN TUTOR_INFO ti ON u.USER_ID = ti.TUTOR_ID
+                inner join tutor_class tc on u.user_id = tc.tutor_id
+        where
+            <if test="name != null">
+                lower(u.name) like concat('%', lower(#{name}), '%') and
+            </if>
+            <if test="interest != null">
+                (u.interest1 = #{interest} or u.interest2 = #{interest}) and
+            </if>
+            <if test="classDate != null">
+                tc.class_date = #{classDate} and tc.tutee_id is null
+            </if>
+    </select>
+
+</mapper>
