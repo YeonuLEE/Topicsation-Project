@@ -27,19 +27,16 @@ $(document).ready(function () {
     // 시간 포맷
     var timeFormatted = pad(hours, 2) + ':' + pad(minutes, 2);
 
-    //console.log(dateFormatted)
-
     // uri 지정
     var pathURI = window.location.pathname
     const regex = /\/mypage\/(\d+)\/schedule/;
     const match = pathURI.match(regex);
     if (match && match[1]) {
         const userId = match[1];
-        //console.log(userId)
+
         var apiUrl2 = "/mypage/{user_id}";
         var apiUrl3 = "/mypage/{user_id}/schedule";
-        //console.log(apiUrl2);
-        //console.log(apiUrl3);
+
         apiUrl2 = apiUrl2.replace("{user_id}", userId);
         apiUrl3 = apiUrl3.replace("{user_id}", userId);
         var apiUrl = "/mypage/{user_id}/schedule/getCalendar?classDate=";
@@ -47,7 +44,6 @@ $(document).ready(function () {
         apiUrl = apiUrl.replace("{user_id}", userId);
         apiUrl = apiUrl + dateFormatted;
 
-        //console.log(apiUrl);
     } else {
         console.log("매치되는 문자열이 없습니다.");
     }
@@ -85,12 +81,8 @@ $(document).ready(function () {
             for (var i = 0; i < jsonObject.schedule.length; i++) {
                 var list = jsonObject.schedule[i];
                 $("#" + list.class_time).addClass("select");
-                console.log(list.class_time);
-
                 var admission_link = link + jsonObject.schedule[i].class_id;
-                console.log(admission_link);
 
-                console.log(list.tutee_id);
                 if (list.tutee_id) {
                     var tr = $("<tr>");
                     var tno = $("<td>").attr("scope", "row").css("text-align", "center").text(count++);
@@ -110,9 +102,6 @@ $(document).ready(function () {
                     tr.append(booking_tutee);
                     tr.append(admission_td);
                     tbody.append(tr);
-
-                    console.log(booking_time);
-                    console.log(booking_tutee);
                 }
             }
         },
@@ -179,8 +168,6 @@ $('.datepicker').change(function () {
     // 시간 포맷
     var timeFormatted = pad(hours, 2) + ':' + pad(minutes, 2);
 
-    console.log(dateFormatted);
-
     // $(".cell").removeClass("select");
 
     $.ajax({
@@ -191,7 +178,6 @@ $('.datepicker').change(function () {
 
             for (var i = 0; i < jsonObject.schedule.length; i++) {
                 $("#" + jsonObject.schedule[i].class_time).addClass("select");
-                console.log(jsonObject.schedule[i].class_time);
             }
         },
         error: function (data, textStatus) {
