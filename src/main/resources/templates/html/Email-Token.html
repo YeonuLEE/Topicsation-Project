@@ -48,25 +48,11 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-12 d-flex align-items-center justify-content-center">
-                        <div
-                            class="signin-inner mt-3 mt-lg-0 bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
-                            <form id="emailTokenForm">
-                                <!-- Form -->
-                                <div class="form-group">
-                                    <label>인증코드 입력</label>
-                                    <div class="form-group">
-                                        <div class="input-group mb-4">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><span
-                                                        class="fas fa-unlock-alt"></span></span>
-                                            </div>
-                                            <input class="form-control" id="email-token" placeholder="Email Token"
-                                                type="email_Token" aria-label="email_Token" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button type="submit" id="token-btn" class="btn btn-block btn-primary">Authenricate</button>
-                            </form>
+                        <div class="signin-inner mt-3 mt-lg-0 bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
+                            <div class="mt-3 mb-3" id="email-auth">
+                                <h4 class="text-center">이메일 인증을 진행하세요</h4>
+                                <button type="button" id="send-btn" class="btn btn-block btn-primary">Email Send</button>
+                            </div>
                         </div>
                     </div>
                 </div>

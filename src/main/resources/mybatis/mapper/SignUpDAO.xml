@@ -3,18 +3,38 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.multicampus.topicsation.repository.ISignUpDAO">
-
+<!--    가입된 회원인지 email로 확인-->
     <select id="checkEmailDAO" parameterType="String" resultType="int">
         select ifnull(count(*), 0) from user where email = #{email}
     </select>
-
+<!--    가입된 회원 중 이메일인증을 받았는지 확인-->
+    <select id="checkEmailAuthDAO" parameterType="String" resultType="int">
+        select count(*) from user where email = #{email} and email_auth = 1
+    </select>
+<!--    재회원가입을 위한 기존 튜티 정보 삭제-->
+    <delete id="deleteNotAuthTuteeDAO" parameterType="String">
+        delete from user where email = #{email}
+    </delete>
+<!--    재회원가입을 위한 기존 튜터 정보 삭제-->
+    <delete id="deleteNotAuthTutorDAO1" parameterType="String">
+        delete from user where email = #{email}
+    </delete>
+    <delete id="deleteNotAuthTutorDAO2" parameterType="String">
+        delete from tutor_info where TUTOR_ID in (select user_id from user where email = #{email})
+    </delete>
+<!--    신규 튜티 회원가입-->
     <insert id="addTuteeDAO" parameterType="com.multicampus.topicsation.dto.SignUpDTO">
-        insert into user (name, email, password,  interest1, interest2, role) values (#{name}, #{email}, #{password}, #{interest1}, #{interest2}, #{role})
+        insert into user (name, email, password, interest1, interest2, role) values (#{name}, #{email}, #{password}, #{firstInterest}, #{secondInterest}, #{role})
     </insert>
-
-    <insert id="addTutorDAO" parameterType="com.multicampus.topicsation.dto.SignUpDTO">
-        insert into user(name, email, password,  interest1, interest2) values (#{name}, #{email}, #{password}, #{interest1}, #{interest2})
+<!--    신규 튜터 회원가입-->
+    <insert id="addTutorDAO1" parameterType="com.multicampus.topicsation.dto.SignUpDTO">
+        insert into user(name, email, password, interest1, interest2, role) values (#{name}, #{email}, #{password}, #{firstInterest}, #{secondInterest}, #{role})
+    </insert>
+    <insert id="addTutorDAO2" parameterType="com.multicampus.topicsation.dto.SignUpDTO">
         insert into tutor_info (tutor_id, gender, nationality, certificate) values (last_insert_id(), #{gender}, #{nationality}, #{certificate})
     </insert>
-
+<!--    회원가입시 이메일인증 여부 갱신 -->
+    <update id="successEmailAuthDAO" parameterType="String">
+        update user set email_auth = 1 where email = #{email}
+    </update>
 </mapper>

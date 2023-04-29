@@ -1,4 +1,4 @@
-## 튜티 수업 예약
+### 튜티 수업 예약
 PUT http://localhost:8081/main/tutors/6/reservate
 Content-Type: application/json
 
@@ -8,3 +8,6 @@ Content-Type: application/json
   "$class_date": "2023-04-21",
   "$class_time": "0100AM"
 }
+
+### 튜터 상세 페이지
+GET http://localhost:8081/main/tutors/6/getInfo?calendarDate=2023-04-27

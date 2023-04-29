@@ -82,7 +82,7 @@ $("#customFile").change(function () {
 });
 
 // 유효성 검사 실패시 제출 안되게 하기
-$("#signInForm").submit(function () {
+$("#signUpForm").submit(function () {
     if (!emailCheck) {
         $("#email").focus();
         return false;

@@ -1,38 +1,93 @@
-$("#emailTokenForm").submit(function () {
-    const token = $("#token-btn").val();
-
-    // 세션 스토리지에서 값 받아오기
-    var emailForm = sessionStorage.getItem("emailForm");
-    var nameForm = sessionStorage.getItem("nameForm");
-    var passwordForm = sessionStorage.getItem("passwordForm");
-    var firstInterestForm = sessionStorage.getItem("firstInterestForm");
-    var secondInterestForm = sessionStorage.getItem("secondInterestForm");
-
-    $.ajax({
-        type: "POST",
-        url: "/members/email.auth",
-        contentType: 'application/json',
-        data: JSON.stringify({
-            $token: token,
-            $emailForm: emailForm,
-            $nameForm: nameForm,
-            $passwordForm: passwordForm,
-            $firstInterestForm: firstInterestForm,
-            $secondInterestForm: secondInterestForm,
-            test: "test",
-        }),
-        success: function (data, status) {
-
-            window.location.href = "/members/signup/success" // 성공 시 success 페이지로 이동
-            // 로그인 하는 사람 체크 할 거 : 서버에서 token 비교하고 일치하지 않을 시에 넘어가면 안되는데 이걸
-            //아래의 erorr: function으로 처리할지 success에서 if문을 사용해서 처리할지 백엔드를 구현해야 정확하게 알 거같음
-            // 일단 일치 하지 않으면 alert("인증 번호가 일치하지 않습니다!!") 띄우면 될 듯함
-
-        },
-        error: function (data, textStatus) {
-            alert("Error!")
-        },
-        complete: function (data, textStatus) {
-        },
+$(document).ready(function () {
+    var email = atob(sessionStorage.getItem("email"));
+    var authKey;
+    $("#send-btn").click(function () {
+        var dataBody = $("#email-auth");
+        dataBody.empty();
+        var form = $("<form>", {id: "emailTokenForm"});
+        var div1 = $("<div>", {class: "form-group"});
+        var label1 = $("<label>", {text: "인증코드 입력"});
+        var div2 = $("<div>", {class: "form-group"});
+        var div3 = $("<div>", {class: "input-group mb-4"});
+        var div4 = $("<div>", {class: "input-group-prepend"});
+        var span1 = $("<span>", {class: "input-group-text"});
+        var span2 = $("<span>", {class: "fas fa-unlock-alt"});
+        var input1 = $("<input>", {
+            class: "form-control",
+            id: "email-token",
+            placeholder: "Email Token",
+            type: "email_Token",
+            "aria-label": "email_Token",
+            required: true
+        })
+        var button1 = $("<button>", {
+            type: "button",
+            id: "auth-btn",
+            class: "btn btn-block btn-primary",
+            text: "Authenricate"
+        })
+        dataBody.append(form);
+        form.append(div1);
+        div1.append(label1);
+        div1.append(div2);
+        div2.append(div3);
+        div3.append(div4);
+        div4.append(span1);
+        span1.append(span2);
+        div3.append(input1);
+        form.append(button1);
+        $.ajax({
+            type: "POST",
+            url: "/members/email.send",
+            contentType: 'application/json',
+            data: JSON.stringify({
+                email: email
+            }),
+            success: function (data, status) {
+                if (data == "sendFail") {
+                    alert("인증코드 전송에 실패하였습니다.");
+                    location.href = "/members/signup/email";
+                } else {
+                    authKey = data;
+                    $("#auth-btn").click(function (event) {
+                        event.preventDefault();
+                        var token = $("#email-token").val();
+                        if (token == authKey) {
+                            //여기에 ajax해주는데, location.href 이거는 그 ajax에 success에 넣어야함.
+                            $.ajax({
+                                type: "POST",
+                                url: "/members/signup/success.post",
+                                contentType: 'application/json',
+                                data: JSON.stringify({
+                                    email: email
+                                }),
+                                success: function (data, status) {
+                                    if (data == "emailAuthSuccess") {
+                                        location.href = "/members/signup/success";
+                                    }
+                                },
+                                error: function (data, textStatus) {
+                                    alert("Error!")
+                                },
+                                complete: function (data, textStatus) {
+                                },
+                            });
+                        }
+                        // location.href = "/members/signup/success";
+                        else {
+                            alert("인증코드가 일치하지 않습니다.");
+                            event.preventDefault();
+                            // location.href = "/members/signup/email";
+                        }
+                    });
+                }
+            },
+            error: function (data, textStatus) {
+                alert("Error!")
+                // location.href="/members/signup/email";
+            },
+            complete: function (data, textStatus) {
+            },
+        });
     });
-})
+});
