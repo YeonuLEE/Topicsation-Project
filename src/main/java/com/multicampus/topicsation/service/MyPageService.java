@@ -46,11 +46,10 @@ public class MyPageService implements IMyPageService{
     }
 
     @Override
-
     public int scheduleUpdate(JSONObject jsonUserInfo, JSONArray jsonSchedule) {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("user_id", jsonUserInfo.get("user_id"));
-        paramMap.put("password",jsonUserInfo.get("password"));
+        paramMap.put("password", jsonUserInfo.get("password"));
 
         Map<String, Object> paramMap2 = new HashMap<>();
         paramMap2.put("tutor_id", jsonUserInfo.get("user_id"));
@@ -58,7 +57,7 @@ public class MyPageService implements IMyPageService{
 
         int findResult = dao.findUser(paramMap);
         System.out.println("findResult : " + findResult);
-        if(findResult == 1) {
+        if (findResult == 1) {
             dao.scheduleDelete(paramMap2);
             if (!jsonSchedule.isEmpty()) {
                 int countResult = 0;
@@ -66,7 +65,7 @@ public class MyPageService implements IMyPageService{
                 for (int i = 0; i < jsonSchedule.size(); i++) {
                     JSONObject schedule = new JSONObject();
                     schedule = (JSONObject) jsonSchedule.get(i);
-                    scheduleMap.put("tutor_id",paramMap2.get("tutor_id"));
+                    scheduleMap.put("tutor_id", paramMap2.get("tutor_id"));
                     scheduleMap.put("class_date", paramMap2.get("class_date"));
                     scheduleMap.put("class_time", schedule.get("class_time"));
                     countResult += dao.scheduleUpdate(scheduleMap);
@@ -77,10 +76,6 @@ public class MyPageService implements IMyPageService{
             }
         }
         return 2; // 비밀번호 오류
-
-    public List<ClassDTO> schedule_tutor(String user_id) {
-        return dao.schedule(user_id);
-
     }
 
     @Override
@@ -143,6 +138,5 @@ public class MyPageService implements IMyPageService{
         dao.failAdmin2(user_id);
         dao.failAdmin(user_id);
     }
-
-
 }
+
