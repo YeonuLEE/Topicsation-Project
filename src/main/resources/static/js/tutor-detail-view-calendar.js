@@ -1,8 +1,18 @@
+import {getRoles} from './checkTokenExpiration.js';
+
 var cell_id = "";
 var tagId = "";
 var tutorId = "";
 var pathURI = "";
+let roles = "";
 $(document).ready(function () {
+
+    const token = sessionStorage.getItem('accessToken');
+
+    if(token != null){
+        roles = getRoles(token)
+    }
+
     var today = new Date();
     $(".datepicker").datepicker({
         format: "dd-mm-yyyy",
@@ -60,7 +70,7 @@ $(document).ready(function () {
             $("#tutor-nation").text(jsonObject.tutor_info.nationality);
             $("#first-interest").append(jsonObject.tutor_info.interest1);
             $("#second-interest").append(jsonObject.tutor_info.interest2);
-            $("#profile-img").attr("src", "/"+jsonObject.tutor_info.picture);
+            $("#profile-img").attr("src", "/assets/img/profile/"+jsonObject.tutor_info.picture);
 
             for(var i = 0; i < jsonObject.review.length; i++){
                 var reviewer = jsonObject.review[i];
@@ -213,6 +223,13 @@ function reservation(jsonObject, i){
     } else if (jsonObject.schedule[i].tutee_id == null) {
         $("#" + jsonObject.schedule[i].class_time).css("color", "white");
         $("#" + jsonObject.schedule[i].class_time).css("background-color", "green");
-        $("#" + jsonObject.schedule[i].class_time).css("pointer-events", "auto");
+
+        // tutee만 예약할 수 있게 설정
+        if(roles == "tutee"){
+            $("#" + jsonObject.schedule[i].class_time).css("pointer-events", "auto");
+        }else{
+            $("#" + jsonObject.schedule[i].class_time).css("pointer-events", "none");
+        }
+
     }
 }
