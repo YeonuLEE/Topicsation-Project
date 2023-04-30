@@ -44,6 +44,14 @@ export function getId(accessToken) {
     return result.sub;
 }
 
+export function getRoles(accessToken) {
+    var base64Payload = accessToken.split('.')[1]; //value 0 -> header, 1 -> payload, 2 -> VERIFY SIGNATURE
+    var payload = atob(base64Payload, 'base64');
+    var result = JSON.parse(payload.toString())
+
+    return result.roles;
+}
+
 
 
 
