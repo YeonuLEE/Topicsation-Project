@@ -23,6 +23,7 @@
     <delete id="failAdmin2">
         delete from tutor_info where TUTOR_ID =#{user_id}
     </delete>
+
     <!-- Tutor Page-->
     <select id="viewTutor" resultType="com.multicampus.topicsation.dto.MyPageDTO">
         SELECT u.user_id, u.name, u.email, u.password, u.role, ti.gender, ti.nationality, ti.info, ti.like, ti.profileimg, u.interest1, u.interest2
@@ -57,6 +58,12 @@
     <delete id="tutorDislike">
         delete from dislike where tutor_id = #{user_id}
     </delete>
+    <select id="checkProfileImg" resultType="string">
+        SELECT profileimg FROM tutor_info WHERE tutor_id = #{user_id} and PROFILEIMG like '%unknown%'
+    </select>
+    <update id="changProfileImg" parameterType="com.multicampus.topicsation.dto.MyPageDTO">
+        UPDATE tutor_info SET profileimg = #{url} WHERE tutor_id = #{user_id}
+    </update>
 
     <!-- Tutee Page-->
     <select id="viewTutee" resultType="com.multicampus.topicsation.dto.MyPageDTO">
