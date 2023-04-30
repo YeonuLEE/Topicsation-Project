@@ -103,7 +103,6 @@ public class MemberManageController {
             String email = params.get("email");
             System.out.println(email);
             String password = params.get("password");
-            System.out.println(password);
 
               //email과 password 검증
             LoginDTO dto = service.login(params);
