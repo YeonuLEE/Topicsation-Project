@@ -3,20 +3,16 @@ import { setupHeaderAjax } from './checkTokenExpiration.js';
 $(document).ready(function () {
 
     const token = sessionStorage.getItem('accessToken');
-    alert(token)
-    
-    // access token 만료 기간 검증 및 req header에 삽입
-    setupHeaderAjax(token)
+
+    // nullPointerException 예방
+    if(token != null){
+        // access token 만료 기간 검증 및 req header에 삽입
+        setupHeaderAjax(token)
+    }
 
     // $("#mypage-btn").click(function () {
     //     location.href = "/mypage/admin";
     // });
-
-
-    // 로그인 로그아웃 버튼 바꾸기
-    if (token != null) {
-        $('#sign-btn').text('SIGN OUT');
-    }
 
     // main 관련
     var pathURI = window.location.pathname
@@ -266,25 +262,7 @@ $("#search-form").submit(function (event) {
     });
 })
 
-$('#sign-btn').click(function() {
-    const token = sessionStorage.getItem('accessToken');
-    if (token != null) {
-        sessionStorage.removeItem('accessToken');
-        $.ajax({
-            url: '/members/signout',
-            type: 'POST',
-            success: function (data) {
-                console.log('Signed out successfully');
-                location.reload();
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.error('Error signing out:', textStatus, errorThrown);
-            }
-        });
-    }else{
-        location.href = "/members/signin"
-    }
-});
+
 
 //myPage
 // $("#mypage-btn").click(function () {
