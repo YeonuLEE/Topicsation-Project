@@ -1,37 +1,38 @@
 import {getId, setupHeaderAjax} from './checkTokenExpiration.js';
 //myPage
-$("#mypage-btn").click(function (e) {
-    e.preventDefault();
+$(document).ready(function () {
+    $("#mypage-btn").click(function (e) {
+        e.preventDefault();
 
-    const token = sessionStorage.getItem('accessToken');
-    alert(token)
+        const token = sessionStorage.getItem('accessToken');
+        alert(token)
 
-    let userId = getId(token)
-    setupHeaderAjax(token)
+        let userId = getId(token)
+        setupHeaderAjax(token)
 
-    // const xhr = new XMLHttpRequest();
-    // xhr.open("GET", "/mypage/" + userId);
-    // xhr.setRequestHeader('Authorization', 'Bearer ' + token);
-    // xhr.onload = function() {
-    //     if (xhr.status === 200) { // 응답 상태 코드가 200이면
-    //         window.location.href = "/mypage/" + userId;
-    //     }
-    // };
-    // xhr.send();
+        // const xhr = new XMLHttpRequest();
+        // xhr.open("GET", "/mypage/" + userId);
+        // xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+        // xhr.onload = function() {
+        //     if (xhr.status === 200) { // 응답 상태 코드가 200이면
+        //         window.location.href = "/mypage/" + userId;
+        //     }
+        // };
+        // xhr.send();
 
 
-    $.ajax({
-        type: "GET",
-        url: "/mypage/"+userId,
-        success: function(data, textStatus, xhr) {
-            console.log("controller return html: "+data)
-            location.href=data
-        },
-        error: function(xhr, textStatus, errorThrown) {
-            console.error("Error fetching mypage:", errorThrown);
-        }
-    });
-})
+        $.ajax({
+            type: "GET",
+            url: "/mypage/" + userId,
+            success: function (data, textStatus, xhr) {
+                console.log("controller return html: " + data)
+                location.href = data
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.error("Error fetching mypage:", errorThrown);
+            }
+        });
+    })
 
 //sign - main은 적용 X해야함 이해안되면 명진에게 물어보세영
 // $('#sign-btn').click(function() {
@@ -62,6 +63,73 @@ $("#mypage-btn").click(function (e) {
     // }
 // })
 
+
+    $("#information").click(function (e) {
+        e.preventDefault();
+
+        const token = sessionStorage.getItem('accessToken');
+        alert(token)
+
+        let userId = getId(token)
+        setupHeaderAjax(token)
+
+        $.ajax({
+            type: "GET",
+            url: "/mypage/" + userId,
+            success: function (data, textStatus, xhr) {
+                console.log("controller return html: " + data)
+                location.href = data
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.error("Error fetching mypage:", errorThrown);
+            }
+        });
+    })
+
+    $("#schedule").click(function (e) {
+        e.preventDefault();
+
+        const token = sessionStorage.getItem('accessToken');
+        alert(token)
+
+        let userId = getId(token)
+        setupHeaderAjax(token)
+
+        $.ajax({
+            type: "GET",
+            url: "/mypage/" + userId + "/schedule",
+            success: function (data, textStatus, xhr) {
+                console.log("controller return html: " + data)
+                location.href = data
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.error("Error fetching mypage:", errorThrown);
+            }
+        });
+    })
+
+    $("#history").click(function (e) {
+        e.preventDefault();
+
+        const token = sessionStorage.getItem('accessToken');
+        alert(token)
+
+        let userId = getId(token)
+        setupHeaderAjax(token)
+
+        $.ajax({
+            type: "GET",
+            url: "/mypage/" + userId + "/history",
+            success: function (data, textStatus, xhr) {
+                console.log("controller return html: " + data)
+                location.href = data
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.error("Error fetching mypage:", errorThrown);
+            }
+        });
+    })
+});
 
 
 //TOPICSATION LOGO
