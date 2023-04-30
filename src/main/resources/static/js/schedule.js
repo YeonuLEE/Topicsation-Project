@@ -116,7 +116,7 @@ $(document).ready(function () {
         var minutes = selectedDate.getMinutes();
 
         // 년월일 포맷
-        var dateFormatted = year + '-' + pad(month, 2) + '-' + pad(day, 2);
+        dateFormatted = year + '-' + pad(month, 2) + '-' + pad(day, 2);
 
         // 시간 포맷
         var timeFormatted = pad(hours, 2) + ':' + pad(minutes, 2);
