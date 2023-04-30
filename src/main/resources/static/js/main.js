@@ -1,4 +1,4 @@
-import { setupAjax } from './checkTokenExpiration.js';
+import { setupHeaderAjax } from './checkTokenExpiration.js';
 
 $(document).ready(function () {
 
@@ -6,7 +6,7 @@ $(document).ready(function () {
     alert(token)
     
     // access token 만료 기간 검증 및 req header에 삽입
-    setupAjax(token)
+    setupHeaderAjax(token)
 
     // $("#mypage-btn").click(function () {
     //     location.href = "/mypage/admin";

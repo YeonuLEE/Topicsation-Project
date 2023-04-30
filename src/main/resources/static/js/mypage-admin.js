@@ -1,4 +1,4 @@
-import { setupAjax } from './checkTokenExpiration.js';
+import { setupHeaderAjax } from './checkTokenExpiration.js';
 
 $(document).ready(function () {
 
@@ -15,7 +15,7 @@ $(document).ready(function () {
     console.log("mypage.js 전달 토큰: "+token);
 
     // access token 만료 기간 검증 및 req header에 삽입
-    setupAjax(token)
+    setupHeaderAjax(token)
 
 
     // 로그인 로그아웃 버튼 바꾸기

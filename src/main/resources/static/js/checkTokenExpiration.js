@@ -1,4 +1,4 @@
-export function setupAjax(token) {
+export function setupHeaderAjax(token) {
     $.ajaxSetup({
         beforeSend: function (xhr) {
             if (!checkTokenExp(token)) {
@@ -8,6 +8,15 @@ export function setupAjax(token) {
             }
         }
     });
+}
+
+export function setupHeader(token) {
+    let xhr = new XMLHttpRequest();
+    if (!checkTokenExp(token)) {
+        xhr.setRequestHeader('Authorization', 'Bearer ' + token)
+    } else {
+        xhr.setRequestHeader('Authorization', null)
+    }
 }
 
 function checkTokenExp(accessToken) {

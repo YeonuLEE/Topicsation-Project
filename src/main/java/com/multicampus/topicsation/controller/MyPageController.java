@@ -34,17 +34,31 @@ public class MyPageController {
 //    }
 
 
-    @GetMapping("/{user_id}")
-    public String myPage(HttpServletRequest request) {
+//    @GetMapping("/{user_id}")
+//    public String myPage(HttpServletRequest request) {
 //        String role = service.check_role(userId);
 //        return jwtUtils.authByRole(request, "html/dashboard/myPage-tutees_Information", "html/dashboard/myPage-tutors_Information", "html/dashboard/myPage-admin");
-            return "html/dashboard/myPage-admin";
 //        if(role.equals("tutee")){
 //            return "html/dashboard/myPage-tutees_Information";
 //        }else if(role.equals("tutor")){
 //            return "html/dashboard/myPage-tutors_Information";
 //        }
 //        return "html/dashboard/myPage-admin";
+//    }
+
+    @GetMapping("/tutee")
+    public String tuteePage() {
+        return "html/dashboard/myPage-tutees_Information";
+    }
+
+    @GetMapping("/tutor")
+    public String tutorPage() {
+        return "html/dashboard/myPage-tutors_Information";
+    }
+
+    @GetMapping("/admin")
+    public String adminPage() {
+        return "html/dashboard/myPage-admin";
     }
 
 
@@ -68,6 +82,18 @@ public class MyPageController {
     @RestController
     @RequestMapping("/mypage")
     public class MyPageRestController {
+
+        @GetMapping("/{user_id}")
+        public String myPage(HttpServletRequest request) {
+//        String role = service.check_role(userId);
+            return jwtUtils.authByRole(request, "/mypage/tutee", "mypage/tutor", "mypage/admin");
+//        if(role.equals("tutee")){
+//            return "html/dashboard/myPage-tutees_Information";
+//        }else if(role.equals("tutor")){
+//            return "html/dashboard/myPage-tutors_Information";
+//        }
+//        return "html/dashboard/myPage-admin";
+        }
 
         @GetMapping("/admin/get")
         public String adminPage() {

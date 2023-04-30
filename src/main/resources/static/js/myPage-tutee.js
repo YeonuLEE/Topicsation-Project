@@ -1,4 +1,4 @@
-import { setupAjax } from './checkTokenExpiration.js';
+import { setupHeaderAjax, getId } from './checkTokenExpiration.js';
 
 var name;
 var first;
@@ -11,7 +11,7 @@ $(document).ready(function() {
     console.log(token)
 
     // access token 만료 기간 검증 및 req header에 삽입
-    setupAjax(token)
+    setupHeaderAjax(token)
 
 
     // 로그인 로그아웃 버튼 바꾸기
@@ -20,10 +20,12 @@ $(document).ready(function() {
     }
 
     // mypage-tutee관련
-    var pathURI = window.location.pathname
-    const regex = /\/mypage\/(\d+)/;
-    const match = pathURI.match(regex);
-    const userId= match[1];
+    // var pathURI = window.location.pathname
+    // const regex = /\/mypage\/(\d+)/;
+    // const match = pathURI.match(regex);
+    // const userId= match[1];
+
+    let userId = getId(token);
 
     var apiUrl1 = "/mypage/{user_id}/get";
     var apiUrl2 = "/mypage/{user_id}";
