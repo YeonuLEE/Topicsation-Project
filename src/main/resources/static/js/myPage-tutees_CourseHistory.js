@@ -1,9 +1,19 @@
-<!-- Ajax get data -->
+import { setupHeaderAjax, getId } from './checkTokenExpiration.js';
+
 $(document).ready(function () {
-    var pathURI = window.location.pathname
-    const regex = /\/mypage\/(\d+)\/history/;
-    const match = pathURI.match(regex);
-    const userId= match[1];
+
+    const token = sessionStorage.getItem('accessToken');
+    console.log(token)
+
+    // access token 만료 기간 검증 및 req header에 삽입
+    setupHeaderAjax(token)
+
+    let userId = getId(token);
+
+    // var pathURI = window.location.pathname
+    // const regex = /\/mypage\/(\d+)\/history/;
+    // const match = pathURI.match(regex);
+    // const userId= match[1];
 
     var apiUrl1 = "/mypage/{user_id}/history/get";
     var apiUrl2 = "/mypage/{user_id}";
