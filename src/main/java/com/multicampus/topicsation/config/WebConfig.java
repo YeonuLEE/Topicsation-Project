@@ -27,9 +27,6 @@ public class WebConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/css/**")
                 .excludePathPatterns("/assets/**")
                 .excludePathPatterns("/members/**")
-                .excludePathPatterns("/main","/main/search-all","/main/tutors/{tutor_id}")
-                .excludePathPatterns("/mypage/admin","/mypage/{user_id}","/mypage/{user_id}/schedule", "/mypage/{user_id}/history")
-                .excludePathPatterns("/lesson/{lesson_id}","/lesson/{lesson_id}/evaluate")
                 .excludePathPatterns("/error/**");
     }
 
