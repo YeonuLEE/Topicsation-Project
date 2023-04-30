@@ -2,26 +2,12 @@ import { setupHeaderAjax } from './checkTokenExpiration.js';
 
 $(document).ready(function () {
 
-    // window.addEventListener('beforeunload', function() {
-    //     // 저장하고자 하는 값 가져오기
-    //     const accessToken = sessionStorage.getItem('accessToken');
-    //     console.log(accessToken);
-    //
-    //     // sessionStorage에 값 저장
-    //     sessionStorage.setItem('accessToken', accessToken);
-    // });
-
+    // token 꺼내오기
     const token = sessionStorage.getItem('accessToken');
     console.log("mypage.js 전달 토큰: "+token);
 
     // access token 만료 기간 검증 및 req header에 삽입
     setupHeaderAjax(token)
-
-
-    // 로그인 로그아웃 버튼 바꾸기
-    if (token != null) {
-        $('#sign-btn').text('SIGN OUT');
-    }
 
     //mypage관련
     $.ajax({
