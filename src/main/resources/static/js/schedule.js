@@ -3,6 +3,7 @@ var link = "/lesson/";
 var tbody;
 var userId;
 var postUrl = "/mypage/{user_id}/schedule/postCalender";
+var count = 1;
 //튜터 스케줄
 $(document).ready(function () {
     var today = new Date();
@@ -104,6 +105,7 @@ $(document).ready(function () {
 
     $('.datepicker').change(function () {
         tbody.empty();
+        count = 1;
         var selectedDate = $(this).datepicker('getDate');
 
         // 년, 월, 일 추출
@@ -245,7 +247,7 @@ function pad(num, size) {
 
 function scheduleList(jsonObject, i, tbody) {
     var admission_link = link + jsonObject.schedule[i].class_id;
-    var count = 0;
+
     if (jsonObject.schedule[i].tutee_id) {
         var tr = $("<tr>");
         var tno = $("<td>").attr("scope", "row").css("text-align", "center").text(count++);
