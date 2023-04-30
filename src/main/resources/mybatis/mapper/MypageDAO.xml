@@ -8,6 +8,10 @@
     <select id="checkRole" resultType="string">
         SELECT role FROM user where user_id = #{user_id}
     </select>
+    <!-- 비밀번호 검색 -->
+    <select id="checkPass" resultType="string">
+        SELECT password FROM user where user_id = #{user_id}
+    </select>
     <!-- Admin-->
     <select id="viewAdmin" resultType="com.multicampus.topicsation.dto.MyPageDTO">
         SELECT u.user_id, u.name, u.regi_date, ti.certificate

@@ -1,18 +1,28 @@
+import { setupHeaderAjax, getId } from './checkTokenExpiration.js';
+
 var name;
 var profileImg;
 var first;
 var second;
 var nationality;
 var gender;
-var password;
 var passwordCheck = false;
 
 // get으로 데이터 받아오기
 $(document).ready(function () {
-    var pathURI = window.location.pathname
-    const regex = /\/mypage\/(\d+)/;
-    const match = pathURI.match(regex);
-    const userId= match[1];
+
+    const token = sessionStorage.getItem('accessToken');
+    console.log(token)
+
+    // access token 만료 기간 검증 및 req header에 삽입
+    setupHeaderAjax(token)
+
+    let userId = getId(token);
+
+    // var pathURI = window.location.pathname
+    // const regex = /\/mypage\/(\d+)/;
+    // const match = pathURI.match(regex);
+    // const userId= match[1];
 
     var apiUrl1 = "/mypage/{user_id}/get";
     var apiUrl2 = "/mypage/{user_id}";
@@ -46,7 +56,7 @@ $(document).ready(function () {
             nationality=$('#nationality').val(jsonObject.nationality).prop("selected", true);
             first = $("#first-interest").val(jsonObject.interest1).prop("selected",true);
             second = $("#second-interest").val(jsonObject.interest2).prop("selected",true);
-            password = jsonObject.password.toString();
+            // password = jsonObject.password.toString();
         },
         error: function (data, textStatus) {
             alert("Error!")
@@ -55,14 +65,66 @@ $(document).ready(function () {
         },
     });
 
-    $("#authenticate").click(function () {
-        $("#signInForm").button(function () {
-            if (!passwordCheck) {
-                $("#password").focus();
-                return false;
-            }
-            return true;
+    // //비밀번호 확인
+    // $("#enter-password").change(function () {
+    //     var pwd1 = $("#enter-password").val().toString();
+    //
+    //     if (password != pwd1) {
+    //         $(".form-control")
+    //             .text("password is different");
+    //         $("#enter-password").attr("class", "form-control is-invalid");
+    //         passwordCheck = false;
+    //     } else {
+    //         $(".form-control").text("");
+    //         $("#enter-password").attr("class", "form-control is-valid");
+    //         passwordCheck = true;
+    //     }
+    // });
+
+    var postlink2 = "/mypage/{user_id}/passCheck"
+    postlink2 = postlink2.replace("{user_id}", userId);
+
+    //비밀번호 확인
+    $("#enter-password").change(function () {
+        var pwd1 = $("#enter-password").val().toString();
+
+        $.ajax({
+            type: "POST",
+            url: postlink2,
+            contentType: 'application/json',
+            data: JSON.stringify({
+                password: pwd1
+            }),
+            success: function(data, status) {
+
+                if(data === false) {
+                    $(".form-control")
+                        .text("비밀번호가 다름니다");
+                    $("#enter-password").attr("class", "form-control is-invalid");
+                    passwordCheck = false;
+                } else {
+                    $(".form-control").text("인증에 성공했습니다.");
+                    $("#enter-password").attr("class", "form-control is-valid");
+                    $("#authenticate").text("Save All");
+                    passwordCheck = true;
+                }
+            },
+            error: function (data, textStatus) {
+                alert("Error!")
+            },
+            complete: function (data, textStatus) {
+            },
         });
+    });
+
+    $("#authenticate").click(function () {
+        // $("#signInForm").button(function () {
+        //     if (!passwordCheck) {
+        //         $("#password").focus();
+        //         return false;
+        //     }
+        //     return true;
+        // });
 
         if(passwordCheck){
             name = $("#name").val();
@@ -71,11 +133,9 @@ $(document).ready(function () {
             first = $("#first-interest").val();
             second = $("#second-interest").val();
 
-            var user_id = userId;
             var postlink = "/mypage/{user_id}/post";
-            postlink = postlink.replace("{user_id}", user_id);
-            console.log("실행");
-            alert("실행");
+            postlink = postlink.replace("{user_id}", userId);
+
             $.ajax({
                 type: "POST",
                 url :  postlink,
@@ -90,6 +150,7 @@ $(document).ready(function () {
                 success: function (data, status) {
                     $("#modal-default").modal('hide'); // 모달 창 닫기
                     $("#cancel-reservation-message").val("");
+                    location.reload();
                 },
                 error: function (data, textStatus) {
                     alert("Error!")
@@ -97,22 +158,6 @@ $(document).ready(function () {
                 complete: function (data, textStatus) {
                 },
             });
-        }
-    });
-
-    //비밀번호 확인
-    $("#enter-password").change(function () {
-        var pwd1 = $("#enter-password").val().toString();
-
-        if (password != pwd1) {
-            $(".form-control")
-                .text("password is different");
-            $("#enter-password").attr("class", "form-control is-invalid");
-            passwordCheck = false;
-        } else {
-            $(".form-control").text("");
-            $("#enter-password").attr("class", "form-control is-valid");
-            passwordCheck = true;
         }
     });
 

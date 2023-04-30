@@ -75,11 +75,11 @@
                             <h2 class="h5 font-weight-normal text-center mt-3 mb-0" id="tutor-name">
                             </h2>
                             <div class="list-group dashboard-menu list-group-sm mt-4">
-                                <a href="/mypage/{user_id}" id="information"
+                                <a href="#" id="information"
                                    class="d-flex list-group-item list-group-item-action">Information<span
                                         class="icon icon-xs ml-auto"><span class="fas fa-chevron-right"></span></span>
                                 </a>
-                                <a href="/mypage/{user_id}/schedule" id="schedule"
+                                <a href="#" id="schedule"
                                    class="d-flex list-group-item list-group-item-action active">Schedule<span
                                         class="icon icon-xs ml-auto"><span class="fas fa-chevron-right"></span></span>
                                 </a>
@@ -504,7 +504,8 @@
     </div>
 </footer>
 
-<script src="/js/schedule.js"></script>
+<script type="module" src="/js/schedule.js"></script>
+<script type="module" src="/js/myPageMove.js" nomodule></script>
 
 <!-- Core -->
 <script src="/vendor/jquery/dist/jquery.min.js"></script>

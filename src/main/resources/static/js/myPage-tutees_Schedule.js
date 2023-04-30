@@ -1,9 +1,20 @@
+import { setupHeaderAjax, getId } from './checkTokenExpiration.js';
+
 var id = "cancelReservationBtn";
 $(document).ready(function () {
-    var pathURI = window.location.pathname
-    const regex = /\/mypage\/(\d+)\/schedule/;
-    const match = pathURI.match(regex);
-    const userId= match[1];
+
+    const token = sessionStorage.getItem('accessToken');
+    console.log(token)
+
+    // access token 만료 기간 검증 및 req header에 삽입
+    setupHeaderAjax(token)
+
+    let userId = getId(token);
+
+    // var pathURI = window.location.pathname
+    // const regex = /\/mypage\/(\d+)\/schedule/;
+    // const match = pathURI.match(regex);
+    // const userId= match[1];
 
     var apiUrl1 = "/mypage/{user_id}/schedule/get";
     var apiUrl2 = "/mypage/{user_id}";
@@ -72,11 +83,10 @@ $(document).ready(function () {
                         // 예약 취소 버튼을 클릭하면 실행될 함수
                         function cancelReservation() {
                             if ($("#cancel-reservation-message").val() == "예약을 취소하겠습니다") {
-                                var user_id = dataParse.user_id;
                                 var class_id = dataParse.schedules[numbers].class_id;
 
                                 var postLink = "/mypage/{user_id}/schedule/cancel";
-                                var apiUrl = postLink.replace("{user_id}", user_id);
+                                var apiUrl = postLink.replace("{user_id}", userId);
 
                                 $.ajax({
                                     type: "PUT",
@@ -89,7 +99,8 @@ $(document).ready(function () {
                                         $("#modal-default").modal('hide'); // 모달 창 닫기
                                         $("#cancel-reservation-message").val("");
                                         // 실행창 초기화
-                                        window.location.href = apiUrl3;
+                                        location.reload();
+
                                     },
                                     error: function (data) {
                                         alert("Error!")

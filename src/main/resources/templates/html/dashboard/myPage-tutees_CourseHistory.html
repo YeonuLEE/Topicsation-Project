@@ -70,14 +70,14 @@
                             </div>
                             <h2 class="h5 font-weight-normal text-center mt-3 mb-0" id="name"></h2>
                             <div class="list-group dashboard-menu list-group-sm mt-4">
-                                 <a href="./{user_id}" id="information" class="d-flex list-group-item list-group-item-action">회원 정보<span
+                                 <a href="#" id="information" class="d-flex list-group-item list-group-item-action">회원 정보<span
                                         class="icon icon-xs ml-auto"><span
                                         class="fas fa-chevron-right"></span></span> </a>
-                                <a href="./{user_id}/schedule" id="schedule"
+                                <a href="#" id="schedule"
                                    class="d-flex list-group-item list-group-item-action">수업 일정<span
                                         class="icon icon-xs ml-auto"><span
                                         class="fas fa-chevron-right"></span></span> </a>
-                                <a href="/{user_id}/history" id="history"
+                                <a href="#" id="history"
                                    class="d-flex list-group-item list-group-item-action active">히스토리 정보<span
                                         class="icon icon-xs ml-auto"><span
                                         class="fas fa-chevron-right"></span></span> </a>
@@ -167,7 +167,8 @@
 </footer>
 
 <!-- ajax -->
-<script src="/js/myPage-tutees_CourseHistory.js"></script>
+<script type="module" src="/js/myPage-tutees_CourseHistory.js" nomodule></script>
+<script type="module" src="/js/myPageMove.js" nomodule></script>
 
 <!-- Core -->
 <script src="/vendor/jquery/dist/jquery.min.js"></script>
