@@ -30,7 +30,48 @@ $(document).ready(function () {
                 var tno = $("<th scope=\"row\">").text(i + 1);
                 var tutorName = $("<td>", {text: spare.tutorName});
                 var approlDate = $("<td>", {text: spare.approlDate});
-                var file = $("<td>", {text: spare.file});
+
+                var pathURI = spare.file
+                const regex = /\/certificate\/([a-zA-Z0-9]+)\.pdf$/;
+                let userFile = null;
+                if (regex.test(pathURI)) {
+                    const match = pathURI.match(regex);
+                    userFile = match[1];
+                } else {
+                    console.log("패턴에 일치하는 값이 없습니다.");
+                }
+                userFile = userFile+".pdf"; // 파일 이름
+                console.log(userFile);
+                var file = $("<td><a>")
+                    .text(userFile)
+                    .attr("id",spare.file)
+                    .on("click",function (){
+                        var url = "/mypage/download/{fileName}";
+                        url = url.replace("{fileName}",userFile);
+                        console.log(url);
+
+                        $.ajax({
+                            url: url, // Spring Boot 애플리케이션의 다운로드 엔드포인트 URL
+                            method: "GET",
+                            xhrFields: {
+                                responseType: "blob"
+                            },
+                            success: function (data, status, xhr) {
+                                let fileName = xhr.getResponseHeader("Content-Disposition").split("filename=")[1].replace(/"/g, "");
+                                let downloadUrl = URL.createObjectURL(data);
+
+                                let link = document.createElement("a");
+                                link.href = downloadUrl;
+                                link.download = fileName;
+                                document.body.appendChild(link);
+                                link.click();
+                                document.body.removeChild(link);
+                            },
+                            error: function (xhr, status, error) {
+                                console.log("File download failed:", error);
+                            }
+                        });
+                    });
 
                 var successBtn = $("<td><button>")
                     .addClass("btn btn-primary")

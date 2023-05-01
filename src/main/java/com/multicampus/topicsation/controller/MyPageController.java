@@ -9,12 +9,15 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
@@ -99,6 +102,20 @@ public class MyPageController {
         public String adminFail(@RequestBody String userId){
             service.fail(userId);
             return null;
+        }
+
+        @GetMapping("/download/{fileName}")
+        public ResponseEntity<Resource> downloadFile(@PathVariable("fileName") String fileName) throws IOException {
+            // 파일 경로를 수정하여 실제 파일의 위치를 지정해주세요.
+            String filePath = "src/main/resources/static/assets/certificate/"+fileName;
+            File file = new File(filePath);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            headers.setContentDisposition(ContentDisposition.builder("attachment").filename(file.getName()).build());
+
+            InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+            return new ResponseEntity<>(resource, headers, HttpStatus.OK);
         }
 
         @GetMapping("/{user_id}/get")
