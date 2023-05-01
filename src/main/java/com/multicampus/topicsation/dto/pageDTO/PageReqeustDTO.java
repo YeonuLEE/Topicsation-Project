@@ -10,11 +10,12 @@ import lombok.NoArgsConstructor;
 public class PageReqeustDTO {
 
     private int currentPage; // 요청한 페이지
+    private int startData; // 현재 페이지의 첫번째 데이터
 
     private int dataPerPage = 6; // 페이지당 출력할 데이터 갯수
     private int pagePerOnce = 5; // 하나의 페이지리스트의 페이지 수
 
     private String name;
     private String interest;
-    private String class_date;
+    private String classDate;
 }

@@ -1,5 +1,6 @@
 package com.multicampus.topicsation.service;
 
+import com.multicampus.topicsation.dto.SearchDTO;
 import com.multicampus.topicsation.dto.pageDTO.PageReqeustDTO;
 import com.multicampus.topicsation.dto.pageDTO.PageResponseDTO;
 import com.multicampus.topicsation.repository.ISearchDAO;
@@ -18,12 +19,14 @@ public class SearchService implements ISearchService{
 
 
     @Override
-    public List<PageResponseDTO> allList(PageReqeustDTO pageReqeustDTO) {
+    public List<SearchDTO> allList(PageReqeustDTO pageReqeustDTO) {
+
         return dao.allListDAO(pageReqeustDTO);
     }
 
     @Override
-    public List<PageResponseDTO> searchList(PageReqeustDTO pageReqeustDTO) {
+    public List<SearchDTO> searchList(PageReqeustDTO pageReqeustDTO) {
+
         return dao.searchListDAO(pageReqeustDTO);
     }
 

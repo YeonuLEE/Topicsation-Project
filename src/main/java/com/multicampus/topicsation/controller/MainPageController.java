@@ -2,6 +2,7 @@ package com.multicampus.topicsation.controller;
 
 
 import com.multicampus.topicsation.dto.RecommendDTO;
+import com.multicampus.topicsation.dto.SearchDTO;
 import com.multicampus.topicsation.dto.TutorScheduleDTO;
 import com.multicampus.topicsation.dto.TutorViewDTO;
 import com.multicampus.topicsation.dto.pageDTO.PageReqeustDTO;
@@ -78,26 +79,104 @@ public class MainPageController {
             return jsonString;
         }
         @GetMapping("/search-all.get")
-        public String searchAll() {
+        public String searchAll(@RequestParam("currentPage")int currentPage, @RequestParam("dataPerPage") int dataPerPage) {
+            PageReqeustDTO pageReqeustDTO = new PageReqeustDTO();
+            pageReqeustDTO.setCurrentPage(currentPage);
+            pageReqeustDTO.setDataPerPage(dataPerPage);
+            List<SearchDTO> searchAll = searchService.allList(pageReqeustDTO);
+            int totalDataCount = searchService.searchCount(pageReqeustDTO);
+            PageResponseDTO pageResponseDTO = new PageResponseDTO(pageReqeustDTO, totalDataCount);
 
-           return "";
+            JSONArray listArray = new JSONArray();
+            JSONArray pagingArray = new JSONArray();
+            JSONObject jsonObject = new JSONObject();
+
+            for(SearchDTO dto : searchAll){
+                JSONObject object = new JSONObject();
+                object.put("user_id", dto.getUser_id());
+                object.put("name",dto.getName());
+                object.put("tutor_image",dto.getProfileImg());
+                object.put("like",dto.getLike());
+                object.put("nationality",dto.getNationality());
+                object.put("interest1",dto.getInterest1());
+                object.put("interest2",dto.getInterest2());
+                listArray.add(object);
+            }
+            jsonObject.put("all_list", listArray);
+
+            JSONObject pagingObject = new JSONObject();
+            pagingObject.put("currentPage", pageResponseDTO.getCurrentPage());
+            pagingObject.put("dataPerPage", pageResponseDTO.getDataPerPage());
+            pagingObject.put("pagePerOnce", pageResponseDTO.getPagePerOnce());
+            pagingObject.put("totalDataCount", totalDataCount);
+            pagingObject.put("totalPageCount", pageResponseDTO.getTotalPageCount());
+            pagingObject.put("startData", pageResponseDTO.getStartData());
+            pagingObject.put("startPage", pageResponseDTO.getStartPage());
+            pagingObject.put("endPage", pageResponseDTO.getEndPage());
+            pagingObject.put("prev", pageResponseDTO.isPrev());
+            pagingObject.put("next", pageResponseDTO.isNext());
+            pagingArray.add(pagingObject);
+
+            jsonObject.put("paging",pagingArray);
+
+            String jsonString = jsonObject.toJSONString();
+            System.out.println("[controller jsonstring] \n" + jsonString);
+
+           return jsonString;
         }
 
 
         @GetMapping("/search-all/search")
-        public String search(@RequestBody PageReqeustDTO pageReqeustDTO) {
-            searchService.searchList(pageReqeustDTO);
+        public String search(@RequestParam("name") String name, @RequestParam("interest") String interest, @RequestParam("classDate") String classDate,
+                             @RequestParam("currenPage") int currentPage, @RequestParam("dataPerPage") int dataPerPage) {
+            PageReqeustDTO pageReqeustDTO = new PageReqeustDTO();
+            pageReqeustDTO.setName(name);
+            pageReqeustDTO.setInterest(interest);
+            pageReqeustDTO.setClassDate(classDate);
+            pageReqeustDTO.setCurrentPage(currentPage);
+            pageReqeustDTO.setDataPerPage(dataPerPage);
+            List<SearchDTO> searchAll = searchService.searchList(pageReqeustDTO);
+            int totalDataCount = searchService.searchCount(pageReqeustDTO);
+            PageResponseDTO pageResponseDTO = new PageResponseDTO(pageReqeustDTO, totalDataCount);
 
-            return "";
+            JSONArray listArray = new JSONArray();
+            JSONArray pagingArray = new JSONArray();
+            JSONObject jsonObject = new JSONObject();
+
+            for(SearchDTO dto : searchAll){
+                JSONObject object = new JSONObject();
+                object.put("user_id", dto.getUser_id());
+                object.put("name",dto.getName());
+                object.put("tutor_image",dto.getProfileImg());
+                object.put("like",dto.getLike());
+                object.put("nationality",dto.getNationality());
+                object.put("interest1",dto.getInterest1());
+                object.put("interest2",dto.getInterest2());
+                listArray.add(object);
+            }
+            jsonObject.put("search_list", listArray);
+
+            JSONObject pagingObject = new JSONObject();
+            pagingObject.put("currentPage", pageResponseDTO.getCurrentPage());
+            pagingObject.put("dataPerPage", pageResponseDTO.getDataPerPage());
+            pagingObject.put("pagePerOnce", pageResponseDTO.getPagePerOnce());
+            pagingObject.put("totalDataCount", totalDataCount);
+            pagingObject.put("totalPageCount", pageResponseDTO.getTotalPageCount());
+            pagingObject.put("startData", pageResponseDTO.getStartData());
+            pagingObject.put("startPage", pageResponseDTO.getStartPage());
+            pagingObject.put("endPage", pageResponseDTO.getEndPage());
+            pagingObject.put("prev", pageResponseDTO.isPrev());
+            pagingObject.put("next", pageResponseDTO.isNext());
+            pagingArray.add(pagingObject);
+
+            jsonObject.put("paging",pagingArray);
+
+            String jsonString = jsonObject.toJSONString();
+            System.out.println("[controller jsonstring] \n" + jsonString);
+
+            return jsonString;
         }
 
-
-//        @GetMapping("/search-all/search")
-//        public String search(@RequestParam String name,
-//                             @RequestParam String interest,
-//                             @RequestParam String date) {
-//            return "";
-//        }
 
 
         @GetMapping("/tutors/{tutor_id}/getInfo")
