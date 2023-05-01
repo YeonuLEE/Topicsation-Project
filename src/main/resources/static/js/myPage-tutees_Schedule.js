@@ -55,7 +55,7 @@ $(document).ready(function () {
                 var tutorname = $("<td>").css("text-align", "center").text(tutee.tutor_name);
 
                 // 수업 입장 버튼
-                var goToClassBtn = $("<a>", {href: classUrl, text: "수업입장", class: "btn btn-primary"});
+                var goToClassBtn = $("<a>", {href: "http://localhost:3000" + classUrl +"?token=" + token, text: "수업입장", class: "btn btn-primary"});
 
                 // 예약 취소 버튼
                 var cancelReservationBtn = $("<button>")
