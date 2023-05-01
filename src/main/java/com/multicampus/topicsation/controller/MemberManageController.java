@@ -121,7 +121,7 @@ public class MemberManageController {
                 Cookie cookie = new Cookie("refreshToken", refreshToken);
                 //cookie.setHttpOnly(true);
                 cookie.setPath("/");
-                cookie.setMaxAge(86400);
+                //cookie.setMaxAge(86400);
 
                 //Cookie에 refreshtoken 정보 담아서 응답
                 response.addCookie(cookie);
