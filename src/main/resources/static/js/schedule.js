@@ -123,7 +123,7 @@ $(document).ready(function () {
         // 시간 포맷
         var timeFormatted = pad(hours, 2) + ':' + pad(minutes, 2);
 
-        var pathURI = window.location.pathname
+        var pathURI = window.location.pathname;
         const regex = /\/mypage\/(\d+)\/schedule/;
         const match = pathURI.match(regex);
         if (match && match[1]) {
