@@ -79,5 +79,8 @@ public class LessonService implements ILessonService{
         return 0;
     }
 
-
+    @Override
+    public int reviewService(String review_content, String classId) {
+        return lessonDAO.reviewDAO(review_content, classId);
+    }
 }

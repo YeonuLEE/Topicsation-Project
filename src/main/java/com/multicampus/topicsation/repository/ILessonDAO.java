@@ -17,4 +17,6 @@ public interface ILessonDAO {
     int likeDAO(String classId);
     // 싫어요 시 dislike 테이블에 튜티와 튜터 id를 추가하는 메서드
     int dislikeDAO(String classId);
+    //리뷰 등록 메서드
+    int reviewDAO(String review_content, String classId);
 }
