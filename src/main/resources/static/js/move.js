@@ -1,25 +1,29 @@
 import {getId, setupHeaderAjax} from './checkTokenExpiration.js';
 //myPage
 $(document).ready(function () {
+
+    // 변수 선언
+    const token = sessionStorage.getItem('accessToken');
+    let userId
+
+    // nullPointerException 예방
+    if(token != null) {
+        userId = getId(token)
+        setupHeaderAjax(token)
+    }
+
+    // 로그인 로그아웃 버튼 바꾸기
+    if (token != null) {
+        $('#sign-btn').text('SIGN OUT');
+    }
+
+    // 비회원 마이페이지 버튼 안보 이게 하기
+    if(token == null){
+        $('#mypage-btn').hide();
+    }
+
     $("#mypage-btn").click(function (e) {
         e.preventDefault();
-
-        const token = sessionStorage.getItem('accessToken');
-        alert(token)
-
-        let userId = getId(token)
-        setupHeaderAjax(token)
-
-        // const xhr = new XMLHttpRequest();
-        // xhr.open("GET", "/mypage/" + userId);
-        // xhr.setRequestHeader('Authorization', 'Bearer ' + token);
-        // xhr.onload = function() {
-        //     if (xhr.status === 200) { // 응답 상태 코드가 200이면
-        //         window.location.href = "/mypage/" + userId;
-        //     }
-        // };
-        // xhr.send();
-
 
         $.ajax({
             type: "GET",
@@ -34,44 +38,33 @@ $(document).ready(function () {
         });
     })
 
-//sign - main은 적용 X해야함 이해안되면 명진에게 물어보세영
-// $('#sign-btn').click(function() {
-//     const token = sessionStorage.getItem('token');
-//     if (token != null) {
-//         sessionStorage.removeItem('token');
-//         $.ajax({
-//             url: '/members/signout',
-//             type: 'POST',
-//             success: function (data) {
-//                 console.log('Signed out successfully');
-//                 location.href = "/main"
-//             },
-//             error: function (jqXHR, textStatus, errorThrown) {
-//                 console.error('Error signing out:', textStatus, errorThrown);
-//             }
-//         });
-//     }else{
-//         location.href = "/members/signin"
-//     }
-// });
-// $('#signout-btn').click(function() {
-    // if ($("#signin-btn").text() == "SIGN IN") {
-    //     location.href = "/members/signin"
-    // }
-    // else {
-    //     location.href = "/members/signout"
-    // }
-// })
+    $('#sign-btn').click(function() {
+
+        if (token != null) {
+            sessionStorage.removeItem('accessToken');
+            document.cookie = "refreshToken=;  expires=Thu, 01 Jan 1970 00:00:00 UTC ; path=/";
+
+            $.ajax({
+                url: '/members/signout',
+                type: 'POST',
+                success: function (data) {
+                    console.log('Signed out successfully');
+                    location.href = "/main"
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error('Error signing out:', textStatus, errorThrown);
+                }
+            });
+        }else{
+            location.href = "/members/signin"
+        }
+    });
+
+
 
 
     $("#information").click(function (e) {
         e.preventDefault();
-
-        const token = sessionStorage.getItem('accessToken');
-        alert(token)
-
-        let userId = getId(token)
-        setupHeaderAjax(token)
 
         $.ajax({
             type: "GET",
@@ -89,12 +82,6 @@ $(document).ready(function () {
     $("#schedule").click(function (e) {
         e.preventDefault();
 
-        const token = sessionStorage.getItem('accessToken');
-        alert(token)
-
-        let userId = getId(token)
-        setupHeaderAjax(token)
-
         $.ajax({
             type: "GET",
             url: "/mypage/" + userId + "/schedule",
@@ -111,12 +98,6 @@ $(document).ready(function () {
     $("#history").click(function (e) {
         e.preventDefault();
 
-        const token = sessionStorage.getItem('accessToken');
-        alert(token)
-
-        let userId = getId(token)
-        setupHeaderAjax(token)
-
         $.ajax({
             type: "GET",
             url: "/mypage/" + userId + "/history",
@@ -130,7 +111,3 @@ $(document).ready(function () {
         });
     })
 });
-
-
-//TOPICSATION LOGO
-
