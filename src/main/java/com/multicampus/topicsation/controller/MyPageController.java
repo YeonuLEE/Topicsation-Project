@@ -8,6 +8,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -114,6 +116,7 @@ public class MyPageController {
                 jsonObject.put("interest1", myPageDTO.getInterest1());
                 jsonObject.put("interest2", myPageDTO.getInterest2());
                 jsonObject.put("genderRadios", myPageDTO.getGender());
+                jsonObject.put("memo",myPageDTO.getInfo());
                 jsonObject.put("password",myPageDTO.getPassword());
 
             } else if(role.equals("tutee")) {
@@ -143,8 +146,9 @@ public class MyPageController {
             if(role.equals("tutee")){
                 service.modify_tutee(myPageDTO);
             }else if(role.equals("tutor")){
-                myPageDTO.setProfileimg(jsonObject.get("$profileImg").toString());
+                myPageDTO.setGender(jsonObject.get("$gander").toString());
                 myPageDTO.setNationality(jsonObject.get("$nationality").toString());
+                myPageDTO.setInfo(jsonObject.get("$memo").toString());
                 service.modify_tutor(myPageDTO);
             }
             return null;

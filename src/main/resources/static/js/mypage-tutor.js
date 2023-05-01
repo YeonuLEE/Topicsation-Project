@@ -3,6 +3,7 @@ var first;
 var second;
 var nationality;
 var gender;
+var memo;
 var password;
 var passwordCheck = false;
 
@@ -37,13 +38,16 @@ $(document).ready(function () {
             $('#nationality').val(jsonObject.nationality).prop("selected", true);
             $('#first-interest').val(jsonObject.interest1).prop("selected", true);
             $('#second-interest').val(jsonObject.interest2).prop("selected", true);
-            //$("radio[name='genderRadios'][value='" + jsonObject.genderRadios + "']").attr('checked', true);
-            $('input[type=radio][name=genderRadios][value="' + jsonObject.genderRadios + '"]').prop('checked', true);
+            $('#memo').val(jsonObject.memo);
+            $('#gender-'+jsonObject.genderRadios).prop('checked',true);
+
 
             name=$("#name").val(jsonObject.name);
             nationality=$('#nationality').val(jsonObject.nationality).prop("selected", true);
             first = $("#first-interest").val(jsonObject.interest1).prop("selected",true);
             second = $("#second-interest").val(jsonObject.interest2).prop("selected",true);
+            gender = $('input[type=radio][name=genderRadios]:checked').val();
+            memo =$('#memo').val(jsonObject.memo);
             password = jsonObject.password.toString();
         },
         error: function (data, textStatus) {
@@ -67,6 +71,8 @@ $(document).ready(function () {
             nationality=$('#nationality').val();
             first = $("#first-interest").val();
             second = $("#second-interest").val();
+            gender = $('input[type=radio][name=genderRadios]:checked').val();
+            memo =$("#memo").val();
 
             var user_id = userId;
             var postlink = "/mypage/{user_id}/post";
@@ -81,7 +87,9 @@ $(document).ready(function () {
                     $name : name,
                     $nationality : nationality,
                     $interest1 : first,
-                    $interest2 : second
+                    $interest2 : second,
+                    $gander : gender,
+                    $memo : memo
                 }),
                 success: function (data, status) {
                     $("#modal-default").modal('hide'); // 모달 창 닫기
