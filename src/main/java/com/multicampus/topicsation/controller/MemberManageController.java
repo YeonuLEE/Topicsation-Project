@@ -2,38 +2,24 @@ package com.multicampus.topicsation.controller;
 
 import com.multicampus.topicsation.dto.SignUpDTO;
 import com.multicampus.topicsation.service.ISignUpService;
-import com.multicampus.topicsation.service.MailService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.multicampus.topicsation.dto.LoginDTO;
 import com.multicampus.topicsation.dto.MailDTO;
 import com.multicampus.topicsation.service.IMemberManageService;
-import com.multicampus.topicsation.service.SignUpService;
 //import com.multicampus.topicsation.service.security.CustomUserDetailsService;
-import com.multicampus.topicsation.token.JwtFilter;
 import com.multicampus.topicsation.token.TokenProvider;
 import org.json.simple.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 //import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 //import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 //import org.springframework.security.core.Authentication;
 //import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 //import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.security.SecureRandom;
-import java.security.Security;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 

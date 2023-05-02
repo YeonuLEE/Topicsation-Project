@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.multicampus.topicsation.repository.ISearchDAO">
+
+<!--    튜터이름, 관심사, 예약가능날짜를 검색하면 좋아요가 많은 순으로 정렬-->
+    <select id="searchListDAO" parameterType="com.multicampus.topicsation.dto.pageDTO.PageRequestDTO" resultType="com.multicampus.topicsation.dto.SearchDTO">
+        select u.USER_ID, u.NAME, ti.NATIONALITY, ti.INFO, ti.LIKE, ti.PROFILEIMG, u.INTEREST1, u.INTEREST2
+        FROM USER u
+        INNER JOIN TUTOR_INFO ti ON u.USER_ID = ti.TUTOR_ID
+        <if test="date != null">
+        INNER JOIN TUTOR_CLASS tc on u.USER_ID = tc.TUTOR_ID
+        </if>
+        <where>
+            <if test="name != null">
+                and LOWER(u.NAME) LIKE CONCAT('%', LOWER(#{name}), '%')
+            </if>
+            <if test="interest != null">
+                and (u.INTEREST1 = #{interest} OR u.INTEREST2 = #{interest})
+            </if>
+            <if test="date != null">
+                and tc.CLASS_DATE = #{date} AND tc.TUTEE_ID IS NULL
+            </if>
+        </where>
+        GROUP BY u.USER_ID, u.NAME, ti.NATIONALITY, ti.INFO, ti.LIKE, ti.PROFILEIMG, u.INTEREST1, u.INTEREST2
+        ORDER BY ti.LIKE DESC
+        LIMIT #{skip}, #{size}
+    </select>
+
+    <!--    페이징하기 위해 검색된 total Data Count-->
+    <select id="searchCountDAO" parameterType="com.multicampus.topicsation.dto.pageDTO.PageRequestDTO" resultType="int">
+        select count(distinct u.USER_ID)
+        FROM USER u
+        INNER JOIN TUTOR_INFO ti ON u.USER_ID = ti.TUTOR_ID
+        <if test="date != null">
+        INNER JOIN TUTOR_CLASS tc on u.USER_ID = tc.TUTOR_ID
+        </if>
+        <where>
+            <if test="name != null">
+                and LOWER(u.NAME) LIKE CONCAT('%', LOWER(#{name}), '%')
+            </if>
+            <if test="interest != null">
+                and (u.INTEREST1 = #{interest} OR u.INTEREST2 = #{interest})
+            </if>
+            <if test="date != null">
+                and tc.CLASS_DATE = #{date} AND tc.TUTEE_ID IS NULL
+            </if>
+        </where>
+    </select>
+</mapper>
