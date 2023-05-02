@@ -28,10 +28,10 @@ public class PageResponseDTO {
         this.pagePerOnce = pageReqeustDTO.getPagePerOnce();
 
         this.totalPageCount = (int)Math.ceil(totalDataCount / dataPerPage);
-        this.startPage = (int)Math.floor(currentPage / pagePerOnce) + 1;
+        this.startPage = (int)Math.ceil(currentPage /(double)pagePerOnce) * pagePerOnce - pagePerOnce + 1;
         this.endPage = startPage + pagePerOnce - 1;
         this.endPage = endPage > totalPageCount ? totalPageCount: endPage;
-        this.prev = startPage > pagePerOnce + 1;
+        this.prev = startPage > pagePerOnce;
         this.next = totalPageCount > endPage;
     }
 

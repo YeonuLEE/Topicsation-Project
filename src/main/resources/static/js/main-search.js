@@ -117,9 +117,6 @@ function ajaxPage(currentPage){
 }
 
 
-
-
-
 $("#search-form").submit(function (event) {
     event.preventDefault();
     var name = $('#search-name').val();
@@ -243,44 +240,36 @@ $("#search-form").submit(function (event) {
 });
 
 function paging(jsonData) {
-    var totalPageCount = jsonData.paging[0].totalPageCount;
-    var startPage = jsonData.paging[0].startPage;
-    var endPage = jsonData.paging[0].endPage;
-    var prev = jsonData.paging[0].prev;
-    var next = jsonData.paging[0].next;
-    var pagePerOnce = jsonData.paging[0].pagePerOnce;
-    var size = jsonData.paging[0].dataPerPage;
-    var page = jsonData.paging[0].currentPage;
-    // console.log(data);
+    var paging = jsonData.paging[0];
+
+    var totalPageCount = paging.totalPageCount;
+    var startPage = paging.startPage;
+    var endPage = paging.endPage;
+    var prev = paging.prev;
+    var next = paging.next;
+    var pagePerOnce = paging.pagePerOnce;
+    var size = paging.dataPerPage;
+    var page = paging.currentPage;
+
     console.log("startPage: " + startPage);
     console.log("endPage: " + endPage);
 
     var ul = $("#pagination");
     ul.empty();
+
     // 이전 버튼
+    var li1 = $("<li>", {class: "page-item", id: "previous-btn"});
+    var a1 = $("<a>", {class: "page-link", id: "previous-btn-a", tabindex: "-1", href: ""});
+    var text1 = "Previous";
     if (!prev) {
-        var li1 = $("<li>", {class: "page-item disabled"});
-        var a1 = $("<a>", {class: "page-link", tabindex: "-1", href: ""});
-        var text1 = "Previous";
-        ul.append(li1);
-        li1.append(a1);
-        a1.append(text1);
-
+        li1.addClass("disabled");
     } else {
-        var li1 = $("<li>", {class: "page-item"});
-        var a1 = $("<a>", {class: "page-link", tabindex: "-1", href: ""});
-        var text1 = "Previous";
-
-        a1.on("click", function () {
-            startPage = startPage - pagePerOnce;
-            endPage = startPage + pagePerOnce;
-            currentPage = endPage;
-        });
-
-        ul.append(li1);
-        li1.append(a1);
-        a1.append(text1);
+        currentPage = startPage - 1;
     }
+    ul.append(li1);
+    li1.append(a1);
+    a1.append(text1);
+
     // 페이지 버튼
     for (var i = startPage; i <= endPage; i++) {
         var li2 = $("<li>", {
@@ -289,7 +278,7 @@ function paging(jsonData) {
         });
         var a2 = $("<a>", {
             class: "page-link",
-            tabindex: i,
+            tabindex: "-1",
         });
         var text2 = i;
 
@@ -297,36 +286,25 @@ function paging(jsonData) {
         li2.append(a2);
         a2.append(text2);
     }
-    $(".page-link").click(function (){
+    $(".page-link").click(function (event){
+        event.preventDefault();
         currentPage = $(this).text();
         ajaxPage(currentPage);
     });
 
     // 다음 버튼
+    var li3 = $("<li>", {class: "page-item"});
+    var a3 = $("<a>", {class: "page-link", href: ""});
+    var text3 = "Next";
+
     if (!next) {
-        var li3 = $("<li>", {class: "page-item disabled"});
-        var a3 = $("<a>", {class: "page-link", href: ""});
-        var text3 = "Next";
-
-        ul.append(li3);
-        li3.append(a3);
-        a3.append(text3);
-
+       li3.addClass("disabled");
     } else {
-        var li3 = $("<li>", {class: "page-item"});
-        var a3 = $("<a>", {class: "page-link", href: ""});
-        var text3 = "Next";
-
-        a3.on("click", function () {
-            startPage = startPage - pagePerOnce;
-            endPage = startPage + pagePerOnce;
-            currentPage = startPage;
-        });
-
-        ul.append(li3);
-        li3.append(a3);
-        a3.append(text3);
+        currentPage = endPage + 1;
     }
+    ul.append(li3);
+    li3.append(a3);
+    a3.append(text3);
 }
 
 
