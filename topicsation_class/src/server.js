@@ -2,7 +2,7 @@ import http from "http";
 import { Server } from "socket.io";
 import { instrument } from "@socket.io/admin-ui";
 import nodemon from "nodemon";
-import { wordsToCensor, filtering } from './censoredWords.js';
+import { filtering, AhoCorasick, wordsToCensor} from './censoredWords.js';
 
 const app = require("./app");
 
@@ -32,14 +32,18 @@ wsServer.on("connection", (socket) => {
     socket.to(roomName).emit("welcomeChat", socket.nickname);
     // wsServer.sockets.emit("room_change", publicRooms());
   });
+  
+  // 아호코라식 설정
+  const ac = new AhoCorasick();
+  wordsToCensor.forEach((pattern) => ac.insert(pattern));
+  ac.buildFailureLinks();
 
-
-
+  // 메시지 관련
   socket.on("new_message", (msg, room, done) => {
     console.log("새로운 메세지 : ", msg);
     // 메시지 금지어 필터링
-    let filteredMsg = filtering(msg, wordsToCensor)
-    console.log(filteredMsg)
+    let filteredMsg = filtering(msg, ac)
+    console.log("검열된 메세지 : ", filteredMsg)
     socket.to(room).emit("new_message", `${socket.nickname}: ${filteredMsg}`);
     done();
   });
