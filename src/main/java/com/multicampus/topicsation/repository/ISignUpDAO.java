@@ -30,7 +30,6 @@ public interface ISignUpDAO {
     public int successEmailAuthDAO(String email);
 
     public String getUserId(String email);
-    public void saveCertificate(Map<String, Object> paramMap);
 
 
 }

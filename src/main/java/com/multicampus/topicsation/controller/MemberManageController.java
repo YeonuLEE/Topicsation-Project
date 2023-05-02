@@ -182,15 +182,37 @@ public class MemberManageController {
         }
 
         @PostMapping("/signup-tutors.post")
-        public String signUpTutor(@RequestBody SignUpDTO signUpDTO) {
+        public ResponseEntity<String> signUpTutor(
+                @RequestParam("email") String email,
+                @RequestParam("name") String name,
+                @RequestParam("password") String password,
+                @RequestParam("genderRadios") String gender,
+                @RequestParam("nationality") String nationality,
+                @RequestParam("firstInterest") String firstInterest,
+                @RequestParam("secondInterest") String secondInterest,
+                @RequestParam("role") String role,
+                @RequestParam("customFile") MultipartFile file) {
+
+            SignUpDTO signUpDTO = new SignUpDTO();
+
+            signUpDTO.setEmail(email);
+            signUpDTO.setName(name);
+            signUpDTO.setPassword(password);
+            signUpDTO.setGender(gender);
+            signUpDTO.setNationality(nationality);
+            signUpDTO.setFirstInterest(firstInterest);
+            signUpDTO.setSecondInterest(secondInterest);
+            signUpDTO.setRole(role);
+            signUpDTO.setFile(file);
+
+            System.out.println(signUpDTO);
 
             boolean result = signUpService.signUpProcess(signUpDTO);
             if (result) {
-                return signUpDTO.getEmail();
+                return new ResponseEntity <String> (signUpDTO.getEmail(), HttpStatus.OK);
             } else {
-                return "signupFail";
+                return new ResponseEntity <String> ("signupFail", HttpStatus.OK);
             }
-
         }
 
         @PostMapping("/signup/success.post")

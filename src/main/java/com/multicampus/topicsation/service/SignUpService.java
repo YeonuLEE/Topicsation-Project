@@ -57,10 +57,7 @@ public class SignUpService implements ISignUpService {
             dao.addTuteeDAO(signUpDTO);
         } else {
             dao.addTutorDAO1(signUpDTO);
-            dao.addTutorDAO2(signUpDTO);
-
             String userId = dao.getUserId(signUpDTO.getEmail());
-
             final String UPLOAD_DIR = "src/main/resources/static/assets/certificate/";
             try {
                 System.out.println("file : " + signUpDTO.getFile());
@@ -70,16 +67,14 @@ public class SignUpService implements ISignUpService {
                 String fileExtension = getFileExtension(signUpDTO.getFile().getOriginalFilename());
                 String fileName = userId + "." + fileExtension;
                 Path path = Paths.get(UPLOAD_DIR + fileName);
-
                 Files.write(path, bytes);
 
-                Map<String, Object> paramMap = new HashMap<>();
-                paramMap.put("email", signUpDTO.getEmail());
-                paramMap.put("fileName", fileName);
-                dao.saveCertificate(paramMap);
+                signUpDTO.setCertificate(fileName);
+                dao.addTutorDAO2(signUpDTO);
 
             } catch (IOException e) {
                 e.printStackTrace();
+                return false;
             }
         }
         return true;
