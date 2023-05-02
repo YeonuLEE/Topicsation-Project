@@ -14,4 +14,5 @@ public class ClassDTO {
     private String tutee_id;
     private String tutor_id;
     private String name;
+    private String url;
 }
