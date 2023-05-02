@@ -12,10 +12,10 @@ public class TopicsationApplication {
 
     public static void main(String[] args) throws IOException {
         SpringApplication.run(TopicsationApplication.class, args);
-//
-//        ProcessBuilder processBuilder = new ProcessBuilder("/usr/local/bin/python3", "NewsCrawler.py");
+
+//        ProcessBuilder processBuilder = new ProcessBuilder("C:\\Python311\\python.exe", "NewsCrawler.py");
 //        // 파이썬 실행 파일이 있는 경로와 스크립트 파일명을 전달하여 ProcessBuilder 객체를 생성합니다.
-//        processBuilder.directory(new File("/Users/yeonu/Y_DEV/Topicsation-Project/src/main/resources/static/NewsTopicCrawler"));
+//        processBuilder.directory(new File("C:\\Dev\\project\\topicsation_project\\src\\main\\resources\\static\\NewsTopicCrawler"));
 //
 //        // 명령어 실행 후 출력 결과를 가져옵니다.
 //        Process process = processBuilder.start();
