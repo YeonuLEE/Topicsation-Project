@@ -18,9 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.core.Authentication;
 //import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -36,11 +38,10 @@ public class MemberManageController {
     ISignUpService signUpService;
 
     @Autowired
-    private IMemberManageService service;
+    private IMemberManageService memberManageservice;
 
     @GetMapping("/signin")
     public String signin() {
-        System.out.println("login!");
         return "html/sign-in";
     }
 
@@ -66,8 +67,6 @@ public class MemberManageController {
 
     @GetMapping("/signup/email")
     public String emailAuth(String email, HttpSession session) throws Exception {
-
-
         return "html/Email-Token";
     }
 
@@ -105,9 +104,9 @@ public class MemberManageController {
             String password = params.get("password");
 
               //email과 password 검증
-            LoginDTO dto = service.login(params);
+            LoginDTO dto = memberManageservice.login(params);
 
-            if (dto != null && BCrypt.checkpw(password, dto.getPassword())) {
+            if (dto != null && BCrypt.checkpw(password, BCrypt.hashpw(password, BCrypt.gensalt()))) {
                 //accesstoken 생성
                 String accessToken = jwtUtils.createAccessToken(dto.getRole(), dto.getUser_id());
 
@@ -119,9 +118,7 @@ public class MemberManageController {
 
                 //쿠키설정
                 Cookie cookie = new Cookie("refreshToken", refreshToken);
-                //cookie.setHttpOnly(true);
                 cookie.setPath("/");
-                //cookie.setMaxAge(86400);
 
                 //Cookie에 refreshtoken 정보 담아서 응답
                 response.addCookie(cookie);
@@ -138,24 +135,42 @@ public class MemberManageController {
         }
 
         @PostMapping("/signin/change.post")
-        public String passwordChange(@RequestBody JSONObject jsonObject) {
-            String password = jsonObject.get("$password").toString();
-            String confirmPassword = jsonObject.get("$confirmPassword").toString();
-
-            System.out.println(password);
-            System.out.println(confirmPassword);
-
-            return "test!!";
+        public ResponseEntity<Object> passwordChange(@RequestBody LoginDTO loginDTO, HttpServletRequest request) {
+            System.out.println("passwordChange method");
+            HttpSession session = request.getSession();
+            String email = (String) session.getAttribute("email");
+            session.removeAttribute("email");
+            loginDTO.setEmail(email);
+            if(memberManageservice.changePassword(loginDTO)) {
+                return ResponseEntity.ok().build();
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
         }
 
         @PostMapping("/singin/find/post")
-        public String passwordFind(@RequestBody JSONObject jsonObject) {
-            String email = jsonObject.get("$email").toString();
-            String user_id = jsonObject.get("$user_id").toString();
-            System.out.println(email);
-            System.out.println(user_id);
-            System.out.println("please");
-            return email;
+        public ResponseEntity<Object> passwordFind(@RequestBody MailDTO mailDTO, HttpServletRequest request) {
+            System.out.println("passwordFind method");
+            if(memberManageservice.checkEmail(mailDTO)) {
+                //세션 과정은 컨트롤러에서 진행하는게 좋음!
+                HttpSession session = request.getSession();
+                session.setAttribute("email", mailDTO.getEmail());
+                System.out.println("session:" +session.getAttribute("email"));
+                return ResponseEntity.ok().build();
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        }
+
+        @PostMapping("/signin/find/email.send")
+        public ResponseEntity<Object> passwordChange(@RequestBody MailDTO mailDTO) throws MessagingException {
+            System.out.println("passwordChange method");
+            boolean result = memberManageservice.sendMail(mailDTO);
+            if(result) {
+                return ResponseEntity.unprocessableEntity().build();
+            }else {
+                return ResponseEntity.unprocessableEntity().build();
+            }
         }
 
         @PostMapping("/email.send")

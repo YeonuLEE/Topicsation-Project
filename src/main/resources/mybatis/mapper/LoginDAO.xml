@@ -7,4 +7,8 @@
     <select id="login" resultType="com.multicampus.topicsation.dto.LoginDTO" parameterType="java.util.Map">
         select email,password, role, user_id from user where email = #{email}
     </select>
+    <!--비밀번호 변경-->
+    <update id="changePassword" parameterType="com.multicampus.topicsation.dto.LoginDTO">
+        update user set password = #{password} where email = #{email}
+    </update>
 </mapper>
