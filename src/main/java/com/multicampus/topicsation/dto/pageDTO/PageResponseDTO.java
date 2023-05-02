@@ -1,38 +1,41 @@
 package com.multicampus.topicsation.dto.pageDTO;
 
+import com.multicampus.topicsation.dto.SearchDTO;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class PageResponseDTO {
-//    private List dataList; // 페이지에 보여질 데이터 리스트
-    private int currentPage; // 현재 페이지
+public class PageResponseDTO <E> {
+    private int page; // 현재 페이지
+    private int size; // 한 페이지당 글의 개수
+    private int total; // 전체 글의 개수
 
-    private int dataPerPage; // 페이지당 출력할 데이터 갯수
-    private int pagePerOnce; // 하나의 페이지리스트의 페이지 수
+    private int start; // 그룹의 시작 페이지 넘버
+    private int end; // 그룹의 시작 끝 넘버
 
-    private int totalDataCount; // 전체 데이터 갯수
-    private int totalPageCount; // 전체 페이지 갯수
+    private boolean prev; //이전이 존재하는지 (1페이지는 이전이 없음)
+    private boolean next; //다음이 존재하는지 (마지막페이지는 다음이 없음)
 
-    private int startData; // 현재 페이지의 첫번째 데이터
-    private int startPage; // 페이지리스트의 첫 페이지 번호
-    private int endPage;  // 페이지리스트의 마지막 페이지 번호
-    private boolean prev; // 이전 페이지 존재 여부
-    private boolean next; // 다음 페이지 존재 여부
+    private List<SearchDTO> searchDTOList;
 
 
-    public PageResponseDTO(PageReqeustDTO pageReqeustDTO, int totalDataCount){
-        this.currentPage = pageReqeustDTO.getCurrentPage();
-        this.dataPerPage = pageReqeustDTO.getDataPerPage();
-        this.pagePerOnce = pageReqeustDTO.getPagePerOnce();
+    @Builder(builderMethodName = "withAll")
+    public PageResponseDTO(PageRequestDTO pageRequestDTO, List<SearchDTO> searchDTOList, int total) {
+        this.page = pageRequestDTO.getPage();
+        this.size = pageRequestDTO.getSize();
 
-        this.totalPageCount = (int)Math.ceil(totalDataCount /(double)dataPerPage);
-        this.startPage = (int)Math.ceil(currentPage /(double)pagePerOnce) * pagePerOnce - pagePerOnce + 1;
-        this.endPage = startPage + pagePerOnce - 1;
-        this.endPage = endPage > totalPageCount ? totalPageCount: endPage;
-        this.prev = startPage > pagePerOnce;
-        this.next = totalPageCount > endPage;
+        this.total = total;
+        this.searchDTOList = searchDTOList;
+
+        this.end = (int)(Math.ceil(this.page / 6.0)) * 6;
+        this.start = this.end - 5;
+
+        int last = (int)(Math.ceil((total/(double)size)));
+
+        this.end = end > last ? last: end;
+        this.prev = this.start > 1;
+        this.next = total > this.end * this.size;
     }
-
 }

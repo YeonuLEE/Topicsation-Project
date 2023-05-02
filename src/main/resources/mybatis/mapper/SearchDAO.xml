@@ -4,56 +4,48 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.multicampus.topicsation.repository.ISearchDAO">
 
-<!--    비회원일때는 좋아요 순으로 정렬-->
-    <select id="allListDAO" resultType="com.multicampus.topicsation.dto.SearchDTO">
-        select u.USER_ID, u.NAME, ti.NATIONALITY, ti.INFO, ti.LIKE, ti.PROFILEIMG, u.INTEREST1, u.INTEREST2
-        FROM USER u
-                 INNER JOIN TUTOR_INFO ti ON u.USER_ID = ti.TUTOR_ID
-        order by ti.like desc
-        limit #{startData}, #{dataPerPage}
-    </select>
-
 <!--    튜터이름, 관심사, 예약가능날짜를 검색하면 좋아요가 많은 순으로 정렬-->
-    <select id="searchListDAO" resultType="com.multicampus.topicsation.dto.SearchDTO">
+    <select id="searchListDAO" parameterType="com.multicampus.topicsation.dto.pageDTO.PageRequestDTO" resultType="com.multicampus.topicsation.dto.SearchDTO">
         select u.USER_ID, u.NAME, ti.NATIONALITY, ti.INFO, ti.LIKE, ti.PROFILEIMG, u.INTEREST1, u.INTEREST2
         FROM USER u
         INNER JOIN TUTOR_INFO ti ON u.USER_ID = ti.TUTOR_ID
-        <if test="classDate != null">
+        <if test="date != null">
         INNER JOIN TUTOR_CLASS tc on u.USER_ID = tc.TUTOR_ID
         </if>
-        <trim prefix="where" prefixOverrides="and">
-            <if test="name != null and name != ''">
+        <where>
+            <if test="name != null">
                 and LOWER(u.NAME) LIKE CONCAT('%', LOWER(#{name}), '%')
             </if>
             <if test="interest != null">
-                and u.INTEREST1 = #{interest} OR u.INTEREST2 = #{interest}
+                and (u.INTEREST1 = #{interest} OR u.INTEREST2 = #{interest})
             </if>
-            <if test="classDate != null">
-                and tc.CLASS_DATE = #{classDate} AND tc.TUTEE_ID IS NULL
+            <if test="date != null">
+                and tc.CLASS_DATE = #{date} AND tc.TUTEE_ID IS NULL
             </if>
-        </trim>
+        </where>
+        GROUP BY u.USER_ID, u.NAME, ti.NATIONALITY, ti.INFO, ti.LIKE, ti.PROFILEIMG, u.INTEREST1, u.INTEREST2
         ORDER BY ti.LIKE DESC
-        LIMIT #{startData}, #{dataPerPage}
+        LIMIT #{skip}, #{size}
     </select>
 
     <!--    페이징하기 위해 검색된 total Data Count-->
-    <select id="searchCountDAO" resultType="int">
-        select count(*)
+    <select id="searchCountDAO" parameterType="com.multicampus.topicsation.dto.pageDTO.PageRequestDTO" resultType="int">
+        select count(distinct u.USER_ID)
         FROM USER u
         INNER JOIN TUTOR_INFO ti ON u.USER_ID = ti.TUTOR_ID
-        <if test="classDate != null">
+        <if test="date != null">
         INNER JOIN TUTOR_CLASS tc on u.USER_ID = tc.TUTOR_ID
         </if>
-        <trim prefix="where" prefixOverrides="and">
-            <if test="name != null and name != ''">
+        <where>
+            <if test="name != null">
                 and LOWER(u.NAME) LIKE CONCAT('%', LOWER(#{name}), '%')
             </if>
             <if test="interest != null">
-                and u.INTEREST1 = #{interest} OR u.INTEREST2 = #{interest}
+                and (u.INTEREST1 = #{interest} OR u.INTEREST2 = #{interest})
             </if>
-            <if test="classDate != null">
-                and tc.CLASS_DATE = #{classDate} AND tc.TUTEE_ID IS NULL
+            <if test="date != null">
+                and tc.CLASS_DATE = #{date} AND tc.TUTEE_ID IS NULL
             </if>
-        </trim>
+        </where>
     </select>
 </mapper>
