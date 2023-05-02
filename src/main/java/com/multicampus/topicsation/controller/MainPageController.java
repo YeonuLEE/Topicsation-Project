@@ -83,7 +83,14 @@ public class MainPageController {
             PageReqeustDTO pageReqeustDTO = new PageReqeustDTO();
             pageReqeustDTO.setCurrentPage(currentPage);
             pageReqeustDTO.setDataPerPage(dataPerPage);
+            pageReqeustDTO.setStartData((currentPage - 1) * 6 + 1);
             List<SearchDTO> searchAll = searchService.allList(pageReqeustDTO);
+
+            for(int i = 0; i<searchAll.size(); i++){
+                System.out.println(searchAll.get(i));
+            }
+
+
             int totalDataCount = searchService.searchCount(pageReqeustDTO);
             PageResponseDTO pageResponseDTO = new PageResponseDTO(pageReqeustDTO, totalDataCount);
 
