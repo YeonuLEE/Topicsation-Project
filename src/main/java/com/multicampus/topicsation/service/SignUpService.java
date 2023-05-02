@@ -6,10 +6,19 @@ import com.multicampus.topicsation.repository.ISignUpDAO;
 import lombok.AllArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @AllArgsConstructor
@@ -49,8 +58,40 @@ public class SignUpService implements ISignUpService {
         } else {
             dao.addTutorDAO1(signUpDTO);
             dao.addTutorDAO2(signUpDTO);
+
+            String userId = dao.getUserId(signUpDTO.getEmail());
+
+            final String UPLOAD_DIR = "src/main/resources/static/assets/certificate/";
+            try {
+                System.out.println("file : " + signUpDTO.getFile());
+
+                // 파일 저장
+                byte[] bytes = signUpDTO.getFile().getBytes();
+                String fileExtension = getFileExtension(signUpDTO.getFile().getOriginalFilename());
+                String fileName = userId + "." + fileExtension;
+                Path path = Paths.get(UPLOAD_DIR + fileName);
+
+                Files.write(path, bytes);
+
+                Map<String, Object> paramMap = new HashMap<>();
+                paramMap.put("email", signUpDTO.getEmail());
+                paramMap.put("fileName", fileName);
+                dao.saveCertificate(paramMap);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return true;
+    }
+
+    @Override
+    public String getFileExtension(String fileName) {
+        int lastIndexOfDot = fileName.lastIndexOf(".");
+        if (lastIndexOfDot == -1) {
+            return ""; // 확장자가 없는 경우
+        }
+        return fileName.substring(lastIndexOfDot + 1);
     }
 
     @Override

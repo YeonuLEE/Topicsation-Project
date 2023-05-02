@@ -149,25 +149,40 @@ $(document).ready(function () {
         }
 
         event.preventDefault();
-        var data = {
-            email: $('input[name="email"]').val(),
-            name: $('input[name="name"]').val(),
-            password: $('input[name="password"]').val(),
-            passwordConfirm: $('input[name="passwordConfirm"]').val(),
-            // gender: $('input[name="gender"]').val(),
-            gender: $('input[type="radio"][name="genderRadios"]:checked').val(),
-            nationality: $('select[name="nationality"]').val(),
-            firstInterest: $('select[name="firstInterest"]').val(),
-            secondInterest: $('select[name="secondInterest"]').val(),
-            role: 'tutor'
-        };
+        // var data = {
+        //     email: $('input[name="email"]').val(),
+        //     name: $('input[name="name"]').val(),
+        //     password: $('input[name="password"]').val(),
+        //     passwordConfirm: $('input[name="passwordConfirm"]').val(),
+        //     // gender: $('input[name="gender"]').val(),
+        //     gender: $('input[type="radio"][name="genderRadios"]:checked').val(),
+        //     nationality: $('select[name="nationality"]').val(),
+        //     firstInterest: $('select[name="firstInterest"]').val(),
+        //     secondInterest: $('select[name="secondInterest"]').val(),
+        //     role: 'tutor'
+        // };
+
+        // FormData 객체 생성
+        const formData = new FormData();
+        const form = $("#signUpForm")[0];
+
+        // form의 모든 입력 값을 formData에 추가
+        for (let i = 0; i < form.length - 1; i++) {
+            if (form[i].type === "file") {
+                formData.append(form[i].name, form[i].files[0]);
+            } else {
+                formData.append(form[i].name, form[i].value);
+            }
+        }
+        alert(form)
 
         $.ajax({
             type: "POST",
             url: "/members/signup-tutors.post",
-            contentType: 'application/json',
-            data: JSON.stringify(data),
-            contentType: 'application/json',
+            enctype: "multipart/form-data",
+            data: formData,
+            processData: false, // processData를 false로 설정하여 jQuery가 데이터를 처리하지 않도록 함
+            contentType: false, // contentType을 false로 설정하여 jQuery가 contentType을 설정하지 않도록 함
             success: function (data, status) {
                 if (data === "signupFail") {
                     alert("Member who already exists.")

@@ -25,12 +25,7 @@ function searchGet(page){
         success: function (data, status) {
             var all_list = data.all_list;
             var page = data.page;
-            var size = data.size;
             var total = data.total;
-            var start = data.start;
-            var end = data.end;
-            var prev = data.prev;
-            var next = data.next;
 
             var dataBody = $("#tutor-card");
             dataBody.empty();
@@ -126,12 +121,9 @@ function searchGet(page){
                 div9.append(span5);
                 div9.append(span6);
 
-                renderPagination(page,total);
-
 
             }
-            // paging(jsonData);
-            // $("#" + currentPage).addClass("active");
+            pagination(page,total);
         }
     });
 }
@@ -148,41 +140,44 @@ $("#search-form").submit(function (e){
     searchGet(1);
 });
 
-function renderPagination(currentPage, totalItems) {
-    var totalPages = Math.ceil(totalItems / 6);
+function pagination(currentPage, total) {
+    var totalPages = Math.ceil(total / 6);
     var pageGroupSize = 5;
-    var currentGroup = Math.ceil(currentPage / pageGroupSize);
+    var startPage = Math.ceil(currentPage / pageGroupSize) * pageGroupSize - pageGroupSize + 1;
+    var endPage = Math.min(startPage + pageGroupSize - 1, totalPages);
 
+    if(total == 0) {
+        $("#search-info").text("검색결과가 없습니다");
+    } else {
+        $("#search-info").text("전체 튜터를 확인해보세요");
+    }
     var pagination = $(".pagination");
     pagination.empty();
 
     // 이전 페이지 링크 추가
-    var prevDisabled = currentPage === 1 ? "disabled" : "";
-    pagination.append(`<li class="page-item ${prevDisabled}">
-                          <a class="page-link mx-1" href="#" aria-label="Previous" data-page="${currentPage - 1}">
-                            <i class="feather-icon icon-chevron-left">Previous</i>
-                          </a>
+    var prevDisabled = startPage === 1 ? "disabled" : "";
+    if(total > 0) {
+        pagination.append(`<li class="page-item ${prevDisabled}">
+                          <a class="page-link" href="#" aria-label="Previous" data-page="${startPage - 1}">Previous</a>
                         </li>`);
+    }
 
     // 페이지 번호 링크 추가
-    var startPage = (currentGroup - 1) * pageGroupSize + 1;
-    var endPage = Math.min(startPage + pageGroupSize - 1, totalPages);
     for (var i = startPage; i <= endPage; i++) {
         var activeClass = i === currentPage ? "active" : "";
         var listItem = `<li class="page-item ${activeClass}">
-                    <a class="page-link mx-1" href="#" data-page="${i}">${i}</a>
+                    <a class="page-link" href="#" data-page="${i}">${i}</a>
                   </li>`;
         pagination.append(listItem);
     }
 
     // 다음 페이지 링크 추가
-    var nextDisabled = currentPage === totalPages ? "disabled" : "";
-    pagination.append(`<li class="page-item ${nextDisabled}">
-                          <a class="page-link mx-1" href="#" aria-label="Next" data-page="${currentPage + 1}">
-                            <i class="feather-icon icon-chevron-right">Next</i>
-                          </a>
+    var nextDisabled = endPage === totalPages ? "disabled" : "";
+    if(total >0) {
+        pagination.append(`<li class="page-item ${nextDisabled}">
+                          <a class="page-link" href="#" aria-label="Next" data-page="${endPage + 1}">Next</a>
                         </li>`);
-
+    }
     // 페이지 링크에 대한 클릭 이벤트 리스너 추가
     $(".pagination .page-link").on("click", function (event) {
         event.preventDefault();

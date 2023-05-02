@@ -15,11 +15,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 //import org.springframework.security.core.Authentication;
 //import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 //import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Random;
 
@@ -176,12 +183,14 @@ public class MemberManageController {
 
         @PostMapping("/signup-tutors.post")
         public String signUpTutor(@RequestBody SignUpDTO signUpDTO) {
+
             boolean result = signUpService.signUpProcess(signUpDTO);
             if (result) {
                 return signUpDTO.getEmail();
             } else {
                 return "signupFail";
             }
+
         }
 
         @PostMapping("/signup/success.post")
