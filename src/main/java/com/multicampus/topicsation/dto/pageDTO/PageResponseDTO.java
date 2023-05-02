@@ -27,7 +27,7 @@ public class PageResponseDTO {
         this.dataPerPage = pageReqeustDTO.getDataPerPage();
         this.pagePerOnce = pageReqeustDTO.getPagePerOnce();
 
-        this.totalPageCount = (int)Math.ceil(totalDataCount / dataPerPage);
+        this.totalPageCount = (int)Math.ceil(totalDataCount /(double)dataPerPage);
         this.startPage = (int)Math.ceil(currentPage /(double)pagePerOnce) * pagePerOnce - pagePerOnce + 1;
         this.endPage = startPage + pagePerOnce - 1;
         this.endPage = endPage > totalPageCount ? totalPageCount: endPage;

@@ -135,13 +135,14 @@ public class MainPageController {
 
         @GetMapping("/search-all/search")
         public String search(@RequestParam("name") String name, @RequestParam("interest") String interest, @RequestParam("classDate") String classDate,
-                             @RequestParam("currentPage") int currentPage, @RequestParam("dataPerPage") int dataPerPage) {
+                           @RequestParam("currentPage") int currentPage, @RequestParam("dataPerPage") int dataPerPage) {
             PageReqeustDTO pageReqeustDTO = new PageReqeustDTO();
             pageReqeustDTO.setName(name);
             pageReqeustDTO.setInterest(interest);
             pageReqeustDTO.setClassDate(classDate);
             pageReqeustDTO.setCurrentPage(currentPage);
             pageReqeustDTO.setDataPerPage(dataPerPage);
+            pageReqeustDTO.setStartData((currentPage - 1) * 6 + 1);
             List<SearchDTO> searchAll = searchService.searchList(pageReqeustDTO);
             int totalDataCount = searchService.searchCount(pageReqeustDTO);
             PageResponseDTO pageResponseDTO = new PageResponseDTO(pageReqeustDTO, totalDataCount);

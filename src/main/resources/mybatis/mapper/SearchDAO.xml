@@ -18,7 +18,9 @@
         select u.USER_ID, u.NAME, ti.NATIONALITY, ti.INFO, ti.LIKE, ti.PROFILEIMG, u.INTEREST1, u.INTEREST2
         FROM USER u
         INNER JOIN TUTOR_INFO ti ON u.USER_ID = ti.TUTOR_ID
+        <if test="classDate != null">
         INNER JOIN TUTOR_CLASS tc on u.USER_ID = tc.TUTOR_ID
+        </if>
         <trim prefix="where" prefixOverrides="and">
             <if test="name != null and name != ''">
                 and LOWER(u.NAME) LIKE CONCAT('%', LOWER(#{name}), '%')

@@ -116,16 +116,45 @@ function ajaxPage(currentPage){
     });
 }
 
-
 $("#search-form").submit(function (event) {
     event.preventDefault();
+
+
     var name = $('#search-name').val();
     var interest = $('#search-interest').val();
-    var date = $('#reservate-date').val();
+    var classDate = $('#reservate-date').val();
 
-    console.log(name + " " + interest + " " + date);
+    console.log(name + " " + interest + " " + classDate);
 
-    var apiUrl2 = "/main/search-all/search?name=" + name + "&interest=" + interest + "&date=" + date;
+    // var apiUrl2 = "/main/search-all/search?" + "name=" + name + "&interest=" + interest + "&classDate=" + classDate;
+    var apiUrl2 = "/main/search-all/search?name={name}&interest={interest}&classDate={classDate}&currentPage={currentPage}&dataPerPage={dataPerPage}";
+    apiUrl2 = apiUrl2.replace("{name}", name);
+    apiUrl2 = apiUrl2.replace("{interest}", interest);
+    apiUrl2 = apiUrl2.replace("{classDate}", classDate);
+
+    // if(!name && !interest && !classDate) {
+    //     alert("검색조건을 입력해주세요");
+    //     return;
+    // }
+    // var apiUrl2 = "/main/search-all/search?";
+    // // 검색 조건 입력 경우의 수
+    // if(name){
+    //     apiUrl2 += "name=" + name;
+    // }
+    // if(name && interest){
+    //     apiUrl2 += "&interest=" + interest;
+    // } else if(!name && interest) {
+    //     apiUrl2 += "interest=" + interest;
+    // }
+    // if(!name && !interest){
+    //     apiUrl2 += "classDate=" + classDate;
+    // } else {
+    //     apiUrl2 += "&classDate=" + classDate;
+    // }
+
+    // apiUrl2 += "&currentPage={currentPage}&dataPerPage={dataPerPage}";
+    apiUrl2 = apiUrl2.replace("{currentPage}", currentPage);
+    apiUrl2 = apiUrl2.replace("{dataPerPage}", dataPerPage);
 
     $.ajax({
         url: apiUrl2,
@@ -226,7 +255,8 @@ $("#search-form").submit(function (event) {
                 div9.append(span5);
                 div9.append(span6);
             }
-            paging();
+            paging(jsonData);
+            $("#" + currentPage).addClass("active");
 
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -264,7 +294,11 @@ function paging(jsonData) {
     if (!prev) {
         li1.addClass("disabled");
     } else {
-        currentPage = startPage - 1;
+        a1.click(function (event) {
+            currentPage = startPage - 1;
+            event.preventDefault();
+            ajaxPage(currentPage);
+        })
     }
     ul.append(li1);
     li1.append(a1);
@@ -300,7 +334,11 @@ function paging(jsonData) {
     if (!next) {
        li3.addClass("disabled");
     } else {
-        currentPage = endPage + 1;
+        a3.click(function (event) {
+            currentPage = endPage + 1;
+            event.preventDefault();
+            ajaxPage(currentPage);
+        })
     }
     ul.append(li3);
     li3.append(a3);
