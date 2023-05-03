@@ -53,7 +53,7 @@ $(document).ready(function () {
                         event.preventDefault();
                         var token = $("#email-token").val();
                         if (token == authKey) {
-                            //여기에 ajax해주는데, location.href 이거는 그 ajax에 success에 넣어야함.
+                            sessionStorage.removeItem("email");
                             $.ajax({
                                 type: "POST",
                                 url: "/members/signup/success.post",

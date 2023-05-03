@@ -230,13 +230,10 @@ public class MemberManageController {
         }
 
         @PostMapping("/signup/success.post")
-        public String successEmailAuth(@RequestBody SignUpDTO signUpDTO, HttpServletRequest request) {
+        public String successEmailAuth(@RequestBody SignUpDTO signUpDTO) {
             System.out.println("controller email확인" + signUpDTO.getEmail());
             boolean result = signUpService.successEmailAuth(signUpDTO);
-            HttpSession session = request.getSession();
             if(result){
-                // 세션 초기화
-                session.invalidate();
                 return "emailAuthSuccess";
             } else {
                 return "emailAuthFail";
