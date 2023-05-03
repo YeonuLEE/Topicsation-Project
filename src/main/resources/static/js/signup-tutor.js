@@ -125,13 +125,6 @@ $(document).ready(function () {
         console.log("File Name : ", e.value);
     }
 
-// 파일 이름 바꾸기
-    $("#customFile").change(function () {
-        var fileValue = $("#customFile").val().split("\\");
-        var fileName = fileValue[fileValue.length - 1]; // 파일명
-        $("#show-files").text(fileName);
-    });
-
     $("#signUpForm").on('submit', function (event) {
 // 유효성 검사 실패시 제출 안되게 하기
         if (!emailCheck) {
@@ -149,25 +142,16 @@ $(document).ready(function () {
         }
 
         event.preventDefault();
-        var data = {
-            email: $('input[name="email"]').val(),
-            name: $('input[name="name"]').val(),
-            password: $('input[name="password"]').val(),
-            passwordConfirm: $('input[name="passwordConfirm"]').val(),
-            // gender: $('input[name="gender"]').val(),
-            gender: $('input[type="radio"][name="genderRadios"]:checked').val(),
-            nationality: $('select[name="nationality"]').val(),
-            firstInterest: $('select[name="firstInterest"]').val(),
-            secondInterest: $('select[name="secondInterest"]').val(),
-            role: 'tutor'
-        };
+
+        const formData = new FormData(this);
+        formData.append("role","tutor");
 
         $.ajax({
             type: "POST",
             url: "/members/signup-tutors.post",
-            contentType: 'application/json',
-            data: JSON.stringify(data),
-            contentType: 'application/json',
+            data: formData,
+            processData: false, // processData를 false로 설정하여 jQuery가 데이터를 처리하지 않도록 함
+            contentType: false, // contentType을 false로 설정하여 jQuery가 contentType을 설정하지 않도록 함
             success: function (data, status) {
                 if (data === "signupFail") {
                     alert("Member who already exists.")

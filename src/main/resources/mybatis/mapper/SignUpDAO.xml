@@ -37,4 +37,8 @@
     <update id="successEmailAuthDAO" parameterType="String">
         update user set email_auth = 1 where email = #{email}
     </update>
+
+    <select id="getUserId" parameterType="String" resultType="String">
+        select user_id from user where email = #{email}
+    </select>
 </mapper>

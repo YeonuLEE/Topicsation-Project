@@ -44,7 +44,7 @@
                 and (u.INTEREST1 = #{interest} OR u.INTEREST2 = #{interest})
             </if>
             <if test="date != null">
-                and tc.CLASS_DATE = #{date} AND tc.TUTEE_ID IS NULL
+                and (tc.CLASS_DATE = #{date} AND tc.TUTEE_ID IS NULL)
             </if>
         </where>
     </select>

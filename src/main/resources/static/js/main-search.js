@@ -1,5 +1,9 @@
-
 import {getHeaderAjax, setupHeaderAjax} from './checkTokenExpiration.js';
+
+var name = $("#search-name").val();
+var interest = $("#search-interest").val();
+var date = $("#reserve-date").val();
+var apiUrl = "/main/search-all/get?page={page}&size={size}"
 
 $(document).ready(function () {
 
@@ -10,21 +14,34 @@ $(document).ready(function () {
         // access token 만료 기간 검증 및 req header에 삽입
         setupHeaderAjax(token)
     }
+    
+  
+    function searchGet(page){
+    apiUrl = "/main/search-all/get?page={page}&size={size}"
+    apiUrl = apiUrl.replace("{page}",page);
+    apiUrl = apiUrl.replace("{size}",6);
+
+    if(interest != null)
+        apiUrl += "&interest=" + interest;
+
+    if(name != "")
+        apiUrl += "&name=" + name;
+
+    if(date != "")
+        apiUrl += "&date=" + date;
 
 
     $.ajax({
         url: apiUrl,
         type: "GET",
-
         async:false,
         success: function (data, status, xhr) {
 
             getHeaderAjax(xhr)
-
-            var jsonData = JSON.parse(data);
-            console.log(jsonData);
-            var dataBody = $("#tutor-card");
-
+            
+            var all_list = data.all_list;
+            var page = data.page;
+            var total = data.total;
 
             var dataBody = $("#tutor-card");
             dataBody.empty();
@@ -120,12 +137,9 @@ $(document).ready(function () {
                 div9.append(span5);
                 div9.append(span6);
 
-                renderPagination(page,total);
-
 
             }
-            // paging(jsonData);
-            // $("#" + currentPage).addClass("active");
+            pagination(page,total);
         }
     });
 }
@@ -142,41 +156,44 @@ $("#search-form").submit(function (e){
     searchGet(1);
 });
 
-function renderPagination(currentPage, totalItems) {
-    var totalPages = Math.ceil(totalItems / 6);
+function pagination(currentPage, total) {
+    var totalPages = Math.ceil(total / 6);
     var pageGroupSize = 5;
-    var currentGroup = Math.ceil(currentPage / pageGroupSize);
+    var startPage = Math.ceil(currentPage / pageGroupSize) * pageGroupSize - pageGroupSize + 1;
+    var endPage = Math.min(startPage + pageGroupSize - 1, totalPages);
 
+    if(total == 0) {
+        $("#search-info").text("검색결과가 없습니다");
+    } else {
+        $("#search-info").text("전체 튜터를 확인해보세요");
+    }
     var pagination = $(".pagination");
     pagination.empty();
 
     // 이전 페이지 링크 추가
-    var prevDisabled = currentPage === 1 ? "disabled" : "";
-    pagination.append(`<li class="page-item ${prevDisabled}">
-                          <a class="page-link mx-1" href="#" aria-label="Previous" data-page="${currentPage - 1}">
-                            <i class="feather-icon icon-chevron-left">Previous</i>
-                          </a>
+    var prevDisabled = startPage === 1 ? "disabled" : "";
+    if(total > 0) {
+        pagination.append(`<li class="page-item ${prevDisabled}">
+                          <a class="page-link" href="#" aria-label="Previous" data-page="${startPage - 1}">Previous</a>
                         </li>`);
+    }
 
     // 페이지 번호 링크 추가
-    var startPage = (currentGroup - 1) * pageGroupSize + 1;
-    var endPage = Math.min(startPage + pageGroupSize - 1, totalPages);
     for (var i = startPage; i <= endPage; i++) {
         var activeClass = i === currentPage ? "active" : "";
         var listItem = `<li class="page-item ${activeClass}">
-                    <a class="page-link mx-1" href="#" data-page="${i}">${i}</a>
+                    <a class="page-link" href="#" data-page="${i}">${i}</a>
                   </li>`;
         pagination.append(listItem);
     }
 
     // 다음 페이지 링크 추가
-    var nextDisabled = currentPage === totalPages ? "disabled" : "";
-    pagination.append(`<li class="page-item ${nextDisabled}">
-                          <a class="page-link mx-1" href="#" aria-label="Next" data-page="${currentPage + 1}">
-                            <i class="feather-icon icon-chevron-right">Next</i>
-                          </a>
+    var nextDisabled = endPage === totalPages ? "disabled" : "";
+    if(total >0) {
+        pagination.append(`<li class="page-item ${nextDisabled}">
+                          <a class="page-link" href="#" aria-label="Next" data-page="${endPage + 1}">Next</a>
                         </li>`);
-
+    }
     // 페이지 링크에 대한 클릭 이벤트 리스너 추가
     $(".pagination .page-link").on("click", function (event) {
         event.preventDefault();
