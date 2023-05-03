@@ -389,11 +389,12 @@ public class MyPageController {
                 object.put("class_date",dto.getClass_date());
                 object.put("tutor_name",dto.getName());
                 String url = dto.getUrl();
-                String[] urlList = url.split(",");
-                object.put("memo1",urlList[0]);
-                object.put("memo2",urlList[1]);
-                object.put("memo3",urlList[2]);
-
+                if(url != null){
+                    String[] urlList = url.split(",");
+                    object.put("memo1",urlList[0]);
+                    object.put("memo2",urlList[1]);
+                    object.put("memo3",urlList[2]);
+                }
 
                 jsonArray.add(object);
             }
