@@ -141,7 +141,10 @@ $(document).ready(function() {
             success: function (data, status) {
                 $("#modal-default").modal('hide'); // 모달 창 닫기
                 $("#cancel-reservation-message").val("");
-                sessionStorage.removeItem('token');
+
+                sessionStorage.removeItem('accessToken');
+                document.cookie = "refreshToken=;  expires=Thu, 01 Jan 1970 00:00:00 UTC ; path=/";
+
                 window.location.href = "/main"; // 페이지 이동
             },
             error: function (data, textStatus) {
