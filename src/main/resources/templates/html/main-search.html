@@ -87,8 +87,7 @@
                             <h1 class="h2 mb-4" style="color: black;">Find Your Tutor</h1>
                             <div class="card p-md-2 mb-3">
                                 <div class="card-body p-2 p-md-0">
-                                    <form autocomplete="off" class="row justify-content-between" method="get" id="search-form"
-                                        action="/main/search-all/search">
+                                    <form autocomplete="off" class="row justify-content-between" method="get" id="search-form">
                                         <div class="col-12 col-lg-4 pr-lg-1">
                                             <div class="form-group form-group-lg mb-lg-0">
                                                 <div class="input-group">
@@ -119,7 +118,7 @@
                                                     <span class="input-group-text"><span
                                                             class="far fa-calendar-alt"></span></span>
                                                 </div>
-                                                <input class="form-control datepicker" id="reservate-date" placeholder="예약 날짜" type="text"
+                                                <input class="form-control datepicker" id="reserve-date" placeholder="예약 날짜" type="text"
                                                     name="date">
                                             </div>
                                         </div>
@@ -145,6 +144,12 @@
                     </div>
                 </div>
                 <div class="row" id="tutor-card">
+                </div>
+                <div class="col mt-3 d-flex justify-content-center">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination" id="pagination">
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </section>
@@ -205,6 +210,7 @@
 
     <script type="module" src="/js/main-search.js"></script>
     <script type="module" src="/js/move.js"></script>
+
 
     <!-- Core -->
     <script src="/vendor/jquery/dist/jquery.min.js"></script>

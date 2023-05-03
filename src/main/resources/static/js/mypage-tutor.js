@@ -1,11 +1,12 @@
 import { setupHeaderAjax, getId, getHeaderAjax } from './checkTokenExpiration.js';
 
 var name;
-var profileImg;
 var first;
 var second;
 var nationality;
 var gender;
+var memo;
+var password;
 var passwordCheck = false;
 let userId
 
@@ -46,21 +47,24 @@ $(document).ready(function () {
             $("#schedule").attr("href", apiUrl3);
 
             $('#tutor-name').text(jsonObject.name);
-            $("#profile-img").attr("src", jsonObject.profileImg);
+            $("#profile-img").attr("src","/"+jsonObject.profileImg);
             $('#name').val(jsonObject.name);
             $('#email').val(jsonObject.email);
             $('#nationality').val(jsonObject.nationality).prop("selected", true);
             $('#first-interest').val(jsonObject.interest1).prop("selected", true);
             $('#second-interest').val(jsonObject.interest2).prop("selected", true);
-            //$("radio[name='genderRadios'][value='" + jsonObject.genderRadios + "']").attr('checked', true);
-            $('input[type=radio][name=genderRadios][value="' + jsonObject.genderRadios + '"]').prop('checked', true);
+            $('#memo').val(jsonObject.memo);
+            $('#gender-'+jsonObject.genderRadios).prop('checked',true);
+
 
             name=$("#name").val(jsonObject.name);
-            profileImg = $("#profile-img").attr("src", jsonObject.profileImg);
             nationality=$('#nationality').val(jsonObject.nationality).prop("selected", true);
             first = $("#first-interest").val(jsonObject.interest1).prop("selected",true);
             second = $("#second-interest").val(jsonObject.interest2).prop("selected",true);
-            // password = jsonObject.password.toString();
+            gender = $('input[type=radio][name=genderRadios]:checked').val();
+            memo =$('#memo').val(jsonObject.memo);
+            password = jsonObject.password.toString();
+
         },
         error: function (data, textStatus) {
             alert("Error!")
@@ -132,10 +136,11 @@ $(document).ready(function () {
 
         if(passwordCheck){
             name = $("#name").val();
-            // profileImg = $("#profile-img").attr("src", );
             nationality=$('#nationality').val();
             first = $("#first-interest").val();
             second = $("#second-interest").val();
+            gender = $('input[type=radio][name=genderRadios]:checked').val();
+            memo =$("#memo").val();
 
             var postlink = "/mypage/{user_id}/post";
             postlink = postlink.replace("{user_id}", userId);
@@ -146,10 +151,11 @@ $(document).ready(function () {
                 contentType: 'application/json',
                 data: JSON.stringify({
                     $name : name,
-                    $profileImg : profileImg,
                     $nationality : nationality,
                     $interest1 : first,
-                    $interest2 : second
+                    $interest2 : second,
+                    $gander : gender,
+                    $memo : memo
                 }),
                 success: function (data, status) {
                     $("#modal-default").modal('hide'); // 모달 창 닫기

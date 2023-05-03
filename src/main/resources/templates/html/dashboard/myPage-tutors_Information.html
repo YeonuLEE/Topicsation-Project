@@ -66,8 +66,8 @@
                     <div class="card border-light p-2">
                         <div class="card-body p-2">
                             <div class="profile-thumbnail small-thumbnail mx-auto">
-                                <input type="file" id="file" name="file" onchange="uploadFile(this)"
-                                       style="display: none" accept=".jpg, .png, .jpeg"/>
+                                <input type="file" id="file" name="file"
+                                       style="display: none" accept=".jpg"/>
                                 <button type="button" id="profileImgButton" class="btn btn-sm p-0"
                                         data-toggle="tooltip" data-placement="top" title="Edit Profile">
                                     <img src="/assets/img/team/profile-picture-4.jpg"
@@ -162,7 +162,7 @@
                                             <label>Gender</label>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="genderRadios"
-                                                       id="gender-female" value="female" checked>
+                                                       id="gender-female" value="female">
                                                 <label class="form-check-label" for="gender-female">
                                                     Female
                                                 </label>
@@ -176,6 +176,14 @@
                                                 <label class="form-check-label" for="gender-other">
                                                     Other
                                                 </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 mb-3" >
+                                            <div class="form-group">
+                                                <label> Info</label></br>
+                                                <textarea name="memo" id="memo" cols="80" rows="10" placeholder="내용" style="resize: none">안녕</textarea>
                                             </div>
                                         </div>
                                     </div>

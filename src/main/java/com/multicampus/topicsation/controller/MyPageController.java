@@ -11,9 +11,20 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.multipart.MultipartFile;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.FileSystem;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
@@ -112,6 +123,20 @@ public class MyPageController {
             return null;
         }
 
+        @GetMapping("/download/{fileName}")
+        public ResponseEntity<Resource> downloadFile(@PathVariable("fileName") String fileName) throws IOException {
+            // 파일 경로를 수정하여 실제 파일의 위치를 지정해주세요.
+            String filePath = "src/main/resources/static/assets/certificate/"+fileName;
+            File file = new File(filePath);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            headers.setContentDisposition(ContentDisposition.builder("attachment").filename(file.getName()).build());
+
+            InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+            return new ResponseEntity<>(resource, headers, HttpStatus.OK);
+        }
+
         @GetMapping("/{user_id}/get")
         public String myPage(@PathVariable("user_id") String userId) {
             MyPageDTO myPageDTO;
@@ -127,7 +152,8 @@ public class MyPageController {
                 jsonObject.put("interest1", myPageDTO.getInterest1());
                 jsonObject.put("interest2", myPageDTO.getInterest2());
                 jsonObject.put("genderRadios", myPageDTO.getGender());
-//                jsonObject.put("password",myPageDTO.getPassword());
+                jsonObject.put("memo",myPageDTO.getInfo());
+                jsonObject.put("password",myPageDTO.getPassword());
 
             } else if (role.equals("tutee")) {
                 myPageDTO = service.view_tutee(userId);
@@ -163,13 +189,56 @@ public class MyPageController {
 
             if (role.equals("tutee")) {
                 service.modify_tutee(myPageDTO);
-            } else if (role.equals("tutor")) {
-                myPageDTO.setProfileimg(jsonObject.get("$profileImg").toString());
+            }else if(role.equals("tutor")){
+                myPageDTO.setGender(jsonObject.get("$gander").toString());
                 myPageDTO.setNationality(jsonObject.get("$nationality").toString());
+                myPageDTO.setInfo(jsonObject.get("$memo").toString());
                 service.modify_tutor(myPageDTO);
             }
             return null;
         }
+
+        @PostMapping("/{user_id}/profileUpdate")
+        public ResponseEntity<?> mypageProfile(@PathVariable("user_id") String userId, @RequestParam("file") MultipartFile file)
+        throws IOException {
+
+            final String UPLOAD_DIR = "src/main/resources/static/assets/img/profile/";
+
+            try {
+                // 파일이 비어있는지 확인
+                if (file.isEmpty()) {
+                    return new ResponseEntity<>("파일을 선택해주세요.", HttpStatus.BAD_REQUEST);
+                }
+
+                System.out.println("file : " + file);
+
+                // 파일 저장
+                byte[] bytes = file.getBytes();
+                String fileExtension = getFileExtension(file.getOriginalFilename());
+                Path path = Paths.get(UPLOAD_DIR + userId + "." + fileExtension);
+
+                service.chang_profileImg(userId);
+
+                Files.write(path, bytes);
+
+                // 프로필 정보 업데이트 로직 작성
+                // 예를 들어, 사용자 정보를 데이터베이스에 업데이트하는 로직을 여기에 추가합니다.
+
+                return new ResponseEntity<>(file.getOriginalFilename() + " 파일이 업로드되었습니다.", HttpStatus.OK);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return new ResponseEntity<>("파일 업로드 중 오류가 발생했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+        }
+        private String getFileExtension(String fileName) {
+            int lastIndexOfDot = fileName.lastIndexOf(".");
+            if (lastIndexOfDot == -1) {
+                return ""; // 확장자가 없는 경우
+            }
+            return fileName.substring(lastIndexOfDot + 1);
+        }
+
 
         @PostMapping("/{user_id}/delete")
         public String myPageDelete(@PathVariable("user_id") String userId) {
@@ -296,9 +365,15 @@ public class MyPageController {
 
             for (ClassDTO dto : dtoList) {
                 JSONObject object = new JSONObject();
-                object.put("class_date", dto.getClass_date());
-                object.put("tutor_name", dto.getName());
-                object.put("memo", null);
+
+                object.put("class_date",dto.getClass_date());
+                object.put("tutor_name",dto.getName());
+                String url = dto.getUrl();
+                String[] urlList = url.split(",");
+                object.put("memo1",urlList[0]);
+                object.put("memo2",urlList[1]);
+                object.put("memo3",urlList[2]);
+
 
                 jsonArray.add(object);
             }

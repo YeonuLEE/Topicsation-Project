@@ -27,6 +27,7 @@
     <delete id="failAdmin2">
         delete from tutor_info where TUTOR_ID =#{user_id}
     </delete>
+
     <!-- Tutor Page-->
     <select id="viewTutor" resultType="com.multicampus.topicsation.dto.MyPageDTO">
         SELECT u.user_id, u.name, u.email, u.password, u.role, ti.gender, ti.nationality, ti.info, ti.like, ti.profileimg, u.interest1, u.interest2
@@ -37,7 +38,7 @@
         update user  set name=#{name}, interest1=#{interest1}, interest2=#{interest2} where user_id = #{user_id}
     </update>
     <update id="modifyTutor2" parameterType="com.multicampus.topicsation.dto.MyPageDTO">
-        UPDATE tutor_info SET nationality = #{nationality} WHERE tutor_id =#{user_id}
+        UPDATE tutor_info SET nationality = #{nationality}, gender = lower(#{gender}),info =#{info} WHERE tutor_id =#{user_id}
     </update>
     <select id="tutorProfile" resultType="com.multicampus.topicsation.dto.MypageScheduleDTO">
         SELECT u.user_id, u.name,ti.profileimg
@@ -61,6 +62,12 @@
     <delete id="tutorDislike">
         delete from dislike where tutor_id = #{user_id}
     </delete>
+    <select id="checkProfileImg" resultType="string">
+        SELECT profileimg FROM tutor_info WHERE tutor_id = #{user_id} and PROFILEIMG like '%unknown%'
+    </select>
+    <update id="changProfileImg" parameterType="com.multicampus.topicsation.dto.MyPageDTO">
+        UPDATE tutor_info SET profileimg = #{url} WHERE tutor_id = #{user_id}
+    </update>
 
     <!-- Tutee Page-->
     <select id="viewTutee" resultType="com.multicampus.topicsation.dto.MyPageDTO">
@@ -94,7 +101,7 @@
         inner join USER u on t.tutor_id = u.user_id where t.tutee_Id =#{tutee_id} and t.class_date > NOW() order by t.class_date,t.class_time
     </select>
     <select id="historyTutee" resultType="com.multicampus.topicsation.dto.ClassDTO">
-        select t.class_id, t.class_date, t.class_time, u.name
+        select t.class_id, t.class_date, t.class_time, u.name, t.url
         from tutor_class t
         inner join USER u on t.tutor_id = u.user_id where t.tutee_Id =#{tutee_id} and  NOW() > t.class_date order by t.class_date asc ,t.class_time asc
     </select>

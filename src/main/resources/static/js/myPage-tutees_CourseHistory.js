@@ -53,7 +53,13 @@ $(document).ready(function () {
                 var tno = $("<th scope=\"row\">").text(i + 1);
                 var classdate = $("<td>", {text: tutee.class_date});
                 var tutorname = $("<td>", {text: tutee.tutor_name});
-                var memo = $("<td>", {text: tutee.memo});
+                var memo = $("<td>")
+                    .append($("<a>", {href: tutee.memo1, text: tutee.memo1}))
+                    .append($("<br>"))
+                    .append($("<a>", {href: tutee.memo2, text: tutee.memo2}))
+                    .append($("<br>"))
+                    .append($("<a>", {href: tutee.memo3, text: tutee.memo3}));
+                console.log(tutee.memo1);
 
                 tr.append(tno);
                 tr.append(classdate);
