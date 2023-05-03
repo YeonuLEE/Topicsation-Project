@@ -49,6 +49,15 @@ public class LessonController {
             return lessonService.evaluateService(evaluate, lessonId);
         }
 
+        @PostMapping("/{lesson_id}/evaluate.review")
+        public int reviewRegister(@RequestBody JSONObject jsonObject) {
+
+            String review_content = jsonObject.get("$review_content").toString();
+            String lessonId = jsonObject.get("$lesson_id").toString();
+
+            return lessonService.reviewService(review_content, lessonId);
+        }
+
         @GetMapping("/{lesson_id}/getNews")
         public ResponseEntity<Object> getNews(@PathVariable String lesson_id) throws ParseException {
 
@@ -58,6 +67,10 @@ public class LessonController {
             return ResponseEntity.ok(jsonObject);
         }
 
+        @GetMapping("/{lesson_id}/getMembers")
+        public ResponseEntity<Object> getMembers(@PathVariable String lesson_id) {
 
+            return ResponseEntity.ok(lessonService.getMembersService(lesson_id));
+        }
     }
 }

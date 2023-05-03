@@ -35,4 +35,23 @@
         INSERT INTO dislike (TUTEE_ID, TUTOR_ID)
         SELECT TUTEE_ID, TUTOR_ID FROM tutor_class WHERE CLASS_ID = #{classId}
     </insert>
+
+    <insert id="reviewDAO" parameterType="java.lang.String">
+        INSERT INTO REVIEW (REVIEW_CONTENT, REVIEW_DATE, TUTEE_ID, TUTOR_ID)
+        VALUES (#{review_content}, NOW(),
+                (SELECT TUTEE_ID FROM TUTOR_CLASS WHERE CLASS_ID = #{classId}),
+                (SELECT TUTOR_ID FROM TUTOR_CLASS WHERE CLASS_ID = #{classId}))
+    </insert>
+    
+    <select id="getMembersDAO1" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT tutor_id AS user_id FROM tutor_class WHERE class_id = #{classID}
+    </select>
+    <select id="getMembersDAO2" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT tutee_id AS user_id FROM tutor_class WHERE class_id = #{classID}
+    </select>
+    <!-- 뉴스 URL 추가 -->
+    <update id="setURL" parameterType="java.util.Map">
+        UPDATE tutor_class SET URL = #{param2} WHERE class_id = #{param1}
+    </update>
+
 </mapper>

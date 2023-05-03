@@ -50,7 +50,7 @@
 
             </a>
             <div>
-                <button class="btn mb-2 mr-2 btn-white" type="button" id="mypage-btn">MY PAGE</button>
+                <button class="btn mb-2 mr-2 btn-white" type="button" id="mypage-btn" hidden>MY PAGE</button>
                 <button class="btn mb-2 mr-2 btn-secondary" type="button" id="sign-btn">SIGN IN</button>
             </div>
         </div>
@@ -230,8 +230,9 @@
 <!-- Spaces custom Javascript -->
 <script src="/js/spaces.js"></script>
 
-<script type="text/javascript" th:inline="javascript" src="/js/mypage-admin.js"></script>
-
+<!--<script type="text/javascript" th:inline="javascript" src="/js/mypage-admin.js"></script>-->
+<script type="module" src="/js/mypage-admin.js"></script>
+<script type="module" src="/js/move.js"></script>
 </body>
 
 </html>
