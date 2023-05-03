@@ -1,5 +1,6 @@
-import { setupHeaderAjax, getHeaderAjax } from './checkTokenExpiration.js';
+import {setupHeaderAjax, getHeaderAjax, getId} from './checkTokenExpiration.js';
 
+let userId;
 $(document).ready(function () {
 
     // token 꺼내오기
@@ -10,12 +11,16 @@ $(document).ready(function () {
     if(token != null){
         // access token 만료 기간 검증 및 req header에 삽입
         setupHeaderAjax(token)
+        userId = getId(token);
     }
+
+    var apiUrl1 = "/mypage/{user_id}/get";
+    apiUrl1 = apiUrl1.replace("{user_id}", userId);
 
     //mypage관련
     $.ajax({
         type: "GET",
-        url: "/mypage/admin/get",
+        url: apiUrl1,
         dataType: "json",
         async:false,
         success: function (data, status, xhr) {

@@ -88,26 +88,6 @@ public class MyPageController {
             return jwtUtils.authByRole(request, "/mypage/tutee/history");
         }
 
-        @GetMapping("/admin/get")
-        public String adminPage() {
-            List<MyPageDTO> list = service.view_admin();
-            JSONArray jsonArray = new JSONArray();
-
-            for (MyPageDTO dto : list) {
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("userId", dto.getUser_id());
-                jsonObject.put("tutorName", dto.getName());
-                jsonObject.put("approlDate", dto.getRegi_date());
-                jsonObject.put("file", dto.getCertificate());
-
-                jsonArray.add(jsonObject);
-            }
-
-            String jsonString = jsonArray.toString();
-
-            return jsonString;
-        }
-
         @PostMapping("/admin/success")
         public String adminSuccess(@RequestBody String userId) {
             service.success(userId);
@@ -152,6 +132,7 @@ public class MyPageController {
                 jsonObject.put("memo",myPageDTO.getInfo());
                 jsonObject.put("password",myPageDTO.getPassword());
 
+                return jsonObject.toJSONString();
             } else if (role.equals("tutee")) {
                 myPageDTO = service.view_tutee(userId);
                 jsonObject.put("tutor-name", myPageDTO.getName());
@@ -159,10 +140,26 @@ public class MyPageController {
                 jsonObject.put("email", myPageDTO.getEmail());
                 jsonObject.put("interest1", myPageDTO.getInterest1());
                 jsonObject.put("interest2", myPageDTO.getInterest2());
+                return jsonObject.toJSONString();
 
+            }else if(role.equals("admin")){
+                List<MyPageDTO> list = service.view_admin();
+                JSONArray jsonArray = new JSONArray();
+
+                for (MyPageDTO dto : list) {
+                    JSONObject jsonObject2 = new JSONObject();
+                    jsonObject2.put("userId", dto.getUser_id());
+                    jsonObject2.put("tutorName", dto.getName());
+                    jsonObject2.put("approlDate", dto.getRegi_date());
+                    jsonObject2.put("file", dto.getCertificate());
+
+                    jsonArray.add(jsonObject2);
+                }
+//                String jsonString = jsonArray.toString();
+
+                return jsonArray.toJSONString();
             }
-
-            return jsonObject.toJSONString();
+            return role;
         }
 
         @PostMapping("/{user_id}/passCheck")
