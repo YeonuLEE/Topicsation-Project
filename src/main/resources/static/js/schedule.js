@@ -2,10 +2,9 @@ import { setupHeaderAjax, getId, getHeaderAjax } from './checkTokenExpiration.js
 
 var link = "/lesson/";
 var tbody;
-var userId;
 var postUrl = "/mypage/{user_id}/schedule/postCalender";
 var count = 1;
-let userId
+let userId;
 
 //튜터 스케줄
 $(document).ready(function () {
