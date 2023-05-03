@@ -69,12 +69,12 @@ public class MemberManageController {
     }
 
     @GetMapping("/signup/email")
-    public String emailAuth(String email, HttpSession session) throws Exception {
+    public String emailAuth() throws Exception {
         return "html/Email-Token";
     }
 
     @GetMapping("/signup/success")
-    public String success(HttpSession session) {
+    public String success() {
         return "html/sign-up-success";
     }
 
@@ -230,12 +230,17 @@ public class MemberManageController {
         }
 
         @PostMapping("/signup/success.post")
-        public String successEmailAuth(@RequestBody SignUpDTO signUpDTO) {
+        public String successEmailAuth(@RequestBody SignUpDTO signUpDTO, HttpServletRequest request) {
             System.out.println("controller email확인" + signUpDTO.getEmail());
-            signUpService.successEmailAuth(signUpDTO);
-//        // 세션 초기화
-//        session.invalidate();
-            return "emailAuthSuccess";
+            boolean result = signUpService.successEmailAuth(signUpDTO);
+            HttpSession session = request.getSession();
+            if(result){
+                // 세션 초기화
+                session.invalidate();
+                return "emailAuthSuccess";
+            } else {
+                return "emailAuthFail";
+            }
         }
     }
 }
