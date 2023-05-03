@@ -1,4 +1,4 @@
-import {getRoles} from './checkTokenExpiration.js';
+import {getRoles, setupHeaderAjax, getHeaderAjax} from './checkTokenExpiration.js';
 
 var cell_id = "";
 var tagId = "";
@@ -11,7 +11,9 @@ $(document).ready(function () {
 
     if(token != null){
         roles = getRoles(token)
+        setupHeaderAjax(token)
     }
+
 
     var today = new Date();
     $(".datepicker").datepicker({
@@ -59,7 +61,10 @@ $(document).ready(function () {
     $.ajax({
         type: "GET",
         url: apiUrl,
-        success: function (data, status) {
+        async:false,
+        success: function (data, status, xhr) {
+            getHeaderAjax(xhr)
+
             var jsonObject = JSON.parse(data);
             console.log(jsonObject);
             var dataBody = $("#reviewCard");

@@ -1,8 +1,24 @@
+import {getHeaderAjax, setupHeaderAjax} from './checkTokenExpiration.js';
+
 $(document).ready(function () {
+
+    const token = sessionStorage.getItem('accessToken');
+
+    // nullPointerException 예방
+    if(token != null){
+        // access token 만료 기간 검증 및 req header에 삽입
+        setupHeaderAjax(token)
+    }
+
+
     $.ajax({
         url: "/main/search-all.get",
         type: "GET",
-        success: function (data, status) {
+        async:false,
+        success: function (data, status, xhr) {
+
+            getHeaderAjax(xhr)
+
             var jsonData = JSON.parse(data);
             console.log(jsonData);
             var dataBody = $("#tutor-card");

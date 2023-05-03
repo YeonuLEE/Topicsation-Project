@@ -1,4 +1,4 @@
-import { setupHeaderAjax } from './checkTokenExpiration.js';
+import {getHeaderAjax, setupHeaderAjax} from './checkTokenExpiration.js';
 
 $(document).ready(function () {
 
@@ -31,11 +31,14 @@ $(document).ready(function () {
     $.ajax({
         url: ajaxURI,
         type: "GET",
-        success: function (data, status) {
+        async:false,
+        success: function (data, status, xhr) {
+
+            getHeaderAjax(xhr)
+
             var jsonData;
             var dataBody;
             var length;
-
 
             if (ajaxURI == '/main/get') {
                 jsonData = JSON.parse(data);

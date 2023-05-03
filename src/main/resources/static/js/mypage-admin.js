@@ -1,4 +1,4 @@
-import { setupHeaderAjax } from './checkTokenExpiration.js';
+import { setupHeaderAjax, getHeaderAjax } from './checkTokenExpiration.js';
 
 $(document).ready(function () {
 
@@ -7,14 +7,20 @@ $(document).ready(function () {
     console.log("mypage.js 전달 토큰: "+token);
 
     // access token 만료 기간 검증 및 req header에 삽입
-    setupHeaderAjax(token)
+    if(token != null){
+        // access token 만료 기간 검증 및 req header에 삽입
+        setupHeaderAjax(token)
+    }
 
     //mypage관련
     $.ajax({
         type: "GET",
         url: "/mypage/admin/get",
         dataType: "json",
-        success: function (data, status) {
+        async:false,
+        success: function (data, status, xhr) {
+            getHeaderAjax(xhr)
+
             $("#manage-tutor").attr("href","/mypage/admin");
 
             console.log(data);

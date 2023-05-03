@@ -57,6 +57,7 @@ public class JwtInterceptor implements HandlerInterceptor {
             if(jwtUtils.validateToken(accessToken)) {
                 //accesstoke이 유효할 때
                 logger.debug("유효한 access 토큰 정보입니다. URI: {}", requestURI);
+                response.setHeader("Authorization", "Bearer " + accessToken);
             } else {
                 //refreshtoken 검증 수행
                 logger.debug("유효하지 않은 access 토큰 정보입니다. refresh 토큰 검증이 필요합니다. URI: {}", requestURI);
@@ -66,7 +67,6 @@ public class JwtInterceptor implements HandlerInterceptor {
 
                     String roles = jwtUtils.getRole(refreshToken);
                     String userid = jwtUtils.getId(refreshToken);
-
                     String newAccessToken = jwtUtils.createAccessToken(roles, userid);
 
                     //Header에 accesstoken 정보 담아서 응답

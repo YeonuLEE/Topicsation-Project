@@ -1,10 +1,10 @@
-import { setupHeaderAjax, getId } from './checkTokenExpiration.js';
+import { setupHeaderAjax, getId, getHeaderAjax } from './checkTokenExpiration.js';
 
-var tagId = "";
 var link = "/lesson/";
 var tbody;
 var userId;
 var postUrl = "/mypage/{user_id}/schedule/postCalender";
+let userId
 //튜터 스케줄
 $(document).ready(function () {
 
@@ -12,9 +12,11 @@ $(document).ready(function () {
     console.log(token)
 
     // access token 만료 기간 검증 및 req header에 삽입
-    setupHeaderAjax(token)
+    if(token != null){
+        setupHeaderAjax(token)
+        userId = getId(token);
+    }
 
-    let userId = getId(token);
 
     var today = new Date();
     $('.datepicker').datepicker({
@@ -69,7 +71,10 @@ $(document).ready(function () {
     $.ajax({
         type: "GET",
         url: apiUrl,
-        success: function (data, status) {
+        async:false,
+        success: function (data, status, xhr) {
+            getHeaderAjax(xhr)
+
             // var jsonObject = JSON.parse(JSON.stringify(data));
             var jsonObject = JSON.parse(data);
 

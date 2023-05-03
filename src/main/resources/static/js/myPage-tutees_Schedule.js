@@ -1,15 +1,18 @@
-import { setupHeaderAjax, getId } from './checkTokenExpiration.js';
+import { setupHeaderAjax, getId, getHeaderAjax } from './checkTokenExpiration.js';
 
-var id = "cancelReservationBtn";
+let userId
+
 $(document).ready(function () {
 
     const token = sessionStorage.getItem('accessToken');
     console.log(token)
 
     // access token 만료 기간 검증 및 req header에 삽입
-    setupHeaderAjax(token)
+    if(token != null){
+        setupHeaderAjax(token)
+        userId = getId(token);
+    }
 
-    let userId = getId(token);
 
     // var pathURI = window.location.pathname
     // const regex = /\/mypage\/(\d+)\/schedule/;
@@ -32,7 +35,9 @@ $(document).ready(function () {
         type: "GET",
         url: apiUrl1,
         dataType: "json",
-        success: function (data, status) {
+        async:false,
+        success: function (data, status, xhr) {
+            getHeaderAjax(xhr)
 
             $("#information").attr("href", apiUrl2);
             $("#schedule").attr("href", apiUrl3);

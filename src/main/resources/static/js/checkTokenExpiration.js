@@ -10,6 +10,14 @@ export function setupHeaderAjax(token) {
     });
 }
 
+export function getHeaderAjax(xhr){
+    //accesstoken 뽑아내기
+    const authorization = xhr.getResponseHeader("Authorization");
+    const accessToken = authorization.substring(7);
+    //accesstoken 저장
+    sessionStorage.setItem("accessToken", accessToken);
+}
+
 export function setupHeader(token) {
     let xhr = new XMLHttpRequest();
     if (!checkTokenExp(token)) {

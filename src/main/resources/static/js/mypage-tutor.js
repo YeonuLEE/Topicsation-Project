@@ -1,4 +1,4 @@
-import { setupHeaderAjax, getId } from './checkTokenExpiration.js';
+import { setupHeaderAjax, getId, getHeaderAjax } from './checkTokenExpiration.js';
 
 var name;
 var profileImg;
@@ -7,17 +7,18 @@ var second;
 var nationality;
 var gender;
 var passwordCheck = false;
+let userId
 
 // get으로 데이터 받아오기
 $(document).ready(function () {
 
     const token = sessionStorage.getItem('accessToken');
-    console.log(token)
 
     // access token 만료 기간 검증 및 req header에 삽입
-    setupHeaderAjax(token)
-
-    let userId = getId(token);
+    if(token != null){
+        setupHeaderAjax(token)
+        userId = getId(token);
+    }
 
     // var pathURI = window.location.pathname
     // const regex = /\/mypage\/(\d+)/;
@@ -35,7 +36,10 @@ $(document).ready(function () {
     $.ajax({
         type: "GET",
         url: apiUrl1,
-        success: function (data, status) {
+        async:false,
+        success: function (data, status, xhr) {
+            getHeaderAjax(xhr)
+
             var jsonObject = JSON.parse(data);
 
             $("#information").attr("href", apiUrl2);
