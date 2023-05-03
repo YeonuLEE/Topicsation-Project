@@ -108,8 +108,9 @@ public class MemberManageController {
 
               //email과 password 검증
             LoginDTO dto = memberManageservice.login(params);
+            String hashPass = dto.getPassword();
 
-            if (dto != null && BCrypt.checkpw(password, BCrypt.hashpw(password, BCrypt.gensalt()))) {
+            if (BCrypt.checkpw(password, hashPass)) {
                 //accesstoken 생성
                 String accessToken = jwtUtils.createAccessToken(dto.getRole(), dto.getUser_id());
 

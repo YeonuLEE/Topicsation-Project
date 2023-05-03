@@ -51,7 +51,7 @@ public class SignUpService implements ISignUpService {
         }
         System.out.println("신규 회원입니다.");
         //비밀번호 암호화
-        signUpDTO.setPassword(BCrypt.hashpw("password", BCrypt.gensalt()));
+        signUpDTO.setPassword(BCrypt.hashpw(signUpDTO.getPassword(), BCrypt.gensalt()));
         // DB에 저장
         if (signUpDTO.getRole().equals("tutee")) {
             dao.addTuteeDAO(signUpDTO);
