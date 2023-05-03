@@ -24,7 +24,7 @@ import java.util.Map;
 public class MemberManageService implements IMemberManageService {
 
     @Autowired
-    private final ILoginDAO dao;
+    private final ILoginDAO loginDao;
 
     @Autowired
     private final ISignUpDAO checkDao;
@@ -45,11 +45,15 @@ public class MemberManageService implements IMemberManageService {
         if (email == null || password == null) {
             throw new IllegalArgumentException("이메일과 패스워드를 입력하세요.");
         }
-
         Map<String, String> result = new HashMap<>();
         result.put("email", email);
-
-        return dao.login(result);
+        LoginDTO dto = loginDao.login(result);
+        if(dto.getRole().equals("tutor")) {
+            if(loginDao.checkApproval(dto.getUser_id()) != 1) {
+                return null;
+            }
+        }
+        return loginDao.login(result);
     }
 
     @Override
@@ -95,7 +99,7 @@ public class MemberManageService implements IMemberManageService {
     @Override
     public boolean changePassword(LoginDTO loginDTO) {
         loginDTO.setPassword(BCrypt.hashpw("password",BCrypt.gensalt()));
-        int result = dao.changePassword(loginDTO);
+        int result = loginDao.changePassword(loginDTO);
         if(result != 1) {
             return false;
         }else{
