@@ -11,4 +11,8 @@
     <update id="changePassword" parameterType="com.multicampus.topicsation.dto.LoginDTO">
         update user set password = #{password} where email = #{email}
     </update>
+    <!--튜터 인증여부 확인-->
+    <select id="checkApproval" parameterType="java.lang.String" resultType="_int">
+        select approval from tutor_info where tutor_id = #{userId}
+    </select>
 </mapper>
