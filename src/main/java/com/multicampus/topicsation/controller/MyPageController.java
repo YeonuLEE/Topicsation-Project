@@ -21,10 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.FileSystem;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
@@ -215,14 +212,37 @@ public class MyPageController {
                 // 파일 저장
                 byte[] bytes = file.getBytes();
                 String fileExtension = getFileExtension(file.getOriginalFilename());
+                String fileName = userId + "." + fileExtension;
+                System.out.println(fileName);
                 Path path = Paths.get(UPLOAD_DIR + userId + "." + fileExtension);
+                Path pathJPG = Paths.get(UPLOAD_DIR + userId + "." + "jpg");
+                Path pathJPEG = Paths.get(UPLOAD_DIR + userId + "." + "jpeg");
+                Path pathPNG = Paths.get(UPLOAD_DIR + userId + "." + "png");
 
-                service.chang_profileImg(userId);
+                boolean resultJPG = Files.exists(pathJPG);
+                boolean resultJPEG = Files.exists(pathJPEG);
+                boolean resultPNG = Files.exists(pathPNG);
 
-                Files.write(path, bytes);
+                service.chang_profileImg(userId, fileName);
 
-                // 프로필 정보 업데이트 로직 작성
-                // 예를 들어, 사용자 정보를 데이터베이스에 업데이트하는 로직을 여기에 추가합니다.
+                if (Files.exists(pathJPEG) || Files.exists(pathJPG) || Files.exists(pathPNG)) {
+                    System.out.println("파일이 존재합니다.");
+                    if(resultJPG) {
+                        Files.delete(pathJPG);
+                        Files.write(path, bytes);
+                    }
+                    else if(resultJPEG){
+                        Files.delete(pathJPEG);
+                        Files.write(path, bytes);
+                    }
+                    else if(resultPNG){
+                        Files.delete(pathPNG);
+                        Files.write(path, bytes);
+                    }
+                } else {
+                    System.out.println("파일이 존재하지 않습니다.");
+                    Files.write(path, bytes);
+                }
 
                 return new ResponseEntity<>(file.getOriginalFilename() + " 파일이 업로드되었습니다.", HttpStatus.OK);
             } catch (IOException e) {

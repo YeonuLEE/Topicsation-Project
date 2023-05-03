@@ -3,20 +3,10 @@ import {getHeaderAjax, setupHeaderAjax} from './checkTokenExpiration.js';
 var name = $("#search-name").val();
 var interest = $("#search-interest").val();
 var date = $("#reserve-date").val();
+
 var apiUrl = "/main/search-all/get?page={page}&size={size}"
 
-$(document).ready(function () {
-
-    const token = sessionStorage.getItem('accessToken');
-
-    // nullPointerException 예방
-    if(token != null){
-        // access token 만료 기간 검증 및 req header에 삽입
-        setupHeaderAjax(token)
-    }
-    
-  
-    function searchGet(page){
+function searchGet(page){
     apiUrl = "/main/search-all/get?page={page}&size={size}"
     apiUrl = apiUrl.replace("{page}",page);
     apiUrl = apiUrl.replace("{size}",6);
@@ -34,9 +24,8 @@ $(document).ready(function () {
     $.ajax({
         url: apiUrl,
         type: "GET",
-        async:false,
+        async: false,
         success: function (data, status, xhr) {
-
             getHeaderAjax(xhr)
             
             var all_list = data.all_list;
@@ -140,11 +129,24 @@ $(document).ready(function () {
 
             }
             pagination(page,total);
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            if (xhr.status === 400) {
+                console.log("잘못된 요청입니다.");
+            } else {
+                console.log("서버에서 오류가 발생했습니다.");
+            }
         }
     });
 }
 
 $(document).ready(function (){
+    const token = sessionStorage.getItem('accessToken');
+    // nullPointerException 예방
+    if(token != null){
+        // access token 만료 기간 검증 및 req header에 삽입
+        setupHeaderAjax(token)
+    }
     searchGet(1);
 });
 

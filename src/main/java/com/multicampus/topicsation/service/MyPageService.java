@@ -94,14 +94,9 @@ public class MyPageService implements IMyPageService{
     }
 
     @Override
-    public void chang_profileImg(String user_id) {
-        String check = dao.checkProfileImg(user_id);
-        System.out.println(check);
-        if(check != null ){
-            String url = "assets/img/profile/"+user_id+".jpg";
-            System.out.println(url);
-            dao.changProfileImg(user_id, url);
-        }
+    public void chang_profileImg(String user_id, String fileName) {
+        System.out.println(fileName);
+        dao.changProfileImg(user_id, fileName);
     }
 
     @Override
