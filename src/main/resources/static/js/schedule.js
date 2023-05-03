@@ -2,7 +2,6 @@ import { setupHeaderAjax, getId, getHeaderAjax } from './checkTokenExpiration.js
 
 var link = "/lesson/";
 var tbody;
-var userId;
 var postUrl = "/mypage/{user_id}/schedule/postCalender";
 var count = 1;
 let userId
