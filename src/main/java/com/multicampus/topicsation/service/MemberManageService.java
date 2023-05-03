@@ -47,13 +47,18 @@ public class MemberManageService implements IMemberManageService {
         }
         Map<String, String> result = new HashMap<>();
         result.put("email", email);
-        LoginDTO dto = loginDao.login(result);
-        if(dto.getRole().equals("tutor")) {
-            if(loginDao.checkApproval(dto.getUser_id()) != 1) {
-                return null;
+        if(checkDao.checkEmailAuthDAO(email) != 1) {
+            return null;
+        } else {
+            System.out.println(checkDao.checkEmailAuthDAO(email));
+            LoginDTO dto = loginDao.login(result);
+            if (dto.getRole().equals("tutor")) {
+                if (loginDao.checkApproval(dto.getUser_id()) != 1) {
+                    return null;
+                }
             }
+            return dto;
         }
-        return loginDao.login(result);
     }
 
     @Override
@@ -98,7 +103,7 @@ public class MemberManageService implements IMemberManageService {
 
     @Override
     public boolean changePassword(LoginDTO loginDTO) {
-        loginDTO.setPassword(BCrypt.hashpw("password",BCrypt.gensalt()));
+        loginDTO.setPassword(BCrypt.hashpw(loginDTO.getPassword(),BCrypt.gensalt()));
         int result = loginDao.changePassword(loginDTO);
         if(result != 1) {
             return false;
