@@ -61,7 +61,14 @@ public class MyPageService implements IMyPageService{
         paramMap2.put("tutor_id", jsonUserInfo.get("user_id"));
         paramMap2.put("class_date", jsonUserInfo.get("class_date"));
 
-        int findResult = dao.findUser(paramMap);
+        int findResult;
+        String hashedPw = dao.checkPass(jsonUserInfo.get("user_id").toString());
+        if ( BCrypt.checkpw(jsonUserInfo.get("password").toString(), hashedPw)){
+            findResult = 1;
+        }else{
+            findResult = 0;
+        }
+
         System.out.println("findResult : " + findResult);
         if (findResult == 1) {
             dao.scheduleDelete(paramMap2);

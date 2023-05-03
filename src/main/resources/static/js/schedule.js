@@ -5,11 +5,12 @@ var tbody;
 var postUrl = "/mypage/{user_id}/schedule/postCalender";
 var count = 1;
 let userId;
+let token;
 
 //튜터 스케줄
 $(document).ready(function () {
 
-    const token = sessionStorage.getItem('accessToken');
+    token = sessionStorage.getItem('accessToken');
     console.log(token)
 
     // access token 만료 기간 검증 및 req header에 삽입
@@ -263,7 +264,7 @@ function pad(num, size) {
 }
 
 function scheduleList(jsonObject, i, tbody) {
-    var admission_link = link + jsonObject.schedule[i].class_id;
+    var admission_link = "http://localhost:3000" + link + jsonObject.schedule[i].class_id + "?token=" + token;
 
     if (jsonObject.schedule[i].tutee_id) {
         var tr = $("<tr>");
