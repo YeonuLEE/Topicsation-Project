@@ -108,6 +108,7 @@ $("#first-interest").change(function () {
     $("#second-interest").html(
         "<option value=\"business\">비즈니스</option>" +
         "<option value=\"science\">과학</option>" +
+        "<option value=\"tech\">태크</option>" +
         "<option value=\"entertainment\">엔터테인먼트</option>" +
         "<option value=\"health\">건강</option>"
     );

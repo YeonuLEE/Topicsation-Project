@@ -106,6 +106,7 @@ $("#first-interest").change(function () {
     $("#second-interest").html(
         "<option value=\"business\">Business</option>" +
         "<option value=\"science\">Science</option>" +
+        "<option value=\"tech\">Tech</option>" +
         "<option value=\"entertainment\">Entertainment</option>" +
         "<option value=\"health\">Health</option>"
     );
