@@ -55,10 +55,21 @@ public class LessonService implements ILessonService{
         List<NewsDTO> newsDTOList = lessonDAO.getNewsDAO(interestsSet);
 
         JSONObject jsonObject = new JSONObject();
+        List<String> urlList = new ArrayList<>();
         for(NewsDTO newsDTO : newsDTOList){
             String category = newsDTO.getCategory();
             String newsJsonString = newsDTO.getNewsJson();
             JSONObject newsJson = (JSONObject) jsonParser.parse(newsJsonString); // 파싱
+
+            String newsUrl = (String) newsJson.get("url"); //url 추출
+
+            urlList.add(newsUrl);
+
+            String result = String.join(",", urlList);
+            Map<String, Object> params = new HashMap<>();
+            params.put("param1", classId);
+            params.put("param2", result);
+            lessonDAO.setURL(params);
 
             jsonObject.put(category, newsJson);
         }

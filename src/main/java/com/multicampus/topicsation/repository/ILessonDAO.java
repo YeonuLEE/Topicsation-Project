@@ -2,8 +2,10 @@ package com.multicampus.topicsation.repository;
 
 import com.multicampus.topicsation.dto.NewsDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Mapper
@@ -20,4 +22,6 @@ public interface ILessonDAO {
     // 수업에 입장하는 멤버들을 걸러내기 위한 메서드
     Integer getMembersDAO1(String classId);
     Integer getMembersDAO2(String classId);
+    // 수업 때 추천된 뉴스 URL을 테이블에 추가해주는 메서드
+    void setURL(Map<String, Object> params);
 }
