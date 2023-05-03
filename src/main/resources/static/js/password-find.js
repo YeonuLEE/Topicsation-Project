@@ -13,7 +13,6 @@ $(document).ready(function () {
                     email: email
                 }),
                 success: function (data, status) {
-                    alert(data)
                     $("#emailCheck").text("Check your Email!")
                     $("#enter-password").attr("class", "form-control is-valid");
                     console.log(data)

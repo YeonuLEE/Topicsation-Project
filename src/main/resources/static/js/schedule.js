@@ -244,7 +244,7 @@ function saveSchedule(postUrl, dateFormatted) {
                 // $("#enter-password").val("");
             }
             else{
-                $("#modal-data").text("비밀번호가 틀렸습니다.");
+                $("#modal-data").text("Invalid Password.").attr("class", "form-control is-invalid");
                 $("#enter-password").val("");
             }
         },
