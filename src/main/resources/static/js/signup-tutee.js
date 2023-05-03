@@ -90,7 +90,7 @@ $(document).ready(function () {
 
         // 전체 옵션 다시 추가
         $("#second-interest").html(
-            "<option value='politics'>정치</option><option value='economics'>경제</option><option value='IT'>IT</option><option value='fitness'>건강</option><option value='food'>음식</option>"
+            "<option value='Business'>비즈니스</option><option value='Tech'>테크</option><option value='Science'>과학</option><option value='Entertainment'>엔터테인먼트</option><option value='Health'>건강</option>"
         );
 
         // 첫번째 관심사에서 뽑은 옵션 제거
