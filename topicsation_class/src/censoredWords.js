@@ -3,14 +3,113 @@
 // 영문 욕설 출처 : 2Toad's Profanity
 // https://github.com/2Toad/Profanity
 
-export function filtering(msg, censoredWords){
-    let filteredMsg = msg
-    censoredWords.forEach((word) => { // 트라이(Trie)나 아호-코라식(Aho-Corasick) 알고리즘으로 대체 고려 >> 시간 측정해서 성능 향상 스토리 짜자
-        const regex = new RegExp(word, 'gi'); // 정규표현식 객체 생성, g는 전역, i는 대소문자 구분 없이
-        const replacement = '*'.repeat(word.length);
-        filteredMsg = filteredMsg.replace(regex, replacement)
-    })
-    return filteredMsg;
+export function filtering(msg, ac){
+
+    console.time('filtering_time');
+
+    // 단순 비교 사용
+    // wordsToCensor.forEach((word) => { // 트라이(Trie)나 아호-코라식(Aho-Corasick) 알고리즘으로 대체 고려 >> 시간 측정해서 성능 향상 스토리 짜자
+    //     const regex = new RegExp(word, 'gi'); // 정규표현식 객체 생성, g는 전역, i는 대소문자 구분 없이
+    //     const replacement = '*'.repeat(word.length);
+    //     msg = msg.replace(regex, replacement)
+    // })
+
+    //아호코라식 사용
+    // const ac = new AhoCorasick();
+    //
+    // wordsToCensor.forEach((pattern) => ac.insert(pattern));
+    // ac.buildFailureLinks();
+
+    const matches = ac.search(msg);
+    console.log("검열 리스트 : " , matches);
+    if (matches.length != 0){
+        const replacement = '*'.repeat(matches[0].length);
+        msg = msg.replace(matches[0], replacement)
+    }
+
+
+    console.timeEnd('filtering_time');
+
+    return msg;
+    // return matches[0];
+}
+
+// 트라이 자료구조의 노드를 구현하는 클래스
+class TrieNode {
+    constructor() {
+        this.children = {}; // 해당 노드의 자식 노드들을 저장하는 javascript object
+        this.failureLink = null; // 해당 노드의 실패 링크
+        this.outputLink = null; // 해당 노드의 아웃풋 링크
+        this.isEndOfWord = false; // 해당 노드가 단어의 끝인지 아닌지를 판별(내가 골라내려는 단어면 true)
+    }
+}
+
+// 아호코라식 알고리즘 구현하는 클래스
+export class AhoCorasick {
+    constructor() {
+        this.root = new TrieNode(); // 알고리즘 인스턴스 생성시에 루트 노드 생성해서 지정(root node의 멤버 변수는 TrieNode class의 default값)
+    }
+
+    // 트라이 자료구조에 단어를 추가하는 메서드
+    insert(word) { // 검열하려는 단어(String) "하나" 매개변수로 받음
+        let node = this.root; // node 변수 선언 및 루트 노드로 초기화
+        for (const ch of word) { // javascript의 enhanced for문, for of 문이라고 불린다, word(String)의 문자를 하나하나
+            if (!node.children[ch]) { // root node의 자식 노드 중에 ch를 key로하는 노드가 없다면
+                node.children[ch] = new TrieNode(); // ch : node의 구조를 갖도록 추가 해준다
+            }
+            node = node.children[ch]; // node 변수를 갱신해줌 -> tree의 노드를 하나씩 타 내려가는 것
+        }
+        node.isEndOfWord = true; // 문자열의 마지막 문자는 해당 속성을 true로 설정
+        node.outputLink = word; // isEndOfWord 속성이 true이므로 outputLink를 해당 문자열로 설정
+    }
+
+    // 아호코라식 알고리즘에서 핵심이라고 할 수 있는 failure link를 구현하는 메서드
+    buildFailureLinks() {
+        const queue = [this.root]; // 큐에 루트 노드를 추가
+        while (queue.length > 0) { // 큐가 바닥날 때까지 반복 >> 큐 & while문? 이건 BFS다!!
+            const currentNode = queue.shift(); // 가장 왼쪽의 요소 뽑아서 currentNode 변수에 저장
+            for (const ch in currentNode.children) { // 현재노드의 자식 노드의 문자 하나씩 순회
+                const childNode = currentNode.children[ch]; // 그렇게 순회한 문자에 해당하는 노드를
+                queue.push(childNode); // 큐의 오른쪽에 넣고
+
+                let failureLink = currentNode.failureLink; // 현재노드의 실패 링크를 failureLink로 설정
+                while (failureLink && !failureLink.children[ch]) { // 실패 링크가 존재하고 실패 링크의 자식 노드 중에 현재 지금 체크 중인 문자인 ch가 없는 동안 >> 실패링크가 없거나 실패링크의 자식 노드 중에 ch가 있으면 멈춤
+                    failureLink = failureLink.failureLink; // failureLink 변수를 실패 링크의 실패 링크로 계속해서 갱신 >> 계속해서 실패 링크를 타고 올라간다는 말임
+                }
+
+                if (failureLink) { // 실패 링크가 존재하면
+                    childNode.failureLink = failureLink.children[ch]; // 현재 보고있는 자식노드의 실패링크를 끝까지 타고 올라간 실패링크의 ch에 해당하는 노드로 이어줌 >> 결과적으로 현재 노드보다 상위의 노드중에 ch와 ch가 이어지게 됨
+                } else { // 실패 링크가 존재하지 않으면
+                    childNode.failureLink = this.root; // 자식노드의 실패링크를 루트 노드로 설정
+                }
+            }
+        }
+    }
+
+    // 실제로 탐색을 실시하는 메서드
+    search(text) { // 탐색하고 싶은 문자열을 매개변수로 받는다
+        const matches = []; // 문자열과 일치하는 패턴들을 저장하는 리스트
+        let currentNode = this.root; // 항상 시작은 루트 노드부터
+
+        for (let i = 0; i < text.length; i++) {
+            console.log("순회 하긴 하나?")
+            const ch = text[i]; // 문자열의 문자를 하나하나 순회, 이하 ch
+
+            while (currentNode && !currentNode.children[ch]) { // 현재 노드가 존재하고 현재 노드의 자식 중에서 ch가 없을 때까지 반복 >> 자식 중에 ch가 있으면 탈출
+                currentNode = currentNode.failureLink; // 실패 링크 타고 자식 노드 중에 ch있을 때까지 타고 올라감
+            }
+
+            if (!currentNode) { // 현재 노드가 존재하지 않는다면
+                currentNode = this.root; //  현재 노드를 루트로 설정
+            } else { // 현재 노드가 존재하면
+                currentNode = currentNode.children[ch]; // 현재 노드를 현재 노드의 자식 중에 ch인 노드로 설정
+                if (currentNode.isEndOfWord) { // 그 ch인 노드가 내가 설정한 패턴이라면
+                    matches.push(currentNode.outputLink ); // matches에 패턴 저장
+                }
+            }
+        }
+        return matches;
+    }
 }
 
 export const wordsToCensor = [ "ㅅㅂ", "씨발", "씨바", "개세끼", "18년", "18놈", "18새끼", "ㄱㅐㅅㅐㄲl", "ㄱㅐㅈㅏ", "가슴만져", "가슴빨아", "가슴빨어", "가슴조물락", "가슴주물럭", "가슴쪼물딱",
@@ -494,3 +593,7 @@ export const wordsToCensor = [ "ㅅㅂ", "씨발", "씨바", "개세끼", "18년
     "whore",
     "willies",
     "willy",];
+
+
+
+

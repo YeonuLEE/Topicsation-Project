@@ -58,6 +58,10 @@ public class LessonController {
             return ResponseEntity.ok(jsonObject);
         }
 
+        @GetMapping("/{lesson_id}/getMembers")
+        public ResponseEntity<Object> getMembers(@PathVariable String lesson_id) {
 
+            return ResponseEntity.ok(lessonService.getMembersService(lesson_id));
+        }
     }
 }

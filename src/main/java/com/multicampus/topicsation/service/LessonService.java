@@ -79,5 +79,18 @@ public class LessonService implements ILessonService{
         return 0;
     }
 
+    @Override
+    public JSONObject getMembersService(String classId) {
+
+        Integer tutorId = lessonDAO.getMembersDAO1(classId);
+        Integer tuteeId = lessonDAO.getMembersDAO2(classId);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("tutorId", tutorId);
+        jsonObject.put("tuteeId", tuteeId);
+
+        return jsonObject;
+    }
+
 
 }

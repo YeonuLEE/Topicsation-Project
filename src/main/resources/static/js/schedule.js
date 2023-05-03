@@ -1,10 +1,23 @@
-var tagId = "";
+import { setupHeaderAjax, getId, getHeaderAjax } from './checkTokenExpiration.js';
+
 var link = "/lesson/";
 var tbody;
 var userId;
 var postUrl = "/mypage/{user_id}/schedule/postCalender";
+let userId
 //튜터 스케줄
 $(document).ready(function () {
+
+    const token = sessionStorage.getItem('accessToken');
+    console.log(token)
+
+    // access token 만료 기간 검증 및 req header에 삽입
+    if(token != null){
+        setupHeaderAjax(token)
+        userId = getId(token);
+    }
+
+
     var today = new Date();
     $('.datepicker').datepicker({
         format: 'dd-mm-yyyy',
@@ -32,11 +45,12 @@ $(document).ready(function () {
 
 
     // uri 지정
-    var pathURI = window.location.pathname
-    const regex = /\/mypage\/(\d+)\/schedule/;
-    const match = pathURI.match(regex);
-    if (match && match[1]) {
-        userId = match[1];
+    // var pathURI = window.location.pathname
+    // const regex = /\/mypage\/(\d+)\/schedule/;
+    // const match = pathURI.match(regex);
+    if (userId) {
+        //if ( match && match[1] )
+        // userId = match[1]; <-- 연우한테 물어보기
 
         var apiUrl2 = "/mypage/{user_id}";
         var apiUrl3 = "/mypage/{user_id}/schedule";
@@ -54,11 +68,13 @@ $(document).ready(function () {
         console.log("매치되는 문자열이 없습니다.");
     }
 
-    <!-- ajax get Date -->
     $.ajax({
         type: "GET",
         url: apiUrl,
-        success: function (data, status) {
+        async:false,
+        success: function (data, status, xhr) {
+            getHeaderAjax(xhr)
+
             // var jsonObject = JSON.parse(JSON.stringify(data));
             var jsonObject = JSON.parse(data);
 
@@ -121,11 +137,12 @@ $(document).ready(function () {
         // 시간 포맷
         var timeFormatted = pad(hours, 2) + ':' + pad(minutes, 2);
 
-        var pathURI = window.location.pathname
-        const regex = /\/mypage\/(\d+)\/schedule/;
-        const match = pathURI.match(regex);
-        if (match && match[1]) {
-            const userId = match[1];
+        // var pathURI = window.location.pathname
+        // const regex = /\/mypage\/(\d+)\/schedule/;
+        // const match = pathURI.match(regex);
+        if (userId) {
+            // if (match && match[1])
+            // const userId = match[1];
 
             var apiUrl2 = "/mypage/{user_id}";
             var apiUrl3 = "/mypage/{user_id}/schedule";

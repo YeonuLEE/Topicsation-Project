@@ -9,4 +9,5 @@ import java.util.List;
 public interface ILessonService {
     JSONObject getNewsService(String classId) throws ParseException;
     int evaluateService(String likeOrDislike, String classId);
+    JSONObject getMembersService(String classId);
 }

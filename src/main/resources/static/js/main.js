@@ -1,34 +1,41 @@
+import {getHeaderAjax, setupHeaderAjax} from './checkTokenExpiration.js';
+
 $(document).ready(function () {
 
-    var token = sessionStorage.getItem('token');
-    console.log(token);
-    if (token != null) {
-        $.ajaxSetup({
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader('Authorization', 'Bearer ' + token);
-            }
-        });
-        $('#sign-btn').text('SIGN OUT');
+    const token = sessionStorage.getItem('accessToken');
+
+    // nullPointerException 예방
+    if(token != null){
+        // access token 만료 기간 검증 및 req header에 삽입
+        setupHeaderAjax(token)
     }
 
+    // $("#mypage-btn").click(function () {
+    //     location.href = "/mypage/admin";
+    // });
+
+    // main 관련
     var pathURI = window.location.pathname
     var ajaxURI;
-    var userId = 1;
 
     console.log(pathURI);
 
     if (pathURI == '/main') {
-        ajaxURI = pathURI + "/get" + "?userId=";
-        console.log(ajaxURI);
+        ajaxURI = pathURI + "/get";
+        console.log("ajaxURI :", ajaxURI);
     } else if (pathURI == '/main/search-all') {
         ajaxURI = pathURI + ".get";
-        console.log(ajaxURI);
+        console.log("ajaxURI :", ajaxURI);
     }
 
     $.ajax({
         url: ajaxURI,
         type: "GET",
-        success: function (data, status) {
+        async:false,
+        success: function (data, status, xhr) {
+
+            getHeaderAjax(xhr)
+
             var jsonData;
             var dataBody;
             var length;
@@ -258,31 +265,13 @@ $("#search-form").submit(function (event) {
     });
 })
 
-$('#sign-btn').click(function() {
-    const token = sessionStorage.getItem('token');
-    if (token != null) {
-        sessionStorage.removeItem('token');
-        $.ajax({
-            url: '/members/signout',
-            type: 'POST',
-            success: function (data) {
-                console.log('Signed out successfully');
-                location.reload();
 
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.error('Error signing out:', textStatus, errorThrown);
-            }
-        });
-    }else{
-        location.href = "/members/signin"
-    }
-});
 
 //myPage
-$("#mypage-btn").click(function () {
-    window.location.replace("/mypage/admin")
-})
+// $("#mypage-btn").click(function () {
+//
+//     location.href = "/mypage/1"
+// })
 
 // $(window).on('load', function() {
 //     var token = sessionStorage.getItem('token');
