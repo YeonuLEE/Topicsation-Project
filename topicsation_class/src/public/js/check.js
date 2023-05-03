@@ -7,8 +7,7 @@ $(document).ready(function () {
 
     const token = window.token
     let userId = getId(token)
-    alert(userId)
-    alert("!!!!!!!!!")
+
     // 사용자 체크하기
     $.ajax({
         type:"GET",
