@@ -91,6 +91,11 @@ public class LessonService implements ILessonService{
     }
 
     @Override
+    public int reviewService(String review_content, String classId) {
+        return lessonDAO.reviewDAO(review_content, classId);
+    }
+
+    @Override
     public JSONObject getMembersService(String classId) {
 
         Integer tutorId = lessonDAO.getMembersDAO1(classId);
