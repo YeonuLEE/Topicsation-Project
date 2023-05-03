@@ -77,6 +77,7 @@ $(document).ready(function () {
     }
   }
   function handleCameraClick() {
+    muted = false;
     myStream.getVideoTracks().forEach((track) => {
       track.enabled = !track.enabled;
     });
