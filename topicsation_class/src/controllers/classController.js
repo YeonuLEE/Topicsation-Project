@@ -4,5 +4,7 @@ const path = require("path");
 exports.showClass = (req, res) => {
   //res.render("classroom");
   const classId = req.params.id;
-  res.render("classroom", { $classId: classId });
+  const token = req.query.token;
+
+  res.render("classroom", { $classId : classId, $token : token});
 };

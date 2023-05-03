@@ -2,16 +2,25 @@ package com.multicampus.topicsation.controller;
 
 
 import com.multicampus.topicsation.dto.RecommendDTO;
+import com.multicampus.topicsation.dto.SearchDTO;
 import com.multicampus.topicsation.dto.TutorScheduleDTO;
 import com.multicampus.topicsation.dto.TutorViewDTO;
+import com.multicampus.topicsation.dto.pageDTO.PageReqeustDTO;
+import com.multicampus.topicsation.dto.pageDTO.PageRequestDTO;
+import com.multicampus.topicsation.dto.pageDTO.PageResponseDTO;
 import com.multicampus.topicsation.service.ITutorListService;
+import com.multicampus.topicsation.service.SearchService;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -40,6 +49,9 @@ public class MainPageController {
 
         @Autowired
         ITutorListService tutorListService;
+
+        @Autowired
+        SearchService searchService;
 
         @GetMapping("/get")
         public String main() {
@@ -71,18 +83,50 @@ public class MainPageController {
 
             return jsonString;
         }
-        @GetMapping("/search-all.get")
-        public String searchAll() {
-           return "";
-        }
 
-        @GetMapping("/search-all/search")
-        public String search(@RequestParam String name,
-                             @RequestParam String interest,
-                             @RequestParam String date) {
-            return "";
-        }
+        @GetMapping("/search-all/get")
+        public ResponseEntity<Map<String, Object>> searchPage(@RequestParam Map<String, String> requestParams) {
+            int page = Integer.parseInt(requestParams.getOrDefault("page", "1"));
+            int size = Integer.parseInt(requestParams.getOrDefault("size", "6"));
+            String name = requestParams.get("name");
+            String interest = requestParams.get("interest");
+            String date = requestParams.get("date");
 
+            if(date != null){
+                SimpleDateFormat inputFormat = new SimpleDateFormat("MM/dd/yyyy");
+                SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+                try {
+                    Date dateFormat = inputFormat.parse(date);
+                    date = outputFormat.format(dateFormat);
+                    System.out.println(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                    .name(name)
+                    .interest(interest)
+                    .date(date)
+                    .page(page)
+                    .size(size)
+                    .build();
+
+            PageResponseDTO<SearchDTO> pageResponseDTO = searchService.searchList(pageRequestDTO);
+
+            Map <String, Object> resultMap = new HashMap<>();
+            resultMap.put("all_list",pageResponseDTO.getSearchDTOList());
+            resultMap.put("page",pageResponseDTO.getPage());
+            resultMap.put("size",pageResponseDTO.getSize());
+            resultMap.put("total",pageResponseDTO.getTotal());
+            resultMap.put("start",pageResponseDTO.getStart());
+            resultMap.put("end",pageResponseDTO.getEnd());
+            resultMap.put("prev",pageResponseDTO.isPrev());
+            resultMap.put("next",pageResponseDTO.isNext());
+
+           return new ResponseEntity<Map<String, Object>> (resultMap, HttpStatus.OK);
+        }
 
         @GetMapping("/tutors/{tutor_id}/getInfo")
         public String tutors(@PathVariable("tutor_id") String tutorId,

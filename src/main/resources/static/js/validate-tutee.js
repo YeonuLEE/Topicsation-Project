@@ -60,14 +60,14 @@ $("#password-confirm").change(function () {
     var pwd1 = $("#password").val();
     var pwd2 = $("#password-confirm").val();
 
-    if (pwd1 != pwd2) {
-        $(".password-confirm")
+    if (pwd1 !== pwd2) {
+        $(".password_confirm")
             .text("비밀번호가 일치하지 않습니다.")
             .css("color", "red");
         $("#password-confirm").attr("class", "form-control is-invalid");
         passwordConfirmCheck = false;
     } else {
-        $(".password-confirm").text("");
+        $(".password_confirm").text("");
         $("#password-confirm").focus();
         $("#password-confirm").attr("class", "form-control is-valid");
         passwordConfirmCheck = true;

@@ -12,6 +12,8 @@ app.set("views", __dirname + "/public/views");
 
 // 정적 파일 미들웨어
 app.use(express.static("public"));
+app.use(express.static("public"));
+app.use(express.static("public"));
 app.use("/img", express.static(__dirname + "/public/img"));
 app.use("/js", express.static(__dirname + "/public/js"));
 

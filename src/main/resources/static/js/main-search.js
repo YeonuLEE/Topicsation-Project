@@ -1,19 +1,41 @@
+
+import {getHeaderAjax, setupHeaderAjax} from './checkTokenExpiration.js';
+
 $(document).ready(function () {
+
+    const token = sessionStorage.getItem('accessToken');
+
+    // nullPointerException 예방
+    if(token != null){
+        // access token 만료 기간 검증 및 req header에 삽입
+        setupHeaderAjax(token)
+    }
+
+
     $.ajax({
-        url: "/main/search-all.get",
+        url: apiUrl,
         type: "GET",
-        success: function (data, status) {
+
+        async:false,
+        success: function (data, status, xhr) {
+
+            getHeaderAjax(xhr)
+
             var jsonData = JSON.parse(data);
             console.log(jsonData);
             var dataBody = $("#tutor-card");
 
 
-            for (var i = 0; i < jsonData.tutor_list.length; i++) {
-                var person = jsonData.tutor_list[i];
+            var dataBody = $("#tutor-card");
+            dataBody.empty();
+            for (var i = 0; i < all_list.length; i++) {
+                var person = all_list[i];
+                console.log(person);
                 var link = "/main/tutors/";
                 var imgSrc = "/assets/img/profile/";
                 var imgId = "tutor-img";
 
+                console.log(person.user_id);
                 link = link + person.user_id;
                 imgSrc = imgSrc + person.tutor_image;
                 imgId = imgId + person.user_id;
@@ -97,7 +119,80 @@ $(document).ready(function () {
                 div6.append(div9);
                 div9.append(span5);
                 div9.append(span6);
+
+                renderPagination(page,total);
+
+
             }
+            // paging(jsonData);
+            // $("#" + currentPage).addClass("active");
         }
     });
+}
+
+$(document).ready(function (){
+    searchGet(1);
 });
+
+$("#search-form").submit(function (e){
+    name = $("#search-name").val();
+    interest = $("#search-interest").val();
+    date = $("#reserve-date").val();
+    e.preventDefault();
+    searchGet(1);
+});
+
+function renderPagination(currentPage, totalItems) {
+    var totalPages = Math.ceil(totalItems / 6);
+    var pageGroupSize = 5;
+    var currentGroup = Math.ceil(currentPage / pageGroupSize);
+
+    var pagination = $(".pagination");
+    pagination.empty();
+
+    // 이전 페이지 링크 추가
+    var prevDisabled = currentPage === 1 ? "disabled" : "";
+    pagination.append(`<li class="page-item ${prevDisabled}">
+                          <a class="page-link mx-1" href="#" aria-label="Previous" data-page="${currentPage - 1}">
+                            <i class="feather-icon icon-chevron-left">Previous</i>
+                          </a>
+                        </li>`);
+
+    // 페이지 번호 링크 추가
+    var startPage = (currentGroup - 1) * pageGroupSize + 1;
+    var endPage = Math.min(startPage + pageGroupSize - 1, totalPages);
+    for (var i = startPage; i <= endPage; i++) {
+        var activeClass = i === currentPage ? "active" : "";
+        var listItem = `<li class="page-item ${activeClass}">
+                    <a class="page-link mx-1" href="#" data-page="${i}">${i}</a>
+                  </li>`;
+        pagination.append(listItem);
+    }
+
+    // 다음 페이지 링크 추가
+    var nextDisabled = currentPage === totalPages ? "disabled" : "";
+    pagination.append(`<li class="page-item ${nextDisabled}">
+                          <a class="page-link mx-1" href="#" aria-label="Next" data-page="${currentPage + 1}">
+                            <i class="feather-icon icon-chevron-right">Next</i>
+                          </a>
+                        </li>`);
+
+    // 페이지 링크에 대한 클릭 이벤트 리스너 추가
+    $(".pagination .page-link").on("click", function (event) {
+        event.preventDefault();
+        var pageNumber = parseInt($(this).data("page"));
+        if (!isNaN(pageNumber)) {
+            searchGet(pageNumber);
+        }
+    });
+}
+
+
+
+
+
+
+
+
+
+

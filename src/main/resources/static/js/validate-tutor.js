@@ -60,12 +60,12 @@ $("#password-confirm").change(function () {
     var pwd1 = $("#password").val();
     var pwd2 = $("#password-confirm").val();
 
-    if (pwd1 != pwd2) {
-        $(".password-confirm").text("Password does not match.").css("color", "red");
+    if (pwd1 !== pwd2) {
+        $(".password_confirm").text("Password does not match.").css("color", "red");
         $("#password-confirm").attr("class", "form-control is-invalid");
         passwordConfirmCheck = false;
     } else {
-        $(".password-confirm").text("");
+        $(".password_confirm").text("");
         $("#password-confirm").focus();
         $("#password-confirm").attr("class", "form-control is-valid");
         passwordConfirmCheck = true;
@@ -136,10 +136,31 @@ $("#profileImgButton").click(function () {
     $("#profileImgButton").blur();
 });
 
-function uploadFile(e) {
-    console.log("File Name : ", e.value);
-}
+$("#file").on('change', function (){
+        var pathURI = window.location.pathname
+        const regex = /\/mypage\/(\d+)/;
+        const match = pathURI.match(regex);
+        const userId= match[1];
 
+        var apiUrl = "/mypage/{user_id}/profileUpdate";
+        apiUrl = apiUrl.replace("{user_id}", userId);
+
+        var formData = new FormData();
+        formData.append('file', $('#file')[0].files[0]);
+        $.ajax({
+            url: apiUrl,
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response){
+                alert(response);
+            },
+            error: function (error){
+                alert("Error : " + error.responseText);
+            }
+        });
+});
 // 파일 이름 바꾸기
 $("#customFile").change(function () {
     var fileValue = $("#customFile").val().split("\\");

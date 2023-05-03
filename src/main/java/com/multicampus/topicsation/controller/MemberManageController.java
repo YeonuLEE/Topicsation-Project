@@ -2,38 +2,29 @@ package com.multicampus.topicsation.controller;
 
 import com.multicampus.topicsation.dto.SignUpDTO;
 import com.multicampus.topicsation.service.ISignUpService;
-import com.multicampus.topicsation.service.MailService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.multicampus.topicsation.dto.LoginDTO;
 import com.multicampus.topicsation.dto.MailDTO;
 import com.multicampus.topicsation.service.IMemberManageService;
-import com.multicampus.topicsation.service.SignUpService;
 //import com.multicampus.topicsation.service.security.CustomUserDetailsService;
-import com.multicampus.topicsation.token.JwtFilter;
-import com.multicampus.topicsation.token.TokenProvider;
+import com.multicampus.topicsation.token.JwtUtils;
 import org.json.simple.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 //import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 //import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 //import org.springframework.security.core.Authentication;
 //import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.security.SecureRandom;
-import java.security.Security;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -44,14 +35,11 @@ public class MemberManageController {
     @Autowired
     ISignUpService signUpService;
 
-    @GetMapping("/admin")
-    public String admin() {
-        return "html/sign-in-admin";
-    }
+    @Autowired
+    private IMemberManageService memberManageservice;
 
     @GetMapping("/signin")
     public String signin() {
-        System.out.println("login!");
         return "html/sign-in";
     }
 
@@ -77,8 +65,6 @@ public class MemberManageController {
 
     @GetMapping("/signup/email")
     public String emailAuth(String email, HttpSession session) throws Exception {
-
-
         return "html/Email-Token";
     }
 
@@ -92,17 +78,10 @@ public class MemberManageController {
     public class MemberManageRestController {
 
         //토큰 주입
-        private final TokenProvider tokenProvider;
-        private final BCrypt bCrypt;
+        private final JwtUtils jwtUtils;
 
-        @Autowired
-        private IMemberManageService service;
-
-        //        private final AuthenticationManagerBuilder authenticationManagerBuilder;
-//
-        public MemberManageRestController(TokenProvider tokenProvider, BCrypt bCrypt) {
-            this.tokenProvider = tokenProvider;
-            this.bCrypt = bCrypt;
+        public MemberManageRestController(JwtUtils jwtUtils) {
+            this.jwtUtils = jwtUtils;
         }
 
         @PostMapping("/signup-tutees.post")
@@ -116,31 +95,36 @@ public class MemberManageController {
         }
 
         @PostMapping("/signin.post")
-        public String signin(@RequestBody Map<String, String> params) throws JsonProcessingException {
-//            //더미 데이터 암호화 테스트 진행
-//            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-////            String hashedPassword = passwordEncoder.encode(password);
-////            System.out.println(hashedPassword);
-//
+        public ResponseEntity<Object> signin(@RequestBody Map<String, String> params, HttpServletResponse response) throws Exception {
+
             String email = params.get("email");
             System.out.println(email);
             String password = params.get("password");
-            System.out.println(password);
-//
-//          //email과 password 검증
-            LoginDTO dto = service.login(params);
 
-            if (dto == null || !BCrypt.checkpw(password, dto.getPassword())) {
-//                    throw new IllegalArgumentException("일치하는 회원이 없습니다.");
-                return "일치하는 회원이 없습니다.";
-            } else {
+              //email과 password 검증
+            LoginDTO dto = memberManageservice.login(params);
+
+            if (dto != null && BCrypt.checkpw(password, BCrypt.hashpw(password, BCrypt.gensalt()))) {
                 //accesstoken 생성
-                String token = tokenProvider.createAccessToken(dto.getEmail(), dto.getRole());
-                System.out.println(token);
+                String accessToken = jwtUtils.createAccessToken(dto.getRole(), dto.getUser_id());
 
-                //accesstioken 반환
-                return token;
+                //refreshtoken 생성
+                String refreshToken = jwtUtils.createRefreshToken(dto.getRole(), dto.getUser_id());
+
+                //Header에 accesstoken 정보 담아서 응답
+                response.setHeader("Authorization", "Bearer " + accessToken);
+
+                //쿠키설정
+                Cookie cookie = new Cookie("refreshToken", refreshToken);
+                cookie.setPath("/");
+
+                //Cookie에 refreshtoken 정보 담아서 응답
+                response.addCookie(cookie);
+
+                //200 전달
+                return ResponseEntity.ok().build();
             }
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
         @PostMapping("/signout")
@@ -149,24 +133,42 @@ public class MemberManageController {
         }
 
         @PostMapping("/signin/change.post")
-        public String passwordChange(@RequestBody JSONObject jsonObject) {
-            String password = jsonObject.get("$password").toString();
-            String confirmPassword = jsonObject.get("$confirmPassword").toString();
-
-            System.out.println(password);
-            System.out.println(confirmPassword);
-
-            return "test!!";
+        public ResponseEntity<Object> passwordChange(@RequestBody LoginDTO loginDTO, HttpServletRequest request) {
+            System.out.println("passwordChange method");
+            HttpSession session = request.getSession();
+            String email = (String) session.getAttribute("email");
+            session.removeAttribute("email");
+            loginDTO.setEmail(email);
+            if(memberManageservice.changePassword(loginDTO)) {
+                return ResponseEntity.ok().build();
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
         }
 
         @PostMapping("/singin/find/post")
-        public String passwordFind(@RequestBody JSONObject jsonObject) {
-            String email = jsonObject.get("$email").toString();
-            String user_id = jsonObject.get("$user_id").toString();
-            System.out.println(email);
-            System.out.println(user_id);
-            System.out.println("please");
-            return email;
+        public ResponseEntity<Object> passwordFind(@RequestBody MailDTO mailDTO, HttpServletRequest request) {
+            System.out.println("passwordFind method");
+            if(memberManageservice.checkEmail(mailDTO)) {
+                //세션 과정은 컨트롤러에서 진행하는게 좋음!
+                HttpSession session = request.getSession();
+                session.setAttribute("email", mailDTO.getEmail());
+                System.out.println("session:" +session.getAttribute("email"));
+                return ResponseEntity.ok().build();
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        }
+
+        @PostMapping("/signin/find/email.send")
+        public ResponseEntity<Object> passwordChange(@RequestBody MailDTO mailDTO) throws MessagingException {
+            System.out.println("passwordChange method");
+            boolean result = memberManageservice.sendMail(mailDTO);https://github.com/YeonuLEE/Topicsation-Project/pull/33/conflict?name=src%252Fmain%252Fjava%252Fcom%252Fmulticampus%252Ftopicsation%252Fcontroller%252FMyPageController.java&ancestor_oid=395e0fccae603a7ed972466e99a8db4ac426dddb&base_oid=97792d68e49b35abe9d52c40454d34e5b8ec5065&head_oid=590e63cf618861300e2546289d71c1d25e9f02ab
+            if(result) {
+                return ResponseEntity.unprocessableEntity().build();
+            }else {
+                return ResponseEntity.unprocessableEntity().build();
+            }
         }
 
         @PostMapping("/email.send")

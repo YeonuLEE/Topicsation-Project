@@ -48,7 +48,7 @@
 
             </a>
             <div>
-                <a href="#"><button class="btn mb-2 mr-2 btn-white" type="button" id="mypage-btn">MY PAGE</button></a>
+                <a href="#"><button class="btn mb-2 mr-2 btn-white" type="button" id="mypage-btn" hidden>MY PAGE</button></a>
                 <a href="#"><button class="btn mb-2 mr-2 btn-secondary" type="button" id="sign-btn">SIGN OUT</button></a>
             </div>
         </div>
@@ -67,15 +67,17 @@
                             </div>
                             <h2 class="h5 font-weight-normal text-center mt-3 mb-0" id="tutee-name">이연우</h2>
                             <div class="list-group dashboard-menu list-group-sm mt-4">
-                                <a href="/mypage/{user_id}" id="information"
+                                <a id="information"
                                    class="d-flex list-group-item list-group-item-action ">회원 정보<span
                                         class="icon icon-xs ml-auto"><span
                                         class="fas fa-chevron-right"></span></span> </a>
-                                <a href="/mypage/{user_id}/schedule" id="schedule"
+                                <!--                                /mypage/{user_id}
+                                /mypage/{user_id}/schedule-->
+                                <a id="schedule"
                                    class="d-flex list-group-item list-group-item-action active">수업 일정<span
                                         class="icon icon-xs ml-auto"><span
                                         class="fas fa-chevron-right"></span></span> </a>
-                                <a href="/mypage/{user_id}/history" id="history"
+                                <a id="history"
                                    class="d-flex list-group-item list-group-item-action ">수업 히스토리<span
                                         class="icon icon-xs ml-auto"><span
                                         class="fas fa-chevron-right"></span></span> </a>
@@ -254,7 +256,9 @@
 <script src="/js/spaces.js"></script>
 
 <!-- Ajax get data -->
-<script src="/js/myPage-tutees_Schedule.js"></script>
+<script type="module" src="/js/move.js" ></script>
+<script type="module" src="/js/myPage-tutees_Schedule.js" ></script>
+
 
 </body>
 
