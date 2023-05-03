@@ -111,7 +111,14 @@ public class SignUpService implements ISignUpService {
     }
 
     @Override
-    public void successEmailAuth(SignUpDTO signUpDTO) {
-        dao.successEmailAuthDAO(signUpDTO.getEmail());
+    public boolean successEmailAuth(SignUpDTO signUpDTO) {
+        try{
+            dao.successEmailAuthDAO(signUpDTO.getEmail());
+            return true;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
     }
 }

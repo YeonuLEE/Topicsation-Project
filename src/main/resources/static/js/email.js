@@ -64,6 +64,9 @@ $(document).ready(function () {
                                 success: function (data, status) {
                                     if (data == "emailAuthSuccess") {
                                         location.href = "/members/signup/success";
+                                    } else {
+                                        alert("이메일인증에 실패했습니다")
+                                        location.href = "/members/signup/email";
                                     }
                                 },
                                 error: function (data, textStatus) {
@@ -75,7 +78,7 @@ $(document).ready(function () {
                         }
                         // location.href = "/members/signup/success";
                         else {
-                            alert("인증코드가 일치하지 않습니다.");
+                            alert("인증코드가 일치하지 않습니다");
                             event.preventDefault();
                             // location.href = "/members/signup/email";
                         }
