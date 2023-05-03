@@ -1,24 +1,25 @@
 $(document).ready(function () {
 
+    history.pushState(null, null, "/members/change");
+
     $("#changePasswordForm").submit(function (event) {
         event.preventDefault();
-        var password = $("#password").val()
-        var confirmPassword = $("#password_confirm").val()
+        var newPassword = $("#password_confirm").val()
 
         $.ajax({
             type: "POST",
             url: "/members/signin/change.post",
             contentType: 'application/json',
             data:JSON.stringify({
-                $password : password,
-                $confirmPassword : confirmPassword,
-                test :"test",
+                password : newPassword,
             }),
             success: function(data, status) {
-                console.log(data)
+                alert("비밀번호가 수정되었습니다. 로그인해주세요.")
+                location.href = "/members/signin";
             },
             error: function (data, textStatus) {
-                alert("Error!")
+                alert("비밀번호 수정에 실패했습니다. 다시 시도해주세요.")
+                location.href="/members/signin/change";
             },
             complete: function (data, textStatus) {
             },

@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup
 import json
 import mysql.connector
 import datetime
+import sys
+import time
 
 cnx = mysql.connector.connect(
     host="localhost",
@@ -24,7 +26,8 @@ def get_article_content(article_url):
 def add_today_news(data):
     # Home 카테고리 뉴스를 가져옵니다.
     home_news = crawl_home_news()
-    data['today'].extend(home_news['today'])
+    data['today'] = home_news['today']
+
     return data
 
 def crawl_bbc_news():
@@ -37,19 +40,23 @@ def crawl_bbc_news():
         'https://www.bbc.com/news/health'
     ]
     data = {
-        'business': [],
-        'tech': [],
-        'science': [],
-        'entertainment': [],
-        'health': [],
-        'today': []
+        'business': {},
+        'tech': {},
+        'science': {},
+        'entertainment': {},
+        'health': {},
+        'today': {}
     }
 
     # 각 카테고리의 뉴스를 가져옵니다.
-    for url in urls:
+    for url_index, url in enumerate(urls):
+        sys.stdout.write(f"\r크롤링 중: {url} ({url_index + 1}/{len(urls)})")
+        sys.stdout.flush()
         response = requests.get(url)
         soup = BeautifulSoup(response.text, 'html.parser')
         articles = soup.find_all('div', {'class': 'gs-c-promo'})
+
+        found_article = False
 
         for article in articles:
             title_element = article.find('h3', {'class': 'gs-c-promo-heading__title'})
@@ -65,24 +72,35 @@ def crawl_bbc_news():
                 article_url = f"https://www.bbc.com{article_url}"
 
             content = get_article_content(article_url)
+            if not content:
+                continue
 
-            # 각 카테고리에 따라 뉴스를 분류합니다.
-            for category_key in data.keys():
-                if category_key.lower() in article_url:
-                    content = get_article_content(article_url)
-                    if not content:
-                        continue
-                    data[category_key].append({
-                        'title': title,
-                        'content': content,
-                        'url': article_url
-                    })
+            category_key = ""
+            if "business" in url:
+                category_key = "business"
+            elif "technology" in url:
+                category_key = "tech"
+            elif "science" in url:
+                category_key = "science"
+            elif "entertainment" in url:
+                category_key = "entertainment"
+            elif "health" in url:
+                category_key = "health"
+
+            if category_key:
+                data[category_key] = {
+                    'title': title,
+                    'content': content,
+                    'url': article_url
+                }
+
+                found_article = True
 
     # Home 카테고리 뉴스를 추가합니다.
+    sys.stdout.write("\n")
     data = add_today_news(data)
-
+    print()
     return data
-
 
 def crawl_home_news():
     url = 'https://www.bbc.com/news'
@@ -92,7 +110,8 @@ def crawl_home_news():
     # Home 카테고리 뉴스를 가져옵니다.
     articles = soup.find_all('div', {'class': 'gs-c-promo'})
 
-    today_news = []
+
+    today_news = None
 
     for article in articles:
         title_element = article.find('h3', {'class': 'gs-c-promo-heading__title'})
@@ -110,11 +129,13 @@ def crawl_home_news():
         content = get_article_content(article_url)
         if not content:
             continue
-        today_news.append({
+
+        today_news = {
             'title': title,
             'content': content,
             'url': article_url
-        })
+        }
+        break
 
     data = {
         'today': today_news
@@ -144,8 +165,22 @@ def save_news_to_database(data):
         cursor.execute(update_query, (newsjson, news_id))
 
     cnx.commit()
-    print("데이터베이스 업데이트 완료")
+    print("Database Update Success")
 
-news_data = crawl_bbc_news()
+def main():
+    while True:
+        start_time = time.time()
+        print(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')} 작업 실행 중...")
+        news_data = crawl_bbc_news()
+        save_news_to_database(news_data)
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        print(f"작업 시작 시간: {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(start_time))}")
+        print(f"작업 종료 시간: {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(end_time))}")
+        print(f"작업 소요 시간: {elapsed_time:.2f}초")
+        print("다음 업데이트까지 대기 중...")
+        sys.stdout.flush()
+        time.sleep(10800)  # 작업 완료 후 대기 시간을 추가합니다.
 
-save_news_to_database(news_data)
+if __name__ == "__main__":
+    main()

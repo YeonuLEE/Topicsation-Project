@@ -11,6 +11,7 @@ import java.util.Map;
 
 public interface IMyPageService {
     String check_role(String user_id);
+    String check_password(String user_id);
 
     List<MyPageDTO> view_admin();
     void success(String user_id);

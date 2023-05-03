@@ -7,6 +7,7 @@ import com.multicampus.topicsation.repository.IMemberDAO;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,11 @@ public class MyPageService implements IMyPageService{
     @Override
     public String check_role(String user_id) {
         return dao.checkRole(user_id);
+    }
+
+    @Override
+    public String check_password(String user_id) {
+        return dao.checkPass(user_id);
     }
 
     @Override

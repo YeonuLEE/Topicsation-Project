@@ -1,36 +1,30 @@
-var name = $("#search-name").val();
-var interest = $("#search-interest").val();
-var date = $("#reserve-date").val();
 
-var apiUrl = "/main/search-all/get?page={page}&size={size}"
+import {getHeaderAjax, setupHeaderAjax} from './checkTokenExpiration.js';
 
-function searchGet(page){
-    apiUrl = "/main/search-all/get?page={page}&size={size}"
-    apiUrl = apiUrl.replace("{page}",page);
-    apiUrl = apiUrl.replace("{size}",6);
+$(document).ready(function () {
 
-    if(interest != null)
-        apiUrl += "&interest=" + interest;
+    const token = sessionStorage.getItem('accessToken');
 
-    if(name != "")
-        apiUrl += "&name=" + name;
-
-    if(date != "")
-        apiUrl += "&date=" + date;
+    // nullPointerException 예방
+    if(token != null){
+        // access token 만료 기간 검증 및 req header에 삽입
+        setupHeaderAjax(token)
+    }
 
 
     $.ajax({
         url: apiUrl,
         type: "GET",
-        success: function (data, status) {
-            var all_list = data.all_list;
-            var page = data.page;
-            var size = data.size;
-            var total = data.total;
-            var start = data.start;
-            var end = data.end;
-            var prev = data.prev;
-            var next = data.next;
+
+        async:false,
+        success: function (data, status, xhr) {
+
+            getHeaderAjax(xhr)
+
+            var jsonData = JSON.parse(data);
+            console.log(jsonData);
+            var dataBody = $("#tutor-card");
+
 
             var dataBody = $("#tutor-card");
             dataBody.empty();

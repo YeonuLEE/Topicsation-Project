@@ -9,6 +9,7 @@ import java.util.Map;
 @Mapper
 public interface IMemberDAO {
     String checkRole(String user_id);
+    String checkPass(String user_id);
 
     List<MyPageDTO> viewAdmin();
     void successAdmin(String user_id);

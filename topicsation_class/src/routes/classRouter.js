@@ -4,7 +4,7 @@ const router = express.Router();
 const controller = require("../controllers/classController");
 
 // 수업 페이지 라우팅
-router.get("/class/:id", controller.showClass);
+router.get("/lesson/:id", controller.showClass);
 
 // 다른 페이지 라우팅
 router.get("/about", (req, res) => {

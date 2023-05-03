@@ -1,9 +1,23 @@
-<!-- Ajax get data -->
+import { setupHeaderAjax, getId, getHeaderAjax} from './checkTokenExpiration.js';
+
 $(document).ready(function () {
-    var pathURI = window.location.pathname
-    const regex = /\/mypage\/(\d+)\/history/;
-    const match = pathURI.match(regex);
-    const userId= match[1];
+
+    const token = sessionStorage.getItem('accessToken');
+    let userId
+    console.log(token)
+
+    if(token != null){
+        // access token 만료 기간 검증 및 req header에 삽입
+        setupHeaderAjax(token)
+        userId = getId(token);
+    }
+
+
+
+    // var pathURI = window.location.pathname
+    // const regex = /\/mypage\/(\d+)\/history/;
+    // const match = pathURI.match(regex);
+    // const userId= match[1];
 
     var apiUrl1 = "/mypage/{user_id}/history/get";
     var apiUrl2 = "/mypage/{user_id}";
@@ -19,7 +33,9 @@ $(document).ready(function () {
         type: "GET",
         url: apiUrl1,
         dataType: "json",
-        success: function (data, status) {
+        async:false,
+        success: function (data, status, xhr) {
+            getHeaderAjax(xhr)
 
             $("#information").attr("href", apiUrl2);
             $("#schedule").attr("href", apiUrl3);
