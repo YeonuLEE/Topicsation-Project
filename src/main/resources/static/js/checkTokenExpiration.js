@@ -11,11 +11,14 @@ export function setupHeaderAjax(token) {
 }
 
 export function getHeaderAjax(xhr){
+    let accessToken = null
     //accesstoken 뽑아내기
     const authorization = xhr.getResponseHeader("Authorization");
-    const accessToken = authorization.substring(7);
-    //accesstoken 저장
-    sessionStorage.setItem("accessToken", accessToken);
+    if(authorization != null){
+        accessToken = authorization.substring(7);
+        //accesstoken 저장
+        sessionStorage.setItem("accessToken", accessToken);
+    }
 }
 
 export function setupHeader(token) {
