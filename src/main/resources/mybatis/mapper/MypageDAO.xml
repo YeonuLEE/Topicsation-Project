@@ -65,8 +65,8 @@
     <select id="checkProfileImg" resultType="string">
         SELECT profileimg FROM tutor_info WHERE tutor_id = #{user_id} and PROFILEIMG like '%unknown%'
     </select>
-    <update id="changProfileImg" parameterType="com.multicampus.topicsation.dto.MyPageDTO">
-        UPDATE tutor_info SET profileimg = #{url} WHERE tutor_id = #{user_id}
+    <update id="changProfileImg" parameterType="String">
+        UPDATE tutor_info SET profileimg = #{fileName} WHERE tutor_id = #{user_id}
     </update>
 
     <!-- Tutee Page-->

@@ -47,7 +47,7 @@ $(document).ready(function () {
             $("#schedule").attr("href", apiUrl3);
 
             $('#tutor-name').text(jsonObject.name);
-            $("#profile-img").attr("src","/"+jsonObject.profileImg);
+            $("#profile-img").attr("src","/assets/img/profile/"+jsonObject.profileImg);
             $('#name').val(jsonObject.name);
             $('#email').val(jsonObject.email);
             $('#nationality').val(jsonObject.nationality).prop("selected", true);
@@ -197,6 +197,48 @@ $(document).ready(function () {
             },
             complete: function (data, textStatus) {
             },
+        });
+    });
+    // 프로필 사진 수정
+    $("#profile-img").hover(
+        function () {
+            // $(this).attr("src","./image/p002.jpg");
+            $(this).css("opacity", 0.3);
+            // $(".profile-text").css("position","absolute")
+        },
+        function () {
+            $(this).css("opacity", 1);
+        }
+    );
+
+// 사진 업로드 기능
+    $("#profileImgButton").click(function () {
+        $("#file").click();
+        $("#profileImgButton").blur();
+    });
+
+    $("#file").on('change', function (){
+        // var pathURI = window.location.pathname
+        // const regex = /\/mypage\/(\d+)/;
+        // const match = pathURI.match(regex);
+        // const userId= match[1];
+        var apiUrl = "/mypage/{user_id}/profileUpdate";
+        apiUrl = apiUrl.replace("{user_id}", userId);
+
+        var formData = new FormData();
+        formData.append('file', $('#file')[0].files[0]);
+        $.ajax({
+            url: apiUrl,
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response){
+                window.location.reload();
+            },
+            error: function (error){
+                alert("Error : " + error.responseText);
+            }
         });
     });
 });

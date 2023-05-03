@@ -22,7 +22,7 @@ public interface IMyPageService {
     MypageScheduleDTO schedule_tutor(Map<String, Object> paramMap, MypageScheduleDTO mypageScheduleDTO);
     int scheduleUpdate(JSONObject jsonUserInfo, JSONArray jsonSchedule);
     void delete_tutor(String user_id);
-    void chang_profileImg(String user_id);
+    void chang_profileImg(String user_id, String fileName);
 
     MyPageDTO view_tutee(String user_id);
     int modify_tutee(MyPageDTO myPageDTO);
