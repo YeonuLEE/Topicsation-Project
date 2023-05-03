@@ -106,10 +106,9 @@ $("#first-interest").change(function () {
 
     // 전체 옵션 다시 추가
     $("#second-interest").html(
-        "<option value=\"business\">사업</option>" +
-        "<option value=\"tech\">기술</option>" +
+        "<option value=\"business\">비즈니스</option>" +
         "<option value=\"science\">과학</option>" +
-        "<option value=\"entertainment\">오락</option>" +
+        "<option value=\"entertainment\">엔터테인먼트</option>" +
         "<option value=\"health\">건강</option>"
     );
 
