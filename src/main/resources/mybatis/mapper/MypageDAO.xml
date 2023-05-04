@@ -108,7 +108,7 @@
     <select id="tutorSchedule" parameterType="map" resultType="com.multicampus.topicsation.dto.ClassDTO">
         SELECT c.class_id, c.class_date, c.class_time, c.tutee_id, c.tutor_id, u.name
         FROM TUTOR_CLASS c
-                 LEFT JOIN user u ON c.tutee_id = u.user_id
+                 LEFT JOIN USER u ON c.tutee_id = u.user_id
         WHERE c.TUTOR_ID = #{tutorId} AND c.CLASS_DATE = #{classDate}
     </select>
     <select id="findUser" parameterType="map" resultType="java.lang.Integer">
