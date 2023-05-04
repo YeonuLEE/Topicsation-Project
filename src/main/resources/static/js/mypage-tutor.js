@@ -47,7 +47,7 @@ $(document).ready(function () {
             $("#schedule").attr("href", apiUrl3);
 
             $('#tutor-name').text(jsonObject.name);
-            $("#profile-img").attr("src","/assets/img/profile/"+jsonObject.profileImg);
+            $("#profile-img").attr("src","/assets/img/profile/" + jsonObject.profileImg);
             $('#name').val(jsonObject.name);
             $('#email').val(jsonObject.email);
             $('#nationality').val(jsonObject.nationality).prop("selected", true);
@@ -234,7 +234,7 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: function (response){
-                window.location.reload();
+                $("#profile-img").load(window.location.href + " #profile-img");
             },
             error: function (error){
                 alert("Error : " + error.responseText);
