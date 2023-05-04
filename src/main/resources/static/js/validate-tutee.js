@@ -120,6 +120,26 @@ $("#first-interest").change(function () {
         });
 });
 
+$("#second-interest").change(function () {
+    // 남은 옵션 전체 삭제
+    $("#first-interest option").remove();
+
+    // 전체 옵션 다시 추가
+    $("#first-interest").html(
+        "<option value='business'>비즈니스</option><option value='tech'>테크</option><option value='science'>과학</option><option value='entertainment'>엔터테인먼트</option><option value='health'>건강</option>"
+    );
+
+    // 첫번째 관심사에서 뽑은 옵션 제거
+    selectedOption = $("#second-interest option:selected").val();
+    $("#first-interest")
+        .find("option")
+        .each(function () {
+            if (this.value == selectedOption) {
+                $(this).remove();
+            }
+        });
+});
+
 // "예약을 취소하겠습니다" 유효성 검사
 $("#cancelReservation").click(function () {
     if ($("#cancelReservationMessage").val() != "예약을 취소하겠습니다") {
