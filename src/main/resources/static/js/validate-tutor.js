@@ -98,7 +98,7 @@ $("#signUpForm").submit(function () {
 });
 
 // 두번째 관심사 제거
-$("#first-interest").select(function () {
+$("#first-interest").change(function () {
     // 남은 옵션 전체 삭제
     $("#second-interest option").remove();
 
@@ -118,7 +118,7 @@ $("#first-interest").select(function () {
         });
 });
 
-$("#second-interest").select(function () {
+$("#second-interest").change(function () {
     // 남은 옵션 전체 삭제
     $("#first-interest option").remove();
 
