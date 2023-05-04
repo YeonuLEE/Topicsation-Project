@@ -6,21 +6,21 @@
 
     <!--뉴스 불러오기-->
     <select id="getInterestsDAO" resultType="java.lang.String">
-        SELECT interest1 AS interests FROM user
+        SELECT interest1 AS interests FROM USER
         WHERE user_id IN
-              (SELECT tutor_id AS user_id FROM tutor_class WHERE class_id = #{classID}
+              (SELECT tutor_id AS user_id FROM TUTOR_CLASS WHERE class_id = #{classID}
                UNION ALL
-               SELECT tutee_id AS user_id FROM tutor_class WHERE class_id = #{classID})
+               SELECT tutee_id AS user_id FROM TUTOR_CLASS WHERE class_id = #{classID})
         UNION ALL
-        SELECT interest2 FROM user
+        SELECT interest2 FROM USER
         WHERE user_id IN
-              (SELECT tutor_id AS user_id FROM tutor_class WHERE class_id = #{classID}
+              (SELECT tutor_id AS user_id FROM TUTOR_CLASS WHERE class_id = #{classID}
                UNION ALL
-               SELECT tutee_id AS user_id FROM tutor_class WHERE class_id = #{classID})
+               SELECT tutee_id AS user_id FROM TUTOR_CLASS WHERE class_id = #{classID})
     </select>
 
     <select id="getNewsDAO" parameterType="java.util.Set" resultType="com.multicampus.topicsation.dto.NewsDTO">
-        SELECT category, newsjson FROM news_suggestion
+        SELECT category, newsjson FROM NEWS_SUGGESTIOIN
             WHERE category IN
                 <foreach item="item" collection="interestsSet" open="(" separator="," close=")">
                     #{item}
@@ -28,12 +28,12 @@
     </select>
 
     <update id="likeDAO" parameterType="java.lang.String" >
-        UPDATE tutor_info SET `LIKE` = `LIKE` + 1 WHERE TUTOR_ID = (SELECT TUTOR_ID FROM tutor_class WHERE CLASS_ID = #{classId});
+        UPDATE TUTOR_INFO SET `LIKE` = `LIKE` + 1 WHERE TUTOR_ID = (SELECT TUTOR_ID FROM TUTOR_CLASS WHERE CLASS_ID = #{classId});
     </update>
 
     <insert id="dislikeDAO" parameterType="java.lang.String">
-        INSERT INTO dislike (TUTEE_ID, TUTOR_ID)
-        SELECT TUTEE_ID, TUTOR_ID FROM tutor_class WHERE CLASS_ID = #{classId}
+        INSERT INTO DISLIKE (TUTEE_ID, TUTOR_ID)
+        SELECT TUTEE_ID, TUTOR_ID FROM TUTOR_CLASS WHERE CLASS_ID = #{classId}
     </insert>
 
     <insert id="reviewDAO" parameterType="java.lang.String">
@@ -44,14 +44,14 @@
     </insert>
     
     <select id="getMembersDAO1" parameterType="java.lang.String" resultType="java.lang.Integer">
-        SELECT tutor_id AS user_id FROM tutor_class WHERE class_id = #{classID}
+        SELECT tutor_id AS user_id FROM TUTOR_CLASS WHERE class_id = #{classID}
     </select>
     <select id="getMembersDAO2" parameterType="java.lang.String" resultType="java.lang.Integer">
-        SELECT tutee_id AS user_id FROM tutor_class WHERE class_id = #{classID}
+        SELECT tutee_id AS user_id FROM TUTOR_CLASS WHERE class_id = #{classID}
     </select>
     <!-- 뉴스 URL 추가 -->
     <update id="setURL" parameterType="java.util.Map">
-        UPDATE tutor_class SET URL = #{param2} WHERE class_id = #{param1}
+        UPDATE TUTOR_CLASS SET URL = #{param2} WHERE class_id = #{param1}
     </update>
 
 </mapper>
