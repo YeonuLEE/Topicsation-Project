@@ -20,7 +20,7 @@
     </select>
 
     <select id="getNewsDAO" parameterType="java.util.Set" resultType="com.multicampus.topicsation.dto.NewsDTO">
-        SELECT category, newsjson FROM NEWS_SUGGESTIOIN
+        SELECT category, newsjson FROM NEWS_SUGGESTION
             WHERE category IN
                 <foreach item="item" collection="interestsSet" open="(" separator="," close=")">
                     #{item}
