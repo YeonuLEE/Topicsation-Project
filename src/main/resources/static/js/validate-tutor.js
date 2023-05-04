@@ -98,7 +98,7 @@ $("#signUpForm").submit(function () {
 });
 
 // 두번째 관심사 제거
-$("#first-interest").change(function () {
+$("#first-interest").select(function () {
     // 남은 옵션 전체 삭제
     $("#second-interest option").remove();
 
@@ -118,6 +118,25 @@ $("#first-interest").change(function () {
         });
 });
 
+$("#second-interest").select(function () {
+    // 남은 옵션 전체 삭제
+    $("#first-interest option").remove();
+
+    // 전체 옵션 다시 추가
+    $("#first-interest").html(
+        "<option value='business'>Business</option><option value='tech'>Tech</option><option value='science'>Science</option><option value='entertainment'>Entertainment</option><option value='health'>Health</option>"
+    );
+
+    // 첫번째 관심사에서 뽑은 옵션 제거
+    selectedOption = $("#second-interest option:selected").val();
+    $("#first-interest")
+        .find("option")
+        .each(function () {
+            if (this.value == selectedOption) {
+                $(this).remove();
+            }
+        });
+});
 
 // 파일 이름 바꾸기
 $("#customFile").change(function () {
