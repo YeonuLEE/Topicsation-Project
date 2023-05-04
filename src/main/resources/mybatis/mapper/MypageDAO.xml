@@ -6,103 +6,103 @@
 <mapper namespace="com.multicampus.topicsation.repository.IMemberDAO">
     <!-- 직종 검색 -->
     <select id="checkRole" resultType="string">
-        SELECT role FROM user where user_id = #{user_id}
+        SELECT role FROM USER where user_id = #{user_id}
     </select>
     <!-- 비밀번호 검색 -->
     <select id="checkPass" resultType="string">
-        SELECT password FROM user where user_id = #{user_id}
+        SELECT password FROM USER where user_id = #{user_id}
     </select>
     <!-- Admin-->
     <select id="viewAdmin" resultType="com.multicampus.topicsation.dto.MyPageDTO">
         SELECT u.user_id, u.name, u.regi_date, ti.certificate
-        FROM user u
-        INNER JOIN tutor_info ti ON u.user_id = ti.tutor_id where ti.approval = 0
+        FROM USER u
+        INNER JOIN TUTOR_INFO ti ON u.user_id = ti.tutor_id where ti.approval = 0
     </select>
     <update id="successAdmin" parameterType="com.multicampus.topicsation.dto.MyPageDTO">
-        UPDATE tutor_info SET approval = 1 where tutor_id = #{user_id}
+        UPDATE TUTOR_INFO SET approval = 1 where tutor_id = #{user_id}
     </update>
     <delete id="failAdmin">
-        delete from user where user_id =#{user_id}
+        delete FROM USER where user_id =#{user_id}
     </delete>
     <delete id="failAdmin2">
-        delete from tutor_info where TUTOR_ID =#{user_id}
+        delete FROM TUTOR_INFO where TUTOR_ID =#{user_id}
     </delete>
 
     <!-- Tutor Page-->
     <select id="viewTutor" resultType="com.multicampus.topicsation.dto.MyPageDTO">
         SELECT u.user_id, u.name, u.email, u.password, u.role, ti.gender, ti.nationality, ti.info, ti.like, ti.profileimg, u.interest1, u.interest2
-        FROM user u
-        INNER JOIN tutor_info ti ON u.user_id = ti.tutor_id where u.user_id = #{user_id}
+        FROM USER u
+        INNER JOIN TUTOR_INFO ti ON u.user_id = ti.tutor_id where u.user_id = #{user_id}
     </select>
     <update id="modifyTutor" parameterType="com.multicampus.topicsation.dto.MyPageDTO">
-        update user  set name=#{name}, interest1=#{interest1}, interest2=#{interest2} where user_id = #{user_id}
+        update USER set name=#{name}, interest1=#{interest1}, interest2=#{interest2} where user_id = #{user_id}
     </update>
     <update id="modifyTutor2" parameterType="com.multicampus.topicsation.dto.MyPageDTO">
-        UPDATE tutor_info SET nationality = #{nationality}, gender = lower(#{gender}),info =#{info} WHERE tutor_id =#{user_id}
+        UPDATE TUTOR_INFO SET nationality = #{nationality}, gender = lower(#{gender}),info =#{info} WHERE tutor_id =#{user_id}
     </update>
     <select id="tutorProfile" resultType="com.multicampus.topicsation.dto.MypageScheduleDTO">
         SELECT u.user_id, u.name,ti.profileimg
-        FROM user u
-        INNER JOIN tutor_info ti ON u.user_id = ti.tutor_id where u.user_id = #{user_id}
+        FROM USER u
+        INNER JOIN TUTOR_INFO ti ON u.user_id = ti.tutor_id where u.user_id = #{user_id}
     </select>
     <select id="schedule" resultType="com.multicampus.topicsation.dto.ClassDTO">
         select t.class_id, t.class_date, t.class_time,t.tutee_Id, t.tutor_id,u.name
-        from tutor_class t
+        FROM TUTOR_CLASS t
         inner join USER u on t.tutee_id = u.user_id where t.tutor_id =#{tutor_id} and t.class_date > NOW() order by t.class_date,t.class_time
     </select>
     <delete id="deleteTutor">
-        delete from user where user_id = #{user_id}
+        delete FROM USER where user_id = #{user_id}
     </delete>
     <delete id="deleteTutorInfo">
-        delete from tutor_info where tutor_id = #{user_id}
+        delete FROM TUTOR_INFO where tutor_id = #{user_id}
     </delete>
     <delete id="deleteClass">
-        delete from tutor_class where tutor_id = #{user_id}
+        delete FROM TUTOR_CLASS where tutor_id = #{user_id}
     </delete>
     <delete id="tutorDislike">
-        delete from dislike where tutor_id = #{user_id}
+        delete FROM DISLIKE where tutor_id = #{user_id}
     </delete>
     <select id="checkProfileImg" resultType="string">
-        SELECT profileimg FROM tutor_info WHERE tutor_id = #{user_id} and PROFILEIMG like '%unknown%'
+        SELECT profileimg FROM TUTOR_INFO WHERE tutor_id = #{user_id} and PROFILEIMG like '%unknown%'
     </select>
     <update id="changProfileImg" parameterType="String">
-        UPDATE tutor_info SET profileimg = #{fileName} WHERE tutor_id = #{user_id}
+        UPDATE TUTOR_INFO SET profileimg = #{fileName} WHERE tutor_id = #{user_id}
     </update>
 
     <!-- Tutee Page-->
     <select id="viewTutee" resultType="com.multicampus.topicsation.dto.MyPageDTO">
         SELECT u.user_id, u.name, u.email, u.interest1, u.interest2, u.password
-        FROM user u where u.user_id = #{user_id}
+        FROM USER u where u.user_id = #{user_id}
     </select>
     <update id="modifyTutee" parameterType="com.multicampus.topicsation.dto.MyPageDTO">
-        UPDATE user SET name = #{name}, interest1 = #{interest1}, interest2 = #{interest2} WHERE user_id = #{user_id}
+        UPDATE USER SET name = #{name}, interest1 = #{interest1}, interest2 = #{interest2} WHERE user_id = #{user_id}
     </update>
     <delete id="deleteTutee">
-        delete from user where user_id = #{user_id}
+        delete FROM USER where user_id = #{user_id}
     </delete>
     <update id="cancelSchedule" parameterType="com.multicampus.topicsation.dto.ClassDTO">
-        UPDATE tutor_class SET tutee_id = null where class_id = #{class_id}
+        UPDATE TUTOR_CLASS SET tutee_id = null where class_id = #{class_id}
     </update>
     <update id="chageClass" parameterType="com.multicampus.topicsation.dto.ClassDTO">
-        UPDATE tutor_class SET tutee_id = null where tutee_id = #{tutee_id}
+        UPDATE TUTOR_CLASS SET tutee_id = null where tutee_id = #{tutee_id}
     </update>
     <delete id="tuteeDislike">
-        delete from dislike where tutee_id = #{user_id}
+        delete FROM DISLIKE where tutee_id = #{user_id}
     </delete>
 
     <!-- Schedule -->
     <select id="tuteeProfile" resultType="com.multicampus.topicsation.dto.MypageScheduleDTO">
         SELECT u.user_id, u.name
-        FROM user u where u.user_id = #{user_id}
+        FROM USER u where u.user_id = #{user_id}
     </select>
     <select id="scheduleTutee" resultType="com.multicampus.topicsation.dto.ClassDTO">
         select t.class_id, t.class_date, t.class_time,t.tutee_Id, t.tutor_id,u.name
-        from tutor_class t
+        FROM TUTOR_CLASS t
         inner join USER u on t.tutor_id = u.user_id where t.tutee_Id =#{tutee_id} and t.class_date > NOW() order by t.class_date,t.class_time
     </select>
     <select id="historyTutee" resultType="com.multicampus.topicsation.dto.ClassDTO">
         select t.class_id, t.class_date, t.class_time, u.name, t.url
-        from tutor_class t
+        FROM TUTOR_CLASS t
         inner join USER u on t.tutor_id = u.user_id where t.tutee_Id =#{tutee_id} and  NOW() > t.class_date order by t.class_date asc ,t.class_time asc
     </select>
     <select id="tutorSchedule" parameterType="map" resultType="com.multicampus.topicsation.dto.ClassDTO">
