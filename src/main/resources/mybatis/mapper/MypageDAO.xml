@@ -98,7 +98,7 @@
     <select id="scheduleTutee" resultType="com.multicampus.topicsation.dto.ClassDTO">
         select t.class_id, t.class_date, t.class_time,t.tutee_Id, t.tutor_id,u.name
         FROM TUTOR_CLASS t
-        inner join USER u on t.tutor_id = u.user_id where t.tutee_Id =#{tutee_id} and t.class_date > NOW() order by t.class_date,t.class_time
+        inner join USER u on t.tutor_id = u.user_id where t.tutee_Id =#{tutee_id} and t.class_date >= DATE_FORMAT(NOW(), '%m/%d/%Y') order by t.class_date,t.class_time
     </select>
     <select id="historyTutee" resultType="com.multicampus.topicsation.dto.ClassDTO">
         select t.class_id, t.class_date, t.class_time, u.name, t.url
