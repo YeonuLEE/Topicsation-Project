@@ -165,9 +165,7 @@ public class MyPageController {
         @PostMapping("/{user_id}/passCheck")
         public boolean passCheck(@RequestBody Map<String, String> params, @PathVariable("user_id") String userId) {
             String password = params.get("password");
-            System.out.println(password);
             String hashPass = service.check_password(userId);
-            System.out.println(hashPass);
             return BCrypt.checkpw(password, hashPass);
         }
 
