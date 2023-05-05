@@ -3,10 +3,12 @@ package com.multicampus.topicsation;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.io.*;
 
 @SpringBootApplication
+@EnableScheduling
 //@ComponentScan(basePackages = "com.multicampus.topicsation.aspect")
 public class TopicsationApplication {
 

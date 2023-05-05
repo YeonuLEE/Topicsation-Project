@@ -199,15 +199,18 @@ $(document).ready(function () {
                 test: "test",
             }),
             success: function (data, status) {
+
+                console.log(tagId + "예약완료");
+                alert(tagId+"에 예약되었습니다.");
+
             },
             error: function (data, textStatus) {
                 alert("예약에 실패하였습니다. 다시 시도해 주세요");
-                $("#" + jsonObject.schedule[i].class_time).css("color", "white");
-                $("#" + jsonObject.schedule[i].class_time).css("background-color", "green");
-                $("#" + jsonObject.schedule[i].class_time).css("pointer-events", "auto");
+                $("#" + tagId).css("color", "white");
+                $("#" + tagId).css("background-color", "green");
+                $("#" + tagId).css("pointer-events", "auto");
             },
             complete: function (data, textStatus) {
-                alert(tagId+"에 예약되었습니다.");
             },
         });
     });
