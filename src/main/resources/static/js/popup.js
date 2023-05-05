@@ -37,7 +37,6 @@ $(document).ready(function () {
             },
             error: function (xhr, status, error) {
                 alert("좋아요에 실패했습니다!")
-                console.error(error);
             }
         });
     });
@@ -56,7 +55,6 @@ $(document).ready(function () {
             },
             error: function (xhr, status, error) {
                 alert("싫어요에 실패했습니다!");
-                console.error(error);
             }
         });
     });
@@ -115,7 +113,6 @@ $(document).ready(function () {
                 },
                 error: function (xhr, status, error) {
                     alert("리뷰 등록에 실패했습니다!");
-                    console.error(error);
                 }
             });
         });

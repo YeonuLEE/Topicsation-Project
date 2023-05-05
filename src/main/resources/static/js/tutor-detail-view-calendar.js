@@ -14,7 +14,6 @@ $(document).ready(function () {
         setupHeaderAjax(token)
     }
 
-
     var today = new Date();
     $(".datepicker").datepicker({
         format: "dd-mm-yyyy",
@@ -53,8 +52,6 @@ $(document).ready(function () {
     // 시간 포맷
     var timeFormatted = pad(hours, 2) + ':' + pad(minutes, 2);
 
-    console.log(dateFormatted)
-
     pathURI = window.location.pathname
     const regex = /\/(\d+)$/;
     const match = pathURI.match(regex);
@@ -66,7 +63,7 @@ $(document).ready(function () {
 
     apiUrl = apiUrl.replace("{tutor_id}", number);
     apiUrl = apiUrl + dateFormatted;
-    console.log(apiUrl)
+
     $.ajax({
         type: "GET",
         url: apiUrl,
@@ -75,7 +72,6 @@ $(document).ready(function () {
             getHeaderAjax(xhr)
 
             var jsonObject = JSON.parse(data);
-            console.log(jsonObject);
             var dataBody = $("#reviewCard");
 
             $("#tutor-name").text(jsonObject.tutor_info.name);
@@ -145,8 +141,6 @@ $(document).ready(function () {
         // 시간 포맷
         var timeFormatted = pad(hours, 2) + ':' + pad(minutes, 2);
 
-        console.log(dateFormatted)
-
         apiUrl = "/main/tutors/{tutor_id}/getInfo?calendarDate=";
 
         apiUrl = apiUrl.replace("{tutor_id}", number);
@@ -193,9 +187,6 @@ $(document).ready(function () {
         apiUrl2 = apiUrl2.replace("{tutor_id}", number);
         apiUrl2 = apiUrl2 + "reserve";
 
-        console.log(apiUrl2)
-        console.log(window.location.pathname)
-
         $.ajax({
             url: apiUrl2,
             type: "PUT",
@@ -208,8 +199,10 @@ $(document).ready(function () {
                 test: "test",
             }),
             success: function (data, status) {
+
                 console.log(tagId + "예약완료");
                 alert(tagId+"에 예약되었습니다.");
+
             },
             error: function (data, textStatus) {
                 alert("예약에 실패하였습니다. 다시 시도해 주세요");
@@ -284,8 +277,6 @@ function checkTokenExp(accessToken) {
     var base64Payload = accessToken.split('.')[1]; //value 0 -> header, 1 -> payload, 2 -> VERIFY SIGNATURE
     var payload = atob(base64Payload, 'base64');
     var result = JSON.parse(payload.toString())
-    console.log("Base64 직접 디코딩 : ", result);
-
 
     const expirationTime = result.exp * 1000 // exp는 초 단위이므로 밀리초 단위로 변환
     if (expirationTime < Date.now()) {

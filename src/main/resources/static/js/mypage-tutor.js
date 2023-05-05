@@ -21,11 +21,6 @@ $(document).ready(function () {
         userId = getId(token);
     }
 
-    // var pathURI = window.location.pathname
-    // const regex = /\/mypage\/(\d+)/;
-    // const match = pathURI.match(regex);
-    // const userId= match[1];
-
     var apiUrl1 = "/mypage/{user_id}/get";
     var apiUrl2 = "/mypage/{user_id}";
     var apiUrl3 = "/mypage/{user_id}/schedule";
@@ -33,7 +28,7 @@ $(document).ready(function () {
     apiUrl1 = apiUrl1.replace("{user_id}", userId);
     apiUrl2 = apiUrl2.replace("{user_id}", userId);
     apiUrl3 = apiUrl3.replace("{user_id}", userId);
-    console.log(apiUrl1);
+
     $.ajax({
         type: "GET",
         url: apiUrl1,
@@ -56,7 +51,6 @@ $(document).ready(function () {
             $('#memo').val(jsonObject.memo);
             $('#gender-'+jsonObject.genderRadios).prop('checked',true);
 
-
             name=$("#name").val(jsonObject.name);
             nationality=$('#nationality').val(jsonObject.nationality).prop("selected", true);
             first = $("#first-interest").val(jsonObject.interest1).prop("selected",true);
@@ -72,22 +66,6 @@ $(document).ready(function () {
         complete: function (data, textStatus) {
         },
     });
-
-    // //비밀번호 확인
-    // $("#enter-password").change(function () {
-    //     var pwd1 = $("#enter-password").val().toString();
-    //
-    //     if (password != pwd1) {
-    //         $(".form-control")
-    //             .text("password is different");
-    //         $("#enter-password").attr("class", "form-control is-invalid");
-    //         passwordCheck = false;
-    //     } else {
-    //         $(".form-control").text("");
-    //         $("#enter-password").attr("class", "form-control is-valid");
-    //         passwordCheck = true;
-    //     }
-    // });
 
     var postlink2 = "/mypage/{user_id}/passCheck"
     postlink2 = postlink2.replace("{user_id}", userId);
@@ -126,13 +104,6 @@ $(document).ready(function () {
     });
 
     $("#authenticate").click(function () {
-        // $("#signInForm").button(function () {
-        //     if (!passwordCheck) {
-        //         $("#password").focus();
-        //         return false;
-        //     }
-        //     return true;
-        // });
 
         if(passwordCheck){
             name = $("#name").val();
@@ -218,10 +189,6 @@ $(document).ready(function () {
     });
 
     $("#file").on('change', function (){
-        // var pathURI = window.location.pathname
-        // const regex = /\/mypage\/(\d+)/;
-        // const match = pathURI.match(regex);
-        // const userId= match[1];
         var apiUrl = "/mypage/{user_id}/profileUpdate";
         apiUrl = apiUrl.replace("{user_id}", userId);
 

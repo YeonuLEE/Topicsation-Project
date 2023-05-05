@@ -785,7 +785,7 @@ $(document).ready(function () {
         container: window,
         direction: 'vertical',
         doIn: function () {
-            //alert();
+
         },
         doOut: function () {
             // Do something to the matched elements as they get off scren
@@ -897,7 +897,6 @@ $(document).ready(function () {
 
         var $temp = $('<textarea>');
         $('body').append($temp);
-        console.log(htmlDecoded);
         $temp.val(htmlDecoded).select();
         document.execCommand('copy');
         $temp.remove();

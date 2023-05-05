@@ -29,7 +29,6 @@ $(document).ready(function () {
             type: "GET",
             url: "/mypage/" + userId,
             success: function (data, textStatus, xhr) {
-                console.log("controller return html: " + data)
                 location.href = data
             },
             error: function (xhr, textStatus, errorThrown) {
@@ -48,7 +47,6 @@ $(document).ready(function () {
                 url: '/members/signout',
                 type: 'POST',
                 success: function (data) {
-                    console.log('Signed out successfully');
                     location.href = "/main"
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -70,7 +68,6 @@ $(document).ready(function () {
             type: "GET",
             url: "/mypage/" + userId,
             success: function (data, textStatus, xhr) {
-                console.log("controller return html: " + data)
                 location.href = data
             },
             error: function (xhr, textStatus, errorThrown) {
@@ -86,7 +83,6 @@ $(document).ready(function () {
             type: "GET",
             url: "/mypage/" + userId + "/schedule",
             success: function (data, textStatus, xhr) {
-                console.log("controller return html: " + data)
                 location.href = data
             },
             error: function (xhr, textStatus, errorThrown) {
@@ -102,7 +98,6 @@ $(document).ready(function () {
             type: "GET",
             url: "/mypage/" + userId + "/history",
             success: function (data, textStatus, xhr) {
-                console.log("controller return html: " + data)
                 location.href = data
             },
             error: function (xhr, textStatus, errorThrown) {
