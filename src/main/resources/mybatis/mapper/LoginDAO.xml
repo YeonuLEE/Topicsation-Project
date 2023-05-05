@@ -4,12 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.multicampus.topicsation.repository.ILoginDAO">
     <!--로그인-->
-    <select id="login" resultType="com.multicampus.topicsation.dto.LoginDTO" parameterType="java.util.Map">
-        select email,password, role, user_id FROM USER where email = #{email}
+    <select id="login" resultType="com.multicampus.topicsation.dto.LoginDTO" parameterType="java.lang.String">
+        select email,password, role, user_id FROM USER where BINARY email = #{email}
     </select>
     <!--비밀번호 변경-->
     <update id="changePassword" parameterType="com.multicampus.topicsation.dto.LoginDTO">
-        update USER set password = #{password} where email = #{email}
+        update USER set password = #{password} where BINARY email = #{email}
     </update>
     <!--튜터 인증여부 확인-->
     <select id="checkApproval" parameterType="java.lang.String" resultType="_int">
