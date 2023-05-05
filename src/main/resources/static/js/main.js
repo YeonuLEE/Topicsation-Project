@@ -1,5 +1,6 @@
-import {getHeaderAjax, setupHeaderAjax} from './checkTokenExpiration.js';
+import {getHeaderAjax, setupHeaderAjax, getId} from './checkTokenExpiration.js';
 
+let userId;
 $(document).ready(function () {
 
     const token = sessionStorage.getItem('accessToken');
@@ -7,7 +8,12 @@ $(document).ready(function () {
     // nullPointerException 예방
     if(token != null){
         // access token 만료 기간 검증 및 req header에 삽입
-        setupHeaderAjax(token)
+        setupHeaderAjax(token);
+        userId = getId(token);
+        console.log(userId);
+    }else {
+        userId = 'default';
+        console.log(userId);
     }
 
     // $("#mypage-btn").click(function () {
@@ -31,6 +37,7 @@ $(document).ready(function () {
     $.ajax({
         url: ajaxURI,
         type: "GET",
+        data : {userId : userId},
         async:false,
         success: function (data, status, xhr) {
 

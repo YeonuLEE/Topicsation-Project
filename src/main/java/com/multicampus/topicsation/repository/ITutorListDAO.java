@@ -17,7 +17,7 @@ public interface ITutorListDAO {
 
     // 튜터 추천 메서드
     MemberDTO tuteeInterest(String user_id);
-    List<RecommendDTO> recommendList(String interest1, String interest2);
-    List<RecommendDTO> spareList(String interest);
+    List<RecommendDTO> recommendList(String user_id,String interest1, String interest2);
+    List<RecommendDTO> spareList(String user_id,String interest);
     List<RecommendDTO> nonMembers();
 }
