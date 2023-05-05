@@ -25,7 +25,7 @@ import java.util.Random;
 public class MemberManageController {
 
     @Autowired
-    ISignUpService signUpService;
+    private ISignUpService signUpService;
 
     @Autowired
     private IMemberManageService memberManageservice;
@@ -56,7 +56,7 @@ public class MemberManageController {
     }
 
     @GetMapping("/signup/email")
-    public String emailAuth() throws Exception {
+    public String emailAuth() {
         return "html/Email-Token";
     }
 
@@ -74,16 +74,6 @@ public class MemberManageController {
 
         public MemberManageRestController(JwtUtils jwtUtils) {
             this.jwtUtils = jwtUtils;
-        }
-
-        @PostMapping("/signup-tutees.post")
-        public String signUpTutee(@RequestBody SignUpDTO signUpDTO) {
-            boolean result = signUpService.signUpProcess(signUpDTO);
-            if (result) {
-                return signUpDTO.getEmail();
-            } else {
-                return "signupFail";
-            }
         }
 
         @PostMapping("/signin.post")
@@ -158,22 +148,13 @@ public class MemberManageController {
             }
         }
 
-        @PostMapping("/email.send")
-        public String emailAuth(@RequestBody MailDTO mailDTO) {
-            boolean result;
-            Random random = new Random();
-            String authKey = String.valueOf(random.nextInt(888888) + 111111); // 범위: 111111~999999
-
-            mailDTO.setTitle("TOPICSATION 인증코드입니다.");
-            mailDTO.setMessage("인증코드: " + authKey);
-
-            result = signUpService.sendMail(mailDTO);
-
-            if(result){
-                return authKey;
-            }
-            else {
-                return "sendFail";
+        @PostMapping("/signup-tutees.post")
+        public String signUpTutee(@RequestBody SignUpDTO signUpDTO) {
+            boolean result = signUpService.signUpProcess(signUpDTO);
+            if (result) {
+                return signUpDTO.getEmail();
+            } else {
+                return "signupFail";
             }
         }
 
@@ -208,6 +189,25 @@ public class MemberManageController {
                 return new ResponseEntity <String> (signUpDTO.getEmail(), HttpStatus.OK);
             } else {
                 return new ResponseEntity <String> ("signupFail", HttpStatus.OK);
+            }
+        }
+
+        @PostMapping("/email.send")
+        public String emailAuth(@RequestBody MailDTO mailDTO) {
+            boolean result;
+            Random random = new Random();
+            String authKey = String.valueOf(random.nextInt(888888) + 111111); // 범위: 111111~999999
+
+            mailDTO.setTitle("TOPICSATION 인증코드입니다.");
+            mailDTO.setMessage("인증코드: " + authKey);
+
+            result = signUpService.sendMail(mailDTO);
+
+            if(result){
+                return authKey;
+            }
+            else {
+                return "sendFail";
             }
         }
 
