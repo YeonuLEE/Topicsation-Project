@@ -34,18 +34,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.1.0'
 
-    // mapper
-    implementation 'org.modelmapper:modelmapper:3.1.0'
-
     // validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
     //JSON
     implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
-
-    //Security
-//    implementation 'org.springframework.boot:spring-boot-starter-security'
-//    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 
     //JWT
     implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
@@ -54,9 +47,6 @@ dependencies {
 
     //Mail
     implementation 'org.springframework.boot:spring-boot-starter-mail'
-
-    //Redis
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
     //JBCrypt
     implementation group: 'org.mindrot', name: 'jbcrypt', version: '0.4'
