@@ -3,21 +3,13 @@ import { setupHeaderAjax, getId, getHeaderAjax} from './checkTokenExpiration.js'
 $(document).ready(function () {
 
     const token = sessionStorage.getItem('accessToken');
-    let userId
-    console.log(token)
+    let userId;
 
     if(token != null){
         // access token 만료 기간 검증 및 req header에 삽입
         setupHeaderAjax(token)
         userId = getId(token);
     }
-
-
-
-    // var pathURI = window.location.pathname
-    // const regex = /\/mypage\/(\d+)\/history/;
-    // const match = pathURI.match(regex);
-    // const userId= match[1];
 
     var apiUrl1 = "/mypage/{user_id}/history/get";
     var apiUrl2 = "/mypage/{user_id}";
@@ -59,7 +51,6 @@ $(document).ready(function () {
                     .append($("<a>", {href: tutee.memo2, text: tutee.memo2}))
                     .append($("<br>"))
                     .append($("<a>", {href: tutee.memo3, text: tutee.memo3}));
-                console.log(tutee.memo1);
 
                 tr.append(tno);
                 tr.append(classdate);

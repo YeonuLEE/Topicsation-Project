@@ -5,7 +5,6 @@ $(document).ready(function () {
 
     // token 꺼내오기
     const token = sessionStorage.getItem('accessToken');
-    console.log("mypage.js 전달 토큰: "+token);
 
     // access token 만료 기간 검증 및 req header에 삽입
     if(token != null){
@@ -28,7 +27,6 @@ $(document).ready(function () {
 
             $("#manage-tutor").attr("href","/mypage/admin");
 
-            console.log(data);
             var tbody = $("#spare-tutor");
             for (var i = 0; i < data.length; i++) {
                 var spare = data[i];
@@ -47,14 +45,12 @@ $(document).ready(function () {
                     console.log("패턴에 일치하는 값이 없습니다.");
                 }
                 userFile = userFile+".pdf"; // 파일 이름
-                console.log(userFile);
                 var file = $("<td><a>")
                     .text(userFile)
                     .attr("id",spare.file)
                     .on("click",function (){
                         var url = "/mypage/download/{fileName}";
                         url = url.replace("{fileName}",userFile);
-                        console.log(url);
 
                         $.ajax({
                             url: url, // Spring Boot 애플리케이션의 다운로드 엔드포인트 URL

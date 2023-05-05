@@ -5,19 +5,12 @@ let userId
 $(document).ready(function () {
 
     const token = sessionStorage.getItem('accessToken');
-    console.log(token)
 
     // access token 만료 기간 검증 및 req header에 삽입
     if(token != null){
         setupHeaderAjax(token)
         userId = getId(token);
     }
-
-
-    // var pathURI = window.location.pathname
-    // const regex = /\/mypage\/(\d+)\/schedule/;
-    // const match = pathURI.match(regex);
-    // const userId= match[1];
 
     var apiUrl1 = "/mypage/{user_id}/schedule/get";
     var apiUrl2 = "/mypage/{user_id}";

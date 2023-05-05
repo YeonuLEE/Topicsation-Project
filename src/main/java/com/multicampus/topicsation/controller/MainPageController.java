@@ -54,10 +54,10 @@ public class MainPageController {
         SearchService searchService;
 
         @GetMapping("/get")
-        public String main() {
-            String userId = "";
+        public String main(@RequestParam("userId") String userId) {
+            System.out.println(userId);
             List<RecommendDTO> list;
-            if(!userId.isEmpty() && userId.equals("")){
+            if(!userId.equals("default")){
                 list = tutorListService.recommend(userId);
             }else {
                 list = tutorListService.Non_members();
