@@ -174,6 +174,39 @@ $(document).ready(function () {
             saveSchedule(postUrl, dateFormatted);
         })
     });
+
+    $(document).on('click', '.admission-btn', function () {
+        var classId = $(this).attr("id");
+        var admission_link = "http://localhost:3000" + link + classId + "?token=" + token;
+        const currentTime = new Date();
+
+        const dateStr = classId.substring(classId.indexOf('_') + 1, classId.indexOf('_') + 11);
+        const year = dateStr.substring(0, 4);
+        const month = dateStr.substring(5, 7) - 1; // 월은 0부터 시작하므로 1을 뺍니다.
+        const date = dateStr.substring(8, 10);
+
+        const timeStr = classId.substring(classId.indexOf('_') + 12, classId.indexOf('_') + 16);
+        const hours = timeStr.substring(0, 2);
+        const minutes = timeStr.substring(2, 4);
+
+// Date 객체를 생성합니다.
+        const classDate = new Date(year, month, date, hours, minutes);
+
+        const timeDiff = (currentTime.getTime() - classDate.getTime()) / (1000 * 60);
+
+        if(timeDiff < -30) {
+            alert("수업 시작 전입니다.");
+            return false;
+        }
+        else if(timeDiff > 30) {
+            alert("수업이 종료되었습니다.");
+            return false;
+        }
+        else {
+            alert("수업 입장");
+            location.href = admission_link;
+        }
+    });
 });
 
 function saveSchedule(postUrl, dateFormatted) {
@@ -248,8 +281,6 @@ function pad(num, size) {
 }
 
 function scheduleList(jsonObject, i, tbody) {
-    var admission_link = "http://localhost:3000" + link + jsonObject.schedule[i].class_id + "?token=" + token;
-
     if (jsonObject.schedule[i].tutee_id) {
         var tr = $("<tr>");
         var tno = $("<td>").attr("scope", "row").css("text-align", "center").text(count++);
@@ -257,9 +288,9 @@ function scheduleList(jsonObject, i, tbody) {
         var booking_tutee = $("<td>").css("text-align", "center").text(jsonObject.schedule[i].name);
         var admission_td = $("<td>").css("text-align", "center");
         var admission_div = $("<div>").css("text-align", "center");
-        var admission_a = $("<a>").attr("href", admission_link)
-            .addClass("btn btn-primary")
-            .attr("id", "admission-btn")
+        var admission_a = $("<button>")
+            .addClass("btn btn-primary admission-btn")
+            .attr("id", jsonObject.schedule[i].class_id)
             .text("Admission to class")
             .css("display", "inline-block");
         admission_div.append(admission_a);
