@@ -189,12 +189,12 @@ $(document).ready(function () {
         const hours = timeStr.substring(0, 2);
         const minutes = timeStr.substring(2, 4);
 
-// Date 객체를 생성합니다.
+        // Date 객체를 생성합니다.
         const classDate = new Date(year, month, date, hours, minutes);
 
         const timeDiff = (currentTime.getTime() - classDate.getTime()) / (1000 * 60);
 
-        if(timeDiff < -30) {
+        if(timeDiff < 0 || timeDiff < -30) {
             alert("수업 시작 전입니다.");
             return false;
         }
@@ -202,8 +202,8 @@ $(document).ready(function () {
             alert("수업이 종료되었습니다.");
             return false;
         }
-        else {
-            alert("수업 입장");
+        else if(timeDiff > 0 && timeDiff < 30) {
+            // alert("수업 입장");
             location.href = admission_link;
         }
     });
