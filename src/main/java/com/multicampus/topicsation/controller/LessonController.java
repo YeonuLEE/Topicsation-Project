@@ -1,17 +1,12 @@
 package com.multicampus.topicsation.controller;
 
 import com.multicampus.topicsation.service.ILessonService;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/lesson")
@@ -34,42 +29,23 @@ public class LessonController {
     @RequestMapping("/lesson")
     public class LessonRestController {
 
-        @PostMapping("/{lesson_id}/newsView")
-        public String lesson(@RequestBody JSONObject jsonObject) {
-            String news = jsonObject.get("$testNews1").toString();
-            return news;
-        }
-
         @PutMapping("/{lesson_id}/evaluate.do")
-        public int evaluateTutor(@RequestBody JSONObject jsonObject) {
-
-            String evaluate = jsonObject.get("$evaluate").toString();
-            String lessonId = jsonObject.get("$lesson_id").toString();
-
-            return lessonService.evaluateService(evaluate, lessonId);
+        public int evaluateTutor(@RequestBody Map<String,String> evaluateInfo) {
+            return lessonService.evaluateService(evaluateInfo);
         }
 
         @PostMapping("/{lesson_id}/evaluate.review")
-        public int reviewRegister(@RequestBody JSONObject jsonObject) {
-
-            String review_content = jsonObject.get("$review_content").toString();
-            String lessonId = jsonObject.get("$lesson_id").toString();
-
-            return lessonService.reviewService(review_content, lessonId);
+        public int reviewRegister(@RequestBody Map<String,String> reviewInfo) {
+            return lessonService.reviewService(reviewInfo);
         }
 
         @GetMapping("/{lesson_id}/getNews")
         public ResponseEntity<Object> getNews(@PathVariable String lesson_id) throws ParseException {
-
-            System.out.println("레슨 아이디 : " + lesson_id);
-            JSONObject jsonObject = lessonService.getNewsService(lesson_id);
-
-            return ResponseEntity.ok(jsonObject);
+            return ResponseEntity.ok(lessonService.getNewsService(lesson_id));
         }
 
         @GetMapping("/{lesson_id}/getMembers")
         public ResponseEntity<Object> getMembers(@PathVariable String lesson_id) {
-
             return ResponseEntity.ok(lessonService.getMembersService(lesson_id));
         }
     }

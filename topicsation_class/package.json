@@ -1,7 +1,7 @@
 {
-  "name": "zoom",
+  "name": "Video chatting",
   "version": "1.0.0",
-  "description": "Zoom Clone using WebRTC and Websockets",
+  "description": "Video chatting using WebRTC and Websockets",
   "license": "MIT",
   "scripts": {
     "dev": "nodemon"

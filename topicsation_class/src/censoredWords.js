@@ -4,9 +4,6 @@
 // https://github.com/2Toad/Profanity
 
 export function filtering(msg, ac){
-
-    console.time('filtering_time');
-
     // 단순 비교 사용
     // wordsToCensor.forEach((word) => { // 트라이(Trie)나 아호-코라식(Aho-Corasick) 알고리즘으로 대체 고려 >> 시간 측정해서 성능 향상 스토리 짜자
     //     const regex = new RegExp(word, 'gi'); // 정규표현식 객체 생성, g는 전역, i는 대소문자 구분 없이
@@ -14,24 +11,12 @@ export function filtering(msg, ac){
     //     msg = msg.replace(regex, replacement)
     // })
 
-    //아호코라식 사용
-    // const ac = new AhoCorasick();
-    //
-    // wordsToCensor.forEach((pattern) => ac.insert(pattern));
-    // ac.buildFailureLinks();
-
     const matches = ac.search(msg);
-    console.log("검열 리스트 : " , matches);
     if (matches.length != 0){
         const replacement = '*'.repeat(matches[0].length);
         msg = msg.replace(matches[0], replacement)
     }
-
-
-    console.timeEnd('filtering_time');
-
     return msg;
-    // return matches[0];
 }
 
 // 트라이 자료구조의 노드를 구현하는 클래스
@@ -92,7 +77,6 @@ export class AhoCorasick {
         let currentNode = this.root; // 항상 시작은 루트 노드부터
 
         for (let i = 0; i < text.length; i++) {
-            console.log("순회 하긴 하나?")
             const ch = text[i]; // 문자열의 문자를 하나하나 순회, 이하 ch
 
             while (currentNode && !currentNode.children[ch]) { // 현재 노드가 존재하고 현재 노드의 자식 중에서 ch가 없을 때까지 반복 >> 자식 중에 ch가 있으면 탈출

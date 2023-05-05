@@ -1,6 +1,3 @@
-var testNews1 =
-  '{"content":"SEOUL, April 15 (Yonhap) -- South Korea, the United States and Japan agreed to hold missile defense and anti-submarine drills regularly to counter growing North Korean threats during their senior-level defense talks in Washington earlier this week, Seouls defense ministry said Saturday.They reached the agreement at a session of the Defense Trilateral Talks (DTT) on Friday (Washington time), amid tensions caused by Pyongyangs recent weapons tests, including that of what it claims to be a solid-fuel Hwasong-18 intercontinental ballistic missile (ICBM) on Thursday"}';
-
 $(document).ready(function () {
   var apiUrl = "http://localhost:8081/lesson/{lesson_id}";
   var classId = window.location.pathname.split("/").pop(); // /class/456
@@ -18,7 +15,7 @@ $(document).ready(function () {
     type:"GET",
     async:false,
     url: apiUrl+"/getNews",
-    success: function (data, textStatus) {
+    success: function (data, status) {
       // 데이터 받는 과정
       todayNews = data.today
       // today 삭제
@@ -46,7 +43,6 @@ $(document).ready(function () {
     },
     complete: function (data, textStatus) {},
   })
-
 
   // 오늘의 뉴스 내용 띄우기
   $("#todayNewsBtn").click(function () {

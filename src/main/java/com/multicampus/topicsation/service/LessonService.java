@@ -49,18 +49,20 @@ public class LessonService implements ILessonService{
 
         // 카테고리만 뽑아내기
         Set<String> interestsSet = new HashSet<>(topTwo.keySet());
+        // today 카테고리 추가
         interestsSet.add("today");
 
-        // 카테고리 해당하는 뉴스 두개 가져오기
+        // 카테고리 해당하는 뉴스 가져오기
         List<NewsDTO> newsDTOList = lessonDAO.getNewsDAO(interestsSet);
 
-        JSONObject jsonObject = new JSONObject();
+        JSONObject resultJsonObject = new JSONObject();
         List<String> urlList = new ArrayList<>();
         for(NewsDTO newsDTO : newsDTOList){
             String category = newsDTO.getCategory();
             String newsJsonString = newsDTO.getNewsJson();
             JSONObject newsJson = (JSONObject) jsonParser.parse(newsJsonString); // 파싱
 
+            // TUTOR_CLASS table에 URL 추가하기
             String newsUrl = (String) newsJson.get("url"); //url 추출
 
             urlList.add(newsUrl);
@@ -71,28 +73,34 @@ public class LessonService implements ILessonService{
             params.put("param2", result);
             lessonDAO.setURL(params);
 
-            jsonObject.put(category, newsJson);
+            resultJsonObject.put(category, newsJson);
         }
-        System.out.println("뉴스!: "+ jsonObject);
 
-        // 뉴스 세개 JSONArray에 담아서 return
-        return jsonObject;
+        // 뉴스 세개 JSONObject에 담아서 return
+        return resultJsonObject;
     }
 
     @Override
-    public int evaluateService(String likeOrDislike, String classId) {
+    public int evaluateService(Map<String,String> evaluateInfo) {
+
+        String likeOrDislike = evaluateInfo.get("$evaluate").toString();
+        String lessonId = evaluateInfo.get("$lesson_id").toString();
+
         if(likeOrDislike.equals("like")){
-            return lessonDAO.likeDAO(classId);
+            return lessonDAO.likeDAO(lessonId);
         }else if(likeOrDislike.equals("dislike")){
-            return lessonDAO.dislikeDAO(classId);
+            return lessonDAO.dislikeDAO(lessonId);
         }
-        System.out.println("service 실패");
         return 0;
     }
 
     @Override
-    public int reviewService(String review_content, String classId) {
-        return lessonDAO.reviewDAO(review_content, classId);
+    public int reviewService(Map<String,String> reviewInfo) {
+
+        String review_content = reviewInfo.get("$review_content").toString();
+        String lessonId = reviewInfo.get("$lesson_id").toString();
+
+        return lessonDAO.reviewDAO(review_content, lessonId);
     }
 
     @Override
