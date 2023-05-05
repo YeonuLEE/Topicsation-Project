@@ -103,28 +103,6 @@ $(document).ready(function () {
             });
     });
 
-// 프로필 사진 수정
-    $("#profile-img").hover(
-        function () {
-            // $(this).attr("src","./image/p002.jpg");
-            $(this).css("opacity", 0.3);
-            // $(".profile-text").css("position","absolute")
-        },
-        function () {
-            $(this).css("opacity", 1);
-        }
-    );
-
-// 사진 업로드 기능
-    $("#profileImgButton").click(function () {
-        $("#file").click();
-        $("#profileImgButton").blur();
-    });
-
-    function uploadFile(e) {
-        console.log("File Name : ", e.value);
-    }
-
     $("#signUpForm").on('submit', function (event) {
 // 유효성 검사 실패시 제출 안되게 하기
         if (!emailCheck) {

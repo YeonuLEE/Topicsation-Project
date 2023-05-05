@@ -43,14 +43,7 @@ $(document).ready(function () {
     // 시간 포맷
     var timeFormatted = pad(hours, 2) + ':' + pad(minutes, 2);
 
-
-    // uri 지정
-    // var pathURI = window.location.pathname
-    // const regex = /\/mypage\/(\d+)\/schedule/;
-    // const match = pathURI.match(regex);
     if (userId) {
-        //if ( match && match[1] )
-        // userId = match[1]; <-- 연우한테 물어보기
 
         var apiUrl2 = "/mypage/{user_id}";
         var apiUrl3 = "/mypage/{user_id}/schedule";
@@ -75,7 +68,6 @@ $(document).ready(function () {
         success: function (data, status, xhr) {
             getHeaderAjax(xhr)
 
-            // var jsonObject = JSON.parse(JSON.stringify(data));
             var jsonObject = JSON.parse(data);
 
             $("#information").attr("href", apiUrl2);
@@ -138,12 +130,7 @@ $(document).ready(function () {
         // 시간 포맷
         var timeFormatted = pad(hours, 2) + ':' + pad(minutes, 2);
 
-        // var pathURI = window.location.pathname
-        // const regex = /\/mypage\/(\d+)\/schedule/;
-        // const match = pathURI.match(regex);
         if (userId) {
-            // if (match && match[1])
-            // const userId = match[1];
 
             var apiUrl2 = "/mypage/{user_id}";
             var apiUrl3 = "/mypage/{user_id}/schedule";
@@ -239,7 +226,6 @@ function saveSchedule(postUrl, dateFormatted) {
             if(data === "success") {
                 $("#modal-default").modal('hide');
                 location.reload()
-                // $("#enter-password").val("");
             }
             else{
                 $("#modal-data").text("Invalid Password.").attr("class", "form-control is-invalid");
@@ -331,9 +317,7 @@ function setupHeader(token) {
 function checkTokenExp(accessToken) {
     var base64Payload = accessToken.split('.')[1]; //value 0 -> header, 1 -> payload, 2 -> VERIFY SIGNATURE
     var payload = atob(base64Payload, 'base64');
-    var result = JSON.parse(payload.toString())
-    console.log("Base64 직접 디코딩 : ", result);
-
+    var result = JSON.parse(payload.toString());
 
     const expirationTime = result.exp * 1000 // exp는 초 단위이므로 밀리초 단위로 변환
     if (expirationTime < Date.now()) {

@@ -21,11 +21,6 @@ $(document).ready(function () {
         userId = getId(token);
     }
 
-    // var pathURI = window.location.pathname
-    // const regex = /\/mypage\/(\d+)/;
-    // const match = pathURI.match(regex);
-    // const userId= match[1];
-
     var apiUrl1 = "/mypage/{user_id}/get";
     var apiUrl2 = "/mypage/{user_id}";
     var apiUrl3 = "/mypage/{user_id}/schedule";
@@ -33,7 +28,7 @@ $(document).ready(function () {
     apiUrl1 = apiUrl1.replace("{user_id}", userId);
     apiUrl2 = apiUrl2.replace("{user_id}", userId);
     apiUrl3 = apiUrl3.replace("{user_id}", userId);
-    console.log(apiUrl1);
+
     $.ajax({
         type: "GET",
         url: apiUrl1,
@@ -55,7 +50,6 @@ $(document).ready(function () {
             $('#second-interest').val(jsonObject.interest2).prop("selected", true);
             $('#memo').val(jsonObject.memo);
             $('#gender-'+jsonObject.genderRadios).prop('checked',true);
-
 
             name=$("#name").val(jsonObject.name);
             nationality=$('#nationality').val(jsonObject.nationality).prop("selected", true);
@@ -140,6 +134,7 @@ $(document).ready(function () {
         });
     });
 
+
     $("#reset").click(function (){
         $("#cancel-reservation-message").val("");
     });
@@ -187,10 +182,6 @@ $(document).ready(function () {
     });
 
     $("#file").on('change', function (){
-        // var pathURI = window.location.pathname
-        // const regex = /\/mypage\/(\d+)/;
-        // const match = pathURI.match(regex);
-        // const userId= match[1];
         var apiUrl = "/mypage/{user_id}/profileUpdate";
         apiUrl = apiUrl.replace("{user_id}", userId);
 

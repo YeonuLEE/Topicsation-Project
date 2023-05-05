@@ -1,5 +1,6 @@
-import {getHeaderAjax, setupHeaderAjax} from './checkTokenExpiration.js';
+import {getHeaderAjax, setupHeaderAjax, getId} from './checkTokenExpiration.js';
 
+let userId;
 $(document).ready(function () {
 
     const token = sessionStorage.getItem('accessToken');
@@ -7,30 +8,28 @@ $(document).ready(function () {
     // nullPointerException 예방
     if(token != null){
         // access token 만료 기간 검증 및 req header에 삽입
-        setupHeaderAjax(token)
+        setupHeaderAjax(token);
+        userId = getId(token);
+        console.log(userId);
+    }else {
+        userId = 'default';
+        console.log(userId);
     }
-
-    // $("#mypage-btn").click(function () {
-    //     location.href = "/mypage/admin";
-    // });
 
     // main 관련
     var pathURI = window.location.pathname
     var ajaxURI;
 
-    console.log(pathURI);
-
     if (pathURI == '/main') {
         ajaxURI = pathURI + "/get";
-        console.log("ajaxURI :", ajaxURI);
     } else if (pathURI == '/main/search-all') {
         ajaxURI = pathURI + ".get";
-        console.log("ajaxURI :", ajaxURI);
     }
 
     $.ajax({
         url: ajaxURI,
         type: "GET",
+        data : {userId : userId},
         async:false,
         success: function (data, status, xhr) {
 
@@ -42,12 +41,9 @@ $(document).ready(function () {
 
             if (ajaxURI == '/main/get') {
                 jsonData = JSON.parse(data);
-                console.log(jsonData);
                 dataBody = $("#tutor-card");
             } else {
                 jsonData = JSON.parse(data);
-                console.log(jsonData);
-                console.log(jsonData.length)
                 dataBody = $("#tutor-card");
             }
 
@@ -119,7 +115,6 @@ $(document).ready(function () {
                     text: "#" + person.interest2
                 })
 
-
                 dataBody.append(div1);
                 div1.append(div2);
                 div2.append(div3);
@@ -150,8 +145,6 @@ $("#search-form").submit(function (event) {
     var interest = $('#search-interest').val();
     var date = $('#reservate-date').val();
 
-    console.log(name + " " + interest + " " + date);
-
     var apiUrl = "/main/search-all/search?name=" + name + "&interest=" + interest + "&date=" + date;
 
     $.ajax({
@@ -159,7 +152,6 @@ $("#search-form").submit(function (event) {
         type: "GET",
         success: function (data) {
             var jsonData = JSON.parse(data);
-            console.log(jsonData);
             var dataBody = $("#tutor-card");
 
             dataBody.empty();
@@ -264,22 +256,3 @@ $("#search-form").submit(function (event) {
         }
     });
 })
-
-
-
-//myPage
-// $("#mypage-btn").click(function () {
-//
-//     location.href = "/mypage/1"
-// })
-
-// $(window).on('load', function() {
-//     var token = sessionStorage.getItem('token');
-//     if (token != null) {
-//         $.ajaxSetup({
-//             beforeSend: function(xhr) {
-//                 xhr.setRequestHeader('Authorization', 'Bearer ' + token);
-//             }
-//         });
-//     }
-// });

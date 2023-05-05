@@ -12,4 +12,5 @@ public interface ILoginDAO {
     LoginDTO login(Map<String, String> map); //로그인
     int changePassword(LoginDTO loginDTO); //비밀번호 변경
     int checkApproval(String userId); //튜터 승인여부 확인
+    int deleteUnauthenticatedUsers();
 }

@@ -54,10 +54,10 @@ public class MainPageController {
         SearchService searchService;
 
         @GetMapping("/get")
-        public String main() {
-            String userId = "";
+        public String main(@RequestParam("userId") String userId) {
+            System.out.println(userId);
             List<RecommendDTO> list;
-            if(!userId.isEmpty() && userId.equals("")){
+            if(!userId.equals("default")){
                 list = tutorListService.recommend(userId);
             }else {
                 list = tutorListService.Non_members();
@@ -194,7 +194,7 @@ public class MainPageController {
         }
 
         @PutMapping("/tutors/{tutor_id}/reserve")
-        public String tutors(@RequestBody JSONObject jsonObject) {
+        public ResponseEntity<Void> tutors(@RequestBody JSONObject jsonObject) {
 
             String tuteeId = jsonObject.get("$tutee_id").toString();
             String tutorId = jsonObject.get("$tutor_id").toString();
@@ -217,9 +217,9 @@ public class MainPageController {
             result_update = tutorListService.ClassReserve(paramMap);
 
             if(result_update == true)
-                return "success";
+                return ResponseEntity.ok().build();
             else
-                return "fail";
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }

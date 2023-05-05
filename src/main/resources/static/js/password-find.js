@@ -15,7 +15,6 @@ $(document).ready(function () {
                 success: function (data, status) {
                     $("#emailCheck").text("Check your Email!")
                     $("#enter-password").attr("class", "form-control is-valid");
-                    console.log(data)
 
                     $.ajax({
                         type: "POST",
