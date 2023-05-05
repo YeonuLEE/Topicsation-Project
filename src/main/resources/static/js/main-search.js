@@ -59,17 +59,17 @@ function searchGet(page){
                     id: imgId
                 });
 
-                var div5 = $("<div>", {class: "col-12 col-lg-6 col-xl-7"});
+                var div5 = $("<div>", {class: "col-12 col-lg-6 col-xl-8"});
 
                 var div6 = $("<div>", {class: "card-body"});
                 var div7 = $("<div>", {class: "mb-3"});
 
                 var span1 = $("<span>", {
-                        class: "h5 mb-3 mr-6",
+                        class: "h5 mb-3",
                         text: person.name
                     }
                 )
-
+                var heartSpan = $("<span>", {style: "float: right"})
                 var svg = $("<svg>", {
                     xmlns: "http://www.w3.org/2000/svg",
                     width: "200",
@@ -117,8 +117,9 @@ function searchGet(page){
                 div6.append(div7);
                 div7.append(a2);
                 a2.append(span1);
-                a2.append('<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#dc143c" class="bi bi-heart-fill mr-2" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/></svg>');
-                a2.append(span2);
+                a2.append(heartSpan);
+                heartSpan.append('<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#dc143c" class="bi bi-heart-fill mr-2" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/></svg>');
+                heartSpan.append(span2);
                 div6.append(div8);
                 div8.append(span3);
                 div8.append(span4);
