@@ -7,11 +7,11 @@ import sys
 import time
 
 cnx = mysql.connector.connect(
-    host="localhost",
+    host="115.85.181.151",
     port="3306",
-    user="webuser",
-    password="webuser",
-    database="webdb"
+    user="topicsation",
+    password="wcr0516",
+    database="TopicsationDB"
 )
 
 cursor = cnx.cursor()
@@ -161,7 +161,7 @@ def save_news_to_database(data):
             continue
 
         newsjson = json.dumps(category_value, ensure_ascii=False)
-        update_query = f"UPDATE news_suggestion SET newsjson = %s WHERE news_id = %s"
+        update_query = f"UPDATE NEWS_SUGGESTION SET newsjson = %s WHERE news_id = %s"
         cursor.execute(update_query, (newsjson, news_id))
 
     cnx.commit()
