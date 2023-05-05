@@ -20,14 +20,10 @@ $(document).ready(function () {
     var pathURI = window.location.pathname
     var ajaxURI;
 
-    console.log(pathURI);
-
     if (pathURI == '/main') {
         ajaxURI = pathURI + "/get";
-        console.log("ajaxURI :", ajaxURI);
     } else if (pathURI == '/main/search-all') {
         ajaxURI = pathURI + ".get";
-        console.log("ajaxURI :", ajaxURI);
     }
 
     $.ajax({
@@ -45,12 +41,9 @@ $(document).ready(function () {
 
             if (ajaxURI == '/main/get') {
                 jsonData = JSON.parse(data);
-                console.log(jsonData);
                 dataBody = $("#tutor-card");
             } else {
                 jsonData = JSON.parse(data);
-                console.log(jsonData);
-                console.log(jsonData.length)
                 dataBody = $("#tutor-card");
             }
 
@@ -122,7 +115,6 @@ $(document).ready(function () {
                     text: "#" + person.interest2
                 })
 
-
                 dataBody.append(div1);
                 div1.append(div2);
                 div2.append(div3);
@@ -153,8 +145,6 @@ $("#search-form").submit(function (event) {
     var interest = $('#search-interest').val();
     var date = $('#reservate-date').val();
 
-    console.log(name + " " + interest + " " + date);
-
     var apiUrl = "/main/search-all/search?name=" + name + "&interest=" + interest + "&date=" + date;
 
     $.ajax({
@@ -162,7 +152,6 @@ $("#search-form").submit(function (event) {
         type: "GET",
         success: function (data) {
             var jsonData = JSON.parse(data);
-            console.log(jsonData);
             var dataBody = $("#tutor-card");
 
             dataBody.empty();

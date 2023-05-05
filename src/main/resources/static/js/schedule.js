@@ -226,7 +226,6 @@ function saveSchedule(postUrl, dateFormatted) {
             if(data === "success") {
                 $("#modal-default").modal('hide');
                 location.reload()
-                // $("#enter-password").val("");
             }
             else{
                 $("#modal-data").text("Invalid Password.").attr("class", "form-control is-invalid");
@@ -318,9 +317,7 @@ function setupHeader(token) {
 function checkTokenExp(accessToken) {
     var base64Payload = accessToken.split('.')[1]; //value 0 -> header, 1 -> payload, 2 -> VERIFY SIGNATURE
     var payload = atob(base64Payload, 'base64');
-    var result = JSON.parse(payload.toString())
-    console.log("Base64 직접 디코딩 : ", result);
-
+    var result = JSON.parse(payload.toString());
 
     const expirationTime = result.exp * 1000 // exp는 초 단위이므로 밀리초 단위로 변환
     if (expirationTime < Date.now()) {

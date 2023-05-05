@@ -36,12 +36,10 @@ function searchGet(page){
             dataBody.empty();
             for (var i = 0; i < all_list.length; i++) {
                 var person = all_list[i];
-                console.log(person);
                 var link = "/main/tutors/";
                 var imgSrc = "/assets/img/profile/";
                 var imgId = "tutor-img";
 
-                console.log(person.user_id);
                 link = link + person.user_id;
                 imgSrc = imgSrc + person.tutor_image;
                 imgId = imgId + person.user_id;

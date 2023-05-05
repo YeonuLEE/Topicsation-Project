@@ -5,7 +5,6 @@ let userId
 $(document).ready(function () {
 
     const token = sessionStorage.getItem('accessToken');
-    console.log(token)
 
     // access token 만료 기간 검증 및 req header에 삽입
     if(token != null){

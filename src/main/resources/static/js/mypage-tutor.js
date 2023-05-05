@@ -28,7 +28,7 @@ $(document).ready(function () {
     apiUrl1 = apiUrl1.replace("{user_id}", userId);
     apiUrl2 = apiUrl2.replace("{user_id}", userId);
     apiUrl3 = apiUrl3.replace("{user_id}", userId);
-    console.log(apiUrl1);
+
     $.ajax({
         type: "GET",
         url: apiUrl1,
@@ -50,7 +50,6 @@ $(document).ready(function () {
             $('#second-interest').val(jsonObject.interest2).prop("selected", true);
             $('#memo').val(jsonObject.memo);
             $('#gender-'+jsonObject.genderRadios).prop('checked',true);
-
 
             name=$("#name").val(jsonObject.name);
             nationality=$('#nationality').val(jsonObject.nationality).prop("selected", true);
