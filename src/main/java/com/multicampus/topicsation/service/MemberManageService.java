@@ -26,7 +26,7 @@ public class MemberManageService implements IMemberManageService {
     private final ILoginDAO loginDao;
 
     @Autowired
-    private final ISignUpDAO checkDao;
+    private final ISignUpDAO signUpDao;
 
     @Autowired
     private JavaMailSender mailSender;
@@ -45,8 +45,8 @@ public class MemberManageService implements IMemberManageService {
         }
         Map<String, String> result = new HashMap<>();
         result.put("email", email);
-        if(checkDao.checkEmailAuthDAO(email) == 1) {
-            LoginDTO dto = loginDao.login(result);
+        if(signUpDao.checkEmailAuthDAO(email) == 1) {
+            LoginDTO dto = loginDao.login(email);
             if (dto.getRole().equals("tutor")) {
                 if (loginDao.checkApproval(dto.getUser_id()) != 1) {
                     return null;
@@ -60,12 +60,8 @@ public class MemberManageService implements IMemberManageService {
 
     @Override
     public boolean checkEmail(MailDTO mailDTO) {
-        int check = checkDao.checkEmailDAO(mailDTO.getEmail());
-        if (check != 1) {
-            return false;
-        } else {
-            return true;
-        }
+        int emailCheck = signUpDao.checkEmailDAO(mailDTO.getEmail());
+        return emailCheck == 1;
     }
 
     @Override
@@ -97,10 +93,6 @@ public class MemberManageService implements IMemberManageService {
     public boolean changePassword(LoginDTO loginDTO) {
         loginDTO.setPassword(BCrypt.hashpw(loginDTO.getPassword(),BCrypt.gensalt()));
         int result = loginDao.changePassword(loginDTO);
-        if(result != 1) {
-            return false;
-        }else{
-            return true;
-        }
+        return result == 1;
     }
 }

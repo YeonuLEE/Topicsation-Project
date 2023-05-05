@@ -13,7 +13,7 @@ $(document).ready(function () {
                     email: email
                 }),
                 success: function (data, status) {
-                    $("#emailCheck").text("Check your Email!")
+                    $("#emailCheck").text("Check your Email!").css("color", "green")
                     $("#enter-password").attr("class", "form-control is-valid");
 
                     $.ajax({
@@ -35,8 +35,7 @@ $(document).ready(function () {
                     });
                 },
                 error: function (data, textStatus) {
-                    $("#emailCheck").text("Not registed Email!")
-                    $("#enter-password").attr("class", "form-control is-invalid");
+                    $("#emailCheck").text("Not registed Email!").css("color", "#ff253a")
                 },
                 complete: function (data, textStatus) {
                 },
