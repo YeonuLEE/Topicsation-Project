@@ -25,7 +25,7 @@ $("#loginForm").submit(function (event) {
             },
         error: function (data, textStatus) {
             $("#loginFail").text("로그인 정보가 틀렸습니다")
-            $("#email").val("").removeClass("is-valid").addClass("is-invalid")
+            $("#email").val("").removeClass("is-valid").addClass("is-invalid").focus()
             $("#password").val("").removeClass("is-valid").addClass("is-invalid")
             return false;
         },

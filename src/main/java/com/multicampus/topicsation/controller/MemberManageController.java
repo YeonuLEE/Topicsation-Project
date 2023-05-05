@@ -124,11 +124,14 @@ public class MemberManageController {
 
         @PostMapping("/signin/change.post")
         public ResponseEntity<Object> passwordChange(@RequestBody LoginDTO loginDTO, HttpServletRequest request) {
-            System.out.println("passwordChange method");
             HttpSession session = request.getSession();
+
+            // Session에 담긴 email 정보 가져오기
             String email = (String) session.getAttribute("email");
-            session.removeAttribute("email");
             loginDTO.setEmail(email);
+            session.removeAttribute("email");
+
+            // 비밀번호 변경
             if(memberManageservice.changePassword(loginDTO)) {
                 return ResponseEntity.ok().build();
             } else {
@@ -138,9 +141,11 @@ public class MemberManageController {
 
         @PostMapping("/singin/find/post")
         public ResponseEntity<Object> passwordFind(@RequestBody MailDTO mailDTO, HttpServletRequest request) {
+            //유효한 이메일인지 확인
             if(memberManageservice.checkEmail(mailDTO)) {
                 //세션 과정은 컨트롤러에서 진행하는게 좋음!
                 HttpSession session = request.getSession();
+                //입력 받은 email 정보 세션에 저장
                 session.setAttribute("email", mailDTO.getEmail());
                 return ResponseEntity.ok().build();
             } else {
@@ -152,7 +157,7 @@ public class MemberManageController {
         public ResponseEntity<Object> passwordChange(@RequestBody MailDTO mailDTO) throws MessagingException {
             boolean result = memberManageservice.sendMail(mailDTO);
             if(result) {
-                return ResponseEntity.unprocessableEntity().build();
+                return ResponseEntity.ok().build();
             }else {
                 return ResponseEntity.unprocessableEntity().build();
             }
