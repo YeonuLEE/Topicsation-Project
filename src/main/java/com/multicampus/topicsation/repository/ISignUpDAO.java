@@ -23,8 +23,8 @@ public interface ISignUpDAO {
     public int addTutorDAO2(SignUpDTO signUpDTO);
 
     // 이메일 인증 성공시 email_auth 1로 변경
-    public int successEmailAuthDAO(String email);
-
+    public int isSuccessEmailAuthDAO(String email);
+    // 업로드된 파일명을 user_id로 사용
     public String getUserId(String email);
 
 
