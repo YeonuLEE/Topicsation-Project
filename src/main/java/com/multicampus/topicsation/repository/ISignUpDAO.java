@@ -14,7 +14,8 @@ public interface ISignUpDAO {
     // 이메일 인증 못한 id 재가입시 삭제
     public int deleteNotAuthTuteeDAO(String email);
 
-    public int deleteNotAuthTutorDAO(String email);
+    public int deleteNotAuthTutorDAO1(String email);
+    public int deleteNotAuthTutorDAO2(String email);
 
 
     // 신규회원이면 db에 등록해서 추가된 행의 수가 1인지 확인

@@ -41,7 +41,8 @@ public class SignUpService implements ISignUpService {
                 if(signUpDTO.getRole().equals("tutee")){
                     dao.deleteNotAuthTuteeDAO(signUpDTO.getEmail());
                 } else{
-                    dao.deleteNotAuthTutorDAO(signUpDTO.getEmail()); // USER 테이블의 정보 삭제
+                    dao.deleteNotAuthTutorDAO2(signUpDTO.getEmail());
+                    dao.deleteNotAuthTutorDAO1(signUpDTO.getEmail());
                 }
             }
         }
