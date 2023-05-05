@@ -19,8 +19,17 @@ $(document).ready(function () {
     $(".datepicker").datepicker({
         format: "dd-mm-yyyy",
         autoclose: true,
-        startDate: "+1d",
+        startDate: today,
+        beforeShowDay: function (date) {
+            var currentDate = new Date();
+            currentDate.setHours(0, 0, 0, 0);
 
+            if (date.valueOf() < currentDate.valueOf() + 1) {
+                return false; // 오늘 이전의 날짜를 비활성화합니다.
+            } else {
+                return true; // 오늘 이후의 날짜를 활성화합니다.
+            }
+        },
     });
 
     today.setDate(today.getDate() + 1)
@@ -193,7 +202,7 @@ $(document).ready(function () {
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify({
                 $tutor_id: tutorId,
-                $tutee_id: "1",
+                $tutee_id: getId(token),
                 $class_date: dateFormatted,
                 $class_time: tagId,
                 test: "test",
