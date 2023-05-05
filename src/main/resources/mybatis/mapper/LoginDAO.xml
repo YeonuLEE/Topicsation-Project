@@ -15,4 +15,8 @@
     <select id="checkApproval" parameterType="java.lang.String" resultType="_int">
         select approval FROM TUTOR_INFO where tutor_id = #{userId}
     </select>
+    <!--이메일 인증하지 않은 유저 DB에서 삭제-->
+    <delete id="deleteUnauthenticatedUsers">
+        DELETE FROM USER WHERE EMAIL_AUTH = 0
+    </delete>
 </mapper>
