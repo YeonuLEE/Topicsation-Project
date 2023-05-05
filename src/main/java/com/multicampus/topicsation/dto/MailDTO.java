@@ -11,4 +11,5 @@ public class MailDTO {
     private String email;
     private String title;
     private String message;
+    private String authKey;
 }

@@ -3,8 +3,6 @@ package com.multicampus.topicsation.repository;
 import com.multicampus.topicsation.dto.SignUpDTO;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.Map;
-
 @Mapper
 public interface ISignUpDAO {
     // 회원가입시 입력한 email이 db에 저장되어있는지 확인
