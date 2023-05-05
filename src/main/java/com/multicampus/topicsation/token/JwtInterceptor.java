@@ -5,9 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,11 +20,8 @@ public class JwtInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         // 토큰 받기
-        System.out.println("preHandle 실행!!!!!!!!!");
         String accessToken = jwtUtils.getAccessToken(request);
         String refreshToken = jwtUtils.getRefreshToken(request);
-        System.out.println("Interceptor accessToken : " + accessToken);
-        System.out.println("Interceptor refreshToken : " + refreshToken);
         // 로깅용 URI
         String requestURI = request.getRequestURI();
 

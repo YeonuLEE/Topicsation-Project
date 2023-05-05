@@ -28,36 +28,29 @@ public class JwtUtils {
 
     public String createAccessToken(String roles, String userid) {
 
-        System.out.println("createAccessToken");
 
         //토큰 만료 시간 설정(access token)
         Date now = new Date();
         Date expiration = new Date(now.getTime() + ACCESS_TOKEN_VALIDATION_SECOND);
 
-        //accessToken 생성 - 나중에 바로 RETURN값에 넣어주기
-        String accessToken = Jwts.builder()
+        //accessToken 생성
+        return Jwts.builder()
                 .setSubject(userid)
                 .claim("roles", roles)
                 .setIssuedAt(now) //토큰발행일자
                 .setExpiration(expiration)
                 .signWith(secretKey)
                 .compact();
-
-        System.out.println("JwtUtils accessToken : " + accessToken);
-
-        return accessToken;
     }
 
     public String createRefreshToken(String roles, String userid) {
-
-        System.out.println("createRefreshToken");
 
         //토큰 만료 시간 설정(refresh token)
         Date now = new Date();
         Date expiration = new Date(now.getTime() + REFRESH_TOKEN_VALIDATION_SECOND);
 
         //refreshToken 생성
-        String refreshToken = Jwts.builder()
+        return Jwts.builder()
                 .setSubject(userid)
                 .claim("roles", roles)
                 .setIssuedAt(now) //토큰발행일자
@@ -65,16 +58,10 @@ public class JwtUtils {
                 .setExpiration(expiration)
                 .signWith(secretKey)
                 .compact();
-
-        System.out.println("JwtUtils refreshToken : " + refreshToken);
-
-        return refreshToken;
     }
 
     //토큰 유효성 검증 수행
     public boolean validateToken(String token) {
-
-        System.out.println("validateToken");
 
         //토큰 파싱 후 발생하는 예외를 캐치하여 문제가 있으면 false, 정상이면 true 반환
         try {
@@ -91,21 +78,16 @@ public class JwtUtils {
     }
 
     public String getRole(String token) {
-        System.out.println("getRoles");
-
         return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody().get("roles").toString();
     }
 
     public String getId(String token) {
-        System.out.println("getId");
-
         return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody().getSubject();
     }
 
     //request Header에서 access토큰 정보를 꺼내오기
     public String getAccessToken(HttpServletRequest httpServletRequest) {
         String bearerToken = httpServletRequest.getHeader(AUTHORIZATION_HEADER);
-        System.out.println("JwtUtils getAccessToken : " + bearerToken);
         if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
         }
@@ -118,7 +100,6 @@ public class JwtUtils {
         if(cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("refreshToken")) {
-                    System.out.println("JwtUtils getRefreshToken : " + cookie.getValue());
                     return cookie.getValue();
                 }
             }
@@ -155,7 +136,6 @@ public class JwtUtils {
     // role에 따라서 페이지 이동을 다르게 하는 메서드 - admin
     public String authByRole(HttpServletRequest request, String tuteeURI) {
         String token = getAccessToken(request);
-        System.out.println("authByRole: "+token);
         if (getRole(token).equals("tutee")) {
             return tuteeURI;
         }

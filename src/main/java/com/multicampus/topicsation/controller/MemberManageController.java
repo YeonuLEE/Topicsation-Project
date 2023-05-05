@@ -2,26 +2,13 @@ package com.multicampus.topicsation.controller;
 
 import com.multicampus.topicsation.dto.SignUpDTO;
 import com.multicampus.topicsation.service.ISignUpService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.multicampus.topicsation.dto.LoginDTO;
 import com.multicampus.topicsation.dto.MailDTO;
 import com.multicampus.topicsation.service.IMemberManageService;
-//import com.multicampus.topicsation.service.security.CustomUserDetailsService;
 import com.multicampus.topicsation.token.JwtUtils;
-import org.json.simple.JSONObject;
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-//import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.multipart.MultipartFile;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -103,14 +90,11 @@ public class MemberManageController {
         public ResponseEntity<Object> signin(@RequestBody Map<String, String> params, HttpServletResponse response) throws Exception {
 
             String email = params.get("email");
-            System.out.println(email);
-            String password = params.get("password");
 
               //email과 password 검증
             LoginDTO dto = memberManageservice.login(params);
-            String hashPass = dto.getPassword();
 
-            if (BCrypt.checkpw(password, hashPass)) {
+            if (dto != null) {
                 //accesstoken 생성
                 String accessToken = jwtUtils.createAccessToken(dto.getRole(), dto.getUser_id());
 
@@ -154,12 +138,10 @@ public class MemberManageController {
 
         @PostMapping("/singin/find/post")
         public ResponseEntity<Object> passwordFind(@RequestBody MailDTO mailDTO, HttpServletRequest request) {
-            System.out.println("passwordFind method");
             if(memberManageservice.checkEmail(mailDTO)) {
                 //세션 과정은 컨트롤러에서 진행하는게 좋음!
                 HttpSession session = request.getSession();
                 session.setAttribute("email", mailDTO.getEmail());
-                System.out.println("session:" +session.getAttribute("email"));
                 return ResponseEntity.ok().build();
             } else {
                 return ResponseEntity.notFound().build();
@@ -168,8 +150,7 @@ public class MemberManageController {
 
         @PostMapping("/signin/find/email.send")
         public ResponseEntity<Object> passwordChange(@RequestBody MailDTO mailDTO) throws MessagingException {
-            System.out.println("passwordChange method");
-            boolean result = memberManageservice.sendMail(mailDTO);https://github.com/YeonuLEE/Topicsation-Project/pull/33/conflict?name=src%252Fmain%252Fjava%252Fcom%252Fmulticampus%252Ftopicsation%252Fcontroller%252FMyPageController.java&ancestor_oid=395e0fccae603a7ed972466e99a8db4ac426dddb&base_oid=97792d68e49b35abe9d52c40454d34e5b8ec5065&head_oid=590e63cf618861300e2546289d71c1d25e9f02ab
+            boolean result = memberManageservice.sendMail(mailDTO);
             if(result) {
                 return ResponseEntity.unprocessableEntity().build();
             }else {
@@ -232,7 +213,6 @@ public class MemberManageController {
 
         @PostMapping("/signup/success.post")
         public String successEmailAuth(@RequestBody SignUpDTO signUpDTO) {
-            System.out.println("controller email확인" + signUpDTO.getEmail());
             boolean result = signUpService.successEmailAuth(signUpDTO);
             if(result){
                 return "emailAuthSuccess";

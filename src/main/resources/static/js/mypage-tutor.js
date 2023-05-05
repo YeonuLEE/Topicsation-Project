@@ -70,8 +70,10 @@ $(document).ready(function () {
     var postlink2 = "/mypage/{user_id}/passCheck"
     postlink2 = postlink2.replace("{user_id}", userId);
 
-    //비밀번호 확인
-    $("#enter-password").change(function () {
+
+    $("#authenticate").click(function (event) {
+        event.preventDefault();
+
         var pwd1 = $("#enter-password").val().toString();
 
         $.ajax({
@@ -84,15 +86,44 @@ $(document).ready(function () {
             success: function(data, status) {
 
                 if(data === false) {
-                    $(".form-control")
-                        .text("비밀번호가 다름니다");
                     $("#enter-password").attr("class", "form-control is-invalid");
+                    alert("비밀번호가 다릅니다. 확인해주세요.")
                     passwordCheck = false;
                 } else {
-                    $(".form-control").text("인증에 성공했습니다.");
-                    $("#enter-password").attr("class", "form-control is-valid");
-                    $("#authenticate").text("Save All");
-                    passwordCheck = true;
+                    name = $("#name").val();
+                    nationality=$('#nationality').val();
+                    first = $("#first-interest").val();
+                    second = $("#second-interest").val();
+                    gender = $('input[type=radio][name=genderRadios]:checked').val();
+                    memo =$("#memo").val();
+
+                    var postlink = "/mypage/{user_id}/post";
+                    postlink = postlink.replace("{user_id}", userId);
+
+                    $.ajax({
+                        type: "POST",
+                        url :  postlink,
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            $name : name,
+                            $nationality : nationality,
+                            $interest1 : first,
+                            $interest2 : second,
+                            $gander : gender,
+                            $memo : memo
+                        }),
+                        success: function (data, status) {
+                            $("#modal-default").modal('hide'); // 모달 창 닫기
+                            $("#cancel-reservation-message").val("");
+                            location.reload();
+                        },
+                        error: function (data, textStatus) {
+                            alert("Error!")
+                        },
+                        complete: function (data, textStatus) {
+                        },
+                    });
+
                 }
             },
             error: function (data, textStatus) {
@@ -103,44 +134,6 @@ $(document).ready(function () {
         });
     });
 
-    $("#authenticate").click(function () {
-
-        if(passwordCheck){
-            name = $("#name").val();
-            nationality=$('#nationality').val();
-            first = $("#first-interest").val();
-            second = $("#second-interest").val();
-            gender = $('input[type=radio][name=genderRadios]:checked').val();
-            memo =$("#memo").val();
-
-            var postlink = "/mypage/{user_id}/post";
-            postlink = postlink.replace("{user_id}", userId);
-
-            $.ajax({
-                type: "POST",
-                url :  postlink,
-                contentType: 'application/json',
-                data: JSON.stringify({
-                    $name : name,
-                    $nationality : nationality,
-                    $interest1 : first,
-                    $interest2 : second,
-                    $gander : gender,
-                    $memo : memo
-                }),
-                success: function (data, status) {
-                    $("#modal-default").modal('hide'); // 모달 창 닫기
-                    $("#cancel-reservation-message").val("");
-                    location.reload();
-                },
-                error: function (data, textStatus) {
-                    alert("Error!")
-                },
-                complete: function (data, textStatus) {
-                },
-            });
-        }
-    });
 
     $("#reset").click(function (){
         $("#cancel-reservation-message").val("");
