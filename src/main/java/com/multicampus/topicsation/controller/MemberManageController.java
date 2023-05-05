@@ -18,7 +18,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
-import java.util.Random;
 
 @Controller
 @RequestMapping("/members")
@@ -194,17 +193,9 @@ public class MemberManageController {
 
         @PostMapping("/email.send")
         public String emailAuth(@RequestBody MailDTO mailDTO) {
-            boolean result;
-            Random random = new Random();
-            String authKey = String.valueOf(random.nextInt(888888) + 111111); // 범위: 111111~999999
-
-            mailDTO.setTitle("TOPICSATION 인증코드입니다.");
-            mailDTO.setMessage("인증코드: " + authKey);
-
-            result = signUpService.sendMail(mailDTO);
-
+            boolean result = signUpService.sendMail(mailDTO);
             if(result){
-                return authKey;
+                return mailDTO.getAuthKey();
             }
             else {
                 return "sendFail";

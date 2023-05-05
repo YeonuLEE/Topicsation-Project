@@ -6,8 +6,6 @@ import com.multicampus.topicsation.repository.ISignUpDAO;
 import lombok.AllArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -17,8 +15,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Random;
 
 @Service
 @AllArgsConstructor
@@ -91,11 +88,17 @@ public class SignUpService implements ISignUpService {
     @Override
     public boolean sendMail(MailDTO mailDTO){
 
+        // 랜덤 인증코드
+        Random random = new Random();
+        String authKey = String.valueOf(random.nextInt(888888) + 111111); // 범위: 111111~999999
+        mailDTO.setAuthKey(authKey);
+
         SimpleMailMessage message = new SimpleMailMessage();
 
         message.setTo(mailDTO.getEmail());
-        message.setSubject(mailDTO.getTitle());
-        message.setText(mailDTO.getMessage());
+        message.setSubject("TOPICSATION 인증코드입니다");
+        message.setText("인증코드: " + mailDTO.getAuthKey());
+
         System.out.println("[message] "+ message);
 
         try{
