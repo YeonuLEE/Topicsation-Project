@@ -16,11 +16,8 @@
         delete FROM USER where email = #{email}
     </delete>
 <!--    재회원가입을 위한 기존 튜터 정보 삭제-->
-    <delete id="deleteNotAuthTutorDAO1" parameterType="String">
+    <delete id="deleteNotAuthTutorDAO" parameterType="String">
         delete FROM USER where email = #{email}
-    </delete>
-    <delete id="deleteNotAuthTutorDAO2" parameterType="String">
-        delete FROM TUTOR_INFO where TUTOR_ID in (select user_id FROM USER where email = #{email})
     </delete>
 <!--    신규 튜티 회원가입-->
     <insert id="addTuteeDAO" parameterType="com.multicampus.topicsation.dto.SignUpDTO">

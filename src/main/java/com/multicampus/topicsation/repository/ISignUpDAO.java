@@ -3,8 +3,6 @@ package com.multicampus.topicsation.repository;
 import com.multicampus.topicsation.dto.SignUpDTO;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.Map;
-
 @Mapper
 public interface ISignUpDAO {
     // 회원가입시 입력한 email이 db에 저장되어있는지 확인
@@ -16,8 +14,7 @@ public interface ISignUpDAO {
     // 이메일 인증 못한 id 재가입시 삭제
     public int deleteNotAuthTuteeDAO(String email);
 
-    public int deleteNotAuthTutorDAO1(String email);
-    public int deleteNotAuthTutorDAO2(String email);
+    public int deleteNotAuthTutorDAO(String email);
 
 
     // 신규회원이면 db에 등록해서 추가된 행의 수가 1인지 확인
