@@ -28,7 +28,6 @@ public class JwtUtils {
 
     public String createAccessToken(String roles, String userid) {
 
-
         //토큰 만료 시간 설정(access token)
         Date now = new Date();
         Date expiration = new Date(now.getTime() + ACCESS_TOKEN_VALIDATION_SECOND);
@@ -103,21 +102,6 @@ public class JwtUtils {
                     return cookie.getValue();
                 }
             }
-        }
-        return null;
-    }
-
-    // role에 따라서 페이지 이동을 다르게 하는 메서드 - 비회원, tutor, tutee, admin
-    public String authByRole(HttpServletRequest httpServletRequest ,String notLoginURI, String tuteeURI, String tutorURI, String adminURI){
-        String token = getAccessToken(httpServletRequest);
-        if (token == null){
-            return notLoginURI;
-        }else if(getRole(token).equals("tutee")){
-            return tuteeURI;
-        }else if(getRole(token).equals("tutor")){
-            return tutorURI;
-        }else if(getRole(token).equals("admin")){
-            return adminURI;
         }
         return null;
     }
