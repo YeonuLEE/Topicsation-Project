@@ -16,10 +16,6 @@ $(document).ready(function () {
         console.log(userId);
     }
 
-    // $("#mypage-btn").click(function () {
-    //     location.href = "/mypage/admin";
-    // });
-
     // main 관련
     var pathURI = window.location.pathname
     var ajaxURI;
@@ -271,22 +267,3 @@ $("#search-form").submit(function (event) {
         }
     });
 })
-
-
-
-//myPage
-// $("#mypage-btn").click(function () {
-//
-//     location.href = "/mypage/1"
-// })
-
-// $(window).on('load', function() {
-//     var token = sessionStorage.getItem('token');
-//     if (token != null) {
-//         $.ajaxSetup({
-//             beforeSend: function(xhr) {
-//                 xhr.setRequestHeader('Authorization', 'Bearer ' + token);
-//             }
-//         });
-//     }
-// });

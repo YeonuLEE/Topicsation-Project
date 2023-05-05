@@ -43,14 +43,7 @@ $(document).ready(function () {
     // 시간 포맷
     var timeFormatted = pad(hours, 2) + ':' + pad(minutes, 2);
 
-
-    // uri 지정
-    // var pathURI = window.location.pathname
-    // const regex = /\/mypage\/(\d+)\/schedule/;
-    // const match = pathURI.match(regex);
     if (userId) {
-        //if ( match && match[1] )
-        // userId = match[1]; <-- 연우한테 물어보기
 
         var apiUrl2 = "/mypage/{user_id}";
         var apiUrl3 = "/mypage/{user_id}/schedule";
@@ -75,7 +68,6 @@ $(document).ready(function () {
         success: function (data, status, xhr) {
             getHeaderAjax(xhr)
 
-            // var jsonObject = JSON.parse(JSON.stringify(data));
             var jsonObject = JSON.parse(data);
 
             $("#information").attr("href", apiUrl2);
@@ -138,12 +130,7 @@ $(document).ready(function () {
         // 시간 포맷
         var timeFormatted = pad(hours, 2) + ':' + pad(minutes, 2);
 
-        // var pathURI = window.location.pathname
-        // const regex = /\/mypage\/(\d+)\/schedule/;
-        // const match = pathURI.match(regex);
         if (userId) {
-            // if (match && match[1])
-            // const userId = match[1];
 
             var apiUrl2 = "/mypage/{user_id}";
             var apiUrl3 = "/mypage/{user_id}/schedule";

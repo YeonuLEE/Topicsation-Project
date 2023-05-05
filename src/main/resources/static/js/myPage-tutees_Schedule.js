@@ -13,12 +13,6 @@ $(document).ready(function () {
         userId = getId(token);
     }
 
-
-    // var pathURI = window.location.pathname
-    // const regex = /\/mypage\/(\d+)\/schedule/;
-    // const match = pathURI.match(regex);
-    // const userId= match[1];
-
     var apiUrl1 = "/mypage/{user_id}/schedule/get";
     var apiUrl2 = "/mypage/{user_id}";
     var apiUrl3 = "/mypage/{user_id}/schedule";

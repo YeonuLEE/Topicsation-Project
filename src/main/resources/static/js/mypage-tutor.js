@@ -21,11 +21,6 @@ $(document).ready(function () {
         userId = getId(token);
     }
 
-    // var pathURI = window.location.pathname
-    // const regex = /\/mypage\/(\d+)/;
-    // const match = pathURI.match(regex);
-    // const userId= match[1];
-
     var apiUrl1 = "/mypage/{user_id}/get";
     var apiUrl2 = "/mypage/{user_id}";
     var apiUrl3 = "/mypage/{user_id}/schedule";
@@ -73,22 +68,6 @@ $(document).ready(function () {
         },
     });
 
-    // //비밀번호 확인
-    // $("#enter-password").change(function () {
-    //     var pwd1 = $("#enter-password").val().toString();
-    //
-    //     if (password != pwd1) {
-    //         $(".form-control")
-    //             .text("password is different");
-    //         $("#enter-password").attr("class", "form-control is-invalid");
-    //         passwordCheck = false;
-    //     } else {
-    //         $(".form-control").text("");
-    //         $("#enter-password").attr("class", "form-control is-valid");
-    //         passwordCheck = true;
-    //     }
-    // });
-
     var postlink2 = "/mypage/{user_id}/passCheck"
     postlink2 = postlink2.replace("{user_id}", userId);
 
@@ -126,13 +105,6 @@ $(document).ready(function () {
     });
 
     $("#authenticate").click(function () {
-        // $("#signInForm").button(function () {
-        //     if (!passwordCheck) {
-        //         $("#password").focus();
-        //         return false;
-        //     }
-        //     return true;
-        // });
 
         if(passwordCheck){
             name = $("#name").val();
@@ -218,10 +190,6 @@ $(document).ready(function () {
     });
 
     $("#file").on('change', function (){
-        // var pathURI = window.location.pathname
-        // const regex = /\/mypage\/(\d+)/;
-        // const match = pathURI.match(regex);
-        // const userId= match[1];
         var apiUrl = "/mypage/{user_id}/profileUpdate";
         apiUrl = apiUrl.replace("{user_id}", userId);
 
