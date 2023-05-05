@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -39,7 +38,6 @@ public class MemberManageService implements IMemberManageService {
     public LoginDTO login(Map<String, String> map) throws Exception {
         String email = map.get("email");
         String password = map.get("password");
-        System.out.println(password);
 
         // email과 password가 null일 경우 예외 던짐
         if (email == null || password == null) {
@@ -47,18 +45,17 @@ public class MemberManageService implements IMemberManageService {
         }
         Map<String, String> result = new HashMap<>();
         result.put("email", email);
-        if(checkDao.checkEmailAuthDAO(email) != 1) {
-            return null;
-        } else {
-            System.out.println(checkDao.checkEmailAuthDAO(email));
+        if(checkDao.checkEmailAuthDAO(email) == 1) {
             LoginDTO dto = loginDao.login(result);
             if (dto.getRole().equals("tutor")) {
                 if (loginDao.checkApproval(dto.getUser_id()) != 1) {
                     return null;
                 }
             }
-            return dto;
-        }
+            if(BCrypt.checkpw(password, dto.getPassword())) {
+                return dto;
+            }
+        } return null;
     }
 
     @Override
@@ -74,7 +71,6 @@ public class MemberManageService implements IMemberManageService {
     @Override
     public boolean sendMail(MailDTO mailDTO) throws MessagingException{
         MimeMessage message = mailSender.createMimeMessage();
-        System.out.println("sendMail MimeMessage: ");
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
         String link = "http://localhost:8081/members/signin/change"; //페이지 링크
@@ -89,14 +85,10 @@ public class MemberManageService implements IMemberManageService {
         helper.setText(mailContent, true);
         helper.setSubject("TOPICSATION 비밀번호 재설정 링크입니다.");
 
-        System.out.println("message 서비스 설정!");
-
         try {
             mailSender.send(message);
-            System.out.println("메일 전송 성공");
             return true;
         }catch(MailException e) {
-            System.out.println("메일 전송 실패");
             return false;
         }
     }
