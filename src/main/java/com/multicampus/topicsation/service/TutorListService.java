@@ -41,14 +41,14 @@ public class TutorListService implements ITutorListService {
 
     @Override
     public List<RecommendDTO> recommend(String user_id) {
-        System.out.println(user_id);
+
         MemberDTO memberDTO = tutorListDAO.tuteeInterest(user_id);
-        List<RecommendDTO> interestList = tutorListDAO.recommendList(user_id,memberDTO.getInterest1(), memberDTO.getInterest2());
-        System.out.println(interestList);
+        List<RecommendDTO> interestList = tutorListDAO.recommendList(user_id, memberDTO.getInterest1(), memberDTO.getInterest2());
+
         int size = 6 - interestList.size();
         if(size > 0) {
-            List<RecommendDTO> spareList1 = tutorListDAO.spareList(user_id,memberDTO.getInterest1());
-            List<RecommendDTO> spareList2 = tutorListDAO.spareList(user_id,memberDTO.getInterest2());
+            List<RecommendDTO> spareList1 = tutorListDAO.spareList(user_id, memberDTO.getInterest1());
+            List<RecommendDTO> spareList2 = tutorListDAO.spareList(user_id, memberDTO.getInterest2());
 
             for(RecommendDTO dto : spareList1) {
                 if(interestList.size() >= 6) break;
