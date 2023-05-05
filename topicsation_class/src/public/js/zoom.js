@@ -6,11 +6,9 @@ $(document).ready(function () {
   const muteBtn = document.getElementById("mute");
   const cameraBtn = document.getElementById("camera");
   const camerasSelect = document.getElementById("cameras");
-  const call = document.getElementById("call");
   const peersFace = document.getElementById("peersFace");
 
   // 변수 초기화
-  //call.hidden = true;
   var classId = window.location.pathname.split("/").pop(); // /class/456
 
   let myStream;
@@ -121,67 +119,45 @@ $(document).ready(function () {
   cameraBtn.addEventListener("click", handleCameraClick);
   camerasSelect.addEventListener("input", handleCameraChange);
 
-  // Welcome Form (choose a room)
-  // const welcome = document.getElementById("welcome");
-
-  //const welcomeForm = welcome.querySelector("form");
-
   async function initCall() {
-    //welcome.hidden = true;
-    //call.hidden = false;
     await getMedia();
     makeConnection();
   }
 
   async function handleWelcomeSubmit() {
-    //event.preventDefault();
-    //const input = welcomeForm.querySelector("input");
     await initCall();
     socket.emit("join_room", classId);
     roomName = classId;
-    //input.value = "";
   }
 
   // 자동 room 연결
   handleWelcomeSubmit();
-  //welcomeForm.addEventListener("submit", handleWelcomeSubmit);
 
   // Socket Code
+  // WebRTC 전에 signing 과정에서 WebSocket을 잠시 써야함
   socket.on("welcome", async () => {
-    myDataChannel = myPeerConnection.createDataChannel("chat");
-    myDataChannel.addEventListener("message", console.log);
-    console.log("made data channel");
     const offer = await myPeerConnection.createOffer();
     myPeerConnection.setLocalDescription(offer);
-    console.log("sent the offer");
     socket.emit("offer", offer, roomName);
   });
 
   socket.on("offer", async (offer) => {
-    myPeerConnection.addEventListener("datachannel", (event) => {
-      myDataChannel = event.channel;
-      myDataChannel.addEventListener("message", console.log);
-    });
-    console.log("received the offer");
+
     myPeerConnection.setRemoteDescription(offer);
     const answer = await myPeerConnection.createAnswer();
     myPeerConnection.setLocalDescription(answer);
     socket.emit("answer", answer, roomName);
-    console.log("sent the answer");
   });
 
   socket.on("answer", (answer) => {
-    console.log("received the answer");
     myPeerConnection.setRemoteDescription(answer);
   });
 
   socket.on("ice", (ice) => {
-    console.log("received candidate");
     myPeerConnection.addIceCandidate(ice);
   });
 
   // RTC Code
-
   function makeConnection() {
     myPeerConnection = new RTCPeerConnection({
       iceServers: [
@@ -204,7 +180,6 @@ $(document).ready(function () {
   }
 
   function handleIce(data) {
-    console.log("sent candidate");
     socket.emit("ice", data.candidate, roomName);
   }
 

@@ -1,15 +1,17 @@
 import http from "http";
 import { Server } from "socket.io";
 import { instrument } from "@socket.io/admin-ui";
-import nodemon from "nodemon";
 import { filtering, AhoCorasick, wordsToCensor} from './censoredWords.js';
 
 const app = require("./app");
 
+// 금지어 필터링 설정
+const ac  = new AhoCorasick();
+wordsToCensor.forEach((pattern) => ac.insert(pattern));
+ac.buildFailureLinks();
+
 // connect
 const httpSever = http.createServer(app); // http server
-//const wss = new WebSocket.Server({ server }); // WebSocket server on http server
-// 두개의 서버가 하나의 port를 공유, 필수 아님 wss만 만들어도됨
 const wsServer = new Server(httpSever, {
   cors: {
     origin: ["https://admin.socket.io"],
@@ -24,43 +26,30 @@ instrument(wsServer, {
 
 // wsServer logic
 wsServer.on("connection", (socket) => {
-  // Chat
+
+  // 채팅 기능 관련
   socket.on("enter_room", (roomName, done) => {
-    console.log("chat room : ", roomName);
     socket.join(roomName);
     done();
     socket.to(roomName).emit("welcomeChat", socket.nickname);
-    // wsServer.sockets.emit("room_change", publicRooms());
   });
-  
-  // 아호코라식 설정
-  const ac = new AhoCorasick();
-  wordsToCensor.forEach((pattern) => ac.insert(pattern));
-  ac.buildFailureLinks();
-
-  // 메시지 관련
   socket.on("new_message", (msg, room, done) => {
-    console.log("새로운 메세지 : ", msg);
     // 메시지 금지어 필터링
     let filteredMsg = filtering(msg, ac)
-    console.log("검열된 메세지 : ", filteredMsg)
     socket.to(room).emit("new_message", `${socket.nickname}: ${filteredMsg}`);
     done();
   });
   socket.on("nickname", (nickname) => {
-    console.log("nickname : ", nickname);
     socket["nickname"] = nickname;
   });
-
   socket.on("disconnecting", () => {
     socket.rooms.forEach((room) =>
       socket.to(room).emit("bye", socket.nickname)
     );
   });
 
-  // Zoom
+  // 화상 기능 관련
   socket.on("join_room", (roomName) => {
-    console.log("수업 번호 : ", roomName);
     socket.join(roomName);
     socket.to(roomName).emit("welcome");
   });

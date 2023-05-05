@@ -1,9 +1,7 @@
 import express from "express";
-const io = require("socket.io");
 const mustacheExpress = require("mustache-express");
 
 const app = express();
-const socket = io();
 
 // Mustache 템플릿 엔진 설정
 app.engine("mustache", mustacheExpress());
