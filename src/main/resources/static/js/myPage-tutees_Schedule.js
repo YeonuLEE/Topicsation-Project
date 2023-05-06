@@ -93,8 +93,8 @@ $(document).ready(function () {
                         let id = $(this).attr("id");
 
                         const inputString = id;
-                        let letters = "";
-                        let numbers = "";
+                        var letters = "";
+                        var numbers = "";
                         for (let i = 0; i < inputString.length; i++) {
                             const char = inputString.charAt(i);
                             if (isNaN(char)) {
@@ -112,8 +112,42 @@ $(document).ready(function () {
                         // 모달 내부의 버튼 클릭 이벤트 핸들러 등록
                         $("#cancel-reservation").on("click", function (event) {
                             event.preventDefault();
-                            cancelReservation(dataParse, numbers);
+                            cancelReservation();
                         });
+
+                        // 예약 취소 버튼을 클릭하면 실행될 함수
+                        function cancelReservation() {
+                            if ($("#cancel-reservation-message").val() == "예약을 취소하겠습니다") {
+                                let class_id = dataParse.schedules[numbers].class_id;
+                                ``
+                                let postLink = "/mypage/{user_id}/schedule/cancel";
+                                let apiUrl = postLink.replace("{user_id}", userId);
+
+                                $.ajax({
+                                    type: "PUT",
+                                    url: apiUrl,
+                                    contentType: "application/json",
+                                    data: JSON.stringify({
+                                        $class_id: class_id,
+                                    }),
+                                    success: function (data) {
+                                        $("#modal-default").modal('hide'); // 모달 창 닫기
+                                        $("#cancel-reservation-message").val("");
+                                        // 실행창 초기화
+                                        location.reload();
+                                    },
+                                    error: function (data) {
+                                        alert("Error!")
+                                    },
+                                    complete: function (data, textStatus) {
+                                    },
+                                });
+                            } else {
+                                $("#cancel-reservation-message").focus();
+                                return false;
+                            }
+                        }
+
                     });
 
                 if (reserveDate == formattedDate) {
@@ -167,38 +201,8 @@ $(document).ready(function () {
             location.href = admission_link;
         }
     });
+
+
+
 });
 
-// 예약 취소 버튼을 클릭하면 실행될 함수
-function cancelReservation(dataParse, numbers) {
-    if ($("#cancel-reservation-message").val() == "예약을 취소하겠습니다") {
-        let class_id = dataParse.schedules[numbers].class_id;
-
-        let postLink = "/mypage/{user_id}/schedule/cancel";
-        let apiUrl = postLink.replace("{user_id}", userId);
-
-        $.ajax({
-            type: "PUT",
-            url: apiUrl,
-            contentType: "application/json",
-            data: JSON.stringify({
-                $class_id: class_id,
-            }),
-            success: function (data) {
-                $("#modal-default").modal('hide'); // 모달 창 닫기
-                $("#cancel-reservation-message").val("");
-                // 실행창 초기화
-                location.reload();
-
-            },
-            error: function (data) {
-                alert("Error!")
-            },
-            complete: function (data, textStatus) {
-            },
-        });
-    } else {
-        $("#cancel-reservation-message").focus();
-        return false;
-    }
-}

@@ -117,23 +117,28 @@ $(document).ready(function () {
     });
 
     //회원 삭제
-    $('#delete').click(function (){
-        let postlink = "/mypage/{user_id}/delete";
-        postlink = postlink.replace("{user_id}", userId);
+    $('#delete').click(function (event){
+        event.preventDefault();
 
         $.ajax({
             type: "post",
-            url: postlink,
+            url: apiUrl + "/delete",
             contentType: "application/json",
             data: JSON.stringify({
                 $user_id: userId,
             }),
+            // async : false,
             success: function (data, status) {
                 $("#modal-default").modal('hide'); // 모달 창 닫기
+
+                // 토큰 제거
+                sessionStorage.removeItem('accessToken');
+                document.cookie = "refreshToken=;  expires=Thu, 01 Jan 1970 00:00:00 UTC ; path=/";
+
                 window.location.href = "/main"; // 페이지 이동
             },
             error: function (data, textStatus) {
-                alert("Error!")
+                alert("회원탈퇴에서 오류")
             },
             complete: function (data, textStatus) {
             },
