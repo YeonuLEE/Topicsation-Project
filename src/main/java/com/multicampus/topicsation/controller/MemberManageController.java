@@ -17,7 +17,10 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.Map;
+
+import static com.multicampus.topicsation.service.MemberManageService.linkExpirationMap;
 
 @Controller
 @RequestMapping("/members")
@@ -40,7 +43,13 @@ public class MemberManageController {
     }
 
     @GetMapping("/signin/change")
-    public String passwordChange() {
+    public String passwordChange(@RequestParam String linkId) {
+//        Long expirationTime = linkExpirationMap.get(linkId); // 링크별 만료 시간 조회
+//        System.out.println(linkId);
+//        if (expirationTime == null || System.currentTimeMillis() < expirationTime) {
+//            // 만료된 링크 처리
+//            return "html/404";
+//        }
         return "html/password-change";
     }
 

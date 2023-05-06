@@ -15,8 +15,9 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
@@ -31,8 +32,7 @@ public class MemberManageService implements IMemberManageService {
     @Autowired
     private JavaMailSender mailSender;
 
-    @Autowired
-    private final BCrypt bCrypt;
+    public static Map<String, Long> linkExpirationMap = new ConcurrentHashMap<>();
 
     @Override
     public LoginDTO login(Map<String, String> map) throws Exception {
@@ -69,7 +69,12 @@ public class MemberManageService implements IMemberManageService {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
-        String link = "http://localhost:8081/members/signin/change"; //페이지 링크
+        String link = "http://localhost:8081/members/signin/change?linkId=" + UUID.randomUUID(); //페이지 링크
+
+        long expirationTime = System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(5); // 만료 시간 설정
+        System.out.println("만료시간: "+expirationTime);
+        linkExpirationMap.put(link, expirationTime); // 링크별 만료 시간 저장
+        System.out.println("link주소: "+link);
 
         String mailContent = "<html><body>" +
                 "<p>비밀번호 재설정을 위해 아래 링크를 눌러주세요.(Please click the link below to reset your password.)</p>" +
