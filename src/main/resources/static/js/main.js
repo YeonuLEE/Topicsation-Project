@@ -1,10 +1,8 @@
 import {getHeaderAjax, setupHeaderAjax, getId} from './checkTokenExpiration.js';
 
-let userId = "";
+let userId = "default";
 let pathURI = window.location.pathname
 let ajaxURI;
-let jsonData;
-let dataBody;
 
 $(document).ready(function () {
 
@@ -32,13 +30,7 @@ $(document).ready(function () {
 
             getHeaderAjax(xhr)
 
-            if (ajaxURI == '/main/get') {
-                jsonData = JSON.parse(data);
-                dataBody = $("#tutor-card");
-            } else {
-                jsonData = JSON.parse(data);
-                dataBody = $("#tutor-card");
-            }
+            let jsonData = JSON.parse(data);
 
             for (let i = 0; i < jsonData.tutor_list.length; i++) {
                 let person = jsonData.tutor_list[i];
@@ -96,6 +88,8 @@ $(document).ready(function () {
                     class: "badge badge-pill badge-primary ml-2",
                     text: "#" + person.interest2
                 })
+
+                let dataBody = $("#tutor-card");
 
                 dataBody.append(div1);
                 div1.append(div2);
