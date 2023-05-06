@@ -7,7 +7,6 @@ import com.multicampus.topicsation.dto.pageDTO.PageResponseDTO;
 import com.multicampus.topicsation.repository.ISearchDAO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
