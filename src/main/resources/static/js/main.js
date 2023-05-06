@@ -1,12 +1,12 @@
 import {getHeaderAjax, setupHeaderAjax, getId} from './checkTokenExpiration.js';
 
-let userId = "default";
-let pathURI = window.location.pathname
-let ajaxURI;
+
 
 $(document).ready(function () {
 
     const token = sessionStorage.getItem('accessToken');
+    let userId = "default";
+    let pathURI = window.location.pathname
 
     // nullPointerException 예방
     if(token != null){
@@ -15,14 +15,8 @@ $(document).ready(function () {
         userId = getId(token);
     }
 
-    if (pathURI == '/main') {
-        ajaxURI = pathURI + "/get";
-    } else if (pathURI == '/main/search-all') {
-        ajaxURI = pathURI + ".get";
-    }
-
     $.ajax({
-        url: ajaxURI,
+        url: pathURI + "/get",
         type: "GET",
         data : {userId : userId},
         async:false,

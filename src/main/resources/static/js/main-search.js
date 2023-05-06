@@ -34,7 +34,6 @@ function searchGet(page, name, interest, date){
     if(date != "")
         apiUrl += "&date=" + date;
 
-
     $.ajax({
         url: apiUrl,
         type: "GET",
@@ -48,6 +47,7 @@ function searchGet(page, name, interest, date){
 
             let dataBody = $("#tutor-card");
             dataBody.empty();
+
             for (let i = 0; i < all_list.length; i++) {
                 let person = all_list[i];
                 let link = "/main/tutors/";
@@ -82,18 +82,6 @@ function searchGet(page, name, interest, date){
                     }
                 )
                 let heartSpan = $("<span>", {style: "float: right"})
-                let svg = $("<svg>", {
-                    xmlns: "http://www.w3.org/2000/svg",
-                    width: "200",
-                    height: "200",
-                    fill: "#dc143c",
-                    class: "bi bi-heart-fill",
-                    viewBox: "0 0 16 16",
-                });
-
-
-                let path = " <path fill-rule=\"evenodd\"\n" +
-                    "d=\"M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z\" />";
 
                 let span2 = $("<span>", {
                         class: "h6 mb-3",
@@ -117,7 +105,6 @@ function searchGet(page, name, interest, date){
                     text: "#" + person.interest2
                 })
 
-
                 dataBody.append(div1);
                 div1.append(div2);
                 div2.append(div3);
@@ -138,24 +125,18 @@ function searchGet(page, name, interest, date){
                 div6.append(div9);
                 div9.append(span5);
                 div9.append(span6);
-
             }
             pagination(page,total);
         },
-        error: function (xhr, textStatus, errorThrown) {
-            if (xhr.status === 400) {
-                console.log("잘못된 요청입니다.");
+        error: function (xhr, status) {
+            if (status === 400) {
+                alert("잘못된 요청입니다.");
             } else {
-                console.log("서버에서 오류가 발생했습니다.");
+                alert("서버에서 오류가 발생했습니다.");
             }
         }
     });
 }
-
-
-
-
-
 
 function pagination(currentPage, total) {
     let totalPages = Math.ceil(total / 6);

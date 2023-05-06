@@ -3,7 +3,7 @@ $(document).ready(function () {
         $("#send-reset-password").click(function (event) {
             event.preventDefault();
 
-            var email = $("#email").val();
+            let email = $("#email").val();
 
             $.ajax({
                 type: "POST",

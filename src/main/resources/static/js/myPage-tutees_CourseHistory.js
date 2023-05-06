@@ -11,41 +11,34 @@ $(document).ready(function () {
         userId = getId(token);
     }
 
-    var apiUrl1 = "/mypage/{user_id}/history/get";
-    var apiUrl2 = "/mypage/{user_id}";
-    var apiUrl3 = "/mypage/{user_id}/schedule";
-    var apiUrl4 = "/mypage/{user_id}/history";
-
-    apiUrl1 = apiUrl1.replace("{user_id}", userId);
-    apiUrl2 = apiUrl2.replace("{user_id}", userId);
-    apiUrl3 = apiUrl3.replace("{user_id}", userId);
-    apiUrl4 = apiUrl4.replace("{user_id}", userId);
+    let apiUrl = "/mypage/{user_id}";
+    apiUrl = apiUrl.replace("{user_id}", userId);
 
     $.ajax({
-        type: "GET",
-        url: apiUrl1,
+        type: "GET" ,
+        url: apiUrl + "/history/get",
         dataType: "json",
         async:false,
         success: function (data, status, xhr) {
             getHeaderAjax(xhr)
 
-            $("#information").attr("href", apiUrl2);
-            $("#schedule").attr("href", apiUrl3);
-            $("#history").attr("href", apiUrl4);
+            $("#information").attr("href", apiUrl);
+            $("#schedule").attr("href", apiUrl + "/schedule");
+            $("#history").attr("href", apiUrl + "/history");
 
-            var jsonData = JSON.parse(JSON.stringify(data));
+            let jsonData = JSON.parse(JSON.stringify(data));
 
             $("#name").text(jsonData.name);
 
             //테이블에 튜티의 정보 뿌려주기
-            var tbody = $("#tutee-history");
-            for (var i = 0; i < jsonData.history.length; i++) {
-                var tutee = jsonData.history[i];
-                var tr = $("<tr>");
-                var tno = $("<th scope=\"row\">").text(i + 1);
-                var classdate = $("<td>", {text: tutee.class_date});
-                var tutorname = $("<td>", {text: tutee.tutor_name});
-                var memo = $("<td>")
+            let tbody = $("#tutee-history");
+            for (let i = 0; i < jsonData.history.length; i++) {
+                let tutee = jsonData.history[i];
+                let tr = $("<tr>");
+                let tno = $("<th scope=\"row\">").text(i + 1);
+                let classdate = $("<td>", {text: tutee.class_date});
+                let tutorname = $("<td>", {text: tutee.tutor_name});
+                let memo = $("<td>")
                     .append($("<a>", {href: tutee.memo1, text: tutee.memo1}))
                     .append($("<br>"))
                     .append($("<a>", {href: tutee.memo2, text: tutee.memo2}))
@@ -61,8 +54,6 @@ $(document).ready(function () {
         },
         error: function (data, textStatus) {
             alert("Error!")
-        },
-        complete: function (data, textStatus) {
-        },
+        }
     });
 });

@@ -1,21 +1,21 @@
 $(document).ready(function () {
-    var datatitle = $("#evaluate-h3");
-    var databody = $("#evaluate-div");
+    let datatitle = $("#evaluate-h3");
+    let databody = $("#evaluate-div");
     // 변수 초기화
-    var apiUrl = "http://localhost:8081/lesson/{lesson_id}";
+    let apiUrl = "http://localhost:8081/lesson/{lesson_id}";
+    let classId
 
     const url = window.location.pathname;
     const regex = /\/lesson\/(.*?)\//; // 정규 표현식
     const match = url.match(regex);
 
     if (match && match[1]) {
-        var classId = match[1];
+        classId = match[1];
     } else {
         console.log("매칭되는 문자열이 없습니다.");
     }
 
     apiUrl = apiUrl.replace("{lesson_id}", classId);
-
 
     window.onload = function () {
         setTimeout(function () {
@@ -60,14 +60,14 @@ $(document).ready(function () {
     });
 
     function review_add() {
-        var div1 = $("<div>", {class: "form-group"});
-        var textarea1 = $("<textarea>", {
+        let div1 = $("<div>", {class: "form-group"});
+        let textarea1 = $("<textarea>", {
             class: "form-control",
             id: "review-content",
             rows: "3",
             maxLength: "120"
         });
-        var button = $("<button>", {
+        let button = $("<button>", {
             type: "button",
             class: "btn mt-3 mb-2 mr-2 btn-primary form-control",
             id: "review-btn",
@@ -118,3 +118,5 @@ $(document).ready(function () {
         });
     }
 });
+
+

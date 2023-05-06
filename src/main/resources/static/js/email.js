@@ -1,32 +1,31 @@
-let email;
-let authKey;
-let dataBody = $("#email-auth");
-let form = $("<form>", {id: "emailTokenForm"});
-let div1 = $("<div>", {class: "form-group"});
-let label1 = $("<label>", {text: "인증코드 입력"});
-let div2 = $("<div>", {class: "form-group"});
-let div3 = $("<div>", {class: "input-group mb-4"});
-let div4 = $("<div>", {class: "input-group-prepend"});
-let span1 = $("<span>", {class: "input-group-text"});
-let span2 = $("<span>", {class: "fas fa-unlock-alt"});
-let input1 = $("<input>", {
-    class: "form-control",
-    id: "email-code",
-    placeholder: "Email Token",
-    type: "email_Token",
-    "aria-label": "email_Token",
-    required: true
-})
-let button1 = $("<button>", {
-    type: "button",
-    id: "auth-btn",
-    class: "btn btn-block btn-primary",
-    text: "Authenricate"
-})
-
 $(document).ready(function () {
 
-    email = atob(sessionStorage.getItem("email"));
+    let email = atob(sessionStorage.getItem("email"));
+    let authKey;
+    let dataBody = $("#email-auth");
+    let form = $("<form>", {id: "emailTokenForm"});
+    let div1 = $("<div>", {class: "form-group"});
+    let label1 = $("<label>", {text: "인증코드 입력"});
+    let div2 = $("<div>", {class: "form-group"});
+    let div3 = $("<div>", {class: "input-group mb-4"});
+    let div4 = $("<div>", {class: "input-group-prepend"});
+    let span1 = $("<span>", {class: "input-group-text"});
+    let span2 = $("<span>", {class: "fas fa-unlock-alt"});
+    let input1 = $("<input>", {
+        class: "form-control",
+        id: "email-code",
+        placeholder: "Email Token",
+        type: "email_Token",
+        "aria-label": "email_Token",
+        required: true
+    })
+    let button1 = $("<button>", {
+        type: "button",
+        id: "auth-btn",
+        class: "btn btn-block btn-primary",
+        text: "Authenricate"
+    })
+
 
     $("#send-btn").click(function () {
 
