@@ -20,7 +20,7 @@ import java.util.Map;
 public class MyPageService implements IMyPageService{
 
     @Autowired
-    IMemberDAO dao;
+    private IMemberDAO dao;
 
     @Override
     public String check_password(String userId) {
