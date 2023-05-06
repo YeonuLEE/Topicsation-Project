@@ -8,8 +8,8 @@ import com.multicampus.topicsation.dto.TutorViewDTO;
 import com.multicampus.topicsation.dto.pageDTO.PageReqeustDTO;
 import com.multicampus.topicsation.dto.pageDTO.PageRequestDTO;
 import com.multicampus.topicsation.dto.pageDTO.PageResponseDTO;
+import com.multicampus.topicsation.service.ISearchService;
 import com.multicampus.topicsation.service.ITutorListService;
-import com.multicampus.topicsation.service.SearchService;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +51,7 @@ public class MainPageController {
         ITutorListService tutorListService;
 
         @Autowired
-        SearchService searchService;
+        ISearchService searchService;
 
         @GetMapping("/get")
         public String main(@RequestParam("userId") String userId) {
@@ -92,6 +92,7 @@ public class MainPageController {
             String interest = requestParams.get("interest");
             String date = requestParams.get("date");
 
+            // 예약날짜 조건 검색 MM/dd/YY -> yyyy-MM-dd로 변경
             if(date != null){
                 SimpleDateFormat inputFormat = new SimpleDateFormat("MM/dd/yyyy");
                 SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -120,10 +121,10 @@ public class MainPageController {
             resultMap.put("page",pageResponseDTO.getPage());
             resultMap.put("size",pageResponseDTO.getSize());
             resultMap.put("total",pageResponseDTO.getTotal());
-            resultMap.put("start",pageResponseDTO.getStart());
-            resultMap.put("end",pageResponseDTO.getEnd());
-            resultMap.put("prev",pageResponseDTO.isPrev());
-            resultMap.put("next",pageResponseDTO.isNext());
+//            resultMap.put("start",pageResponseDTO.getStart());
+//            resultMap.put("end",pageResponseDTO.getEnd());
+//            resultMap.put("prev",pageResponseDTO.isPrev());
+//            resultMap.put("next",pageResponseDTO.isNext());
 
            return new ResponseEntity<Map<String, Object>> (resultMap, HttpStatus.OK);
         }
