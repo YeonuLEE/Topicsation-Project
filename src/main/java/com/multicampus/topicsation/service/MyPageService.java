@@ -10,6 +10,7 @@ import org.json.simple.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,9 @@ public class MyPageService implements IMyPageService{
 
     @Autowired
     IMemberDAO dao;
+
+    @Autowired
+    private IS3FileService s3FileService;
 
     @Override
     public String check_password(String user_id) {
@@ -156,8 +160,40 @@ public class MyPageService implements IMyPageService{
     }
 
     @Override
-    public void chang_profileImg(String user_id, String fileName) {
-        dao.changProfileImg(user_id, fileName);
+    public void change_profileImg(String userId, MultipartFile file) {
+        String bucketName = "asset";
+        String folderName = "profile";
+        String fileExtension = getFileExtension(file.getOriginalFilename()); //확장자 가져오기
+        String fileName = userId + "." + fileExtension;
+        String objectKey = folderName + "/" + fileName;
+
+        // 확장자를 제외한 파일 이름
+        String fileNameWithoutExtension = userId;
+
+        // 기존 파일이 있는지 확인
+        boolean fileExists = s3FileService.isFileExists(bucketName, folderName, fileNameWithoutExtension);
+        System.out.println(fileExists);
+        if (fileExists) {
+            // 기존 파일이 있으면 삭제
+            String existingObjectKey = folderName + "/" + fileNameWithoutExtension;
+            // NCP에 기존 파일 삭제
+            s3FileService.deleteFile(bucketName, existingObjectKey);
+            // NCP에 업로드
+            s3FileService.uploadFile(bucketName, objectKey, file);
+        }
+        else{
+            // NCP에 업로드
+            s3FileService.uploadFile(bucketName, objectKey, file);
+        }
+        dao.changeProfileImg(userId, fileName);
+    }
+
+    private String getFileExtension(String fileName) {
+        int lastIndexOfDot = fileName.lastIndexOf(".");
+        if (lastIndexOfDot == -1) {
+            return ""; // 확장자가 없는 경우
+        }
+        return fileName.substring(lastIndexOfDot + 1);
     }
 
     @Override

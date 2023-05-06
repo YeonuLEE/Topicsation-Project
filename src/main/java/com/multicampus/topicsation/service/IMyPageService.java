@@ -5,6 +5,7 @@ import com.multicampus.topicsation.dto.MypageScheduleDTO;
 import com.multicampus.topicsation.dto.ClassDTO;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,7 @@ public interface IMyPageService {
     MypageScheduleDTO schedule_tutor(Map<String, Object> paramMap, MypageScheduleDTO mypageScheduleDTO);
     int scheduleUpdate(JSONObject jsonUserInfo, JSONArray jsonSchedule);
     void delete(String user_id);
-    void chang_profileImg(String user_id, String fileName);
+    void change_profileImg(String user_id, MultipartFile file);
 
     String schedule_tutee(String user_id);
     String history_tutee(String user_id);

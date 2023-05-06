@@ -22,7 +22,7 @@ public interface IMemberDAO {
     int modifyTutor2(MyPageDTO myPageDTO);
     MypageScheduleDTO tutorProfile(String user_id);
     String checkProfileImg(String user_id);
-    void changProfileImg(@Param("user_id") String user_id, @Param("fileName") String fileName);
+    void changeProfileImg(String userId, String fileName);
 
     List<ClassDTO> tutorSchedule(Map<String, Object> paramMap);
     int findUser(Map<String, Object> paramMap);
