@@ -14,9 +14,7 @@ public interface ISignUpDAO {
     // 이메일 인증 못한 id 재가입시 삭제
     public int deleteNotAuthTuteeDAO(String email);
 
-    public int deleteNotAuthTutorDAO1(String email);
-    public int deleteNotAuthTutorDAO2(String email);
-
+    public int deleteNotAuthTutorDAO(String email);
 
     // 신규회원이면 db에 등록해서 추가된 행의 수가 1인지 확인
     public int addTuteeDAO(SignUpDTO signUpDTO);
@@ -25,8 +23,8 @@ public interface ISignUpDAO {
     public int addTutorDAO2(SignUpDTO signUpDTO);
 
     // 이메일 인증 성공시 email_auth 1로 변경
-    public int successEmailAuthDAO(String email);
-
+    public int isSuccessEmailAuthDAO(String email);
+    // 업로드된 파일명을 user_id로 사용
     public String getUserId(String email);
 
 

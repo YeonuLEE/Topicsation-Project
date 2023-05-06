@@ -2,6 +2,7 @@ package com.multicampus.topicsation.repository;
 
 import com.multicampus.topicsation.dto.*;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,7 @@ public interface IMemberDAO {
     int modifyTutor2(MyPageDTO myPageDTO);
     MypageScheduleDTO tutorProfile(String user_id);
     String checkProfileImg(String user_id);
-    void changProfileImg(String user_id, String fileName);
+    void changProfileImg(@Param("user_id") String user_id, @Param("fileName") String fileName);
 
     List<ClassDTO> tutorSchedule(Map<String, Object> paramMap);
     int findUser(Map<String, Object> paramMap);
@@ -33,7 +34,6 @@ public interface IMemberDAO {
     void tutorDislike(String user_id);
     void deleteTutorInfo(String user_id);
     void deleteTutor(String user_id);
-
 
     MyPageDTO viewTutee(String user_id);
     int modifyTutee(MyPageDTO myPageDTO);

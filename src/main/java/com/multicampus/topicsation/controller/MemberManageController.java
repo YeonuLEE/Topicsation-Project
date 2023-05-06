@@ -1,7 +1,6 @@
 package com.multicampus.topicsation.controller;
 
 import com.multicampus.topicsation.dto.SignUpDTO;
-import com.multicampus.topicsation.service.ISignUpService;
 import com.multicampus.topicsation.dto.LoginDTO;
 import com.multicampus.topicsation.dto.MailDTO;
 import com.multicampus.topicsation.service.IMemberManageService;
@@ -17,14 +16,14 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.Map;
+
+import static com.multicampus.topicsation.service.MemberManageService.linkExpirationMap;
 
 @Controller
 @RequestMapping("/members")
 public class MemberManageController {
-
-    @Autowired
-    private ISignUpService signUpService;
 
     @Autowired
     private IMemberManageService memberManageservice;
@@ -40,7 +39,13 @@ public class MemberManageController {
     }
 
     @GetMapping("/signin/change")
-    public String passwordChange() {
+    public String passwordChange(@RequestParam String linkId) {
+//        Long expirationTime = linkExpirationMap.get(linkId); // 링크별 만료 시간 조회
+//        System.out.println(linkId);
+//        if (expirationTime == null || System.currentTimeMillis() < expirationTime) {
+//            // 만료된 링크 처리
+//            return "html/404";
+//        }
         return "html/password-change";
     }
 
@@ -154,7 +159,7 @@ public class MemberManageController {
 
         @PostMapping("/signup-tutees.post")
         public String signUpTutee(@RequestBody SignUpDTO signUpDTO) {
-            boolean result = signUpService.signUpProcess(signUpDTO);
+            boolean result = memberManageservice.signUpProcess(signUpDTO);
             if (result) {
                 return signUpDTO.getEmail();
             } else {
@@ -188,7 +193,7 @@ public class MemberManageController {
 
             System.out.println(signUpDTO);
 
-            boolean result = signUpService.signUpProcess(signUpDTO);
+            boolean result = memberManageservice.signUpProcess(signUpDTO);
             if (result) {
                 return new ResponseEntity <String> (signUpDTO.getEmail(), HttpStatus.OK);
             } else {
@@ -198,7 +203,7 @@ public class MemberManageController {
 
         @PostMapping("/email.send")
         public String emailAuth(@RequestBody MailDTO mailDTO) {
-            boolean result = signUpService.sendMail(mailDTO);
+            boolean result = memberManageservice.signupSendMail(mailDTO);
             if(result){
                 return mailDTO.getAuthKey();
             }
@@ -209,7 +214,7 @@ public class MemberManageController {
 
         @PostMapping("/signup/success.post")
         public String successEmailAuth(@RequestBody SignUpDTO signUpDTO) {
-            boolean result = signUpService.successEmailAuth(signUpDTO);
+            boolean result = memberManageservice.isSuccessEmailAuth(signUpDTO);
             if(result){
                 return "emailAuthSuccess";
             } else {

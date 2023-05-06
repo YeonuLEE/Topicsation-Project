@@ -2,6 +2,7 @@ package com.multicampus.topicsation.service;
 
 import com.multicampus.topicsation.dto.LoginDTO;
 import com.multicampus.topicsation.dto.MailDTO;
+import com.multicampus.topicsation.dto.SignUpDTO;
 
 import javax.mail.MessagingException;
 import java.util.Map;
@@ -14,4 +15,12 @@ public interface IMemberManageService {
    public boolean sendMail(MailDTO mailDTO) throws MessagingException;
    //비밀번호 수정
    public boolean changePassword(LoginDTO loginDTO);
+   // 회원가입
+   boolean signUpProcess(SignUpDTO signUpDTO);
+   // 회원가입 인증코드 이메일 전송
+   boolean signupSendMail(MailDTO mailDTO);
+   // 이메일인증을 성공했는지 확인
+   boolean isSuccessEmailAuth(SignUpDTO signUpDTO);
+   // 튜터 인증 파일 업로드
+   String getFileExtension(String fileName);
 }
