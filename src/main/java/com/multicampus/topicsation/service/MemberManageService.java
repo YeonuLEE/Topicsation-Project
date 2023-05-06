@@ -42,7 +42,8 @@ public class MemberManageService implements IMemberManageService {
     @Autowired
     private JavaMailSender mailSender;
 
-    public static Map<String, Long> linkExpirationMap = new ConcurrentHashMap<>();
+    private Map<String, Long> linkExpirationMap = new ConcurrentHashMap<>();
+
 
     @Override
     public LoginDTO login(Map<String, String> map) throws Exception {
@@ -79,12 +80,11 @@ public class MemberManageService implements IMemberManageService {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
-        String link = "http://localhost:8081/members/signin/change?linkId=" + UUID.randomUUID(); //페이지 링크
+        String linkId = UUID.randomUUID().toString();
+        String link = "http://localhost:8081/members/signin/change?linkId=" + linkId; //페이지 링크
 
         long expirationTime = System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(5); // 만료 시간 설정
-        System.out.println("만료시간: "+expirationTime);
-        linkExpirationMap.put(link, expirationTime); // 링크별 만료 시간 저장
-        System.out.println("link주소: "+link);
+        linkExpirationMap.put(linkId, expirationTime); // 링크별 만료 시간 저장
 
         String mailContent = "<html><body>" +
                 "<p>비밀번호 재설정을 위해 아래 링크를 눌러주세요.(Please click the link below to reset your password.)</p>" +
@@ -102,6 +102,11 @@ public class MemberManageService implements IMemberManageService {
         }catch(MailException e) {
             return false;
         }
+    }
+
+    @Override
+    public Long getLinkExpirationMap(String linkId) {
+        return linkExpirationMap.get(linkId);
     }
 
     @Override
