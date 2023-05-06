@@ -29,7 +29,7 @@ public class SearchService implements ISearchService{
     private IS3FileService s3FileService;
 
     @Override
-    public ResponseEntity<Map<String, Object>> searchList(Map<String, String> requestParams) {
+    public Map<String, Object> searchList(Map<String, String> requestParams) {
 
         int page = Integer.parseInt(requestParams.getOrDefault("page", "1"));
         int size = Integer.parseInt(requestParams.getOrDefault("size", "6"));
@@ -81,6 +81,6 @@ public class SearchService implements ISearchService{
         resultMap.put("prev",pageResponseDTO.isPrev());
         resultMap.put("next",pageResponseDTO.isNext());
 
-        return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
+        return resultMap;
     }
 }

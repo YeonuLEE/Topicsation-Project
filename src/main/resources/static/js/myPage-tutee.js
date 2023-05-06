@@ -1,12 +1,11 @@
 import { setupHeaderAjax, getId, getHeaderAjax } from './checkTokenExpiration.js';
 
-var name;
-var first;
-var second;
-var passwordCheck = false;
-let userId
 $(document).ready(function() {
 
+    let name;
+    let first;
+    let second;
+    let userId
     const token = sessionStorage.getItem('accessToken');
 
     // access token 만료 기간 검증 및 req header에 삽입
@@ -15,29 +14,21 @@ $(document).ready(function() {
         userId = getId(token);
     }
 
-
-    var apiUrl1 = "/mypage/{user_id}/get";
-    var apiUrl2 = "/mypage/{user_id}";
-    var apiUrl3 = "/mypage/{user_id}/schedule";
-    var apiUrl4 = "/mypage/{user_id}/history";
-
-    apiUrl1 = apiUrl1.replace("{user_id}", userId);
-    apiUrl2 = apiUrl2.replace("{user_id}", userId);
-    apiUrl3 = apiUrl3.replace("{user_id}", userId);
-    apiUrl4 = apiUrl4.replace("{user_id}", userId);
+    let apiUrl = "/mypage/{user_id}";
+    apiUrl = apiUrl.replace("{user_id}", userId);
 
     $.ajax({
         type: "GET",
-        url: apiUrl1,
+        url: apiUrl + "/get",
         async:false,
         success: function(data, status,xhr) {
             getHeaderAjax(xhr)
 
-            var jsonObject = JSON.parse(data);
+            let jsonObject = JSON.parse(data);
 
-            $("#information").attr("href", apiUrl2);
-            $("#schedule").attr("href", apiUrl3);
-            $("#history").attr("href", apiUrl4);
+            $("#information").attr("href", apiUrl);
+            $("#schedule").attr("href", apiUrl + "/schedule");
+            $("#history").attr("href", apiUrl + "/history");
 
             $("#tutee-name").text(jsonObject.name);
             $("#name").val(jsonObject.name);
@@ -45,28 +36,23 @@ $(document).ready(function() {
             $("#first-interest").val(jsonObject.interest1).prop("selected",true);
             $("#second-interest").val(jsonObject.interest2).prop("selected",true);
 
-            name=$("#name").val(jsonObject.name);
+            name = $("#name").val(jsonObject.name);
             first = $("#first-interest").val(jsonObject.interest1).prop("selected",true);
             second = $("#second-interest").val(jsonObject.interest2).prop("selected",true);
         },
         error: function (data, textStatus) {
             alert("Error!")
-        },
-        complete: function (data, textStatus) {
-        },
+        }
     });
-
-    var postlink2 = "/mypage/{user_id}/passCheck"
-    postlink2 = postlink2.replace("{user_id}", userId);
 
     $("#authenticate").click(function (event) {
         event.preventDefault();
 
-        var pwd1 = $("#enter-password").val().toString();
+        let pwd1 = $("#enter-password").val().toString();
 
         $.ajax({
             type: "POST",
-            url: postlink2,
+            url: apiUrl + "/passCheck",
             contentType: 'application/json',
             data: JSON.stringify({
                 password: pwd1
@@ -76,18 +62,14 @@ $(document).ready(function() {
                 if(data === false) {
                     $("#enter-password").attr("class", "form-control is-invalid");
                     alert("비밀번호가 다릅니다. 확인해주세요.")
-                    passwordCheck = false;
                 } else {
                     name = $("#name").val();
                     first = $("#first-interest").val();
                     second = $("#second-interest").val();
 
-                    var postlink = "/mypage/{user_id}/post";
-                    postlink = postlink.replace("{user_id}", userId);
-
                     $.ajax({
                         type: "POST",
-                        url :  postlink,
+                        url : apiUrl + "/post",
                         contentType: 'application/json',
                         data: JSON.stringify({
                             $name : name,
@@ -101,9 +83,7 @@ $(document).ready(function() {
                         },
                         error: function (data, textStatus) {
                             alert("Error!")
-                        },
-                        complete: function (data, textStatus) {
-                        },
+                        }
                     });
                 }
             },
@@ -117,12 +97,10 @@ $(document).ready(function() {
 
     //회원 삭제
     $('#delete').click(function (){
-        var postlink = "/mypage/{user_id}/delete";
-        postlink = postlink.replace("{user_id}", userId);
 
         $.ajax({
             type: "post",
-            url: postlink,
+            url: apiUrl + "/delete",
             contentType: "application/json",
             data: JSON.stringify({
                 $user_id: userId,
@@ -131,6 +109,7 @@ $(document).ready(function() {
                 $("#modal-default").modal('hide'); // 모달 창 닫기
                 $("#cancel-reservation-message").val("");
 
+                // 토큰 제거
                 sessionStorage.removeItem('accessToken');
                 document.cookie = "refreshToken=;  expires=Thu, 01 Jan 1970 00:00:00 UTC ; path=/";
 
@@ -138,9 +117,7 @@ $(document).ready(function() {
             },
             error: function (data, textStatus) {
                 alert("Error!")
-            },
-            complete: function (data, textStatus) {
-            },
+            }
         });
     });
 

@@ -21,7 +21,7 @@ import java.util.Map;
 public class TutorListService implements ITutorListService {
 
     @Autowired
-    ITutorListDAO tutorListDAO;
+    private ITutorListDAO tutorListDAO;
 
     @Autowired
     private IS3FileService s3FileService;
@@ -86,9 +86,9 @@ public class TutorListService implements ITutorListService {
 
     @Override
     public ResponseEntity<Void> ClassReserve(Map<String, String> paramMap) {
-        String tutorId = paramMap.get("tutorId").toString();
-        String classDate = paramMap.get("classDate").toString();
-        String classTime = paramMap.get("classTime").toString();
+        String tutorId = paramMap.get("tutorId");
+        String classDate = paramMap.get("classDate");
+        String classTime = paramMap.get("classTime");
 
         String classId = tutorId + "_" + classDate + "_" + classTime;
 

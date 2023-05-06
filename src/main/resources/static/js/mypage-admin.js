@@ -1,8 +1,9 @@
 import {setupHeaderAjax, getHeaderAjax, getId} from './checkTokenExpiration.js';
 
-let userId;
+
 $(document).ready(function () {
 
+    let userId;
     // token 꺼내오기
     const token = sessionStorage.getItem('accessToken');
 
@@ -13,7 +14,7 @@ $(document).ready(function () {
         userId = getId(token);
     }
 
-    var apiUrl1 = "/mypage/{user_id}/get";
+    let apiUrl1 = "/mypage/{user_id}/get";
     apiUrl1 = apiUrl1.replace("{user_id}", userId);
 
     //mypage관련
@@ -27,15 +28,15 @@ $(document).ready(function () {
 
             $("#manage-tutor").attr("href","/mypage/admin");
 
-            var tbody = $("#spare-tutor");
-            for (var i = 0; i < data.length; i++) {
-                var spare = data[i];
-                var tr = $("<tr>");
-                var tno = $("<th scope=\"row\">").text(i + 1);
-                var tutorName = $("<td>", {text: spare.tutorName});
-                var approlDate = $("<td>", {text: spare.approlDate});
+            let tbody = $("#spare-tutor");
+            for (let i = 0; i < data.length; i++) {
+                let spare = data[i];
+                let tr = $("<tr>");
+                let tno = $("<th scope=\"row\">").text(i + 1);
+                let tutorName = $("<td>", {text: spare.tutorName});
+                let approlDate = $("<td>", {text: spare.approlDate});
 
-                var pathURI = spare.file
+                let pathURI = spare.file
                 const regex = /\/certificate\/([a-zA-Z0-9]+)\.pdf$/;
                 let userFile = null;
                 if (regex.test(pathURI)) {
@@ -45,11 +46,11 @@ $(document).ready(function () {
                     console.log("패턴에 일치하는 값이 없습니다.");
                 }
                 userFile = userFile+".pdf"; // 파일 이름
-                var file = $("<td><a>")
+                let file = $("<td><a>")
                     .text(userFile)
                     .attr("id",spare.file)
                     .on("click",function (){
-                        var url = "/mypage/download/{fileName}";
+                        let url = "/mypage/download/{fileName}";
                         url = url.replace("{fileName}",userFile);
 
                         $.ajax({
@@ -75,12 +76,12 @@ $(document).ready(function () {
                         });
                     });
 
-                var successBtn = $("<td><button>")
+                let successBtn = $("<td><button>")
                     .addClass("btn btn-primary")
                     .attr("id", "successBtn" + i)
                     .text("승인")
                     .on("click", function () {
-                        var id = $(this).attr("id");
+                        let id = $(this).attr("id");
 
                         const inputString = id;
                         let letters = "";
@@ -93,7 +94,7 @@ $(document).ready(function () {
                                 numbers += char;
                             }
                         }
-                        var userId = data[numbers].userId;
+                        let userId = data[numbers].userId;
 
                         $.ajax({
                             type: "post",
@@ -111,12 +112,12 @@ $(document).ready(function () {
                         });
                     });
 
-                var failBtn = $("<td><button>")
+                let failBtn = $("<td><button>")
                     .addClass("btn btn-danger")
                     .attr("id", "failBtn" + i)
                     .text("거부")
                     .on("click", function () {
-                        var id = $(this).attr("id");
+                        let id = $(this).attr("id");
 
                         const inputString = id;
                         let letters = "";
@@ -129,7 +130,7 @@ $(document).ready(function () {
                                 numbers += char;
                             }
                         }
-                        var userId = data[numbers].userId;
+                        let userId = data[numbers].userId;
 
                         $.ajax({
                             type: "post",

@@ -56,7 +56,7 @@ public class MainPageController {
 
         @GetMapping("/search-all/get")
         public ResponseEntity<Map<String, Object>> searchPage(@RequestParam Map<String, String> requestParams) {
-            return searchService.searchList(requestParams);
+            return ResponseEntity.ok(searchService.searchList(requestParams));
         }
 
         @GetMapping("/tutors/{tutor_id}/getInfo")

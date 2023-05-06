@@ -1,5 +1,3 @@
-// import {getRoles, setupHeaderAjax, getHeaderAjax} from './checkTokenExpiration.js';
-
 var cell_id = "";
 var tagId = "";
 var tutorId = "";
@@ -9,7 +7,7 @@ $(document).ready(function () {
 
     const token = sessionStorage.getItem('accessToken');
 
-    if(token != null){
+    if (token != null) {
         roles = getRoles(token)
         setupHeaderAjax(token)
     }
@@ -67,7 +65,7 @@ $(document).ready(function () {
     $.ajax({
         type: "GET",
         url: apiUrl,
-        async:false,
+        async: false,
         success: function (data, status, xhr) {
             getHeaderAjax(xhr)
 
@@ -84,7 +82,7 @@ $(document).ready(function () {
             $("#second-interest").append(jsonObject.tutor_info.interest2);
             $("#profile-img").attr("src", jsonObject.tutor_info.picture);
 
-            for(var i = 0; i < jsonObject.review.length; i++){
+            for (var i = 0; i < jsonObject.review.length; i++) {
                 var reviewer = jsonObject.review[i];
 
                 var div1 = $("<div>", {
@@ -92,12 +90,12 @@ $(document).ready(function () {
                     style: "box-shadow: none"
                 });
                 var div2 = $("<div>", {class: "d-flex justify-content-between align-items-center mb-2"});
-                var span1 = $("<span>",{class: "font-small"});
-                var span2 = $("<span>",{
+                var span1 = $("<span>", {class: "font-small"});
+                var span2 = $("<span>", {
                     class: "font-weight-bold",
                     text: reviewer.tutee_name
                 }); //name
-                var span3 = $("<span>",{
+                var span3 = $("<span>", {
                     class: "ml-2",
                     text: reviewer.review_date
                 }); //date
@@ -149,9 +147,9 @@ $(document).ready(function () {
         apiUrl = apiUrl + dateFormatted;
 
 
-        $(".cell").css("color","");
-        $(".cell").css("background-color","");
-        $(".cell").css("pointer-events","none");
+        $(".cell").css("color", "");
+        $(".cell").css("background-color", "");
+        $(".cell").css("pointer-events", "none");
 
         $.ajax({
             type: "GET",
@@ -201,9 +199,8 @@ $(document).ready(function () {
                 test: "test",
             }),
             success: function (data, status) {
-
                 console.log(tagId + "예약완료");
-                alert(tagId+"에 예약되었습니다.");
+                alert(tagId + "에 예약되었습니다.");
 
             },
             error: function (data, textStatus) {
@@ -225,7 +222,7 @@ function pad(num, size) {
     return s;
 }
 
-function reservation(jsonObject, i){
+function reservation(jsonObject, i) {
     if (jsonObject.schedule[i].tutee_id != null) {
         $("#" + jsonObject.schedule[i].class_time).css("color", "white");
         $("#" + jsonObject.schedule[i].class_time).css("background-color", "gray");
@@ -234,9 +231,9 @@ function reservation(jsonObject, i){
         $("#" + jsonObject.schedule[i].class_time).css("background-color", "green");
 
         // tutee만 예약할 수 있게 설정
-        if(roles == "tutee"){
+        if (roles == "tutee") {
             $("#" + jsonObject.schedule[i].class_time).css("pointer-events", "auto");
-        }else{
+        } else {
             $("#" + jsonObject.schedule[i].class_time).css("pointer-events", "none");
         }
 
@@ -255,11 +252,11 @@ function setupHeaderAjax(token) {
     });
 }
 
-function getHeaderAjax(xhr){
+function getHeaderAjax(xhr) {
     let accessToken = null
     //accesstoken 뽑아내기
     const authorization = xhr.getResponseHeader("Authorization");
-    if(authorization != null){
+    if (authorization != null) {
         accessToken = authorization.substring(7);
         //accesstoken 저장
         sessionStorage.setItem("accessToken", accessToken);

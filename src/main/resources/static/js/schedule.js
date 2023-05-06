@@ -12,11 +12,10 @@ $(document).ready(function () {
     console.log(token)
 
     // access token 만료 기간 검증 및 req header에 삽입
-    if(token != null){
+    if (token != null) {
         setupHeaderAjax(token)
         userId = getId(token);
     }
-
 
     var today = new Date();
     $('.datepicker').datepicker({
@@ -24,6 +23,7 @@ $(document).ready(function () {
         autoclose: true,
         startDate: '0d'
     });
+
     $('.datepicker').datepicker('setDate', today);
 
     var selectedDate = today;
@@ -64,7 +64,7 @@ $(document).ready(function () {
     $.ajax({
         type: "GET",
         url: apiUrl,
-        async:false,
+        async: false,
         success: function (data, status, xhr) {
             getHeaderAjax(xhr)
 
@@ -194,15 +194,13 @@ $(document).ready(function () {
 
         const timeDiff = (currentTime.getTime() - classDate.getTime()) / (1000 * 60);
 
-        if(timeDiff < 0 || timeDiff < -30) {
+        if (timeDiff < 0 || timeDiff < -30) {
             alert("수업 시작 전입니다.");
             return false;
-        }
-        else if(timeDiff > 30) {
+        } else if (timeDiff > 30) {
             alert("수업이 종료되었습니다.");
             return false;
-        }
-        else if(timeDiff > 0 && timeDiff < 30) {
+        } else if (timeDiff > 0 && timeDiff < 30) {
             // alert("수업 입장");
             location.href = admission_link;
         }
@@ -256,11 +254,10 @@ function saveSchedule(postUrl, dateFormatted) {
         data: json,
         contentType: "application/json",
         success: function (data, status) {
-            if(data === "success") {
+            if (data === "success") {
                 $("#modal-default").modal('hide');
                 location.reload()
-            }
-            else{
+            } else {
                 $("#modal-data").text("Invalid Password.").attr("class", "form-control is-invalid");
                 $("#enter-password").val("");
             }
@@ -325,11 +322,11 @@ function setupHeaderAjax(token) {
     });
 }
 
-function getHeaderAjax(xhr){
+function getHeaderAjax(xhr) {
     let accessToken = null
     //accesstoken 뽑아내기
     const authorization = xhr.getResponseHeader("Authorization");
-    if(authorization != null){
+    if (authorization != null) {
         accessToken = authorization.substring(7);
         //accesstoken 저장
         sessionStorage.setItem("accessToken", accessToken);

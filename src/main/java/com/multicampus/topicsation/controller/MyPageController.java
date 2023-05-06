@@ -73,8 +73,8 @@ public class MyPageController {
     public class MyPageRestController {
 
         @GetMapping("/{user_id}")
-        public String myPage(HttpServletRequest request) {
-            return jwtUtils.authByRole(request, "/mypage/tutee", "/mypage/tutor", "/mypage/admin");
+        public ResponseEntity<String> myPage(HttpServletRequest request) {
+            return ResponseEntity.ok(jwtUtils.authByRole(request, "/mypage/tutee", "/mypage/tutor", "/mypage/admin"));
         }
 
         @GetMapping("/{user_id}/schedule")
@@ -119,10 +119,10 @@ public class MyPageController {
         }
 
         @PostMapping("/{user_id}/passCheck")
-        public boolean passCheck(@RequestBody Map<String, String> params, @PathVariable("user_id") String userId) {
+        public ResponseEntity<Boolean> passCheck(@RequestBody Map<String, String> params, @PathVariable("user_id") String userId) {
             String password = params.get("password");
             String hashPass = service.check_password(userId);
-            return BCrypt.checkpw(password, hashPass);
+            return ResponseEntity.ok(BCrypt.checkpw(password, hashPass));
         }
 
         @PostMapping("/{user_id}/post")
@@ -222,8 +222,8 @@ public class MyPageController {
         }
 
         @GetMapping("/{user_id}/history/get")
-        public String historyPage(@PathVariable("user_id") String user_id) {
-            return service.history_tutee(user_id);
+        public String historyPage(@PathVariable("user_id") String userId) {
+            return service.history_tutee(userId);
         }
     }
 }
