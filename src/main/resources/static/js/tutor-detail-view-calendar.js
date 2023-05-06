@@ -64,7 +64,7 @@ $(document).ready(function () {
 
     tutorId = number;
 
-    var getUrl = "/main/tutors/{tutor_id}/getInfo?calendarDate=";
+    let getUrl = "/main/tutors/{tutor_id}/getInfo?calendarDate=";
 
     getUrl = getUrl.replace("{tutor_id}", number);
     getUrl += dateFormatted;
@@ -149,7 +149,7 @@ $(document).ready(function () {
         $(".cell").css("background-color", "");
         $(".cell").css("pointer-events", "none");
 
-        var getUrl = "/main/tutors/{tutor_id}/getInfo?calendarDate=";
+        let getUrl = "/main/tutors/{tutor_id}/getInfo?calendarDate=";
         getUrl = getUrl.replace("{tutor_id}", number);
         getUrl += dateFormatted;
 
@@ -157,7 +157,7 @@ $(document).ready(function () {
             type: "GET",
             url: getUrl,
             success: function (data, status) {
-                var jsonObject = JSON.parse(data);
+                let jsonObject = JSON.parse(data);
 
                 for (let i = 0; i < jsonObject.schedule.length; i++) {
                     reservation(jsonObject, i);
