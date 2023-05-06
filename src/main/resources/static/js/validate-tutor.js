@@ -4,13 +4,16 @@ let regEmail = RegExp(/^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/);
 let regPwd = RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/);
 
 // 변수 선언
-var emailCheck = true;
-var passwordCheck = true;
-var passwordConfirmCheck = true;
-var nameCheck = true;
+let emailCheck = true;
+let passwordCheck = true;
+let passwordConfirmCheck = true;
+let nameCheck = true;
 
 let selectOption;
 let selectedOption;
+
+let fileValue;
+let fileName;
 
 //이메일 유효성 검사
 $("#email").change(function () {
@@ -41,8 +44,8 @@ $("#name").change(function () {
 
 // 비밀번호 유효성 검사
 $("#password").change(function () {
-    var pwd1 = $("#password").val();
-    if (!regPwd.test(pwd1)) {
+    let password = $("#password").val();
+    if (!regPwd.test(password)) {
         $(".password")
             .text("6-12 characters and numbers & characters.")
             .css("color", "red");
@@ -58,10 +61,10 @@ $("#password").change(function () {
 
 // 비밀번호 일치 여부 검사
 $("#password-confirm").change(function () {
-    var pwd1 = $("#password").val();
-    var pwd2 = $("#password-confirm").val();
+    let password = $("#password").val();
+    let confirmedPassword = $("#password-confirm").val();
 
-    if (pwd1 !== pwd2) {
+    if (password !== confirmedPassword) {
         $(".password_confirm").text("Password does not match.").css("color", "red");
         $("#password-confirm").attr("class", "form-control is-invalid");
         passwordConfirmCheck = false;
@@ -75,9 +78,9 @@ $("#password-confirm").change(function () {
 
 // 파일 이름 바꾸기
 $("#customFile").change(function () {
-    var fileValue = $("#customFile").val().split("\\");
-    var fileName = fileValue[fileValue.length - 1]; // 파일명
-    $("#showFiles").text(fileName);
+    fileValue = $("#customFile").val().split("\\");
+    fileName = fileValue[fileValue.length - 1]; // 파일명
+    $("#show-files").text(fileName);
 });
 
 // 유효성 검사 실패시 제출 안되게 하기
@@ -103,7 +106,7 @@ $("#first-interest").change(function () {
     selectOption = $("#first-interest option:selected").val();
     selectedOption = $("#second-interest option:selected").val();
 
-    if(selectedOption == selectOption){
+    if (selectedOption == selectOption) {
 
         // 남은 옵션 전체 삭제
         $("#second-interest option").remove();
@@ -128,7 +131,7 @@ $("#second-interest").change(function () {
     selectOption = $("#second-interest option:selected").val();
     selectedOption = $("#first-interest option:selected").val();
 
-    if(selectedOption == selectOption) {
+    if (selectedOption == selectOption) {
         // 남은 옵션 전체 삭제
         $("#first-interest option").remove();
 
@@ -146,11 +149,4 @@ $("#second-interest").change(function () {
                 }
             });
     }
-});
-
-// 파일 이름 바꾸기
-$("#customFile").change(function () {
-    var fileValue = $("#customFile").val().split("\\");
-    var fileName = fileValue[fileValue.length - 1]; // 파일명
-    $("#show-files").text(fileName);
 });

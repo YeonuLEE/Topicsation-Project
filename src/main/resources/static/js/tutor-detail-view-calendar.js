@@ -1,8 +1,18 @@
-var cell_id = "";
-var tagId = "";
-var tutorId = "";
-var pathURI = "";
-let roles = "";
+let tagId;
+let tutorId;
+let pathURI;
+let roles;
+
+let selectedDate;
+let year;
+let month;
+let day;
+let hours;
+let minutes;
+
+let dateFormatted;
+let timeFormatted;
+
 $(document).ready(function () {
 
     const token = sessionStorage.getItem('accessToken');
@@ -12,13 +22,13 @@ $(document).ready(function () {
         setupHeaderAjax(token)
     }
 
-    var today = new Date();
+    let today = new Date();
     $(".datepicker").datepicker({
         format: "dd-mm-yyyy",
         autoclose: true,
         startDate: today,
         beforeShowDay: function (date) {
-            var currentDate = new Date();
+            let currentDate = new Date();
             currentDate.setHours(0, 0, 0, 0);
 
             if (date.valueOf() < currentDate.valueOf() + 1) {
@@ -33,22 +43,22 @@ $(document).ready(function () {
 
     $(".datepicker").datepicker("setDate", today);
 
-    var selectedDate = today;
+    selectedDate = today;
 
     // 년, 월, 일 추출
-    var year = selectedDate.getFullYear();
-    var month = selectedDate.getMonth() + 1; // getMonth()는 0부터 시작하므로 1을 더해줌
-    var day = selectedDate.getDate();
+    year = selectedDate.getFullYear();
+    month = selectedDate.getMonth() + 1; // getMonth()는 0부터 시작하므로 1을 더해줌
+    day = selectedDate.getDate();
 
     // 시, 분, 초 추출
-    var hours = selectedDate.getHours();
-    var minutes = selectedDate.getMinutes();
+    hours = selectedDate.getHours();
+    minutes = selectedDate.getMinutes();
 
     // 년월일 포맷
-    var dateFormatted = year + '-' + pad(month, 2) + '-' + pad(day, 2);
+    dateFormatted = year + '-' + pad(month, 2) + '-' + pad(day, 2);
 
     // 시간 포맷
-    var timeFormatted = pad(hours, 2) + ':' + pad(minutes, 2);
+    timeFormatted = pad(hours, 2) + ':' + pad(minutes, 2);
 
     pathURI = window.location.pathname
     const regex = /\/(\d+)$/;
@@ -57,20 +67,20 @@ $(document).ready(function () {
 
     tutorId = number;
 
-    var apiUrl = "/main/tutors/{tutor_id}/getInfo?calendarDate=";
+    let getUrl = "/main/tutors/{tutor_id}/getInfo?calendarDate=";
 
-    apiUrl = apiUrl.replace("{tutor_id}", number);
-    apiUrl = apiUrl + dateFormatted;
+    getUrl = getUrl.replace("{tutor_id}", number);
+    getUrl += dateFormatted;
 
     $.ajax({
         type: "GET",
-        url: apiUrl,
+        url: getUrl,
         async: false,
         success: function (data, status, xhr) {
             getHeaderAjax(xhr)
 
-            var jsonObject = JSON.parse(data);
-            var dataBody = $("#reviewCard");
+            let jsonObject = JSON.parse(data);
+            let dataBody = $("#reviewCard");
 
             console.log(jsonObject);
 
@@ -83,23 +93,23 @@ $(document).ready(function () {
             $("#profile-img").attr("src", jsonObject.tutor_info.picture);
 
             for (var i = 0; i < jsonObject.review.length; i++) {
-                var reviewer = jsonObject.review[i];
-
-                var div1 = $("<div>", {
+                let reviewer = jsonObject.review[i];
+                let div1 = $("<div>", {
                     class: "card bg-white border-light p-4 mb-4 col-8 col-lg-8",
                     style: "box-shadow: none"
                 });
-                var div2 = $("<div>", {class: "d-flex justify-content-between align-items-center mb-2"});
-                var span1 = $("<span>", {class: "font-small"});
-                var span2 = $("<span>", {
+
+                let div2 = $("<div>", {class: "d-flex justify-content-between align-items-center mb-2"});
+                let span1 = $("<span>", {class: "font-small"});
+                let span2 = $("<span>", {
                     class: "font-weight-bold",
                     text: reviewer.tutee_name
                 }); //name
-                var span3 = $("<span>", {
+                let span3 = $("<span>", {
                     class: "ml-2",
                     text: reviewer.review_date
                 }); //date
-                var p = $("<p>", {
+                let p = $("<p>", {
                     class: "m-0",
                     text: reviewer.review_content
                 }); //reviewContent
@@ -112,7 +122,7 @@ $(document).ready(function () {
                 div1.append(p);
             }
 
-            for (var i = 0; i < jsonObject.schedule.length; i++) {
+            for (let i = 0; i < jsonObject.schedule.length; i++) {
                 reservation(jsonObject, i);
             }
         },
@@ -124,28 +134,22 @@ $(document).ready(function () {
     });
 
     $('.datepicker').change(function () {
-        var selectedDate = $(this).datepicker('getDate');
+        selectedDate = $(this).datepicker('getDate');
 
         // 년, 월, 일 추출
-        var year = selectedDate.getFullYear();
-        var month = selectedDate.getMonth() + 1; // getMonth()는 0부터 시작하므로 1을 더해줌
-        var day = selectedDate.getDate();
+        year = selectedDate.getFullYear();
+        month = selectedDate.getMonth() + 1; // getMonth()는 0부터 시작하므로 1을 더해줌
+        day = selectedDate.getDate();
 
         // 시, 분, 초 추출
-        var hours = selectedDate.getHours();
-        var minutes = selectedDate.getMinutes();
+        hours = selectedDate.getHours();
+        minutes = selectedDate.getMinutes();
 
         // 년월일 포맷
-        var dateFormatted = year + '-' + pad(month, 2) + '-' + pad(day, 2);
+        dateFormatted = year + '-' + pad(month, 2) + '-' + pad(day, 2);
 
         // 시간 포맷
-        var timeFormatted = pad(hours, 2) + ':' + pad(minutes, 2);
-
-        apiUrl = "/main/tutors/{tutor_id}/getInfo?calendarDate=";
-
-        apiUrl = apiUrl.replace("{tutor_id}", number);
-        apiUrl = apiUrl + dateFormatted;
-
+        timeFormatted = pad(hours, 2) + ':' + pad(minutes, 2);
 
         $(".cell").css("color", "");
         $(".cell").css("background-color", "");
@@ -153,11 +157,11 @@ $(document).ready(function () {
 
         $.ajax({
             type: "GET",
-            url: apiUrl,
+            url: getUrl,
             success: function (data, status) {
-                var jsonObject = JSON.parse(data);
+                let jsonObject = JSON.parse(data);
 
-                for (var i = 0; i < jsonObject.schedule.length; i++) {
+                for (let i = 0; i < jsonObject.schedule.length; i++) {
                     reservation(jsonObject, i);
                 }
             },
@@ -183,19 +187,19 @@ $(document).ready(function () {
         $("#" + tagId).css("color", "white");
         $("#" + tagId).css("background-color", "gray");
         $("#" + tagId).css("pointer-events", "none");
-        var apiUrl2 = "/main/tutors/{tutor_id}/"
-        apiUrl2 = apiUrl2.replace("{tutor_id}", number);
-        apiUrl2 = apiUrl2 + "reserve";
+        let reserveUrl = "/main/tutors/{tutor_id}/"
+        reserveUrl = reserveUrl.replace("{tutor_id}", number);
+        reserveUrl += "reserve";
 
         $.ajax({
-            url: apiUrl2,
+            url: reserveUrl,
             type: "PUT",
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify({
-                $tutor_id: tutorId,
-                $tutee_id: getId(token),
-                $class_date: dateFormatted,
-                $class_time: tagId,
+                tutorId: tutorId,
+                tuteeId: getId(token),
+                classDate: dateFormatted,
+                classTime: tagId,
                 test: "test",
             }),
             success: function (data, status) {
@@ -217,7 +221,7 @@ $(document).ready(function () {
 
 // 숫자 앞에 0을 채우는 함수
 function pad(num, size) {
-    var s = num + "";
+    let s = num + "";
     while (s.length < size) s = "0" + s;
     return s;
 }
@@ -273,37 +277,26 @@ function setupHeader(token) {
 }
 
 function checkTokenExp(accessToken) {
-    var base64Payload = accessToken.split('.')[1]; //value 0 -> header, 1 -> payload, 2 -> VERIFY SIGNATURE
-    var payload = atob(base64Payload, 'base64');
-    var result = JSON.parse(payload.toString())
+    let base64Payload = accessToken.split('.')[1]; //value 0 -> header, 1 -> payload, 2 -> VERIFY SIGNATURE
+    let payload = atob(base64Payload, 'base64');
+    let result = JSON.parse(payload.toString())
 
     const expirationTime = result.exp * 1000 // exp는 초 단위이므로 밀리초 단위로 변환
-    if (expirationTime < Date.now()) {
-        // AccessToken이 만료된 경우
-        return true
-    } else {
-        // AccessToken이 유효한 경우
-        return false
-    }
+    return expirationTime < Date.now();
 }
 
 function getId(accessToken) {
-    var base64Payload = accessToken.split('.')[1]; //value 0 -> header, 1 -> payload, 2 -> VERIFY SIGNATURE
-    var payload = atob(base64Payload, 'base64');
-    var result = JSON.parse(payload.toString())
+    let base64Payload = accessToken.split('.')[1]; //value 0 -> header, 1 -> payload, 2 -> VERIFY SIGNATURE
+    let payload = atob(base64Payload, 'base64');
+    let result = JSON.parse(payload.toString())
 
     return result.sub;
 }
 
 function getRoles(accessToken) {
-    var base64Payload = accessToken.split('.')[1]; //value 0 -> header, 1 -> payload, 2 -> VERIFY SIGNATURE
-    var payload = atob(base64Payload, 'base64');
-    var result = JSON.parse(payload.toString())
+    let base64Payload = accessToken.split('.')[1]; //value 0 -> header, 1 -> payload, 2 -> VERIFY SIGNATURE
+    let payload = atob(base64Payload, 'base64');
+    let result = JSON.parse(payload.toString())
 
     return result.roles;
 }
-
-
-
-
-

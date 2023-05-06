@@ -7,11 +7,14 @@ $(document).ready(function () {
     let regPwd = RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/);
 
     // 변수 선언
-    var emailCheck = true;
-    var passwordCheck = true;
-    var passwordConfirmCheck = true;
-    var nameCheck = true;
+    let emailCheck = true;
+    let passwordCheck = true;
+    let passwordConfirmCheck = true;
+    let nameCheck = true;
 
+    let fileValue;
+    let fileName;
+    
     let firstSelected;
     let secondSelected;
 
@@ -44,8 +47,9 @@ $(document).ready(function () {
 
     // 비밀번호 유효성 검사
     $("#password").change(function () {
-        var pwd1 = $("#password").val();
-        if (!regPwd.test(pwd1)) {
+        let password = $("#password").val();
+
+        if (!regPwd.test(password)) {
             $(".password")
                 .text("6-12 characters and numbers & characters.")
                 .css("color", "red");
@@ -61,10 +65,10 @@ $(document).ready(function () {
 
     // 비밀번호 일치 여부 검사
     $("#password-confirm").change(function () {
-        var pwd1 = $("#password").val();
-        var pwd2 = $("#password-confirm").val();
+        let password = $("#password").val();
+        let confirmedPass = $("#password-confirm").val();
 
-        if (pwd1 != pwd2) {
+        if (password != confirmedPass) {
             $(".password-confirm").text("Password does not match.").css("color", "red");
             $("#password-confirm").attr("class", "form-control is-invalid");
             passwordConfirmCheck = false;
@@ -78,8 +82,9 @@ $(document).ready(function () {
 
     // 튜터 인증 파일 이름 바꾸기
     $("#customFile").change(function () {
-        var fileValue = $("#customFile").val().split("\\");
-        var fileName = fileValue[fileValue.length - 1]; // 파일명
+        fileValue = $("#customFile").val().split("\\");
+        fileName = fileValue[fileValue.length - 1]; // 파일명
+
         $("#show-files").text(fileName);
     });
 
@@ -124,7 +129,7 @@ $(document).ready(function () {
     });
 
     $("#signUpForm").on('submit', function (event) {
-    // 유효성 검사 실패시 제출 안되게 하기
+        // 유효성 검사 실패시 제출 안되게 하기
         if (!emailCheck) {
             $("#email").focus();
             return false;
@@ -142,7 +147,7 @@ $(document).ready(function () {
         event.preventDefault();
 
         const formData = new FormData(this);
-        formData.append("role","tutor");
+        formData.append("role", "tutor");
 
         $.ajax({
             type: "POST",
@@ -151,16 +156,12 @@ $(document).ready(function () {
             processData: false, // processData를 false로 설정하여 jQuery가 데이터를 처리하지 않도록 함
             contentType: false, // contentType을 false로 설정하여 jQuery가 contentType을 설정하지 않도록 함
             success: function (data, status) {
-                if (data === "signupFail") {
-                    alert("Member who already exists.")
-                } else {
-                    var email = btoa(data);
-                    sessionStorage.setItem("email", email);
-                    window.location.href = '/members/signup/email';
-                }
+                let email = btoa(data);
+                sessionStorage.setItem("email", email);
+                window.location.href = '/members/signup/email';
             },
             error: function (data, textStatus) {
-                alert("Error!")
+                alert("Member who already exists.")
             },
             complete: function (data, textStatus) {
             },

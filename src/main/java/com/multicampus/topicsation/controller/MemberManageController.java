@@ -16,10 +16,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
 import java.util.Map;
-
-import static com.multicampus.topicsation.service.MemberManageService.linkExpirationMap;
 
 @Controller
 @RequestMapping("/members")
@@ -40,12 +37,11 @@ public class MemberManageController {
 
     @GetMapping("/signin/change")
     public String passwordChange(@RequestParam String linkId) {
-//        Long expirationTime = linkExpirationMap.get(linkId); // 링크별 만료 시간 조회
-//        System.out.println(linkId);
-//        if (expirationTime == null || System.currentTimeMillis() < expirationTime) {
-//            // 만료된 링크 처리
-//            return "html/404";
-//        }
+        Long expirationTime = memberManageservice.getLinkExpirationMap(linkId); // 링크별 만료 시간 조회
+        if (expirationTime == null || System.currentTimeMillis() > expirationTime) {
+            // 만료된 링크 처리
+            return "html/404";
+        }
         return "html/password-change";
     }
 
@@ -82,9 +78,6 @@ public class MemberManageController {
 
         @PostMapping("/signin.post")
         public ResponseEntity<Object> signin(@RequestBody Map<String, String> params, HttpServletResponse response) throws Exception {
-
-            String email = params.get("email");
-
               //email과 password 검증
             LoginDTO dto = memberManageservice.login(params);
 
@@ -143,7 +136,7 @@ public class MemberManageController {
                 session.setAttribute("email", mailDTO.getEmail());
                 return ResponseEntity.ok().build();
             } else {
-                return ResponseEntity.notFound().build();
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
             }
         }
 
@@ -153,17 +146,17 @@ public class MemberManageController {
             if(result) {
                 return ResponseEntity.ok().build();
             }else {
-                return ResponseEntity.unprocessableEntity().build();
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
             }
         }
 
         @PostMapping("/signup-tutees.post")
-        public String signUpTutee(@RequestBody SignUpDTO signUpDTO) {
+        public ResponseEntity<Object> signUpTutee(@RequestBody SignUpDTO signUpDTO) {
             boolean result = memberManageservice.signUpProcess(signUpDTO);
             if (result) {
-                return signUpDTO.getEmail();
+                return ResponseEntity.ok().build();
             } else {
-                return "signupFail";
+                return ResponseEntity.unprocessableEntity().build();
             }
         }
 
@@ -195,9 +188,9 @@ public class MemberManageController {
 
             boolean result = memberManageservice.signUpProcess(signUpDTO);
             if (result) {
-                return new ResponseEntity <String> (signUpDTO.getEmail(), HttpStatus.OK);
+                return new ResponseEntity<>(signUpDTO.getEmail(), HttpStatus.OK);
             } else {
-                return new ResponseEntity <String> ("signupFail", HttpStatus.OK);
+                return ResponseEntity.unprocessableEntity().build();
             }
         }
 

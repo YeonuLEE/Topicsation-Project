@@ -23,4 +23,6 @@ public interface IMemberManageService {
    boolean isSuccessEmailAuth(SignUpDTO signUpDTO);
    // 튜터 인증 파일 업로드
    String getFileExtension(String fileName);
+   // 비밀번호 재설정 링크 만료 시간 저장
+   Long getLinkExpirationMap(String linkId);
 }

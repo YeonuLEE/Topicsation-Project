@@ -1,8 +1,8 @@
 $(document).ready(function() {
 $("#loginForm").submit(function (event) {
     event.preventDefault();
-    var email = $("#email").val();
-    var password = $("#password").val();
+    let email = $("#email").val();
+    let password = $("#password").val();
 
     $.ajax({
         type: "POST",

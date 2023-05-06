@@ -4,13 +4,16 @@ let regEmail = RegExp(/^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/);
 let regPwd = RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/);
 
 // 변수 선언
-var emailCheck = true;
-var passwordCheck = true;
-var passwordConfirmCheck = true;
-var nameCheck = true;
+let emailCheck = true;
+let passwordCheck = true;
+let passwordConfirmCheck = true;
+let nameCheck = true;
 
 let selectOption;
 let selectedOption;
+
+let fileValue;
+let fileName;
 
 //이메일 유효성 검사
 $("#email").change(function () {
@@ -41,8 +44,8 @@ $("#name").change(function () {
 
 // 비밀번호 유효성 검사
 $("#password").change(function () {
-    var pwd1 = $("#password").val();
-    if (!regPwd.test(pwd1)) {
+    let password = $("#password").val();
+    if (!regPwd.test(password)) {
         $(".password")
             .text("비밀번호는 영문, 숫자포함 6-12자여야합니다.")
             .css("color", "red");
@@ -58,10 +61,10 @@ $("#password").change(function () {
 
 // 비밀번호 일치 여부 검사
 $("#password-confirm").change(function () {
-    var pwd1 = $("#password").val();
-    var pwd2 = $("#password-confirm").val();
+    let password = $("#password").val();
+    let confirmedPassword = $("#password-confirm").val();
 
-    if (pwd1 !== pwd2) {
+    if (password !== confirmedPassword) {
         $(".password_confirm")
             .text("비밀번호가 일치하지 않습니다.")
             .css("color", "red");
@@ -77,8 +80,8 @@ $("#password-confirm").change(function () {
 
 // 파일 이름 바꾸기
 $("#customFile").change(function () {
-    var fileValue = $("#customFile").val().split("\\");
-    var fileName = fileValue[fileValue.length - 1]; // 파일명
+    fileValue = $("#customFile").val().split("\\");
+    fileName = fileValue[fileValue.length - 1]; // 파일명
     $("#showFiles").text(fileName);
 });
 

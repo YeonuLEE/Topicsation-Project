@@ -7,10 +7,11 @@ $(document).ready(function () {
     let regPwd = RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/);
 
     // 변수 선언
-    var emailCheck = true;
-    var passwordCheck = true;
-    var passwordConfirmCheck = true;
-    var nameCheck = true;
+
+    let emailCheck = true;
+    let passwordCheck = true;
+    let passwordConfirmCheck = true;
+    let nameCheck = true;
 
     let firstSelected;
     let secondSelected;
@@ -43,8 +44,8 @@ $(document).ready(function () {
 
     // 비밀번호 유효성 검사
     $("#password").change(function () {
-        var pwd1 = $("#password").val();
-        if (!regPwd.test(pwd1)) {
+        let password = $("#password").val();
+        if (!regPwd.test(password)) {
             $(".password")
                 .text("비밀번호는 영문, 숫자포함 6-12자여야합니다.")
                 .css("color", "red");
@@ -60,10 +61,10 @@ $(document).ready(function () {
 
     // 비밀번호 일치 여부 검사
     $("#password-confirm").change(function () {
-        var pwd1 = $("#password").val();
-        var pwd2 = $("#password-confirm").val();
+        let password = $("#password").val();
+        let confirmedPass = $("#password-confirm").val();
 
-        if (pwd1 != pwd2) {
+        if (password != confirmedPass) {
             $(".password-confirm")
                 .text("비밀번호가 일치하지 않습니다.")
                 .css("color", "red");
@@ -98,6 +99,7 @@ $(document).ready(function () {
         // 첫번째 관심사에서 뽑은 옵션 제거
         $("#second-interest").find("option").each(function () {
 
+
             if (this.value == firstSelected) {
                 $(this).remove();
             }
@@ -107,6 +109,7 @@ $(document).ready(function () {
     // 두번째 관심사 선택
     $("#second-interest").change(function () {
         secondSelected = $("#second-interest option:selected").val();
+
 
         // 남은 옵션 전체 삭제
         $("#first-interest option").remove();
@@ -139,10 +142,10 @@ $(document).ready(function () {
             $("#name").focus();
             return false;
         }
-
         event.preventDefault();
 
-        var data = {
+
+        let data = {
             email: $('input[name="email"]').val(),
             name: $('input[name="name"]').val(),
             password: $('input[name="password"]').val(),
@@ -157,18 +160,13 @@ $(document).ready(function () {
             url: "/members/signup-tutees.post",
             contentType: 'application/json',
             data: JSON.stringify(data),
-            contentType: 'application/json',
             success: function (data, status) {
-                if (data === "signupFail") {
-                    alert("이미 존재하는 회원입니다.")
-                } else {
-                    var email = btoa(data);
-                    sessionStorage.setItem("email", email);
-                    window.location.href = '/members/signup/email';
-                }
+                let email = btoa(data);
+                sessionStorage.setItem("email", email);
+                window.location.href = '/members/signup/email';
             },
             error: function (data, textStatus) {
-                alert("Error!")
+                alert("이미 존재하는 회원입니다.")
             },
             complete: function (data, textStatus) {
             },
