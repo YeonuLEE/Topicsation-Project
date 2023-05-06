@@ -2,6 +2,7 @@ package com.multicampus.topicsation.repository;
 
 import com.multicampus.topicsation.dto.*;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,7 @@ public interface ITutorListDAO {
 
     // 튜터 추천 메서드
     MemberDTO tuteeInterest(String user_id);
-    List<RecommendDTO> recommendList(String user_id,String interest1, String interest2);
-    List<RecommendDTO> spareList(String user_id,String interest);
+    List<RecommendDTO> recommendList(@Param("user_id") String user_id, @Param("interest1") String interest1,@Param("interest2") String interest2);
+    List<RecommendDTO> spareList(@Param("user_id") String user_id,@Param("interest") String interest);
     List<RecommendDTO> nonMembers();
 }
