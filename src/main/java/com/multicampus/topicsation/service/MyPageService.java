@@ -40,7 +40,12 @@ public class MyPageService implements IMyPageService{
         if (role.equals("tutor")) {
             myPageDTO = dao.viewTutor(user_id);
 
-            jsonObject.put("profileImg", myPageDTO.getProfileimg());
+            String bucketName = "asset";
+            String folderName = "profile";
+
+            String profileImgUrl = s3FileService.getImageUrl(bucketName, folderName, myPageDTO.getProfileimg());
+
+            jsonObject.put("profileImg", profileImgUrl);
             jsonObject.put("name", myPageDTO.getName());
             jsonObject.put("email", myPageDTO.getEmail());
             jsonObject.put("nationality", myPageDTO.getNationality());
@@ -160,7 +165,7 @@ public class MyPageService implements IMyPageService{
     }
 
     @Override
-    public void change_profileImg(String userId, MultipartFile file) {
+    public boolean change_profileImg(String userId, MultipartFile file) {
         String bucketName = "asset";
         String folderName = "profile";
         String fileExtension = getFileExtension(file.getOriginalFilename()); //확장자 가져오기
@@ -178,14 +183,12 @@ public class MyPageService implements IMyPageService{
             String existingObjectKey = folderName + "/" + fileNameWithoutExtension;
             // NCP에 기존 파일 삭제
             s3FileService.deleteFile(bucketName, existingObjectKey);
-            // NCP에 업로드
-            s3FileService.uploadFile(bucketName, objectKey, file);
+            System.out.println("파일 삭제 완료");
         }
-        else{
-            // NCP에 업로드
-            s3FileService.uploadFile(bucketName, objectKey, file);
-        }
+
+        s3FileService.uploadFile(bucketName, objectKey, file);
         dao.changeProfileImg(userId, fileName);
+        return true;
     }
 
     private String getFileExtension(String fileName) {

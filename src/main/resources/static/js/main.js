@@ -50,11 +50,10 @@ $(document).ready(function () {
             for (var i = 0; i < jsonData.tutor_list.length; i++) {
                 var person = jsonData.tutor_list[i];
                 var link = "/main/tutors/";
-                var imgSrc = "/assets/img/profile/";
+                var imgSrc = person.tutor_image;
                 var imgId = "tutor-img";
 
                 link = link + person.user_id;
-                imgSrc = imgSrc + person.tutor_image;
                 imgId = imgId + person.user_id;
 
                 var div1 = $("<div>", {class: "col-12 col-md-6 mb-3"});
@@ -67,7 +66,8 @@ $(document).ready(function () {
                     src: imgSrc,
                     alt: "loft space",
                     className: "card-img p-2 rounded-xl",
-                    id: imgId
+                    id: imgId,
+                    style: "object-fit: cover; width: 100%; height: 230px;"
                 });
 
                 var div5 = $("<div>", {class: "col-12 col-lg-6 col-xl-8"});
@@ -160,11 +160,10 @@ $("#search-form").submit(function (event) {
 
                 var person = jsonData.tutor_list[i];
                 var link = "/main/tutors/";
-                var imgSrc = "/assets/img/profile/";
+                var imgSrc = person.tutor_image;
                 var imgId = "tutor-img";
 
                 link = link + person.user_id;
-                imgSrc = imgSrc + person.tutor_image;
                 imgId = imgId + person.user_id;
 
                 var div1 = $("<div>", {class: "col-12 col-md-6 mb-3"});

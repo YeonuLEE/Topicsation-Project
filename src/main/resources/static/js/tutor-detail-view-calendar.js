@@ -74,13 +74,15 @@ $(document).ready(function () {
             var jsonObject = JSON.parse(data);
             var dataBody = $("#reviewCard");
 
+            console.log(jsonObject);
+
             $("#tutor-name").text(jsonObject.tutor_info.name);
             $("#introduce_content").text(jsonObject.tutor_info.introduce);
             $("#tutor-like").text(jsonObject.tutor_info.like);
             $("#tutor-nation").text(jsonObject.tutor_info.nationality);
             $("#first-interest").append(jsonObject.tutor_info.interest1);
             $("#second-interest").append(jsonObject.tutor_info.interest2);
-            $("#profile-img").attr("src", "/assets/img/profile/"+jsonObject.tutor_info.picture);
+            $("#profile-img").attr("src", jsonObject.tutor_info.picture);
 
             for(var i = 0; i < jsonObject.review.length; i++){
                 var reviewer = jsonObject.review[i];

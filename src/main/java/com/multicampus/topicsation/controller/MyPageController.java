@@ -133,8 +133,13 @@ public class MyPageController {
 
         @PostMapping("/{user_id}/profileUpdate")
         public ResponseEntity<?> mypageProfile(@PathVariable("user_id") String userId, @RequestParam("file") MultipartFile file){
-            service.change_profileImg(userId, file); // DB에 사진 파일 이름 저장
-            return new ResponseEntity<>(file.getOriginalFilename() + " 파일이 업로드되었습니다.", HttpStatus.OK);
+
+            if(service.change_profileImg(userId, file)){
+                return new ResponseEntity<>(file.getOriginalFilename() + " 파일이 업로드되었습니다.", HttpStatus.OK);// DB에 사진 파일 이름 저장
+            }
+            else{
+                return new ResponseEntity<>(file.getOriginalFilename() + " 파일이 업로드되었습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         }
 
 

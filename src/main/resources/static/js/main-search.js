@@ -31,17 +31,17 @@ function searchGet(page){
             var all_list = data.all_list;
             var page = data.page;
             var total = data.total;
-
             var dataBody = $("#tutor-card");
             dataBody.empty();
+
             for (var i = 0; i < all_list.length; i++) {
                 var person = all_list[i];
                 var link = "/main/tutors/";
-                var imgSrc = "/assets/img/profile/";
+                var imgSrc = person.profileImg;
+                console.log(imgSrc);
                 var imgId = "tutor-img";
 
                 link = link + person.user_id;
-                imgSrc = imgSrc + person.tutor_image;
                 imgId = imgId + person.user_id;
 
                 var div1 = $("<div>", {class: "col-12 col-md-6 mb-3"});
@@ -54,7 +54,8 @@ function searchGet(page){
                     src: imgSrc,
                     alt: "loft space",
                     className: "card-img p-2 rounded-xl",
-                    id: imgId
+                    id: imgId,
+                    style: "object-fit: cover; width: 100%; height: 230px;"
                 });
 
                 var div5 = $("<div>", {class: "col-12 col-lg-6 col-xl-8"});
