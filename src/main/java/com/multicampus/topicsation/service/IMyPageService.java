@@ -10,19 +10,19 @@ import java.util.List;
 import java.util.Map;
 
 public interface IMyPageService {
-    String check_password(String user_id);
+    String check_password(String userId);
 
-    void success(String user_id);
-    void fail(String user_id);
+    void success(String userId);
+    void fail(String userId);
 
-    String view(String user_id);
+    String view(String userId);
     void modify(JSONObject jsonObject,String userId);
     MypageScheduleDTO schedule_tutor(Map<String, Object> paramMap, MypageScheduleDTO mypageScheduleDTO);
     int scheduleUpdate(JSONObject jsonUserInfo, JSONArray jsonSchedule);
-    void delete(String user_id);
+    void delete(String userId);
     void chang_profileImg(String user_id, String fileName);
 
-    String schedule_tutee(String user_id);
-    String history_tutee(String user_id);
-    void schedule_cancel(String class_id);
+    String schedule_tutee(String userId);
+    String history_tutee(String userId);
+    void schedule_cancel(String userId);
 }
