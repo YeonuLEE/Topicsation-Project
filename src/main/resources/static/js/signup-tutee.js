@@ -84,25 +84,84 @@ $(document).ready(function () {
     });
 
 // 두번째 관심사 제거
+//     $("#first-interest").change(function () {
+//         console.log($("#first-interest option:selected").val())
+//         console.log($("#second-interest option:selected").val())
+//         // 남은 옵션 전체 삭제
+//         $("#second-interest option").remove();
+//
+//         // 전체 옵션 다시 추가
+//         $("#second-interest").html(
+//             "<option value='business'>비즈니스</option><option value='tech'>테크</option><option value='science'>과학</option><option value='entertainment'>엔터테인먼트</option><option value='health'>건강</option>"
+//         );
+//
+//         // 첫번째 관심사에서 뽑은 옵션 제거
+//         selectedOption = $("#first-interest option:selected").val();
+//         $("#second-interest")
+//             .find("option")
+//             .each(function () {
+//                 if (this.value == selectedOption) {
+//                     $(this).remove();
+//                 }
+//             });
+//     });
+    let firstSelected;
+    let secondSelected;
+
     $("#first-interest").change(function () {
-        // 남은 옵션 전체 삭제
-        $("#second-interest option").remove();
+        firstSelected = $("#first-interest option:selected").val();
 
-        // 전체 옵션 다시 추가
-        $("#second-interest").html(
-            "<option value='business'>비즈니스</option><option value='tech'>테크</option><option value='science'>과학</option><option value='entertainment'>엔터테인먼트</option><option value='health'>건강</option>"
-        );
+        if($("#second-interest option:selected").length === 0) {
 
-        // 첫번째 관심사에서 뽑은 옵션 제거
-        selectedOption = $("#first-interest option:selected").val();
-        $("#second-interest")
-            .find("option")
-            .each(function () {
-                if (this.value == selectedOption) {
+            // 남은 옵션 전체 삭제
+            $("#second-interest option").remove();
+
+            // 전체 옵션 다시 추가
+            $("#second-interest").html(
+                "<option value='business'>비즈니스</option><option value='tech'>테크</option><option value='science'>과학</option><option value='entertainment'>엔터테인먼트</option><option value='health'>건강</option>"
+            );
+
+            $("#second-interest").find("option").each(function () {
+
+                if (this.value == firstSelected) {
                     $(this).remove();
                 }
             });
+            $("#second-interest").val(secondSelected);
+
+        }
+        if(secondSelected) {
+            $("#second-interest").val(secondSelected);
+        }
+        secondSelected = $("#second-interest option:selected").val();
+
     });
+
+    $("#second-interest").change(function () {
+        secondSelected = $("#second-interest option:selected").val();
+
+        if($("#first-interest option:selected").length === 0){
+            // 남은 옵션 전체 삭제
+            $("#first-interest option").remove();
+
+            // 전체 옵션 다시 추가
+            $("#first-interest").html(
+                "<option value='business'>비즈니스</option><option value='tech'>테크</option><option value='science'>과학</option><option value='entertainment'>엔터테인먼트</option><option value='health'>건강</option>"
+            );
+
+            $("#first-interest").find("option").each(function () {
+                if (this.value == secondSelected) {
+                    $(this).remove();
+                }
+            });
+            $("#first-interest").val(firstSelected);
+        }
+        if(firstSelected) {
+            $("#first-interest").val(firstSelected);
+        }
+            firstSelected = $("#first-interest option:selected").val();
+    });
+
 
 // "예약을 취소하겠습니다" 유효성 검사
     $("#cancelReservation").click(function () {

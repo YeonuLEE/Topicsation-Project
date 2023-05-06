@@ -1,5 +1,14 @@
 package com.multicampus.topicsation.controller;
 
+import com.multicampus.topicsation.dto.RecommendDTO;
+import com.multicampus.topicsation.dto.SearchDTO;
+import com.multicampus.topicsation.dto.TutorScheduleDTO;
+import com.multicampus.topicsation.dto.TutorViewDTO;
+import com.multicampus.topicsation.dto.pageDTO.PageReqeustDTO;
+import com.multicampus.topicsation.dto.pageDTO.PageRequestDTO;
+import com.multicampus.topicsation.dto.pageDTO.PageResponseDTO;
+import com.multicampus.topicsation.service.ISearchService;
+import org.json.simple.JSONArray;
 import com.multicampus.topicsation.service.ITutorListService;
 import com.multicampus.topicsation.service.SearchService;
 import org.json.simple.JSONObject;
@@ -38,7 +47,7 @@ public class MainPageController {
         ITutorListService tutorListService;
 
         @Autowired
-        SearchService searchService;
+        ISearchService searchService;
 
         @GetMapping("/get")
         public String main(@RequestParam("userId") String userId) {
