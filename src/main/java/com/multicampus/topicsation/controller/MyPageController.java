@@ -265,8 +265,8 @@ public class MyPageController {
         }
 
         @GetMapping("/{user_id}/history/get")
-        public String historyPage(@PathVariable("user_id") String user_id) {
-            return service.history_tutee(user_id);
+        public String historyPage(@PathVariable("user_id") String userId) {
+            return service.history_tutee(userId);
         }
     }
 }

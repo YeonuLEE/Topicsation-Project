@@ -9,40 +9,40 @@ import java.util.Map;
 
 @Mapper
 public interface IMemberDAO {
-    String checkRole(String user_id);
-    String checkPass(String user_id);
+    String checkRole(String userId);
+    String checkPass(String userId);
 
     List<MyPageDTO> viewAdmin();
-    void successAdmin(String user_id);
-    void failAdmin(String user_id);
-    void failAdmin2(String user_id);
+    void successAdmin(String userId);
+    void failAdmin(String userId);
+    void failAdmin2(String userId);
 
-    MyPageDTO viewTutor(String user_id);
+    MyPageDTO viewTutor(String userId);
     int modifyTutor(MyPageDTO myPageDTO);
     int modifyTutor2(MyPageDTO myPageDTO);
-    MypageScheduleDTO tutorProfile(String user_id);
-    String checkProfileImg(String user_id);
-    void changProfileImg(@Param("user_id") String user_id, @Param("fileName") String fileName);
+    MypageScheduleDTO tutorProfile(String userId);
+    String checkProfileImg(String userId);
+    void changProfileImg(@Param("user_id") String userId, @Param("fileName") String fileName);
 
     List<ClassDTO> tutorSchedule(Map<String, Object> paramMap);
     int findUser(Map<String, Object> paramMap);
     void scheduleDelete(Map<String, Object> scheduleMap);
     int scheduleUpdate(Map<String, Object> scheduleMap);
 
-    List<ClassDTO> schedule(String tutor_id);
-    void deleteClass(String user_id);
-    void tutorDislike(String user_id);
-    void deleteTutorInfo(String user_id);
-    void deleteTutor(String user_id);
+    List<ClassDTO> schedule(String userId);
+    void deleteClass(String userId);
+    void tutorDislike(String userId);
+    void deleteTutorInfo(String userId);
+    void deleteTutor(String userId);
 
-    MyPageDTO viewTutee(String user_id);
+    MyPageDTO viewTutee(String userId);
     int modifyTutee(MyPageDTO myPageDTO);
-    MypageScheduleDTO tuteeProfile(String user_id);
-    List<ClassDTO> scheduleTutee(String user_id);
-    List<ClassDTO> historyTutee(String user_id);
-    void deleteTutee(String user_id);
-    void chageClass(String user_id);
+    MypageScheduleDTO tuteeProfile(String userId);
+    List<ClassDTO> scheduleTutee(String userId);
+    List<ClassDTO> historyTutee(String userId);
+    void deleteTutee(String userId);
+    void chageClass(String userId);
     void cancelSchedule(String class_id);
-    void tuteeDislike(String user_id);
+    void tuteeDislike(String userId);
 
 }
