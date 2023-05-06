@@ -11,6 +11,6 @@ import java.util.Map;
 
 public interface ITutorListService {
     String tutorInfo(String tutorId,String calendarDate);
-    ResponseEntity<Void> ClassReserve(JSONObject jsonObject);
+    ResponseEntity<Void> ClassReserve(Map<String, String> paramMap);
     String tutor_recommend(String userId);
 }
