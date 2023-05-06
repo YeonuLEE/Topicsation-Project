@@ -80,7 +80,7 @@ $(document).ready(function () {
     $("#customFile").change(function () {
         var fileValue = $("#customFile").val().split("\\");
         var fileName = fileValue[fileValue.length - 1]; // 파일명
-        $("#showFiles").text(fileName);
+        $("#show-files").text(fileName);
     });
 
     // 첫번째 관심사 선택

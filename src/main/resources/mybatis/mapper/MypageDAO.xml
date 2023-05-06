@@ -65,7 +65,7 @@
     <select id="checkProfileImg" resultType="string">
         SELECT profileimg FROM TUTOR_INFO WHERE tutor_id = #{userId} and PROFILEIMG like '%unknown%'
     </select>
-    <update id="changProfileImg" parameterType="String">
+    <update id="changeProfileImg" parameterType="String">
         UPDATE TUTOR_INFO SET profileimg = #{fileName} WHERE tutor_id = #{userId}
     </update>
 

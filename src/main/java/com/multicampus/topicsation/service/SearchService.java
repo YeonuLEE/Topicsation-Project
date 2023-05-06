@@ -25,6 +25,9 @@ public class SearchService implements ISearchService{
     @Autowired
     private final ISearchDAO dao;
 
+    @Autowired
+    private IS3FileService s3FileService;
+
     @Override
     public Map<String, Object> searchList(Map<String, String> requestParams) {
 
@@ -55,6 +58,12 @@ public class SearchService implements ISearchService{
                 .build();
 
         List<SearchDTO> searchDTOList = dao.searchListDAO(pageRequestDTO);
+        for (SearchDTO searchDTO : searchDTOList) {
+            String imgId = searchDTO.getProfileImg();
+            String imageUrl = s3FileService.getImageUrl("asset", "profile", imgId);
+            searchDTO.setProfileImg(imageUrl);
+        }
+
         int totalcount = dao.searchCountDAO(pageRequestDTO);
         PageResponseDTO<SearchDTO> pageResponseDTO = PageResponseDTO.<SearchDTO>withAll()
                 .searchDTOList(searchDTOList)

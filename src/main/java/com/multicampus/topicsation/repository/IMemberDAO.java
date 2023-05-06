@@ -20,9 +20,11 @@ public interface IMemberDAO {
     MyPageDTO viewTutor(String userId);
     int modifyTutor(MyPageDTO myPageDTO);
     int modifyTutor2(MyPageDTO myPageDTO);
+    
     MypageScheduleDTO tutorProfile(String userId);
     String checkProfileImg(String userId);
-    void changProfileImg(@Param("user_id") String userId, @Param("fileName") String fileName);
+    void changeProfileImg(@Param("user_id") String userId, @Param("fileName") String fileName);
+
 
     List<ClassDTO> tutorSchedule(Map<String, Object> paramMap);
     int findUser(Map<String, Object> paramMap);

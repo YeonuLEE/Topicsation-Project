@@ -35,7 +35,7 @@ $(document).ready(function () {
             $("#schedule").attr("href", apiUrl + "/schedule");
 
             $('#tutor-name').text(jsonObject.name);
-            $("#profile-img").attr("src","/assets/img/profile/" + jsonObject.profileImg);
+            $("#profile-img").attr("src", jsonObject.profileImg);
             $('#name').val(jsonObject.name);
             $('#email').val(jsonObject.email);
             $('#nationality').val(jsonObject.nationality).prop("selected", true);
@@ -167,6 +167,8 @@ $(document).ready(function () {
             contentType: false,
             success: function (response){
                 $("#profile-img").load(window.location.href + " #profile-img");
+                alert("프로필 사진이 성공적으로 변경되었습니다.");
+                location.reload();
             },
             error: function (error){
                 alert("Error : " + error.responseText);

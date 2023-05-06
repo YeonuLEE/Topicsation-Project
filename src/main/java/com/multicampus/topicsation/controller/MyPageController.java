@@ -2,6 +2,7 @@ package com.multicampus.topicsation.controller;
 
 import com.multicampus.topicsation.dto.MypageScheduleDTO;
 import com.multicampus.topicsation.service.IMyPageService;
+import com.multicampus.topicsation.service.IS3FileService;
 import com.multicampus.topicsation.token.JwtUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -28,6 +29,9 @@ public class MyPageController {
 
     @Autowired
     private IMyPageService service;
+
+    @Autowired
+    private IS3FileService s3FileService;
 
     @Autowired
     private JwtUtils jwtUtils;
@@ -130,61 +134,14 @@ public class MyPageController {
         @PostMapping("/{user_id}/profileUpdate")
         public ResponseEntity<?> mypageProfile(@PathVariable("user_id") String userId, @RequestParam("file") MultipartFile file){
 
-            final String UPLOAD_DIR = "src/main/resources/static/assets/img/profile/";
-
-            try {
-                // 파일이 비어있는지 확인
-                if (file.isEmpty()) {
-                    return new ResponseEntity<>("파일을 선택해주세요.", HttpStatus.BAD_REQUEST);
-                }
-
-                // 파일 저장
-                byte[] bytes = file.getBytes();
-                String fileExtension = getFileExtension(file.getOriginalFilename());
-                String fileName = userId + "." + fileExtension;
-
-                Path path = Paths.get(UPLOAD_DIR + userId + "." + fileExtension);
-                Path pathJPG = Paths.get(UPLOAD_DIR + userId + "." + "jpg");
-                Path pathJPEG = Paths.get(UPLOAD_DIR + userId + "." + "jpeg");
-                Path pathPNG = Paths.get(UPLOAD_DIR + userId + "." + "png");
-
-                boolean resultJPG = Files.exists(pathJPG);
-                boolean resultJPEG = Files.exists(pathJPEG);
-                boolean resultPNG = Files.exists(pathPNG);
-
-                service.chang_profileImg(userId, fileName);
-
-                if (Files.exists(pathJPEG) || Files.exists(pathJPG) || Files.exists(pathPNG)) {
-                    if(resultJPG) {
-                        Files.delete(pathJPG);
-                        Files.write(path, bytes);
-                    }
-                    else if(resultJPEG){
-                        Files.delete(pathJPEG);
-                        Files.write(path, bytes);
-                    }
-                    else if(resultPNG){
-                        Files.delete(pathPNG);
-                        Files.write(path, bytes);
-                    }
-                } else {
-                    Files.write(path, bytes);
-                }
-
-                return new ResponseEntity<>(file.getOriginalFilename() + " 파일이 업로드되었습니다.", HttpStatus.OK);
-            } catch (IOException e) {
-                e.printStackTrace();
-                return new ResponseEntity<>("파일 업로드 중 오류가 발생했습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+            if(service.change_profileImg(userId, file)){
+                return new ResponseEntity<>(file.getOriginalFilename() + " 파일이 업로드되었습니다.", HttpStatus.OK);// DB에 사진 파일 이름 저장
             }
-
-        }
-        private String getFileExtension(String fileName) {
-            int lastIndexOfDot = fileName.lastIndexOf(".");
-            if (lastIndexOfDot == -1) {
-                return ""; // 확장자가 없는 경우
+            else{
+                return new ResponseEntity<>(file.getOriginalFilename() + " 파일이 업로드되었습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
             }
-            return fileName.substring(lastIndexOfDot + 1);
         }
+
 
 
         @PostMapping("/{user_id}/delete")

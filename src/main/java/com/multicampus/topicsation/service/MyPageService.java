@@ -10,6 +10,7 @@ import org.json.simple.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,9 @@ public class MyPageService implements IMyPageService{
 
     @Autowired
     private IMemberDAO dao;
+
+    @Autowired
+    private IS3FileService s3FileService;
 
     @Override
     public String check_password(String userId) {
@@ -36,7 +40,12 @@ public class MyPageService implements IMyPageService{
         if (role.equals("tutor")) {
             myPageDTO = dao.viewTutor(userId);
 
-            jsonObject.put("profileImg", myPageDTO.getProfileimg());
+            String bucketName = "asset";
+            String folderName = "profile";
+
+            String profileImgUrl = s3FileService.getImageUrl(bucketName, folderName, myPageDTO.getProfileimg());
+
+            jsonObject.put("profileImg", profileImgUrl);
             jsonObject.put("name", myPageDTO.getName());
             jsonObject.put("email", myPageDTO.getEmail());
             jsonObject.put("nationality", myPageDTO.getNationality());
@@ -156,8 +165,38 @@ public class MyPageService implements IMyPageService{
     }
 
     @Override
-    public void chang_profileImg(String userId, String fileName) {
-        dao.changProfileImg(userId, fileName);
+    public boolean change_profileImg(String userId, MultipartFile file) {
+        String bucketName = "asset";
+        String folderName = "profile";
+        String fileExtension = getFileExtension(file.getOriginalFilename()); //확장자 가져오기
+        String fileName = userId + "." + fileExtension;
+        String objectKey = folderName + "/" + fileName;
+
+        // 확장자를 제외한 파일 이름
+        String fileNameWithoutExtension = userId;
+
+        // 기존 파일이 있는지 확인
+        boolean fileExists = s3FileService.isFileExists(bucketName, folderName, fileNameWithoutExtension);
+        System.out.println(fileExists);
+        if (fileExists) {
+            // 기존 파일이 있으면 삭제
+            String existingObjectKey = folderName + "/" + fileNameWithoutExtension;
+            // NCP에 기존 파일 삭제
+            s3FileService.deleteFile(bucketName, existingObjectKey);
+            System.out.println("파일 삭제 완료");
+        }
+
+        s3FileService.uploadFile(bucketName, objectKey, file);
+        dao.changeProfileImg(userId, fileName);
+        return true;
+    }
+
+    private String getFileExtension(String fileName) {
+        int lastIndexOfDot = fileName.lastIndexOf(".");
+        if (lastIndexOfDot == -1) {
+            return ""; // 확장자가 없는 경우
+        }
+        return fileName.substring(lastIndexOfDot + 1);
     }
 
     @Override

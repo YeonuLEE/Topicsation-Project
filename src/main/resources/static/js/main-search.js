@@ -51,11 +51,11 @@ function searchGet(page, name, interest, date){
             for (let i = 0; i < all_list.length; i++) {
                 let person = all_list[i];
                 let link = "/main/tutors/";
-                let imgSrc = "/assets/img/profile/";
+                let imgSrc = person.profileImg;
                 let imgId = "tutor-img";
 
+
                 link = link + person.user_id;
-                imgSrc = imgSrc + person.tutor_image;
                 imgId = imgId + person.user_id;
 
                 let div1 = $("<div>", {class: "col-12 col-md-6 mb-3"});
@@ -68,7 +68,8 @@ function searchGet(page, name, interest, date){
                     src: imgSrc,
                     alt: "loft space",
                     className: "card-img p-2 rounded-xl",
-                    id: imgId
+                    id: imgId,
+                    style: "object-fit: cover; width: 100%; height: 230px;"
                 });
 
                 let div5 = $("<div>", {class: "col-12 col-lg-6 col-xl-8"});
