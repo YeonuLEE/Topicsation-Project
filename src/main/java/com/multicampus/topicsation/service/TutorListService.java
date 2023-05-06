@@ -75,22 +75,15 @@ public class TutorListService implements ITutorListService {
     }
 
     @Override
-    public ResponseEntity<Void> ClassReserve(JSONObject jsonObject) {
-        String tuteeId = jsonObject.get("$tutee_id").toString();
-        String tutorId = jsonObject.get("$tutor_id").toString();
-        String classDate = jsonObject.get("$class_date").toString();
-        String classTime = jsonObject.get("$class_time").toString();
+    public ResponseEntity<Void> ClassReserve(Map<String, Object> paramMap) {
+        String tutorId = paramMap.get("tutorId").toString();
+        String classDate = paramMap.get("classDate").toString();
+        String classTime = paramMap.get("classTime").toString();
 
-        Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("tutorId", tutorId);
-        paramMap.put("tuteeId", tuteeId);
-        paramMap.put("classDate", classDate);
-        paramMap.put("classTime", classTime);
+        String classId = tutorId + "_" + classDate + "_" + classTime;
 
-        int result_update;
-
-        result_update = tutorListDAO.classReserve(paramMap);
-
+        paramMap.put("classId", classId);
+        int result_update = tutorListDAO.classReserve(paramMap);
         if(result_update == 1)
             return ResponseEntity.ok().build();
         else

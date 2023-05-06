@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <!-- Primary Meta Tags -->
-    <title>MyPage - Tutor_Information</title>
+    <title>MyPage - Information</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="title" content="Spaces - Settings">
     <meta name="author" content="Themesberg">
@@ -32,8 +32,7 @@
     <!-- Main CSS -->
     <link type="text/css" href="/css/spaces.css" rel="stylesheet">
 
-    <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
-    <!-- Jquery -->
+    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.4.js"
             integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
 </head>
@@ -99,7 +98,8 @@
                                         <div class="col-sm-12 mb-3">
                                             <div class="form-group">
                                                 <label for="name">Name
-                                                    <span class="txt-error name" style="padding-left:10px; font-size:13px;"></span>
+                                                    <span class="txt-error name"
+                                                          style="padding-left:10px; font-size:13px;"></span>
                                                 </label>
                                                 <input class="form-control" id="name" type="text" value="Sims"
                                                        autocomplete="off" required>
@@ -146,8 +146,8 @@
                                         <div class="col-md-6 mb-3">
                                             <div class="form-group">
                                                 <label>Nationality</label>
-                                                <select class="custom-select" id="nationality"  required>
-                                                    <option value="Asia" >Asia</option>
+                                                <select class="custom-select" id="nationality" required>
+                                                    <option value="Asia">Asia</option>
                                                     <option value="North America" selected>North America</option>
                                                     <option value="South America">South America</option>
                                                     <option value="Europe">Europe</option>
@@ -180,10 +180,11 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-12 mb-3" >
+                                        <div class="col-sm-12 mb-3">
                                             <div class="form-group">
                                                 <label> Info</label></br>
-                                                <textarea name="memo" id="memo" cols="80" rows="10" placeholder="내용" style="resize: none">안녕</textarea>
+                                                <textarea name="memo" id="memo" cols="80" rows="10" placeholder="내용"
+                                                          style="resize: none">안녕</textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -218,7 +219,8 @@
                                                         </form>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-sm btn-secondary" id="authenticate">
+                                                        <button type="submit" class="btn btn-sm btn-secondary"
+                                                                id="authenticate">
                                                             Authenticate
                                                         </button>
                                                         <button type="button"
@@ -231,7 +233,7 @@
                                         </div>
                                         <!-- 모달 버튼-->
                                         <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                data-target="#modal-default-2" style="float: right" >
+                                                data-target="#modal-default-2" style="float: right">
                                             Withdrawal
                                         </button>
                                         <!--모달 시작-->
@@ -258,7 +260,8 @@
                                                             No.
                                                         </button>
                                                         <form id="withdrawal">
-                                                            <button type="submit" class="btn btn-sm btn-secondary" id="delete">
+                                                            <button type="submit" class="btn btn-sm btn-secondary"
+                                                                    id="delete">
                                                                 Yes, I will unsubscribe.
                                                             </button>
                                                         </form>
@@ -334,10 +337,6 @@
     </div>
 </footer>
 
-<script src="/js/validate-tutor.js"></script>
-<script type="module" src="/js/mypage-tutor.js" ></script>
-<script type="module" src="/js/move.js" ></script>
-
 <!-- Core -->
 <script src="/vendor/jquery/dist/jquery.min.js"></script>
 <script src="/vendor/popper.js/dist/umd/popper.min.js"></script>
@@ -382,6 +381,11 @@
 
 <!-- Spaces custom Javascript -->
 <script src="/js/spaces.js"></script>
+
+<!-- TOPICSATION Custom Javascript -->
+<script src="/js/validate-tutor.js"></script>
+<script type="module" src="/js/mypage-tutor.js"></script>
+<script type="module" src="/js/move.js"></script>
 
 </body>
 
