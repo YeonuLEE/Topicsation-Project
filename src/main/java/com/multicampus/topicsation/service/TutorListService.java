@@ -75,7 +75,7 @@ public class TutorListService implements ITutorListService {
     }
 
     @Override
-    public ResponseEntity<Void> ClassReserve(Map<String, Object> paramMap) {
+    public ResponseEntity<Void> ClassReserve(Map<String, String> paramMap) {
         String tutorId = paramMap.get("tutorId").toString();
         String classDate = paramMap.get("classDate").toString();
         String classTime = paramMap.get("classTime").toString();

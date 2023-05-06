@@ -66,8 +66,8 @@ public class MainPageController {
         }
 
         @PutMapping("/tutors/{tutor_id}/reserve")
-        public ResponseEntity<Void> tutors(@RequestBody JSONObject jsonObject) {
-            return tutorListService.ClassReserve(jsonObject);
+        public ResponseEntity<Void> tutors(@RequestBody Map<String, String> paramMap) {
+            return tutorListService.ClassReserve(paramMap);
         }
     }
 }
