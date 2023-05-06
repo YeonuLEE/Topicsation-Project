@@ -1,9 +1,6 @@
 package com.multicampus.topicsation.controller;
 
-import com.multicampus.topicsation.dto.ClassDTO;
-import com.multicampus.topicsation.dto.MyPageDTO;
 import com.multicampus.topicsation.dto.MypageScheduleDTO;
-import com.multicampus.topicsation.dto.TutorScheduleDTO;
 import com.multicampus.topicsation.service.IMyPageService;
 import com.multicampus.topicsation.token.JwtUtils;
 import org.json.simple.JSONArray;
@@ -11,7 +8,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.*;
@@ -24,7 +20,6 @@ import java.io.IOException;
 import java.nio.file.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
