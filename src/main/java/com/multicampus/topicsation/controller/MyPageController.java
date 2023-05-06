@@ -1,9 +1,6 @@
 package com.multicampus.topicsation.controller;
 
-import com.multicampus.topicsation.dto.ClassDTO;
-import com.multicampus.topicsation.dto.MyPageDTO;
 import com.multicampus.topicsation.dto.MypageScheduleDTO;
-import com.multicampus.topicsation.dto.TutorScheduleDTO;
 import com.multicampus.topicsation.service.IMyPageService;
 import com.multicampus.topicsation.token.JwtUtils;
 import org.json.simple.JSONArray;
@@ -11,7 +8,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.*;
@@ -24,7 +20,6 @@ import java.io.IOException;
 import java.nio.file.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -116,50 +111,7 @@ public class MyPageController {
 
         @GetMapping("/{user_id}/get")
         public String myPage(@PathVariable("user_id") String userId) {
-            MyPageDTO myPageDTO;
-            JSONObject jsonObject = new JSONObject();
-            String role = service.check_role(userId);
-            if (role.equals("tutor")) {
-                myPageDTO = service.view_tutor(userId);
-
-                jsonObject.put("profileImg", myPageDTO.getProfileimg());
-                jsonObject.put("name", myPageDTO.getName());
-                jsonObject.put("email", myPageDTO.getEmail());
-                jsonObject.put("nationality", myPageDTO.getNationality());
-                jsonObject.put("interest1", myPageDTO.getInterest1());
-                jsonObject.put("interest2", myPageDTO.getInterest2());
-                jsonObject.put("genderRadios", myPageDTO.getGender());
-                jsonObject.put("memo",myPageDTO.getInfo());
-                jsonObject.put("password",myPageDTO.getPassword());
-
-                return jsonObject.toJSONString();
-            } else if (role.equals("tutee")) {
-                myPageDTO = service.view_tutee(userId);
-                jsonObject.put("tutor-name", myPageDTO.getName());
-                jsonObject.put("name", myPageDTO.getName());
-                jsonObject.put("email", myPageDTO.getEmail());
-                jsonObject.put("interest1", myPageDTO.getInterest1());
-                jsonObject.put("interest2", myPageDTO.getInterest2());
-                return jsonObject.toJSONString();
-
-            }else if(role.equals("admin")){
-                List<MyPageDTO> list = service.view_admin();
-                JSONArray jsonArray = new JSONArray();
-
-                for (MyPageDTO dto : list) {
-                    JSONObject jsonObject2 = new JSONObject();
-                    jsonObject2.put("userId", dto.getUser_id());
-                    jsonObject2.put("tutorName", dto.getName());
-                    jsonObject2.put("approlDate", dto.getRegi_date());
-                    jsonObject2.put("file", dto.getCertificate());
-
-                    jsonArray.add(jsonObject2);
-                }
-//                String jsonString = jsonArray.toString();
-
-                return jsonArray.toJSONString();
-            }
-            return role;
+            return service.view(userId);
         }
 
         @PostMapping("/{user_id}/passCheck")
@@ -171,28 +123,12 @@ public class MyPageController {
 
         @PostMapping("/{user_id}/post")
         public String myPageModify(@RequestBody JSONObject jsonObject, @PathVariable("user_id") String userId) {
-            MyPageDTO myPageDTO = new MyPageDTO();
-            String role = service.check_role(userId);
-
-            myPageDTO.setUser_id(userId);
-            myPageDTO.setName(jsonObject.get("$name").toString());
-            myPageDTO.setInterest1(jsonObject.get("$interest1").toString());
-            myPageDTO.setInterest2(jsonObject.get("$interest2").toString());
-
-            if (role.equals("tutee")) {
-                service.modify_tutee(myPageDTO);
-            }else if(role.equals("tutor")){
-                myPageDTO.setGender(jsonObject.get("$gander").toString());
-                myPageDTO.setNationality(jsonObject.get("$nationality").toString());
-                myPageDTO.setInfo(jsonObject.get("$memo").toString());
-                service.modify_tutor(myPageDTO);
-            }
+            service.modify(jsonObject,userId);
             return null;
         }
 
         @PostMapping("/{user_id}/profileUpdate")
-        public ResponseEntity<?> mypageProfile(@PathVariable("user_id") String userId, @RequestParam("file") MultipartFile file)
-        throws IOException {
+        public ResponseEntity<?> mypageProfile(@PathVariable("user_id") String userId, @RequestParam("file") MultipartFile file){
 
             final String UPLOAD_DIR = "src/main/resources/static/assets/img/profile/";
 
@@ -202,13 +138,11 @@ public class MyPageController {
                     return new ResponseEntity<>("파일을 선택해주세요.", HttpStatus.BAD_REQUEST);
                 }
 
-                System.out.println("file : " + file);
-
                 // 파일 저장
                 byte[] bytes = file.getBytes();
                 String fileExtension = getFileExtension(file.getOriginalFilename());
                 String fileName = userId + "." + fileExtension;
-                System.out.println(fileName);
+
                 Path path = Paths.get(UPLOAD_DIR + userId + "." + fileExtension);
                 Path pathJPG = Paths.get(UPLOAD_DIR + userId + "." + "jpg");
                 Path pathJPEG = Paths.get(UPLOAD_DIR + userId + "." + "jpeg");
@@ -221,7 +155,6 @@ public class MyPageController {
                 service.chang_profileImg(userId, fileName);
 
                 if (Files.exists(pathJPEG) || Files.exists(pathJPG) || Files.exists(pathPNG)) {
-                    System.out.println("파일이 존재합니다.");
                     if(resultJPG) {
                         Files.delete(pathJPG);
                         Files.write(path, bytes);
@@ -235,7 +168,6 @@ public class MyPageController {
                         Files.write(path, bytes);
                     }
                 } else {
-                    System.out.println("파일이 존재하지 않습니다.");
                     Files.write(path, bytes);
                 }
 
@@ -257,46 +189,18 @@ public class MyPageController {
 
         @PostMapping("/{user_id}/delete")
         public String myPageDelete(@PathVariable("user_id") String userId) {
-            String role = service.check_role(userId);
-            if (role.equals("tutee")) {
-                service.delete_tutee(userId);
-            } else if (role.equals("tutor")) {
-                service.delete_tutor(userId);
-            }
-
+            service.delete(userId);
             return null;
         }
 
         @GetMapping("/{user_id}/schedule/get")
         public String schedulePage(@PathVariable("user_id") String userId) {
-            MypageScheduleDTO mypageScheduleDTO = service.tuteeProfile(userId);
-            List<ClassDTO> classDTOList = service.schedule_tutee(userId);
-
-            JSONArray jsonArray = new JSONArray();
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("tutee_name", mypageScheduleDTO.getName());
-
-            for (ClassDTO dto : classDTOList) {
-                JSONObject object = new JSONObject();
-                object.put("class_id", dto.getClass_id());
-                object.put("class_date", dto.getClass_date());
-                object.put("class_time", dto.getClass_time());
-                object.put("tutor_name", dto.getName());
-                object.put("class_id", dto.getClass_id());
-
-                jsonArray.add(object);
-            }
-            jsonObject.put("schedules", jsonArray);
-            String jsonString = jsonObject.toString();
-
-            return jsonString;
+            return service.schedule_tutee(userId);
         }
 
         @PutMapping("/{user_id}/schedule/cancel")
         public String scheduleCancel(@RequestBody JSONObject jsonObject) {
             service.schedule_cancel(jsonObject.get("$class_id").toString());
-//            String class_id = jsonObject.get("$class_id").toString();
-//            System.out.println(class_id);
             return null;
         }
 
@@ -310,10 +214,6 @@ public class MyPageController {
             paramMap.put("classDate", calendarDate);
 
             mypageScheduleDTO = service.schedule_tutor(paramMap, mypageScheduleDTO);
-
-            System.out.println(mypageScheduleDTO.getUser_id());
-            System.out.println(mypageScheduleDTO.getName());
-            System.out.println(mypageScheduleDTO.getProfileimg());
 
             JSONObject jsonObject_info = new JSONObject();
             JSONArray jsonArray_schedule = new JSONArray();
@@ -339,7 +239,6 @@ public class MyPageController {
             jsonObject.put("schedule", jsonArray_schedule);
 
             String jsonString = jsonObject.toJSONString();
-            System.out.println(jsonString);
 
             return jsonString;
         }
@@ -355,8 +254,6 @@ public class MyPageController {
                 jsonObject = (JSONObject) parser.parse(jsonString);
                 jsonUserInfo = (JSONObject) jsonObject.get("user_info");
                 jsonSchedule = (JSONArray) jsonObject.get("schedule");
-                System.out.println("jsonUserInfo : " + jsonUserInfo);
-                System.out.println("jsonSchedule : " + jsonSchedule);
                 result = service.scheduleUpdate(jsonUserInfo, jsonSchedule);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -369,35 +266,7 @@ public class MyPageController {
 
         @GetMapping("/{user_id}/history/get")
         public String historyPage(@PathVariable("user_id") String user_id) {
-            MypageScheduleDTO mypageScheduleDTO = service.tuteeProfile(user_id);
-            List<ClassDTO> dtoList = service.history_tutee(user_id);
-
-            JSONObject jsonObject = new JSONObject();
-            JSONArray jsonArray = new JSONArray();
-
-            jsonObject.put("name", mypageScheduleDTO.getName());
-            jsonObject.put("user_id", user_id);
-
-            for (ClassDTO dto : dtoList) {
-                JSONObject object = new JSONObject();
-
-                object.put("class_date",dto.getClass_date());
-                object.put("tutor_name",dto.getName());
-                String url = dto.getUrl();
-                if(url != null){
-                    String[] urlList = url.split(",");
-                    object.put("memo1",urlList[0]);
-                    object.put("memo2",urlList[1]);
-                    object.put("memo3",urlList[2]);
-                }
-
-                jsonArray.add(object);
-            }
-
-            jsonObject.put("history", jsonArray);
-            String jsonString = jsonObject.toString();
-
-            return jsonString;
+            return service.history_tutee(user_id);
         }
     }
 }

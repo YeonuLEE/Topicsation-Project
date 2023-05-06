@@ -1,7 +1,6 @@
 package com.multicampus.topicsation.controller;
 
 import com.multicampus.topicsation.dto.SignUpDTO;
-import com.multicampus.topicsation.service.ISignUpService;
 import com.multicampus.topicsation.dto.LoginDTO;
 import com.multicampus.topicsation.dto.MailDTO;
 import com.multicampus.topicsation.service.IMemberManageService;
@@ -25,9 +24,6 @@ import static com.multicampus.topicsation.service.MemberManageService.linkExpira
 @Controller
 @RequestMapping("/members")
 public class MemberManageController {
-
-    @Autowired
-    private ISignUpService signUpService;
 
     @Autowired
     private IMemberManageService memberManageservice;
@@ -163,7 +159,7 @@ public class MemberManageController {
 
         @PostMapping("/signup-tutees.post")
         public String signUpTutee(@RequestBody SignUpDTO signUpDTO) {
-            boolean result = signUpService.signUpProcess(signUpDTO);
+            boolean result = memberManageservice.signUpProcess(signUpDTO);
             if (result) {
                 return signUpDTO.getEmail();
             } else {
@@ -197,7 +193,7 @@ public class MemberManageController {
 
             System.out.println(signUpDTO);
 
-            boolean result = signUpService.signUpProcess(signUpDTO);
+            boolean result = memberManageservice.signUpProcess(signUpDTO);
             if (result) {
                 return new ResponseEntity <String> (signUpDTO.getEmail(), HttpStatus.OK);
             } else {
@@ -207,7 +203,7 @@ public class MemberManageController {
 
         @PostMapping("/email.send")
         public String emailAuth(@RequestBody MailDTO mailDTO) {
-            boolean result = signUpService.sendMail(mailDTO);
+            boolean result = memberManageservice.signupSendMail(mailDTO);
             if(result){
                 return mailDTO.getAuthKey();
             }
@@ -218,7 +214,7 @@ public class MemberManageController {
 
         @PostMapping("/signup/success.post")
         public String successEmailAuth(@RequestBody SignUpDTO signUpDTO) {
-            boolean result = signUpService.successEmailAuth(signUpDTO);
+            boolean result = memberManageservice.isSuccessEmailAuth(signUpDTO);
             if(result){
                 return "emailAuthSuccess";
             } else {

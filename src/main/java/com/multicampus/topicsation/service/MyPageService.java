@@ -23,25 +23,75 @@ public class MyPageService implements IMyPageService{
     IMemberDAO dao;
 
     @Override
-    public String check_role(String user_id) {
-        return dao.checkRole(user_id);
-    }
-
-    @Override
     public String check_password(String user_id) {
         return dao.checkPass(user_id);
     }
 
     @Override
-    public MyPageDTO view_tutor(String user_id) {
-        return dao.viewTutor(user_id);
+    public String view(String user_id) {
+
+        MyPageDTO myPageDTO;
+        JSONObject jsonObject = new JSONObject();
+        String role = dao.checkRole(user_id);
+        if (role.equals("tutor")) {
+            myPageDTO = dao.viewTutor(user_id);
+
+            jsonObject.put("profileImg", myPageDTO.getProfileimg());
+            jsonObject.put("name", myPageDTO.getName());
+            jsonObject.put("email", myPageDTO.getEmail());
+            jsonObject.put("nationality", myPageDTO.getNationality());
+            jsonObject.put("interest1", myPageDTO.getInterest1());
+            jsonObject.put("interest2", myPageDTO.getInterest2());
+            jsonObject.put("genderRadios", myPageDTO.getGender());
+            jsonObject.put("memo",myPageDTO.getInfo());
+            jsonObject.put("password",myPageDTO.getPassword());
+
+            return jsonObject.toJSONString();
+        } else if (role.equals("tutee")) {
+            myPageDTO = dao.viewTutee(user_id);
+            jsonObject.put("tutor-name", myPageDTO.getName());
+            jsonObject.put("name", myPageDTO.getName());
+            jsonObject.put("email", myPageDTO.getEmail());
+            jsonObject.put("interest1", myPageDTO.getInterest1());
+            jsonObject.put("interest2", myPageDTO.getInterest2());
+
+            return jsonObject.toJSONString();
+        }else{
+            List<MyPageDTO> list = dao.viewAdmin();
+            JSONArray jsonArray = new JSONArray();
+
+            for (MyPageDTO dto : list) {
+                JSONObject jsonObject2 = new JSONObject();
+                jsonObject2.put("userId", dto.getUser_id());
+                jsonObject2.put("tutorName", dto.getName());
+                jsonObject2.put("approlDate", dto.getRegi_date());
+                jsonObject2.put("file", dto.getCertificate());
+
+                jsonArray.add(jsonObject2);
+            }
+            return jsonArray.toJSONString();
+        }
     }
 
     @Override
-    public int modify_tutor(MyPageDTO myPageDTO) {
-        dao.modifyTutor(myPageDTO);
-        dao.modifyTutor2(myPageDTO);
-        return 0;
+    public void modify(JSONObject jsonObject,String userId) {
+        MyPageDTO myPageDTO = new MyPageDTO();
+        String role = dao.checkRole(userId);
+
+        myPageDTO.setUser_id(userId);
+        myPageDTO.setName(jsonObject.get("$name").toString());
+        myPageDTO.setInterest1(jsonObject.get("$interest1").toString());
+        myPageDTO.setInterest2(jsonObject.get("$interest2").toString());
+
+        if (role.equals("tutee")) {
+            dao.modifyTutee(myPageDTO);
+        }else if(role.equals("tutor")){
+            myPageDTO.setGender(jsonObject.get("$gander").toString());
+            myPageDTO.setNationality(jsonObject.get("$nationality").toString());
+            myPageDTO.setInfo(jsonObject.get("$memo").toString());
+            dao.modifyTutor(myPageDTO);
+            dao.modifyTutor2(myPageDTO);
+        }
     }
 
     @Override
@@ -69,7 +119,6 @@ public class MyPageService implements IMyPageService{
             findResult = 0;
         }
 
-        System.out.println("findResult : " + findResult);
         if (findResult == 1) {
             dao.scheduleDelete(paramMap2);
             if (!jsonSchedule.isEmpty()) {
@@ -92,59 +141,87 @@ public class MyPageService implements IMyPageService{
     }
 
     @Override
-    public void delete_tutor(String user_id) {
-        dao.deleteClass(user_id);
-        dao.tutorDislike(user_id);
-        dao.deleteTutorInfo(user_id);
-        dao.deleteTutor(user_id);
-
+    public void delete(String user_id) {
+        String role = dao.checkRole(user_id);
+        if (role.equals("tutee")) {
+            dao.deleteTutee(user_id);
+            dao.chageClass(user_id);
+            dao.tuteeDislike(user_id);
+        } else if (role.equals("tutor")) {
+            dao.deleteClass(user_id);
+            dao.tutorDislike(user_id);
+            dao.deleteTutorInfo(user_id);
+            dao.deleteTutor(user_id);
+        }
     }
 
     @Override
     public void chang_profileImg(String user_id, String fileName) {
-        System.out.println(fileName);
         dao.changProfileImg(user_id, fileName);
     }
 
     @Override
-    public MyPageDTO view_tutee(String user_id) { return dao.viewTutee(user_id); }
+    public String schedule_tutee(String user_id) {
+        MypageScheduleDTO mypageScheduleDTO =  dao.tuteeProfile(user_id);
+        List<ClassDTO> classDTOList = dao.scheduleTutee(user_id);
 
-    @Override
-    public int modify_tutee(MyPageDTO myPageDTO) {
-        return dao.modifyTutee(myPageDTO);
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("tutee_name", mypageScheduleDTO.getName());
+
+        for (ClassDTO dto : classDTOList) {
+            JSONObject object = new JSONObject();
+            object.put("class_id", dto.getClass_id());
+            object.put("class_date", dto.getClass_date());
+            object.put("class_time", dto.getClass_time());
+            object.put("tutor_name", dto.getName());
+            object.put("class_id", dto.getClass_id());
+
+            jsonArray.add(object);
+        }
+        jsonObject.put("schedules", jsonArray);
+        String jsonString = jsonObject.toString();
+
+        return jsonString;
     }
 
     @Override
-    public MypageScheduleDTO tuteeProfile(String user_id) {
-        return dao.tuteeProfile(user_id);
-    }
+    public String history_tutee(String user_id) {
 
-    @Override
-    public List<ClassDTO> schedule_tutee(String user_id) {
-        return dao.scheduleTutee(user_id);
-    }
+        MypageScheduleDTO mypageScheduleDTO = dao.tuteeProfile(user_id);
+        List<ClassDTO> dtoList = dao.historyTutee(user_id);
 
-    @Override
-    public List<ClassDTO> history_tutee(String user_id) {
-        return dao.historyTutee(user_id);
-    }
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
 
-    @Override
-    public void delete_tutee(String user_id) {
-        dao.deleteTutee(user_id);
-        dao.chageClass(user_id);
-        dao.tuteeDislike(user_id);
+        jsonObject.put("name", mypageScheduleDTO.getName());
+        jsonObject.put("user_id", user_id);
+
+        for (ClassDTO dto : dtoList) {
+            JSONObject object = new JSONObject();
+
+            object.put("class_date",dto.getClass_date());
+            object.put("tutor_name",dto.getName());
+            String url = dto.getUrl();
+            if(url != null){
+                String[] urlList = url.split(",");
+                object.put("memo1",urlList[0]);
+                object.put("memo2",urlList[1]);
+                object.put("memo3",urlList[2]);
+            }
+
+            jsonArray.add(object);
+        }
+
+        jsonObject.put("history", jsonArray);
+        String jsonString = jsonObject.toString();
+
+        return jsonString;
     }
 
     @Override
     public void schedule_cancel(String class_id) {
         dao.cancelSchedule(class_id);
-    }
-
-    @Override
-    public List<MyPageDTO> view_admin() {
-        List<MyPageDTO> list =dao.viewAdmin();
-        return list;
     }
 
     @Override
