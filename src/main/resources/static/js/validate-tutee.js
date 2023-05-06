@@ -138,7 +138,7 @@ $("#second-interest").change(function () {
         $("#first-interest option").remove();
 
         // 전체 옵션 다시 추가
-        $("#second-interest").html(
+        $("#first-interest").html(
             "<option value='business'>비즈니스</option><option value='tech'>테크</option><option value='science'>과학</option><option value='entertainment'>엔터테인먼트</option><option value='health'>건강</option>"
         );
 

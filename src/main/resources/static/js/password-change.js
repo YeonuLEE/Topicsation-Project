@@ -4,17 +4,16 @@ $(document).ready(function () {
 
     $("#changePasswordForm").submit(function (event) {
         event.preventDefault();
-        var newPassword = $("#password").val()
-        var newCofirmPassword = $("#password-confirm").val()
+        let newPassword = $("#password").val()
+        let newConfirmPassword = $("#password-confirm").val()
 
-        if(newPassword === newCofirmPassword) {
-
+        if(newPassword === newConfirmPassword) {
             $.ajax({
                 type: "POST",
                 url: "/members/signin/change.post",
                 contentType: 'application/json',
                 data: JSON.stringify({
-                    password: newCofirmPassword,
+                    password: newConfirmPassword,
                 }),
                 success: function (data, status) {
                     alert("비밀번호가 수정되었습니다. 로그인해주세요.")
@@ -23,9 +22,7 @@ $(document).ready(function () {
                 error: function (data, textStatus) {
                     alert("비밀번호 수정에 실패했습니다. 다시 시도해주세요.")
                     location.href = "/members/signin/change";
-                },
-                complete: function (data, textStatus) {
-                },
+                }
             });
         }
         else {

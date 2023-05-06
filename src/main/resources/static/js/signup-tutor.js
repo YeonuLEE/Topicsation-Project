@@ -12,9 +12,11 @@ $(document).ready(function () {
     let passwordConfirmCheck = true;
     let nameCheck = true;
 
-    let selectedOption;
     let fileValue;
     let fileName;
+    
+    let firstSelected;
+    let secondSelected;
 
     //이메일 유효성 검사
     $("#email").change(function () {
@@ -29,7 +31,7 @@ $(document).ready(function () {
         }
     });
 
-//이름 유효성 검사
+    //이름 유효성 검사
     $("#name").change(function () {
         if (!regName.test($("#name").val())) {
             $(".name").text("That is not a valid name.").css("color", "red");
@@ -43,7 +45,7 @@ $(document).ready(function () {
     });
 
 
-// 비밀번호 유효성 검사
+    // 비밀번호 유효성 검사
     $("#password").change(function () {
         let password = $("#password").val();
 
@@ -78,32 +80,52 @@ $(document).ready(function () {
         }
     });
 
-    // 파일 이름 바꾸기
+    // 튜터 인증 파일 이름 바꾸기
     $("#customFile").change(function () {
         fileValue = $("#customFile").val().split("\\");
         fileName = fileValue[fileValue.length - 1]; // 파일명
+
         $("#show-files").text(fileName);
     });
 
-    // 두번째 관심사 제거
+    // 첫번째 관심사 선택
     $("#first-interest").change(function () {
+        firstSelected = $("#first-interest option:selected").val();
+
         // 남은 옵션 전체 삭제
         $("#second-interest option").remove();
 
         // 전체 옵션 다시 추가
         $("#second-interest").html(
-            "<option value='business'>Business</option><option value='tech'>Tech</option><option value='science'>Science</option><option value='entertainment'>Entertainment</option><option value='health'>Health</option>"
+            " <option value=\"\" disabled selected style=\"display: none\">First Interest</option><option value='business'>Business</option><option value='tech'>Tech</option><option value='science'>Science</option><option value='entertainment'>Entertainment</option><option value='health'>Health</option>"
         );
-
         // 첫번째 관심사에서 뽑은 옵션 제거
-        selectedOption = $("#first-interest option:selected").val();
-        $("#second-interest")
-            .find("option")
-            .each(function () {
-                if (this.value == selectedOption) {
-                    $(this).remove();
-                }
-            });
+        $("#second-interest").find("option").each(function () {
+
+            if (this.value == firstSelected) {
+                $(this).remove();
+            }
+        });
+        $("#second-interest").val(secondSelected);
+    });
+    // 두번째 관심사 선택
+    $("#second-interest").change(function () {
+        secondSelected = $("#second-interest option:selected").val();
+
+        // 남은 옵션 전체 삭제
+        $("#first-interest option").remove();
+
+        // 전체 옵션 다시 추가
+        $("#first-interest").html(
+            " <option value=\"\" disabled selected style=\"display: none\">Second Interest</option><option value='business'>Business</option><option value='tech'>Tech</option><option value='science'>Science</option><option value='entertainment'>Entertainment</option><option value='health'>Health</option>"
+        );
+        // 두번째 관심사에서 뽑은 옵션 제거
+        $("#first-interest").find("option").each(function () {
+            if (this.value == secondSelected) {
+                $(this).remove();
+            }
+        });
+        $("#first-interest").val(firstSelected);
     });
 
     $("#signUpForm").on('submit', function (event) {

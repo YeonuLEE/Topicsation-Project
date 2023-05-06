@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class LessonService implements ILessonService{
 
     @Autowired
-    ILessonDAO lessonDAO;
+    private ILessonDAO lessonDAO;
 
     @Override
     public JSONObject getNewsService(String classId) throws ParseException {

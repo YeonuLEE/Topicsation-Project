@@ -42,8 +42,10 @@ public class MemberManageService implements IMemberManageService {
     @Autowired
     private JavaMailSender mailSender;
 
+    @Autowired
+    private final IS3FileService s3FileService;
+    
     private Map<String, Long> linkExpirationMap = new ConcurrentHashMap<>();
-
 
     @Override
     public LoginDTO login(Map<String, String> map) throws Exception {
@@ -144,24 +146,16 @@ public class MemberManageService implements IMemberManageService {
         } else {
             signUpDao.addTutorDAO1(signUpDTO);
             String userId = signUpDao.getUserId(signUpDTO.getEmail());
-            final String UPLOAD_DIR = "src/main/resources/static/assets/certificate/";
-            try {
-                System.out.println("file : " + signUpDTO.getFile());
+            System.out.println("file : " + signUpDTO.getFile());
+            String bucketName = "asset";
+            String folderName = "certificate";
+            String fileExtension = getFileExtension(signUpDTO.getFile().getOriginalFilename());
+            String fileName = userId + "." + fileExtension;
 
-                // 파일 저장
-                byte[] bytes = signUpDTO.getFile().getBytes();
-                String fileExtension = getFileExtension(signUpDTO.getFile().getOriginalFilename());
-                String fileName = userId + "." + fileExtension;
-                Path path = Paths.get(UPLOAD_DIR + fileName);
-                Files.write(path, bytes);
-
-                signUpDTO.setCertificate(fileName);
-                signUpDao.addTutorDAO2(signUpDTO);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-                return false;
-            }
+            String objectKey = folderName + "/" + fileName; // "profile/example.jpg"와 같은 형식으로 생성됩니다.
+            s3FileService.uploadFile(bucketName, objectKey, signUpDTO.getFile());
+            signUpDTO.setCertificate(fileName);
+            signUpDao.addTutorDAO2(signUpDTO);
         }
         return true;
     }

@@ -82,21 +82,23 @@ $(document).ready(function () {
             let jsonObject = JSON.parse(data);
             let dataBody = $("#reviewCard");
 
+            console.log(jsonObject);
+
             $("#tutor-name").text(jsonObject.tutor_info.name);
             $("#introduce_content").text(jsonObject.tutor_info.introduce);
             $("#tutor-like").text(jsonObject.tutor_info.like);
             $("#tutor-nation").text(jsonObject.tutor_info.nationality);
             $("#first-interest").append(jsonObject.tutor_info.interest1);
             $("#second-interest").append(jsonObject.tutor_info.interest2);
-            $("#profile-img").attr("src", "/assets/img/profile/" + jsonObject.tutor_info.picture);
+            $("#profile-img").attr("src", jsonObject.tutor_info.picture);
 
-            for (let i = 0; i < jsonObject.review.length; i++) {
+            for (var i = 0; i < jsonObject.review.length; i++) {
                 let reviewer = jsonObject.review[i];
-
                 let div1 = $("<div>", {
                     class: "card bg-white border-light p-4 mb-4 col-8 col-lg-8",
                     style: "box-shadow: none"
                 });
+
                 let div2 = $("<div>", {class: "d-flex justify-content-between align-items-center mb-2"});
                 let span1 = $("<span>", {class: "font-small"});
                 let span2 = $("<span>", {
@@ -201,7 +203,6 @@ $(document).ready(function () {
                 test: "test",
             }),
             success: function (data, status) {
-
                 console.log(tagId + "예약완료");
                 alert(tagId + "에 예약되었습니다.");
 

@@ -25,8 +25,11 @@ public class SearchService implements ISearchService{
     @Autowired
     private final ISearchDAO dao;
 
+    @Autowired
+    private IS3FileService s3FileService;
+
     @Override
-    public ResponseEntity<Map<String, Object>> searchList(Map<String, String> requestParams) {
+    public Map<String, Object> searchList(Map<String, String> requestParams) {
 
         int page = Integer.parseInt(requestParams.getOrDefault("page", "1"));
         int size = Integer.parseInt(requestParams.getOrDefault("size", "6"));
@@ -55,6 +58,12 @@ public class SearchService implements ISearchService{
                 .build();
 
         List<SearchDTO> searchDTOList = dao.searchListDAO(pageRequestDTO);
+        for (SearchDTO searchDTO : searchDTOList) {
+            String imgId = searchDTO.getProfileImg();
+            String imageUrl = s3FileService.getImageUrl("asset", "profile", imgId);
+            searchDTO.setProfileImg(imageUrl);
+        }
+
         int totalcount = dao.searchCountDAO(pageRequestDTO);
         PageResponseDTO<SearchDTO> pageResponseDTO = PageResponseDTO.<SearchDTO>withAll()
                 .searchDTOList(searchDTOList)
@@ -72,6 +81,6 @@ public class SearchService implements ISearchService{
         resultMap.put("prev",pageResponseDTO.isPrev());
         resultMap.put("next",pageResponseDTO.isNext());
 
-        return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
+        return resultMap;
     }
 }

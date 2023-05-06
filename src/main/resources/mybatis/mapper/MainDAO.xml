@@ -9,6 +9,9 @@
                  INNER JOIN TUTOR_INFO ti ON u.USER_ID = ti.TUTOR_ID
         WHERE u.USER_ID = #{tutorId}
     </select>
+    <select id="getTutorImg" parameterType="map" resultType="String">
+        SELECT PROFILEIMG FROM TUTOR_INFO WHERE TUTOR_ID = #{tutorId}
+    </select>
     <select id="tutorSchedule" parameterType="map" resultType="com.multicampus.topicsation.dto.TutorScheduleDTO">
         SELECT * FROM TUTOR_CLASS
         WHERE TUTOR_ID = #{tutorId} and CLASS_DATE = #{classDate}

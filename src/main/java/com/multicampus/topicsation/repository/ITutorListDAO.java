@@ -12,6 +12,7 @@ public interface ITutorListDAO {
 
     // 튜터 상세 페이지 메서드
     TutorViewDTO tutorInfo(Map<String,Object> paramMap);
+    String getTutorImg(Map<String,Object> paramMap);
     List<TutorScheduleDTO> tutorSchedule(Map <String,Object> paramMap);
     List<TutorReviewDTO> tutorReview(String tutorId);
     int classReserve(Map<String, String> paramMap);

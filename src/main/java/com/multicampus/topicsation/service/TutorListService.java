@@ -21,7 +21,10 @@ import java.util.Map;
 public class TutorListService implements ITutorListService {
 
     @Autowired
-    ITutorListDAO tutorListDAO;
+    private ITutorListDAO tutorListDAO;
+
+    @Autowired
+    private IS3FileService s3FileService;
 
     @Override
     public String tutorInfo(String tutorId, String calendarDate) {
@@ -37,12 +40,19 @@ public class TutorListService implements ITutorListService {
         JSONArray jsonArray_schedule = new JSONArray();
         JSONArray jsonArray_Review = new JSONArray();
 
+        String bucketName = "asset";
+        String folderName = "profile";
+
+        // 확장자를 제외한 파일 이름
+        String imgId = tutorListDAO.getTutorImg(paramMap);
+        String profileImgUrl = s3FileService.getImageUrl(bucketName, folderName, imgId);
+
         jsonObject_info.put("user_id",tutorId);
         jsonObject_info.put("name", tutorViewDTO.getName());
         jsonObject_info.put("nationality", tutorViewDTO.getNationality());
         jsonObject_info.put("introduce", tutorViewDTO.getInfo());
         jsonObject_info.put("like", tutorViewDTO.getLike());
-        jsonObject_info.put("picture", tutorViewDTO.getProfileimg());
+        jsonObject_info.put("picture", profileImgUrl);
         jsonObject_info.put("interest1", tutorViewDTO.getInterest1());
         jsonObject_info.put("interest2", tutorViewDTO.getInterest2());
 
@@ -76,9 +86,9 @@ public class TutorListService implements ITutorListService {
 
     @Override
     public ResponseEntity<Void> ClassReserve(Map<String, String> paramMap) {
-        String tutorId = paramMap.get("tutorId").toString();
-        String classDate = paramMap.get("classDate").toString();
-        String classTime = paramMap.get("classTime").toString();
+        String tutorId = paramMap.get("tutorId");
+        String classDate = paramMap.get("classDate");
+        String classTime = paramMap.get("classTime");
 
         String classId = tutorId + "_" + classDate + "_" + classTime;
 
@@ -101,11 +111,14 @@ public class TutorListService implements ITutorListService {
         JSONArray jsonArray = new JSONArray();
         JSONObject jsonObject = new JSONObject();
 
+        String bucketName = "asset";
+        String folderName = "profile";
+
         for(RecommendDTO dto : list){
             JSONObject object = new JSONObject();
             object.put("user_id",dto.getUser_id());
             object.put("name",dto.getName());
-            object.put("tutor_image",dto.getProfileImg());
+            object.put("tutor_image",s3FileService.getImageUrl(bucketName, folderName, dto.getProfileImg()));
             object.put("like",dto.getLike());
             object.put("nationality",dto.getNationality());
             object.put("interest1",dto.getInterest1());
