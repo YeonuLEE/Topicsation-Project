@@ -1,4 +1,5 @@
 // POST로 tutee 회원가입 정보 보내기
+
 $(document).ready(function () {
 
     // 정규식 선언
@@ -105,13 +106,12 @@ $(document).ready(function () {
 //                 }
 //             });
 //     });
+
     let firstSelected;
     let secondSelected;
 
     $("#first-interest").change(function () {
         firstSelected = $("#first-interest option:selected").val();
-
-        if($("#second-interest option:selected").length === 0) {
 
             // 남은 옵션 전체 삭제
             $("#second-interest option").remove();
@@ -129,10 +129,6 @@ $(document).ready(function () {
             });
             $("#second-interest").val(secondSelected);
 
-        }
-        if(secondSelected) {
-            $("#second-interest").val(secondSelected);
-        }
         secondSelected = $("#second-interest option:selected").val();
 
     });
@@ -140,7 +136,6 @@ $(document).ready(function () {
     $("#second-interest").change(function () {
         secondSelected = $("#second-interest option:selected").val();
 
-        if($("#first-interest option:selected").length === 0){
             // 남은 옵션 전체 삭제
             $("#first-interest option").remove();
 
@@ -155,12 +150,13 @@ $(document).ready(function () {
                 }
             });
             $("#first-interest").val(firstSelected);
-        }
-        if(firstSelected) {
-            $("#first-interest").val(firstSelected);
-        }
-            firstSelected = $("#first-interest option:selected").val();
+
+        firstSelected = $("#first-interest option:selected").val();
     });
+
+
+
+
 
 
 // "예약을 취소하겠습니다" 유효성 검사
