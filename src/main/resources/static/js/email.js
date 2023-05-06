@@ -1,31 +1,37 @@
+let email;
+let authKey;
+let dataBody = $("#email-auth");
+let form = $("<form>", {id: "emailTokenForm"});
+let div1 = $("<div>", {class: "form-group"});
+let label1 = $("<label>", {text: "인증코드 입력"});
+let div2 = $("<div>", {class: "form-group"});
+let div3 = $("<div>", {class: "input-group mb-4"});
+let div4 = $("<div>", {class: "input-group-prepend"});
+let span1 = $("<span>", {class: "input-group-text"});
+let span2 = $("<span>", {class: "fas fa-unlock-alt"});
+let input1 = $("<input>", {
+    class: "form-control",
+    id: "email-code",
+    placeholder: "Email Token",
+    type: "email_Token",
+    "aria-label": "email_Token",
+    required: true
+})
+let button1 = $("<button>", {
+    type: "button",
+    id: "auth-btn",
+    class: "btn btn-block btn-primary",
+    text: "Authenricate"
+})
+
 $(document).ready(function () {
-    var email = atob(sessionStorage.getItem("email"));
-    var authKey;
+
+    email = atob(sessionStorage.getItem("email"));
+
     $("#send-btn").click(function () {
-        var dataBody = $("#email-auth");
+
+        // dataBody 재구성
         dataBody.empty();
-        var form = $("<form>", {id: "emailTokenForm"});
-        var div1 = $("<div>", {class: "form-group"});
-        var label1 = $("<label>", {text: "인증코드 입력"});
-        var div2 = $("<div>", {class: "form-group"});
-        var div3 = $("<div>", {class: "input-group mb-4"});
-        var div4 = $("<div>", {class: "input-group-prepend"});
-        var span1 = $("<span>", {class: "input-group-text"});
-        var span2 = $("<span>", {class: "fas fa-unlock-alt"});
-        var input1 = $("<input>", {
-            class: "form-control",
-            id: "email-token",
-            placeholder: "Email Token",
-            type: "email_Token",
-            "aria-label": "email_Token",
-            required: true
-        })
-        var button1 = $("<button>", {
-            type: "button",
-            id: "auth-btn",
-            class: "btn btn-block btn-primary",
-            text: "Authenricate"
-        })
         dataBody.append(form);
         form.append(div1);
         div1.append(label1);
@@ -36,6 +42,7 @@ $(document).ready(function () {
         span1.append(span2);
         div3.append(input1);
         form.append(button1);
+
         $.ajax({
             type: "POST",
             url: "/members/email.send",
@@ -44,53 +51,40 @@ $(document).ready(function () {
                 email: email
             }),
             success: function (data, status) {
-                if (data == "sendFail") {
-                    alert("인증코드 전송에 실패하였습니다.");
-                    location.href = "/members/signup/email";
-                } else {
-                    authKey = data;
-                    $("#auth-btn").click(function (event) {
-                        event.preventDefault();
-                        var token = $("#email-token").val();
-                        if (token == authKey) {
-                            sessionStorage.removeItem("email");
-                            $.ajax({
-                                type: "POST",
-                                url: "/members/signup/success.post",
-                                contentType: 'application/json',
-                                data: JSON.stringify({
-                                    email: email
-                                }),
-                                success: function (data, status) {
-                                    if (data == "emailAuthSuccess") {
-                                        location.href = "/members/signup/success";
-                                    } else {
-                                        alert("이메일인증에 실패했습니다")
-                                        location.href = "/members/signup/email";
-                                    }
-                                },
-                                error: function (data, textStatus) {
-                                    alert("Error!")
-                                },
-                                complete: function (data, textStatus) {
-                                },
-                            });
-                        }
-                        // location.href = "/members/signup/success";
-                        else {
-                            alert("인증코드가 일치하지 않습니다");
-                            event.preventDefault();
-                            // location.href = "/members/signup/email";
-                        }
-                    });
-                }
+                authKey = data;
             },
             error: function (data, textStatus) {
-                alert("Error!")
-                // location.href="/members/signup/email";
+                alert("인증코드 전송에 실패하였습니다.");
+                location.href = "/members/signup/email";
             },
             complete: function (data, textStatus) {
             },
         });
+    });
+
+    $(document).on('click', '#auth-btn', function (event) {
+        event.preventDefault();
+        let emailCode = $("#email-code").val();
+        if (emailCode === authKey) {
+            sessionStorage.removeItem("email");
+            $.ajax({
+                type: "POST",
+                url: "/members/signup/success.post",
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    email: email
+                }),
+                success: function (data, status) {
+                    location.href = "/members/signup/success";
+                },error: function (data, status) {
+                    alert("이메일인증에 실패했습니다")
+                    location.href = "/members/signup/email";
+                }
+            });
+        }
+        else {
+            alert("인증코드가 일치하지 않습니다");
+            // event.preventDefault();
+        }
     });
 });

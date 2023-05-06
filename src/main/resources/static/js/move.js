@@ -58,9 +58,6 @@ $(document).ready(function () {
         }
     });
 
-
-
-
     $("#information").click(function (e) {
         e.preventDefault();
 

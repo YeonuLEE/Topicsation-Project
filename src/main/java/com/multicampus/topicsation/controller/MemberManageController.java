@@ -202,23 +202,21 @@ public class MemberManageController {
         }
 
         @PostMapping("/email.send")
-        public String emailAuth(@RequestBody MailDTO mailDTO) {
-            boolean result = memberManageservice.signupSendMail(mailDTO);
-            if(result){
-                return mailDTO.getAuthKey();
+        public ResponseEntity<String> emailAuth(@RequestBody MailDTO mailDTO) {
+            if(memberManageservice.signupSendMail(mailDTO)){
+                return ResponseEntity.ok(mailDTO.getAuthKey());
             }
             else {
-                return "sendFail";
+                return ResponseEntity.unprocessableEntity().build();
             }
         }
 
         @PostMapping("/signup/success.post")
-        public String successEmailAuth(@RequestBody SignUpDTO signUpDTO) {
-            boolean result = memberManageservice.isSuccessEmailAuth(signUpDTO);
-            if(result){
-                return "emailAuthSuccess";
+        public ResponseEntity<Void> successEmailAuth(@RequestBody SignUpDTO signUpDTO) {
+            if(memberManageservice.isSuccessEmailAuth(signUpDTO)){
+                return ResponseEntity.ok().build();
             } else {
-                return "emailAuthFail";
+                return ResponseEntity.unprocessableEntity().build();
             }
         }
     }
