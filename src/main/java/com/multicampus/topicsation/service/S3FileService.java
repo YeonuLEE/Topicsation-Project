@@ -11,7 +11,7 @@ import com.multicampus.topicsation.config.S3Configuration;
 import java.io.IOException;
 
 @Service
-public class S3FileService {
+public class S3FileService implements IS3FileService {
 
     private final AmazonS3 s3Client;
 

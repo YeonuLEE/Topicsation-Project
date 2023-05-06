@@ -39,5 +39,4 @@ public class S3Configuration {
 
         return s3Client;
     }
-
 }
