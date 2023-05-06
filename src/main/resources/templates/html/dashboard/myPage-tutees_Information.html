@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <!-- Primary Meta Tags -->
-    <title>MyPage - Tutee_Information</title>
+    <title>MyPage - Information</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="title" content="Spaces - Settings"/>
     <meta name="author" content="Themesberg"/>
@@ -32,8 +32,7 @@
     <!-- Main CSS -->
     <link type="text/css" href="/css/spaces.css" rel="stylesheet">
 
-    <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
-    <!-- Jquery -->
+    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.4.js"
             integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
             crossorigin="anonymous"></script>
@@ -51,8 +50,12 @@
                      alt="menuimage">
             </a>
             <div>
-                <a href="#"><button class="btn mb-2 mr-2 btn-white" type="button" id="mypage-btn" hidden>MY PAGE</button></a>
-                <a href="#"><button class="btn mb-2 mr-2 btn-secondary" type="button" id="sign-btn">SIGN OUT</button></a>
+                <a href="#">
+                    <button class="btn mb-2 mr-2 btn-white" type="button" id="mypage-btn" hidden>MY PAGE</button>
+                </a>
+                <a href="#">
+                    <button class="btn mb-2 mr-2 btn-secondary" type="button" id="sign-btn">SIGN OUT</button>
+                </a>
             </div>
         </div>
     </nav>
@@ -66,7 +69,7 @@
                     <div class="card border-light p-2">
                         <div class="card-body p-2">
                             <div class="profile-thumbnail small-thumbnail mx-auto"></div>
-                            <h2 class="h5 font-weight-normal text-center mt-3 mb-0" id="tutee-name" >
+                            <h2 class="h5 font-weight-normal text-center mt-3 mb-0" id="tutee-name">
                             </h2>
                             <div class="list-group dashboard-menu list-group-sm mt-4">
                                 <a id="information"
@@ -169,7 +172,8 @@
                                                         </form>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-sm btn-secondary" id="authenticate">
+                                                        <button type="submit" class="btn btn-sm btn-secondary"
+                                                                id="authenticate">
                                                             인증하기
                                                         </button>
                                                         <button type="button" class="btn btn-link text-danger ml-auto"
@@ -179,7 +183,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- <a href="" style="float: right">회원탈퇴</a> -->
                                         <!-- 회원 탈퇴 모달 버튼-->
                                         <button type="button" class="btn btn-danger" data-toggle="modal"
                                                 data-target="#modal-default-2"
@@ -210,7 +213,8 @@
                                                             아니오
                                                         </button>
                                                         <form id="withdrawal">
-                                                            <button type="button" class="btn btn-sm btn-secondary" id="delete">
+                                                            <button type="button" class="btn btn-sm btn-secondary"
+                                                                    id="delete">
                                                                 예, 탈퇴하겠습니다.
                                                             </button>
                                                         </form>
@@ -288,12 +292,6 @@
     </div>
 </footer>
 
-<!-- Validation -->
-<script src="/js/validate-tutee.js"></script>
-<script type="module" src="/js/myPage-tutee.js" ></script>
-<script type="module" src="/js/move.js" ></script>
-
-
 <!-- Core -->
 <script src="/vendor/jquery/dist/jquery.min.js"></script>
 <script src="/vendor/popper.js/dist/umd/popper.min.js"></script>
@@ -338,6 +336,13 @@
 
 <!-- Spaces custom Javascript -->
 <script src="/js/spaces.js"></script>
+
+<!-- TOPICSATION Custom Javascript -->
+<script src="/js/validate-tutee.js"></script>
+<script type="module" src="/js/myPage-tutee.js"></script>
+<script type="module" src="/js/move.js"></script>
+
+
 
 
 </body>
