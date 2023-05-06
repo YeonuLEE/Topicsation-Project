@@ -94,6 +94,7 @@ $(document).ready(function () {
         $("#second-interest").html(
             " <option value=\"\" disabled selected style=\"display: none\">First Interest</option><option value='business'>Business</option><option value='tech'>Tech</option><option value='science'>Science</option><option value='entertainment'>Entertainment</option><option value='health'>Health</option>"
         );
+        // 첫번째 관심사에서 뽑은 옵션 제거
         $("#second-interest").find("option").each(function () {
 
             if (this.value == firstSelected) {
@@ -113,6 +114,7 @@ $(document).ready(function () {
         $("#first-interest").html(
             " <option value=\"\" disabled selected style=\"display: none\">Second Interest</option><option value='business'>Business</option><option value='tech'>Tech</option><option value='science'>Science</option><option value='entertainment'>Entertainment</option><option value='health'>Health</option>"
         );
+        // 두번째 관심사에서 뽑은 옵션 제거
         $("#first-interest").find("option").each(function () {
             if (this.value == secondSelected) {
                 $(this).remove();
