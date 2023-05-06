@@ -78,9 +78,6 @@ public class MemberManageController {
 
         @PostMapping("/signin.post")
         public ResponseEntity<Object> signin(@RequestBody Map<String, String> params, HttpServletResponse response) throws Exception {
-
-            String email = params.get("email");
-
               //email과 password 검증
             LoginDTO dto = memberManageservice.login(params);
 
@@ -139,7 +136,7 @@ public class MemberManageController {
                 session.setAttribute("email", mailDTO.getEmail());
                 return ResponseEntity.ok().build();
             } else {
-                return ResponseEntity.notFound().build();
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
             }
         }
 
@@ -149,17 +146,17 @@ public class MemberManageController {
             if(result) {
                 return ResponseEntity.ok().build();
             }else {
-                return ResponseEntity.unprocessableEntity().build();
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
             }
         }
 
         @PostMapping("/signup-tutees.post")
-        public String signUpTutee(@RequestBody SignUpDTO signUpDTO) {
+        public ResponseEntity<Object> signUpTutee(@RequestBody SignUpDTO signUpDTO) {
             boolean result = memberManageservice.signUpProcess(signUpDTO);
             if (result) {
-                return signUpDTO.getEmail();
+                return ResponseEntity.ok().build();
             } else {
-                return "signupFail";
+                return ResponseEntity.unprocessableEntity().build();
             }
         }
 
@@ -191,9 +188,9 @@ public class MemberManageController {
 
             boolean result = memberManageservice.signUpProcess(signUpDTO);
             if (result) {
-                return new ResponseEntity <String> (signUpDTO.getEmail(), HttpStatus.OK);
+                return new ResponseEntity<>(signUpDTO.getEmail(), HttpStatus.OK);
             } else {
-                return new ResponseEntity <String> ("signupFail", HttpStatus.OK);
+                return ResponseEntity.unprocessableEntity().build();
             }
         }
 

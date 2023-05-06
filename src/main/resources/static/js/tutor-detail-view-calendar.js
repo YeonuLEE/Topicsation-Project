@@ -12,7 +12,6 @@ let minutes;
 
 let dateFormatted;
 let timeFormatted;
-let apiUrl;
 
 $(document).ready(function () {
 
@@ -68,14 +67,14 @@ $(document).ready(function () {
 
     tutorId = number;
 
-    apiUrl = "/main/tutors/{tutor_id}/getInfo?calendarDate=";
+    let getUrl = "/main/tutors/{tutor_id}/getInfo?calendarDate=";
 
-    apiUrl = apiUrl.replace("{tutor_id}", number);
-    apiUrl = apiUrl + dateFormatted;
+    getUrl = getUrl.replace("{tutor_id}", number);
+    getUrl += dateFormatted;
 
     $.ajax({
         type: "GET",
-        url: apiUrl,
+        url: getUrl,
         async: false,
         success: function (data, status, xhr) {
             getHeaderAjax(xhr)
@@ -150,19 +149,13 @@ $(document).ready(function () {
         // 시간 포맷
         timeFormatted = pad(hours, 2) + ':' + pad(minutes, 2);
 
-        apiUrl = "/main/tutors/{tutor_id}/getInfo?calendarDate=";
-
-        apiUrl = apiUrl.replace("{tutor_id}", number);
-        apiUrl = apiUrl + dateFormatted;
-
-
         $(".cell").css("color", "");
         $(".cell").css("background-color", "");
         $(".cell").css("pointer-events", "none");
 
         $.ajax({
             type: "GET",
-            url: apiUrl,
+            url: getUrl,
             success: function (data, status) {
                 let jsonObject = JSON.parse(data);
 
@@ -192,19 +185,19 @@ $(document).ready(function () {
         $("#" + tagId).css("color", "white");
         $("#" + tagId).css("background-color", "gray");
         $("#" + tagId).css("pointer-events", "none");
-        let apiUrl2 = "/main/tutors/{tutor_id}/"
-        apiUrl2 = apiUrl2.replace("{tutor_id}", number);
-        apiUrl2 = apiUrl2 + "reserve";
+        let reserveUrl = "/main/tutors/{tutor_id}/"
+        reserveUrl = reserveUrl.replace("{tutor_id}", number);
+        reserveUrl += "reserve";
 
         $.ajax({
-            url: apiUrl2,
+            url: reserveUrl,
             type: "PUT",
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify({
-                $tutor_id: tutorId,
-                $tutee_id: getId(token),
-                $class_date: dateFormatted,
-                $class_time: tagId,
+                tutorId: tutorId,
+                tuteeId: getId(token),
+                classDate: dateFormatted,
+                classTime: tagId,
                 test: "test",
             }),
             success: function (data, status) {

@@ -6,14 +6,15 @@ $(document).ready(function () {
     let regEmail = RegExp(/^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/);
     let regPwd = RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/);
 
-// 변수 선언
-    var emailCheck = true;
-    var passwordCheck = true;
-    var passwordConfirmCheck = true;
-    var nameCheck = true;
+    // 변수 선언
+    let emailCheck = true;
+    let passwordCheck = true;
+    let passwordConfirmCheck = true;
+    let nameCheck = true;
 
     let selectedOption;
-//이메일 유효성 검사
+
+    //이메일 유효성 검사
     $("#email").change(function () {
         if (!regEmail.test($("#email").val())) {
             $(".email").text("유효하지 않은 이메일 양식입니다.").css("color", "red");
@@ -27,7 +28,7 @@ $(document).ready(function () {
     });
 
 
-//이름 유효성 검사
+    //이름 유효성 검사
     $("#name").change(function () {
         if (!regName.test($("#name").val())) {
             $(".name").text("유효하지 않은 이름 양식입니다.").css("color", "red");
@@ -40,10 +41,10 @@ $(document).ready(function () {
         }
     });
 
-// 비밀번호 유효성 검사
+    // 비밀번호 유효성 검사
     $("#password").change(function () {
-        var pwd1 = $("#password").val();
-        if (!regPwd.test(pwd1)) {
+        let password = $("#password").val();
+        if (!regPwd.test(password)) {
             $(".password")
                 .text("비밀번호는 영문, 숫자포함 6-12자여야합니다.")
                 .css("color", "red");
@@ -57,12 +58,12 @@ $(document).ready(function () {
         }
     });
 
-// 비밀번호 일치 여부 검사
+    // 비밀번호 일치 여부 검사
     $("#password-confirm").change(function () {
-        var pwd1 = $("#password").val();
-        var pwd2 = $("#password-confirm").val();
+        let password = $("#password").val();
+        let confirmedPass = $("#password-confirm").val();
 
-        if (pwd1 != pwd2) {
+        if (password != confirmedPass) {
             $(".password-confirm")
                 .text("비밀번호가 일치하지 않습니다.")
                 .css("color", "red");
@@ -74,13 +75,6 @@ $(document).ready(function () {
             $("#password-confirm").attr("class", "form-control is-valid");
             passwordConfirmCheck = true;
         }
-    });
-
-// 파일 이름 바꾸기
-    $("#customFile").change(function () {
-        var fileValue = $("#customFile").val().split("\\");
-        var fileName = fileValue[fileValue.length - 1]; // 파일명
-        $("#showFiles").text(fileName);
     });
 
 // 두번째 관심사 제거
@@ -111,7 +105,7 @@ $(document).ready(function () {
     $("#first-interest").change(function () {
         firstSelected = $("#first-interest option:selected").val();
 
-        if($("#second-interest option:selected").length === 0) {
+        if ($("#second-interest option:selected").length === 0) {
 
             // 남은 옵션 전체 삭제
             $("#second-interest option").remove();
@@ -130,7 +124,7 @@ $(document).ready(function () {
             $("#second-interest").val(secondSelected);
 
         }
-        if(secondSelected) {
+        if (secondSelected) {
             $("#second-interest").val(secondSelected);
         }
         secondSelected = $("#second-interest option:selected").val();
@@ -140,7 +134,7 @@ $(document).ready(function () {
     $("#second-interest").change(function () {
         secondSelected = $("#second-interest option:selected").val();
 
-        if($("#first-interest option:selected").length === 0){
+        if ($("#first-interest option:selected").length === 0) {
             // 남은 옵션 전체 삭제
             $("#first-interest option").remove();
 
@@ -156,25 +150,15 @@ $(document).ready(function () {
             });
             $("#first-interest").val(firstSelected);
         }
-        if(firstSelected) {
+        if (firstSelected) {
             $("#first-interest").val(firstSelected);
         }
-            firstSelected = $("#first-interest option:selected").val();
-    });
-
-
-// "예약을 취소하겠습니다" 유효성 검사
-    $("#cancelReservation").click(function () {
-        if ($("#cancelReservationMessage").val() != "예약을 취소하겠습니다") {
-            $("#cancelReservationMessage").focus();
-            return false;
-        }
-        return true;
+        firstSelected = $("#first-interest option:selected").val();
     });
 
     $("#signUpForm").on('submit', function (event) {
 
-// 유효성 검사 실패시 제출 안되게 하기
+        // 유효성 검사 실패시 제출 안되게 하기
         if (!emailCheck) {
             $("#email").focus();
             return false;
@@ -188,9 +172,9 @@ $(document).ready(function () {
             $("#name").focus();
             return false;
         }
-
         event.preventDefault();
-        var data = {
+
+        let data = {
             email: $('input[name="email"]').val(),
             name: $('input[name="name"]').val(),
             password: $('input[name="password"]').val(),
@@ -205,18 +189,13 @@ $(document).ready(function () {
             url: "/members/signup-tutees.post",
             contentType: 'application/json',
             data: JSON.stringify(data),
-            contentType: 'application/json',
             success: function (data, status) {
-                if (data === "signupFail") {
-                    alert("이미 존재하는 회원입니다.")
-                } else {
-                    var email = btoa(data);
-                    sessionStorage.setItem("email", email);
-                    window.location.href = '/members/signup/email';
-                }
+                let email = btoa(data);
+                sessionStorage.setItem("email", email);
+                window.location.href = '/members/signup/email';
             },
             error: function (data, textStatus) {
-                alert("Error!")
+                alert("이미 존재하는 회원입니다.")
             },
             complete: function (data, textStatus) {
             },

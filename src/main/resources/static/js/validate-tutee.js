@@ -12,8 +12,6 @@ let nameCheck = true;
 let selectOption;
 let selectedOption;
 
-let password;
-let confirmedPassword;
 let fileValue;
 let fileName;
 
@@ -46,7 +44,7 @@ $("#name").change(function () {
 
 // 비밀번호 유효성 검사
 $("#password").change(function () {
-    password = $("#password").val();
+    let password = $("#password").val();
     if (!regPwd.test(password)) {
         $(".password")
             .text("비밀번호는 영문, 숫자포함 6-12자여야합니다.")
@@ -63,8 +61,8 @@ $("#password").change(function () {
 
 // 비밀번호 일치 여부 검사
 $("#password-confirm").change(function () {
-    password = $("#password").val();
-    confirmedPassword = $("#password-confirm").val();
+    let password = $("#password").val();
+    let confirmedPassword = $("#password-confirm").val();
 
     if (password !== confirmedPassword) {
         $(".password_confirm")
