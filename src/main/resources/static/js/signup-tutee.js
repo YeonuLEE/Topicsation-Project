@@ -1,5 +1,4 @@
 // POST로 tutee 회원가입 정보 보내기
-
 $(document).ready(function () {
 
     // 정규식 선언
@@ -7,14 +6,16 @@ $(document).ready(function () {
     let regEmail = RegExp(/^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/);
     let regPwd = RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/);
 
-// 변수 선언
+    // 변수 선언
     var emailCheck = true;
     var passwordCheck = true;
     var passwordConfirmCheck = true;
     var nameCheck = true;
 
-    let selectedOption;
-//이메일 유효성 검사
+    let firstSelected;
+    let secondSelected;
+
+    //이메일 유효성 검사
     $("#email").change(function () {
         if (!regEmail.test($("#email").val())) {
             $(".email").text("유효하지 않은 이메일 양식입니다.").css("color", "red");
@@ -27,8 +28,7 @@ $(document).ready(function () {
         }
     });
 
-
-//이름 유효성 검사
+    //이름 유효성 검사
     $("#name").change(function () {
         if (!regName.test($("#name").val())) {
             $(".name").text("유효하지 않은 이름 양식입니다.").css("color", "red");
@@ -41,7 +41,7 @@ $(document).ready(function () {
         }
     });
 
-// 비밀번호 유효성 검사
+    // 비밀번호 유효성 검사
     $("#password").change(function () {
         var pwd1 = $("#password").val();
         if (!regPwd.test(pwd1)) {
@@ -58,7 +58,7 @@ $(document).ready(function () {
         }
     });
 
-// 비밀번호 일치 여부 검사
+    // 비밀번호 일치 여부 검사
     $("#password-confirm").change(function () {
         var pwd1 = $("#password").val();
         var pwd2 = $("#password-confirm").val();
@@ -77,100 +77,53 @@ $(document).ready(function () {
         }
     });
 
-// 파일 이름 바꾸기
+    // 파일 이름 바꾸기
     $("#customFile").change(function () {
         var fileValue = $("#customFile").val().split("\\");
         var fileName = fileValue[fileValue.length - 1]; // 파일명
         $("#showFiles").text(fileName);
     });
 
-// 두번째 관심사 제거
-//     $("#first-interest").change(function () {
-//         console.log($("#first-interest option:selected").val())
-//         console.log($("#second-interest option:selected").val())
-//         // 남은 옵션 전체 삭제
-//         $("#second-interest option").remove();
-//
-//         // 전체 옵션 다시 추가
-//         $("#second-interest").html(
-//             "<option value='business'>비즈니스</option><option value='tech'>테크</option><option value='science'>과학</option><option value='entertainment'>엔터테인먼트</option><option value='health'>건강</option>"
-//         );
-//
-//         // 첫번째 관심사에서 뽑은 옵션 제거
-//         selectedOption = $("#first-interest option:selected").val();
-//         $("#second-interest")
-//             .find("option")
-//             .each(function () {
-//                 if (this.value == selectedOption) {
-//                     $(this).remove();
-//                 }
-//             });
-//     });
-
-    let firstSelected;
-    let secondSelected;
-
+    // 첫번째 관심사 선택
     $("#first-interest").change(function () {
         firstSelected = $("#first-interest option:selected").val();
 
-            // 남은 옵션 전체 삭제
-            $("#second-interest option").remove();
+        // 남은 옵션 전체 삭제
+        $("#second-interest option").remove();
 
-            // 전체 옵션 다시 추가
-            $("#second-interest").html(
-                "<option value='business'>비즈니스</option><option value='tech'>테크</option><option value='science'>과학</option><option value='entertainment'>엔터테인먼트</option><option value='health'>건강</option>"
-            );
+        // 전체 옵션 다시 추가
+        $("#second-interest").html(
+            "<option value=\"\" disabled selected style=\"display:none\">두번째 관심사</option><option value='business'>비즈니스</option><option value='tech'>테크</option><option value='science'>과학</option><option value='entertainment'>엔터테인먼트</option><option value='health'>건강</option>"
+        );
+        $("#second-interest").find("option").each(function () {
 
-            $("#second-interest").find("option").each(function () {
-
-                if (this.value == firstSelected) {
-                    $(this).remove();
-                }
-            });
-            $("#second-interest").val(secondSelected);
-
-        secondSelected = $("#second-interest option:selected").val();
-
+            if (this.value == firstSelected) {
+                $(this).remove();
+            }
+        });
+        $("#second-interest").val(secondSelected);
     });
-
+    // 두번째 관심사 선택
     $("#second-interest").change(function () {
         secondSelected = $("#second-interest option:selected").val();
 
-            // 남은 옵션 전체 삭제
-            $("#first-interest option").remove();
+        // 남은 옵션 전체 삭제
+        $("#first-interest option").remove();
 
-            // 전체 옵션 다시 추가
-            $("#first-interest").html(
-                "<option value='business'>비즈니스</option><option value='tech'>테크</option><option value='science'>과학</option><option value='entertainment'>엔터테인먼트</option><option value='health'>건강</option>"
-            );
-
-            $("#first-interest").find("option").each(function () {
-                if (this.value == secondSelected) {
-                    $(this).remove();
-                }
-            });
-            $("#first-interest").val(firstSelected);
-
-        firstSelected = $("#first-interest option:selected").val();
-    });
-
-
-
-
-
-
-// "예약을 취소하겠습니다" 유효성 검사
-    $("#cancelReservation").click(function () {
-        if ($("#cancelReservationMessage").val() != "예약을 취소하겠습니다") {
-            $("#cancelReservationMessage").focus();
-            return false;
-        }
-        return true;
+        // 전체 옵션 다시 추가
+        $("#first-interest").html(
+            "<option value=\"\" disabled selected style=\"display:none\">두번째 관심사</option><option value='business'>비즈니스</option><option value='tech'>테크</option><option value='science'>과학</option><option value='entertainment'>엔터테인먼트</option><option value='health'>건강</option>"
+        );
+        $("#first-interest").find("option").each(function () {
+            if (this.value == secondSelected) {
+                $(this).remove();
+            }
+        });
+        $("#first-interest").val(firstSelected);
     });
 
     $("#signUpForm").on('submit', function (event) {
-
-// 유효성 검사 실패시 제출 안되게 하기
+    // 유효성 검사 실패시 제출 안되게 하기
         if (!emailCheck) {
             $("#email").focus();
             return false;
@@ -186,6 +139,7 @@ $(document).ready(function () {
         }
 
         event.preventDefault();
+
         var data = {
             email: $('input[name="email"]').val(),
             name: $('input[name="name"]').val(),
