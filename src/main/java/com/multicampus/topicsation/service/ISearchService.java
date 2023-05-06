@@ -1,12 +1,9 @@
 package com.multicampus.topicsation.service;
 
-import com.multicampus.topicsation.dto.SearchDTO;
-import com.multicampus.topicsation.dto.pageDTO.PageReqeustDTO;
-import com.multicampus.topicsation.dto.pageDTO.PageRequestDTO;
-import com.multicampus.topicsation.dto.pageDTO.PageResponseDTO;
+import org.springframework.http.ResponseEntity;
 
-import java.util.List;
+import java.util.Map;
 
 public interface ISearchService {
-    PageResponseDTO<SearchDTO> searchList(PageRequestDTO pageRequestDTO);
+    ResponseEntity<Map<String, Object>> searchList(Map<String, String> requestParams);
 }

@@ -34,7 +34,6 @@ public interface IMemberDAO {
     void deleteTutorInfo(String user_id);
     void deleteTutor(String user_id);
 
-
     MyPageDTO viewTutee(String user_id);
     int modifyTutee(MyPageDTO myPageDTO);
     MypageScheduleDTO tuteeProfile(String user_id);
