@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <!-- Primary Meta Tags -->
-    <title>TutorPage</title>
+    <title>Tutor Detail Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="title" content="Spaces - About"/>
     <meta name="author" content="Themesberg"/>
@@ -19,6 +19,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/js/all.min.js"
             integrity="sha512-Cvxz1E4gCrYKQfz6Ne+VoDiiLrbFBvc6BPh4iyKo2/ICdIodfgc5Q9cBjRivfQNUXBCEnQWcEInSXsvlNHY/ZQ=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <!-- Leaflet JS -->
     <link type="text/css" href="/vendor/leaflet/dist/leaflet.css" rel="stylesheet"/>
 
@@ -31,7 +32,9 @@
     <!-- Main CSS -->
     <link type="text/css" href="/css/spaces.css" rel="stylesheet"/>
 
-    <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.js"
+            integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
 </head>
 <header>
     <section style="padding: 0px; height: 500px" class="section section-image bg-primary text-white pb-4 pb-md-7"
@@ -64,9 +67,7 @@
         </div>
 
         <figure class="position-absolute bottom-0 left-0 w-100 d-none d-md-block mb-n2">
-            <path
-                    d="m877.8 85c139.5 24.4 348 33.5 632.2-48.2-.2 32.5-.3 65-.5 97.4-505.9 0-1011.6 0-1517.5 0 0-33.3 0-66.7 0-100.1 54.2-11.4 129.5-23.9 220-28.2 91-4.3 173.6 1 307.4 18.6 183.2 24.2 295.2 49.4 358.4 60.5z"/>
-            <!-- </svg> -->
+            <path d="m877.8 85c139.5 24.4 348 33.5 632.2-48.2-.2 32.5-.3 65-.5 97.4-505.9 0-1011.6 0-1517.5 0 0-33.3 0-66.7 0-100.1 54.2-11.4 129.5-23.9 220-28.2 91-4.3 173.6 1 307.4 18.6 183.2 24.2 295.2 49.4 358.4 60.5z"/>
         </figure>
     </section>
 </header>
@@ -111,22 +112,16 @@
                         <div class="tab-pane fade show active border-light" id="nav-introduce" role="tabpanel"
                              aria-labelledby="nav-introduce-tab">
                             <h6 id="introduce_content"></h6>
-
                         </div>
 
                         <!-- 예약 캘린더 창 -->
                         <div class="tab-pane fade" id="nav-booking" role="tabpanel" aria-labelledby="nav-booking-tab">
-                            <!-- <div class="col-12 col-lg-8"> -->
-                            <!-- <div class="row"> -->
-                            <!-- <div class="col-lg-12"> -->
-                            <!-- <div class="card card-body bg-white border-light mb-4"> -->
                             <form id="calendarForm" style="width: 100%">
                                 <link type="text/css" href="/css/calendar.css" rel="stylesheet"/>
                                 <link rel="stylesheet"
                                       href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap-responsive.css"/>
                                 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
-                                <script
-                                        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
+                                <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
                                 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.js"></script>
                                 <div class="mb-5">
                                     <div class="row justify-content-center">
@@ -137,7 +132,8 @@
                                                         <div class="mx-0 mb-0 row justify-content-sm-center justify-content-start px-1">
                                                             <input type="text" id="day" class="datepicker"
                                                                    placeholder="Pick Date" name="date"
-                                                                   readonly/><span class="fa fa-calendar"></span>
+                                                                   readonly/>
+                                                            <span class="fa fa-calendar"></span>
                                                         </div>
                                                     </div>
                                                     <style>
@@ -403,8 +399,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <!-- 모달 시작 -->
-                                                    <!-- 버튼 클릭시 모달창 -->
+                                                    <!-- 버튼 클릭시 모달창 열기 -->
                                                     <div class="modal fade" id="modal-default" tabindex="-1"
                                                          role="dialog"
                                                          aria-labelledby="modal-default" aria-hidden="true">
@@ -414,14 +409,12 @@
                                                                     <h6 class="modal-title">레슨 에약하기</h6>
                                                                     <button type="button" class="close"
                                                                             data-dismiss="modal" aria-label="Close">
-                                                                        <!-- <span aria-hidden="true">&times;</span> -->
                                                                     </button>
                                                                 </div>
 
                                                                 <div class="modal-body">
                                                                     <form>
                                                                         <div class="mb-3">
-                                                                            <!--for="message-text"-->
                                                                             <label class="col-form-label">해당 시간에
                                                                                 예약하시겠습니까?</label>
                                                                         </div>
@@ -431,13 +424,11 @@
                                                                 <div class="modal-footer">
                                                                     <button id="booking" type="submit"
                                                                             class="btn btn-sm btn-secondary"
-                                                                            data-dismiss="modal">
-                                                                        예약하기
+                                                                            data-dismiss="modal">예약하기
                                                                     </button>
                                                                     <button type="button" id="close"
                                                                             class="btn btn-link text-danger ml-auto"
-                                                                            data-dismiss="modal">
-                                                                        Close
+                                                                            data-dismiss="modal">Close
                                                                     </button>
                                                                 </div>
                                                             </div>
@@ -450,13 +441,9 @@
                                     </div>
                                 </div>
                             </form>
-                            <!-- </div> -->
                         </div>
-                        <!-- </div> -->
                     </div>
                 </div>
-
-
 
                 <!-- End of tab -->
                 <aside class="col-4 col-md-4 mt-6">
@@ -467,7 +454,6 @@
                         </div>
                         <div class="card-body">
                             <h2 class="h4 card-title mt-6 mb-4" id="tutor-name"></h2>
-
                             <div class="card-subtitle text-gray font-weight-normal">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#dc143c"
                                      class="bi bi-heart-fill"
