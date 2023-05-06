@@ -19,8 +19,8 @@
                  INNER JOIN USER u ON r.TUTEE_ID = u.USER_ID
         WHERE r.TUTOR_ID = #{tutorId}
     </select>
-    <update id="classReserve" parameterType="map">
-        UPDATE TUTOR_CLASS SET TUTEE_ID = #{tuteeId} WHERE CLASS_DATE = #{classDate} and CLASS_TIME = #{classTime};
+    <update id="classReserve" parameterType="String">
+        UPDATE TUTOR_CLASS SET TUTEE_ID = #{tuteeId} WHERE CLASS_ID = #{classId};
     </update>
     <!-- 튜터 추천 -->
     <select id="tuteeInterest" resultType="com.multicampus.topicsation.dto.MemberDTO">

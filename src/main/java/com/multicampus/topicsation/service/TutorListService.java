@@ -31,6 +31,14 @@ public class TutorListService implements ITutorListService {
 
     @Override
     public boolean ClassReserve(Map<String, Object> paramMap) {
+        String tutorId = paramMap.get("tutorId").toString();
+        String classDate = paramMap.get("classDate").toString();
+        String classTime = paramMap.get("classTime").toString();
+
+        String classId = tutorId + "_" + classDate + "_" + classTime;
+
+        paramMap.put("classId", classId);
+
         int result = tutorListDAO.classReserve(paramMap);
 
         if(result == 1)
