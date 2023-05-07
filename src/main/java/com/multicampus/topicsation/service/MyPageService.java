@@ -154,13 +154,7 @@ public class MyPageService implements IMyPageService{
         String role = dao.checkRole(userId);
         if (role.equals("tutee")) {
             dao.deleteTutee(userId);
-            dao.chageClass(userId);
-            dao.tuteeDislike(userId);
         } else if (role.equals("tutor")) {
-            dao.deleteClass(userId);
-            dao.tutorDislike(userId);
-            dao.deleteReview(userId);
-            dao.deleteTutorInfo(userId);
             dao.deleteTutor(userId);
         }
     }

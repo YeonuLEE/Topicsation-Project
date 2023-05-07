@@ -53,18 +53,6 @@
     <delete id="deleteTutor">
         delete FROM USER where user_id = #{userId}
     </delete>
-    <delete id="deleteTutorInfo">
-        delete FROM TUTOR_INFO where tutor_id = #{userId}
-    </delete>
-    <delete id="deleteClass">
-        delete FROM TUTOR_CLASS where tutor_id = #{userId}
-    </delete>
-    <delete id="tutorDislike">
-        delete FROM DISLIKE where tutor_id = #{userId}
-    </delete>
-    <delete id="deleteReview">
-        delete from REVIEW where TUTOR_ID= #{userId};
-    </delete>
     <select id="checkProfileImg" resultType="string">
         SELECT profileimg FROM TUTOR_INFO WHERE tutor_id = #{userId} and PROFILEIMG like '%unknown%'
     </select>
@@ -82,15 +70,6 @@
     </update>
     <delete id="deleteTutee">
         delete FROM USER where user_id = #{userId}
-    </delete>
-    <update id="cancelSchedule" parameterType="com.multicampus.topicsation.dto.ClassDTO">
-        UPDATE TUTOR_CLASS SET tutee_id = null where class_id = #{class_id}
-    </update>
-    <update id="chageClass" parameterType="com.multicampus.topicsation.dto.ClassDTO">
-        UPDATE TUTOR_CLASS SET tutee_id = null where tutee_id = #{tutee_id}
-    </update>
-    <delete id="tuteeDislike">
-        delete FROM DISLIKE where tutee_id = #{userId}
     </delete>
 
     <!-- Schedule -->
