@@ -60,12 +60,10 @@ public class MemberManageService implements IMemberManageService {
         result.put("email", email);
         if(signUpDao.checkEmailAuthDAO(email) == 1) {
             LoginDTO dto = loginDao.login(email);
-            if (dto.getRole().equals("tutor")) {
-                if (loginDao.checkApproval(dto.getUser_id()) != 1) {
+            if(dto != null && BCrypt.checkpw(password, dto.getPassword())) {
+                if (dto.getRole().equals("tutor") && loginDao.checkApproval(dto.getUser_id()) != 1) {
                     return null;
                 }
-            }
-            if(BCrypt.checkpw(password, dto.getPassword())) {
                 return dto;
             }
         } return null;
@@ -94,7 +92,7 @@ public class MemberManageService implements IMemberManageService {
                 "</body></html>";
 
         helper.setTo(mailDTO.getEmail());
-        helper.setFrom("dldusdn8060@gmail.com");
+        helper.setFrom("topicsation81@gmail.com");
         helper.setText(mailContent, true);
         helper.setSubject("TOPICSATION 비밀번호 재설정 링크입니다.");
 
