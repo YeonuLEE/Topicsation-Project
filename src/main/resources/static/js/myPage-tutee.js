@@ -97,7 +97,6 @@ $(document).ready(function() {
 
     //회원 삭제
     $('#delete').click(function (){
-
         $.ajax({
             type: "post",
             url: apiUrl + "/delete",

@@ -137,6 +137,20 @@ function searchGet(page, name, interest, date){
             }
         }
     });
+
+    // 페이지 링크에 대한 클릭 이벤트 리스너 추가
+    $(".pagination .page-link").on("click", function (event) {
+        event.preventDefault();
+        let pageNumber = parseInt($(this).data("page"));
+        if (!isNaN(pageNumber)) {
+
+            let name = $("#search-name").val();
+            let interest = $("#search-interest").val();
+            let date = $("#reserve-date").val();
+
+            searchGet(pageNumber, name, interest, date);
+        }
+    });
 }
 
 function pagination(currentPage, total) {
@@ -177,14 +191,7 @@ function pagination(currentPage, total) {
                           <a class="page-link" href="#" aria-label="Next" data-page="${endPage + 1}">Next</a>
                         </li>`);
     }
-    // 페이지 링크에 대한 클릭 이벤트 리스너 추가
-    $(".pagination .page-link").on("click", function (event) {
-        event.preventDefault();
-        let pageNumber = parseInt($(this).data("page"));
-        if (!isNaN(pageNumber)) {
-            searchGet(pageNumber);
-        }
-    });
+
 }
 
 

@@ -76,20 +76,21 @@ $(document).ready(function () {
             getHeaderAjax(xhr)
 
             let jsonObject = JSON.parse(data);
+            let person = jsonObject.tutor_info;
+
 
             $("#information").attr("href", apiUrl2);
             $("#schedule").attr("href", apiUrl3);
 
             //튜터 이름
-            $("#tutor-name").text(jsonObject.name);
+            $("#tutor-name").text(person.name);
 
             //튜터 이미지
-            let imgSrc = "/assets/img/team/";
-            imgSrc += jsonObject.profileimg;
 
+            let imgSrc = person.profileImg;
             let img = $("<img>", {
+
                 src: imgSrc,
-                alt: "Joseph Portrait"
             }).addClass("card-img-top rounded-circle border-white");
             $("#tutor-img").append(img);
 

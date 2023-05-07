@@ -172,12 +172,19 @@ public class MyPageController {
 
             mypageScheduleDTO = service.schedule_tutor(paramMap, mypageScheduleDTO);
 
+            String bucketName = "asset";
+            String folderName = "profile";
+
+            String profileImgUrl = s3FileService.getImageUrl(bucketName, folderName, mypageScheduleDTO.getProfileimg());
+
+            System.out.println("tutor : " + profileImgUrl);
+
             JSONObject jsonObject_info = new JSONObject();
             JSONArray jsonArray_schedule = new JSONArray();
 
             jsonObject_info.put("user_id", tutorId);
             jsonObject_info.put("name", mypageScheduleDTO.getName());
-            jsonObject_info.put("picture", mypageScheduleDTO.getProfileimg());
+            jsonObject_info.put("profileImg", profileImgUrl);
 
             for (int i = 0; i < mypageScheduleDTO.getScheduleDTOList().size(); i++) {
                 JSONObject jsonObject_schedule = new JSONObject();
@@ -196,7 +203,6 @@ public class MyPageController {
             jsonObject.put("schedule", jsonArray_schedule);
 
             String jsonString = jsonObject.toJSONString();
-
             return jsonString;
         }
 
