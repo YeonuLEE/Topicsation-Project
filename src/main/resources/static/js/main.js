@@ -1,8 +1,13 @@
 import {getHeaderAjax, setupHeaderAjax, getId} from './checkTokenExpiration.js';
-
+import { moveToErrorPage } from './error/MoveToErrorPage.js';
 
 
 $(document).ready(function () {
+
+    // AJAX 에러 처리기로 설정
+    $.ajaxSetup({
+        error: moveToErrorPage
+    });
 
     const token = sessionStorage.getItem('accessToken');
     let userId = "default";
