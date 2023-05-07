@@ -151,10 +151,10 @@ public class MemberManageController {
         }
 
         @PostMapping("/signup-tutees.post")
-        public ResponseEntity<Object> signUpTutee(@RequestBody SignUpDTO signUpDTO) {
+        public ResponseEntity<String> signUpTutee(@RequestBody SignUpDTO signUpDTO) {
             boolean result = memberManageservice.signUpProcess(signUpDTO);
             if (result) {
-                return ResponseEntity.ok().build();
+                return new ResponseEntity<>(signUpDTO.getEmail(), HttpStatus.OK);
             } else {
                 return ResponseEntity.unprocessableEntity().build();
             }

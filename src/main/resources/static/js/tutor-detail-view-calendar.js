@@ -57,9 +57,6 @@ $(document).ready(function () {
     // 년월일 포맷
     dateFormatted = year + '-' + pad(month, 2) + '-' + pad(day, 2);
 
-    // 시간 포맷
-    timeFormatted = pad(hours, 2) + ':' + pad(minutes, 2);
-
     pathURI = window.location.pathname
     const regex = /\/(\d+)$/;
     const match = pathURI.match(regex);
@@ -92,7 +89,7 @@ $(document).ready(function () {
             $("#second-interest").append(jsonObject.tutor_info.interest2);
             $("#profile-img").attr("src", jsonObject.tutor_info.picture);
 
-            for (var i = 0; i < jsonObject.review.length; i++) {
+            for (let i = 0; i < jsonObject.review.length; i++) {
                 let reviewer = jsonObject.review[i];
                 let div1 = $("<div>", {
                     class: "card bg-white border-light p-4 mb-4 col-8 col-lg-8",
@@ -148,12 +145,13 @@ $(document).ready(function () {
         // 년월일 포맷
         dateFormatted = year + '-' + pad(month, 2) + '-' + pad(day, 2);
 
-        // 시간 포맷
-        timeFormatted = pad(hours, 2) + ':' + pad(minutes, 2);
-
         $(".cell").css("color", "");
         $(".cell").css("background-color", "");
         $(".cell").css("pointer-events", "none");
+
+        let getUrl = "/main/tutors/{tutor_id}/getInfo?calendarDate=";
+        getUrl = getUrl.replace("{tutor_id}", number);
+        getUrl += dateFormatted;
 
         $.ajax({
             type: "GET",
