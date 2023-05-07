@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,19 +34,11 @@ public class MyPageService implements IMyPageService{
 
     @Override
     public String view(String userId) {
-
         MyPageDTO myPageDTO;
         JSONObject jsonObject = new JSONObject();
-        String role = dao.checkRole(userId);
-        if (role.equals("tutor")) {
+        if (dao.checkRole(userId).equals("tutor")) {
             myPageDTO = dao.viewTutor(userId);
-
-            String bucketName = "asset";
-            String folderName = "profile";
-
-            String profileImgUrl = s3FileService.getImageUrl(bucketName, folderName, myPageDTO.getProfileimg());
-
-            jsonObject.put("profileImg", profileImgUrl);
+            jsonObject.put("profileImg", s3FileService.getImageUrl("asset", "profile", myPageDTO.getProfileimg()));
             jsonObject.put("name", myPageDTO.getName());
             jsonObject.put("email", myPageDTO.getEmail());
             jsonObject.put("nationality", myPageDTO.getNationality());
@@ -54,9 +47,9 @@ public class MyPageService implements IMyPageService{
             jsonObject.put("genderRadios", myPageDTO.getGender());
             jsonObject.put("memo",myPageDTO.getInfo());
             jsonObject.put("password",myPageDTO.getPassword());
-
             return jsonObject.toJSONString();
-        } else if (role.equals("tutee")) {
+        }
+        else if (dao.checkRole(userId).equals("tutee")) {
             myPageDTO = dao.viewTutee(userId);
             jsonObject.put("tutor-name", myPageDTO.getName());
             jsonObject.put("name", myPageDTO.getName());
@@ -65,7 +58,8 @@ public class MyPageService implements IMyPageService{
             jsonObject.put("interest2", myPageDTO.getInterest2());
 
             return jsonObject.toJSONString();
-        }else{
+        }
+        else{
             List<MyPageDTO> list = dao.viewAdmin();
             JSONArray jsonArray = new JSONArray();
 
@@ -74,8 +68,8 @@ public class MyPageService implements IMyPageService{
                 jsonObject2.put("userId", dto.getUserId());
                 jsonObject2.put("tutorName", dto.getName());
                 jsonObject2.put("approlDate", dto.getRegi_date());
-                jsonObject2.put("file", dto.getCertificate());
-
+                jsonObject2.put("file", s3FileService.generatePresignedUrl(
+                        "asset", "certificate" + "/" + dto.getCertificate()).toString());
                 jsonArray.add(jsonObject2);
             }
             return jsonArray.toJSONString();

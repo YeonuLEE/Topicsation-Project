@@ -210,6 +210,7 @@ $(document).ready(function () {
                 $("#" + tagId).css("color", "white");
                 $("#" + tagId).css("background-color", "green");
                 $("#" + tagId).css("pointer-events", "auto");
+                location.reload();
             },
             complete: function (data, textStatus) {
             },
