@@ -36,6 +36,7 @@ public interface IMemberDAO {
     void tutorDislike(String userId);
     void deleteTutorInfo(String userId);
     void deleteTutor(String userId);
+    void deleteReview(String userId);
 
     MyPageDTO viewTutee(String userId);
     int modifyTutee(MyPageDTO myPageDTO);

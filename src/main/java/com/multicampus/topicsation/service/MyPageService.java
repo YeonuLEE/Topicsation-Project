@@ -159,6 +159,7 @@ public class MyPageService implements IMyPageService{
         } else if (role.equals("tutor")) {
             dao.deleteClass(userId);
             dao.tutorDislike(userId);
+            dao.deleteReview(userId);
             dao.deleteTutorInfo(userId);
             dao.deleteTutor(userId);
         }

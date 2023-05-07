@@ -62,6 +62,9 @@
     <delete id="tutorDislike">
         delete FROM DISLIKE where tutor_id = #{userId}
     </delete>
+    <delete id="deleteReview">
+        delete from REVIEW where TUTOR_ID= #{userId};
+    </delete>
     <select id="checkProfileImg" resultType="string">
         SELECT profileimg FROM TUTOR_INFO WHERE tutor_id = #{userId} and PROFILEIMG like '%unknown%'
     </select>
