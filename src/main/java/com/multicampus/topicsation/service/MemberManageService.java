@@ -149,6 +149,7 @@ public class MemberManageService implements IMemberManageService {
             System.out.println("file : " + signUpDTO.getFile());
             String bucketName = "asset";
             String folderName = "certificate";
+            // 확장자 추출
             String fileExtension = getFileExtension(signUpDTO.getFile().getOriginalFilename());
             String fileName = userId + "." + fileExtension;
 
@@ -166,6 +167,7 @@ public class MemberManageService implements IMemberManageService {
         if (lastIndexOfDot == -1) {
             return ""; // 확장자가 없는 경우
         }
+        // 확장자 반환
         return fileName.substring(lastIndexOfDot + 1);
     }
 

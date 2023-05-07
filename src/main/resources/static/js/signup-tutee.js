@@ -7,7 +7,6 @@ $(document).ready(function () {
     let regPwd = RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/);
 
     // 변수 선언
-
     let emailCheck = true;
     let passwordCheck = true;
     let passwordConfirmCheck = true;
@@ -78,13 +77,6 @@ $(document).ready(function () {
         }
     });
 
-    // 파일 이름 바꾸기
-    $("#customFile").change(function () {
-        var fileValue = $("#customFile").val().split("\\");
-        var fileName = fileValue[fileValue.length - 1]; // 파일명
-        $("#showFiles").text(fileName);
-    });
-
     // 첫번째 관심사 선택
     $("#first-interest").change(function () {
         firstSelected = $("#first-interest option:selected").val();
@@ -98,8 +90,6 @@ $(document).ready(function () {
         );
         // 첫번째 관심사에서 뽑은 옵션 제거
         $("#second-interest").find("option").each(function () {
-
-
             if (this.value == firstSelected) {
                 $(this).remove();
             }
@@ -143,7 +133,6 @@ $(document).ready(function () {
             return false;
         }
         event.preventDefault();
-
 
         let data = {
             email: $('input[name="email"]').val(),
