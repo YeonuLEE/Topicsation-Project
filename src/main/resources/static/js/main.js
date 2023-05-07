@@ -41,7 +41,6 @@ $(document).ready(function () {
                 let div3 = $("<div>", {class: "row no-gutters align-items-center"});
                 let div4 = $("<div>", {class: "col-12 col-lg-6 col-xl-4"});
                 let a1 = $("<a>", {href: link})
-                let a2 = $("<a>", {href: link})
                 let img = $("<img>", {
                     src: imgSrc,
                     alt: "loft space",
@@ -68,7 +67,7 @@ $(document).ready(function () {
                     }
                 )
 
-                let div8 = $("<div>", {class: "mb-5"});
+                let div8 = $("<div>", {class: "mb-5", style: "color:#424767;"});
 
                 let span3 = $("<span>", {class: "fas fa-map-marker-alt mr-2"});
                 let span4 = $("<span>", {text: person.nationality});
@@ -87,17 +86,16 @@ $(document).ready(function () {
                 let dataBody = $("#tutor-card");
 
                 dataBody.append(div1);
-                div1.append(div2);
+                div1.append(a1);
+                a1.append(div2);
                 div2.append(div3);
                 div3.append(div4);
-                div4.append(a1);
-                a1.append(img);
+                div4.append(img);
                 div3.append(div5);
                 div5.append(div6);
                 div6.append(div7);
-                div7.append(a2);
-                a2.append(span1);
-                a2.append(heartSpan);
+                div7.append(span1);
+                div7.append(heartSpan);
                 heartSpan.append('<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#dc143c" class="bi bi-heart-fill mr-2" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/></svg>');
                 heartSpan.append(span2);
                 div6.append(div8);
