@@ -92,7 +92,6 @@ public class MemberManageService implements IMemberManageService {
                 "</body></html>";
 
         helper.setTo(mailDTO.getEmail());
-        helper.setFrom("topicsation81@gmail.com");
         helper.setText(mailContent, true);
         helper.setSubject("TOPICSATION 비밀번호 재설정 링크입니다.");
 
