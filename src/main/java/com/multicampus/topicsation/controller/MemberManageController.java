@@ -172,17 +172,17 @@ public class MemberManageController {
                 @RequestParam("role") String role,
                 @RequestParam("customFile") MultipartFile file) {
 
-            SignUpDTO signUpDTO = new SignUpDTO();
-
-            signUpDTO.setEmail(email);
-            signUpDTO.setName(name);
-            signUpDTO.setPassword(password);
-            signUpDTO.setGender(gender);
-            signUpDTO.setNationality(nationality);
-            signUpDTO.setFirstInterest(firstInterest);
-            signUpDTO.setSecondInterest(secondInterest);
-            signUpDTO.setRole(role);
-            signUpDTO.setFile(file);
+            SignUpDTO signUpDTO = SignUpDTO.builder()
+                    .email(email)
+                    .name(name)
+                    .password(password)
+                    .gender(gender)
+                    .nationality(nationality)
+                    .firstInterest(firstInterest)
+                    .secondInterest(secondInterest)
+                    .role(role)
+                    .file(file)
+                    .build();
 
             System.out.println(signUpDTO);
 
