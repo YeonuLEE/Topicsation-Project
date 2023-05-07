@@ -39,11 +39,11 @@ $(document).ready(function () {
                 let classdate = $("<td>", {text: tutee.class_date});
                 let tutorname = $("<td>", {text: tutee.tutor_name});
                 let memo = $("<td>")
-                    .append($("<a>", {href: tutee.memo1, text: tutee.memo1}))
+                    .append($("<a>", {href: tutee.memo1, text: tutee.memo1, target: "_blank"}))
                     .append($("<br>"))
-                    .append($("<a>", {href: tutee.memo2, text: tutee.memo2}))
+                    .append($("<a>", {href: tutee.memo2, text: tutee.memo2, target: "_blank"}))
                     .append($("<br>"))
-                    .append($("<a>", {href: tutee.memo3, text: tutee.memo3}));
+                    .append($("<a>", {href: tutee.memo3, text: tutee.memo3, target: "_blank"}));
 
                 tr.append(tno);
                 tr.append(classdate);
