@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +35,6 @@ public class MyPageController {
 
     @Autowired
     private JwtUtils jwtUtils;
-
 
     @GetMapping("/tutee")
     public String tuteePage() {
@@ -99,8 +99,8 @@ public class MyPageController {
         }
 
         @GetMapping("/{user_id}/get")
-        public String myPage(@PathVariable("user_id") String userId) {
-            return service.view(userId);
+        public ResponseEntity<String> myPage(@PathVariable("user_id") String userId) {
+            return ResponseEntity.ok(service.view(userId));
         }
 
         @PostMapping("/{user_id}/passCheck")
