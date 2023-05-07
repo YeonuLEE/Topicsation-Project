@@ -8,8 +8,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/error")
 public class ErrorController {
 
+    @GetMapping("/401")
+    public void error401() {}
+
     @GetMapping("/404")
-    public String lesson() {
-        return "html/404";
-    }
+    public void error404() {}
+
+    @GetMapping("/500")
+    public void error405() {}
 }
