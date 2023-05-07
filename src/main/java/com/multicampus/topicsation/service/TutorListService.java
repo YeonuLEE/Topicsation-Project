@@ -80,8 +80,7 @@ public class TutorListService implements ITutorListService {
         jsonObject.put("schedule", jsonArray_schedule);
         jsonObject.put("review",jsonArray_Review);
 
-        String jsonString = jsonObject.toJSONString();
-        return jsonString;
+        return jsonObject.toJSONString();
     }
 
     @Override
@@ -94,7 +93,7 @@ public class TutorListService implements ITutorListService {
 
         paramMap.put("classId", classId);
         int result_update = tutorListDAO.classReserve(paramMap);
-        if(result_update == 1)
+        if (result_update == 1)
             return ResponseEntity.ok().build();
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -128,9 +127,8 @@ public class TutorListService implements ITutorListService {
         }
 
         jsonObject.put("tutor_list",jsonArray);
-        String jsonString = jsonObject.toJSONString();
 
-        return jsonString;
+        return jsonObject.toJSONString();
     }
 
     public List<RecommendDTO> recommend(String user_id) {

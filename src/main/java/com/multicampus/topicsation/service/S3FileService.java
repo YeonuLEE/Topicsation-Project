@@ -1,5 +1,6 @@
 package com.multicampus.topicsation.service;
 
+import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.multicampus.topicsation.config.S3Configuration;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.Date;
 
 @Service
 public class S3FileService implements IS3FileService {
@@ -93,6 +96,19 @@ public class S3FileService implements IS3FileService {
         // 파일이 존재하지 않으면 null 반환
         return null;
     }
+    @Override
+    public URL generatePresignedUrl(String bucketName, String objectKey) {
+        Date expiration = new Date();
+        long msec = expiration.getTime();
+        msec += 1000 * 60 * 60; // 1 hour.
+        expiration.setTime(msec);
 
+        GeneratePresignedUrlRequest generatePresignedUrlRequest =
+                new GeneratePresignedUrlRequest(bucketName, objectKey)
+                        .withMethod(HttpMethod.GET)
+                        .withExpiration(expiration);
+        URL url = s3Client.generatePresignedUrl(generatePresignedUrlRequest);
 
+        return url;
+    }
 }

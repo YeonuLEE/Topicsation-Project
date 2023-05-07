@@ -31,10 +31,7 @@ public interface IMemberDAO {
 
     List<ClassDTO> schedule(String userId);
     void deleteClass(String userId);
-    void tutorDislike(String userId);
-    void deleteTutorInfo(String userId);
     void deleteTutor(String userId);
-    void deleteReview(String userId);
 
     MyPageDTO viewTutee(String userId);
     int modifyTutee(MyPageDTO myPageDTO);
@@ -42,8 +39,6 @@ public interface IMemberDAO {
     List<ClassDTO> scheduleTutee(String userId);
     List<ClassDTO> historyTutee(String userId);
     void deleteTutee(String userId);
-    void chageClass(String userId);
     void cancelSchedule(String class_id);
-    void tuteeDislike(String userId);
 
 }

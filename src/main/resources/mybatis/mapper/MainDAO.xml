@@ -23,7 +23,7 @@
         WHERE r.TUTOR_ID = #{tutorId}
     </select>
     <update id="classReserve" parameterType="String">
-        UPDATE TUTOR_CLASS SET TUTEE_ID = #{tuteeId} WHERE CLASS_ID = #{classId};
+        UPDATE TUTOR_CLASS SET TUTEE_ID = #{tuteeId} WHERE CLASS_ID = #{classId} and TUTEE_ID IS NULL;
     </update>
     <!-- 튜터 추천 -->
     <select id="tuteeInterest" resultType="com.multicampus.topicsation.dto.MemberDTO">
