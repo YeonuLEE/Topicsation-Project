@@ -76,10 +76,6 @@ public class SearchService implements ISearchService{
         resultMap.put("page",pageResponseDTO.getPage());
         resultMap.put("size",pageResponseDTO.getSize());
         resultMap.put("total",pageResponseDTO.getTotal());
-        resultMap.put("start",pageResponseDTO.getStart());
-        resultMap.put("end",pageResponseDTO.getEnd());
-        resultMap.put("prev",pageResponseDTO.isPrev());
-        resultMap.put("next",pageResponseDTO.isNext());
 
         return resultMap;
     }

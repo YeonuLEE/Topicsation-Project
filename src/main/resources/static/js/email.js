@@ -81,9 +81,10 @@ $(document).ready(function () {
                 }
             });
         }
-        else {
-            alert("인증코드가 일치하지 않습니다");
-            // event.preventDefault();
+        else if (emailCode == "") {
+            alert("인증코드를 입력해주세요");
+        } else {
+            alert("인증코드를 다시 확인해주세요");
         }
     });
 });
