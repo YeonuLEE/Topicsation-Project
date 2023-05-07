@@ -1,13 +1,10 @@
 package com.multicampus.topicsation.service;
 
-import com.multicampus.topicsation.dto.MyPageDTO;
-import com.multicampus.topicsation.dto.MypageScheduleDTO;
-import com.multicampus.topicsation.dto.ClassDTO;
+import com.multicampus.topicsation.dto.MyPageScheduleDTO;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
 import java.util.Map;
 
 public interface IMyPageService {
@@ -18,13 +15,13 @@ public interface IMyPageService {
 
     String view(String userId);
     void modify(JSONObject jsonObject,String userId);
-    MypageScheduleDTO schedule_tutor(Map<String, Object> paramMap, MypageScheduleDTO mypageScheduleDTO);
+    MyPageScheduleDTO schedule_tutor(Map<String, Object> paramMap);
     int scheduleUpdate(JSONObject jsonUserInfo, JSONArray jsonSchedule);
 
     void delete(String user_id);
     boolean change_profileImg(String user_id, MultipartFile file);
 
     String schedule_tutee(String userId);
-    String history_tutee(String userId);
+    String historyTutee(String userId);
     void schedule_cancel(String userId);
 }

@@ -1,6 +1,6 @@
 package com.multicampus.topicsation.controller;
 
-import com.multicampus.topicsation.dto.MypageScheduleDTO;
+import com.multicampus.topicsation.dto.MyPageScheduleDTO;
 import com.multicampus.topicsation.service.IMyPageService;
 import com.multicampus.topicsation.service.IS3FileService;
 import com.multicampus.topicsation.token.JwtUtils;
@@ -18,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
@@ -118,7 +117,7 @@ public class MyPageController {
         }
 
         @PostMapping("/{user_id}/profileUpdate")
-        public ResponseEntity<?> mypageProfile(@PathVariable("user_id") String userId, @RequestParam("file") MultipartFile file){
+        public ResponseEntity<?> myPageProfile(@PathVariable("user_id") String userId, @RequestParam("file") MultipartFile file){
 
             if(service.change_profileImg(userId, file)){
                 return new ResponseEntity<>(file.getOriginalFilename() + " 파일이 업로드되었습니다.", HttpStatus.OK);// DB에 사진 파일 이름 저장
@@ -127,8 +126,6 @@ public class MyPageController {
                 return new ResponseEntity<>(file.getOriginalFilename() + " 파일이 업로드되었습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
-
-
 
         @PostMapping("/{user_id}/delete")
         public String myPageDelete(@PathVariable("user_id") String userId) {
@@ -151,17 +148,16 @@ public class MyPageController {
         public String schedulePageCalendar(@PathVariable("user_id") String tutorId,
                                            @RequestParam("calendarDate") String calendarDate) {
 
-            MypageScheduleDTO mypageScheduleDTO = new MypageScheduleDTO();
             Map<String, Object> paramMap = new HashMap<>();
             paramMap.put("tutorId", tutorId);
             paramMap.put("classDate", calendarDate);
 
-            mypageScheduleDTO = service.schedule_tutor(paramMap, mypageScheduleDTO);
+            MyPageScheduleDTO mypageScheduleDTO = service.schedule_tutor(paramMap);
 
             String bucketName = "asset";
             String folderName = "profile";
 
-            String profileImgUrl = s3FileService.getImageUrl(bucketName, folderName, mypageScheduleDTO.getProfileimg());
+            String profileImgUrl = s3FileService.getImageUrl(bucketName, folderName, mypageScheduleDTO.getProfileImg());
 
             System.out.println("tutor : " + profileImgUrl);
 
@@ -183,13 +179,12 @@ public class MyPageController {
                 jsonArray_schedule.add(jsonObject_schedule);
             }
 
-            JSONObject jsonObject = new JSONObject();
+            JSONObject resultJsonObject = new JSONObject();
 
-            jsonObject.put("tutor_info", jsonObject_info);
-            jsonObject.put("schedule", jsonArray_schedule);
+            resultJsonObject.put("tutor_info", jsonObject_info);
+            resultJsonObject.put("schedule", jsonArray_schedule);
 
-            String jsonString = jsonObject.toJSONString();
-            return jsonString;
+            return resultJsonObject.toJSONString();
         }
 
         @PostMapping("/{user_id}/schedule/postCalender")
@@ -215,7 +210,7 @@ public class MyPageController {
 
         @GetMapping("/{user_id}/history/get")
         public String historyPage(@PathVariable("user_id") String userId) {
-            return service.history_tutee(userId);
+            return service.historyTutee(userId);
         }
     }
 }
