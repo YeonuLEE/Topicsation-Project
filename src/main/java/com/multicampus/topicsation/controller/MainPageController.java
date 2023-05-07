@@ -52,11 +52,13 @@ public class MainPageController {
 
         @GetMapping("/get")
         public ResponseEntity<String> main(@RequestParam("userId") String userId) {
-            return new ResponseEntity(tutorListService.tutor_recommend(userId), HttpStatus.OK);
+            return ResponseEntity.ok(tutorListService.tutor_recommend(userId));
         }
 
         @GetMapping("/search-all/get")
         public ResponseEntity<Map<String, Object>> searchPage(@RequestParam Map<String, String> requestParams) {
+
+
             return ResponseEntity.ok(searchService.searchList(requestParams));
         }
 

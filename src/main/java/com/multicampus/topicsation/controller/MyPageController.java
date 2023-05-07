@@ -72,8 +72,8 @@ public class MyPageController {
     public class MyPageRestController {
 
         @GetMapping("/{user_id}")
-        public ResponseEntity<String> myPage(HttpServletRequest request) {
-            return ResponseEntity.ok(jwtUtils.authByRole(request, "/mypage/tutee", "/mypage/tutor", "/mypage/admin"));
+        public String myPage(HttpServletRequest request) {
+            return jwtUtils.authByRole(request, "/mypage/tutee", "/mypage/tutor", "/mypage/admin");
         }
 
         @GetMapping("/{user_id}/schedule")
