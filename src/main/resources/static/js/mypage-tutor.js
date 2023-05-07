@@ -166,6 +166,7 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: function (response){
+
                 $("#profile-img").load(window.location.href + " #profile-img");
                 alert("프로필 사진이 성공적으로 변경되었습니다.");
                 location.reload();
