@@ -13,6 +13,7 @@ import com.multicampus.topicsation.service.ITutorListService;
 import com.multicampus.topicsation.service.SearchService;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -50,8 +51,8 @@ public class MainPageController {
         ISearchService searchService;
 
         @GetMapping("/get")
-        public String main(@RequestParam("userId") String userId) {
-            return tutorListService.tutor_recommend(userId);
+        public ResponseEntity<String> main(@RequestParam("userId") String userId) {
+            return new ResponseEntity(tutorListService.tutor_recommend(userId), HttpStatus.OK);
         }
 
         @GetMapping("/search-all/get")
