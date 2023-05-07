@@ -99,20 +99,6 @@ public class MyPageController {
             return null;
         }
 
-        @GetMapping("/download/{fileName}")
-        public ResponseEntity<Resource> downloadFile(@PathVariable("fileName") String fileName) throws IOException {
-            // 파일 경로를 수정하여 실제 파일의 위치를 지정해주세요.
-            String filePath = "src/main/resources/static/assets/certificate/"+fileName;
-            File file = new File(filePath);
-
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_PDF);
-            headers.setContentDisposition(ContentDisposition.builder("attachment").filename(file.getName()).build());
-
-            InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
-            return new ResponseEntity<>(resource, headers, HttpStatus.OK);
-        }
-
         @GetMapping("/{user_id}/get")
         public String myPage(@PathVariable("user_id") String userId) {
             return service.view(userId);
