@@ -22,21 +22,16 @@ public interface IMemberDAO {
     int modifyTutor2(MyPageDTO myPageDTO);
     
     MypageScheduleDTO tutorProfile(String userId);
-    String checkProfileImg(String userId);
     void changeProfileImg(@Param("userId") String userId, @Param("fileName") String fileName);
 
 
     List<ClassDTO> tutorSchedule(Map<String, Object> paramMap);
-    int findUser(Map<String, Object> paramMap);
     void scheduleDelete(Map<String, Object> scheduleMap);
     int scheduleUpdate(Map<String, Object> scheduleMap);
 
     List<ClassDTO> schedule(String userId);
     void deleteClass(String userId);
-    void tutorDislike(String userId);
-    void deleteTutorInfo(String userId);
     void deleteTutor(String userId);
-    void deleteReview(String userId);
 
     MyPageDTO viewTutee(String userId);
     int modifyTutee(MyPageDTO myPageDTO);
@@ -44,8 +39,6 @@ public interface IMemberDAO {
     List<ClassDTO> scheduleTutee(String userId);
     List<ClassDTO> historyTutee(String userId);
     void deleteTutee(String userId);
-    void chageClass(String userId);
     void cancelSchedule(String class_id);
-    void tuteeDislike(String userId);
 
 }
