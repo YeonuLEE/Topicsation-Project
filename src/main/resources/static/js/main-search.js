@@ -126,12 +126,10 @@ function searchGet(page, name, interest, date){
                 div9.append(span6);
             }
             pagination(page,total);
-        },
-        error: function (xhr, status) {
-            if (status === 400) {
-                alert("잘못된 요청입니다.");
-            } else {
-                alert("서버에서 오류가 발생했습니다.");
+        },error: function (xhr) {
+            if (xhr.status === 400) {
+                alert("유효하지 않은 이름입니다.");
+                $('#search-name').val("");
             }
         }
     });

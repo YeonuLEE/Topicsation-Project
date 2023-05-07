@@ -45,6 +45,7 @@ public class JwtInterceptor implements HandlerInterceptor {
             } else {
                 // 리프래쉬 토큰 유효하지 않을 때
                 logger.debug("유효하지 않은 refresh 토큰입니다. uri: {}", requestURI);
+                response.sendError(401);
                 return false;
             }
         }else{ // 액세스, 리프래쉬 토큰 둘 다 있을 때
@@ -69,6 +70,7 @@ public class JwtInterceptor implements HandlerInterceptor {
                 } else {
                     //둘 다 유효하지 않을 때
                     logger.debug("유효하지 않은 JWT 토큰입니다. uri: {}", requestURI);
+                    response.sendError(401);
                     return false;
                 }
             }

@@ -104,11 +104,6 @@ public class MemberManageController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        @PostMapping("/signout")
-        public void signout() {
-            System.out.println("signout...");
-        }
-
         @PostMapping("/signin/change.post")
         public ResponseEntity<Object> passwordChange(@RequestBody LoginDTO loginDTO, HttpServletRequest request) {
             HttpSession session = request.getSession();
@@ -200,7 +195,7 @@ public class MemberManageController {
                 return ResponseEntity.ok(mailDTO.getAuthKey());
             }
             else {
-                return ResponseEntity.unprocessableEntity().build();
+                return ResponseEntity.internalServerError().build();
             }
         }
 
@@ -209,7 +204,7 @@ public class MemberManageController {
             if(memberManageservice.isSuccessEmailAuth(signUpDTO)){
                 return ResponseEntity.ok().build();
             } else {
-                return ResponseEntity.unprocessableEntity().build();
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
             }
         }
     }

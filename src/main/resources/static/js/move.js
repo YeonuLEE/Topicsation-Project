@@ -1,6 +1,13 @@
 import {getId, setupHeaderAjax} from './checkTokenExpiration.js';
+import { moveToErrorPage } from './error/MoveToErrorPage.js';
+
 //myPage
 $(document).ready(function () {
+
+    // AJAX 에러 처리기로 설정
+    $.ajaxSetup({
+        error: moveToErrorPage
+    });
 
     // 변수 선언
     const token = sessionStorage.getItem('accessToken');
@@ -30,9 +37,6 @@ $(document).ready(function () {
             url: "/mypage/" + userId,
             success: function (data, textStatus, xhr) {
                 location.href = data
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                console.error("Error fetching mypage:", errorThrown);
             }
         });
     })
@@ -42,17 +46,7 @@ $(document).ready(function () {
         if (token != null) {
             sessionStorage.removeItem('accessToken');
             document.cookie = "refreshToken=;  expires=Thu, 01 Jan 1970 00:00:00 UTC ; path=/";
-
-            $.ajax({
-                url: '/members/signout',
-                type: 'POST',
-                success: function (data) {
-                    location.href = "/main"
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.error('Error signing out:', textStatus, errorThrown);
-                }
-            });
+            location.href = "/main"
         }else{
             location.href = "/members/signin"
         }
@@ -66,9 +60,6 @@ $(document).ready(function () {
             url: "/mypage/" + userId,
             success: function (data, textStatus, xhr) {
                 location.href = data
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                console.error("Error fetching mypage:", errorThrown);
             }
         });
     })
@@ -81,9 +72,6 @@ $(document).ready(function () {
             url: "/mypage/" + userId + "/schedule",
             success: function (data, textStatus, xhr) {
                 location.href = data
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                console.error("Error fetching mypage:", errorThrown);
             }
         });
     })
@@ -96,9 +84,6 @@ $(document).ready(function () {
             url: "/mypage/" + userId + "/history",
             success: function (data, textStatus, xhr) {
                 location.href = data
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                console.error("Error fetching mypage:", errorThrown);
             }
         });
     })
