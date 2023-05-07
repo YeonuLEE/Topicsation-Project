@@ -77,7 +77,6 @@ public class S3FileService implements IS3FileService {
     public String getImageUrl(String bucketName, String folderName, String imgId) {
         String prefix = folderName + "/";
         ObjectListing objectListing = s3Client.listObjects(bucketName, prefix);
-        System.out.println(imgId);
         for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
             String objectKey = objectSummary.getKey();
             int prefixIndex = objectKey.indexOf(prefix);
@@ -89,7 +88,6 @@ public class S3FileService implements IS3FileService {
                     endPoint = "https://" + endPoint;
                 }
                 String imageUrl = String.format("%s/%s/%s", endPoint, bucketName, objectKey);
-                System.out.println(imageUrl);
                 return imageUrl;
             }
         }
