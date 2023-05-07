@@ -9,9 +9,9 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MypageScheduleDTO {
+public class MyPageScheduleDTO {
     private String user_id;
     private String name;
-    private String profileimg;
+    private String profileImg;
     List<ClassDTO> scheduleDTOList;
 }

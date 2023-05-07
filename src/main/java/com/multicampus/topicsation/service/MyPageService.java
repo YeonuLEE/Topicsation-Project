@@ -1,7 +1,7 @@
 package com.multicampus.topicsation.service;
 
 import com.multicampus.topicsation.dto.MyPageDTO;
-import com.multicampus.topicsation.dto.MypageScheduleDTO;
+import com.multicampus.topicsation.dto.MyPageScheduleDTO;
 import com.multicampus.topicsation.dto.ClassDTO;
 import com.multicampus.topicsation.repository.IMemberDAO;
 import lombok.RequiredArgsConstructor;
@@ -104,41 +104,30 @@ public class MyPageService implements IMyPageService{
     }
 
     @Override
-    public MypageScheduleDTO schedule_tutor(Map<String, Object> paramMap, MypageScheduleDTO mypageScheduleDTO) {
-        mypageScheduleDTO = dao.tutorProfile(paramMap.get("tutorId").toString());
+    public MyPageScheduleDTO schedule_tutor(Map<String, Object> paramMap) {
+        MyPageScheduleDTO mypageScheduleDTO = dao.tutorProfile(paramMap.get("tutorId").toString());
         mypageScheduleDTO.setScheduleDTOList(dao.tutorSchedule(paramMap));
         return mypageScheduleDTO;
     }
 
     @Override
     public int scheduleUpdate(JSONObject jsonUserInfo, JSONArray jsonSchedule) {
-        Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("user_id", jsonUserInfo.get("user_id"));
-        paramMap.put("password", jsonUserInfo.get("password"));
-
         Map<String, Object> paramMap2 = new HashMap<>();
         paramMap2.put("tutor_id", jsonUserInfo.get("user_id"));
         paramMap2.put("class_date", jsonUserInfo.get("class_date"));
 
-        int findResult;
         String hashedPw = dao.checkPass(jsonUserInfo.get("user_id").toString());
-        if ( BCrypt.checkpw(jsonUserInfo.get("password").toString(), hashedPw)){
-            findResult = 1;
-        }else{
-            findResult = 0;
-        }
 
-        if (findResult == 1) {
+        if ( BCrypt.checkpw(jsonUserInfo.get("password").toString(), hashedPw)){
             dao.scheduleDelete(paramMap2);
             if (!jsonSchedule.isEmpty()) {
                 int countResult = 0;
-                Map<String, Object> scheduleMap = new HashMap<>();
-                for (int i = 0; i < jsonSchedule.size(); i++) {
-                    JSONObject schedule = new JSONObject();
-                    schedule = (JSONObject) jsonSchedule.get(i);
-                    scheduleMap.put("tutor_id", paramMap2.get("tutor_id"));
-                    scheduleMap.put("class_date", paramMap2.get("class_date"));
-                    scheduleMap.put("class_time", schedule.get("class_time"));
+                Map<String, String> scheduleMap = new HashMap<>();
+                for (Object o : jsonSchedule) {
+                    JSONObject schedule = (JSONObject) o;
+                    scheduleMap.put("tutor_id", paramMap2.get("tutor_id").toString());
+                    scheduleMap.put("class_date", paramMap2.get("class_date").toString());
+                    scheduleMap.put("class_time", schedule.get("class_time").toString());
                     countResult += dao.scheduleUpdate(scheduleMap);
                 }
                 return 1; //스케쥴 업데이트 완료
@@ -202,7 +191,7 @@ public class MyPageService implements IMyPageService{
 
     @Override
     public String schedule_tutee(String userId) {
-        MypageScheduleDTO mypageScheduleDTO =  dao.tuteeProfile(userId);
+        MyPageScheduleDTO mypageScheduleDTO =  dao.tuteeProfile(userId);
         List<ClassDTO> classDTOList = dao.scheduleTutee(userId);
 
         JSONArray jsonArray = new JSONArray();
@@ -226,9 +215,9 @@ public class MyPageService implements IMyPageService{
     }
 
     @Override
-    public String history_tutee(String userId) {
+    public String historyTutee(String userId) {
 
-        MypageScheduleDTO mypageScheduleDTO = dao.tuteeProfile(userId);
+        MyPageScheduleDTO mypageScheduleDTO = dao.tuteeProfile(userId);
         List<ClassDTO> dtoList = dao.historyTutee(userId);
 
         JSONObject jsonObject = new JSONObject();
@@ -254,9 +243,8 @@ public class MyPageService implements IMyPageService{
         }
 
         jsonObject.put("history", jsonArray);
-        String jsonString = jsonObject.toString();
 
-        return jsonString;
+        return jsonObject.toString();
     }
 
     @Override
