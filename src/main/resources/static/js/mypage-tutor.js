@@ -1,7 +1,12 @@
 import { setupHeaderAjax, getId, getHeaderAjax } from './checkTokenExpiration.js';
+import {moveToErrorPage} from "./error/MoveToErrorPage.js";
 
 // get으로 데이터 받아오기
 $(document).ready(function () {
+
+    $.ajaxSetup({
+        error: moveToErrorPage
+    });
 
     let name;
     let first;
@@ -50,11 +55,7 @@ $(document).ready(function () {
             second = $("#second-interest").val(jsonObject.interest2).prop("selected",true);
             gender = $('input[type=radio][name=genderRadios]:checked').val();
             memo =$('#memo').val(jsonObject.memo);
-            password = jsonObject.password.toString();
 
-        },
-        error: function (data, textStatus) {
-            alert("Error!")
         }
     });
 
@@ -72,42 +73,35 @@ $(document).ready(function () {
             }),
             success: function(data, status) {
 
-                if(data === false) {
-                    $("#enter-password").attr("class", "form-control is-invalid");
-                    alert("비밀번호가 다릅니다. 확인해주세요.")
-                } else {
-                    name = $("#name").val();
-                    nationality=$('#nationality').val();
-                    first = $("#first-interest").val();
-                    second = $("#second-interest").val();
-                    gender = $('input[type=radio][name=genderRadios]:checked').val();
-                    memo =$("#memo").val();
+                name = $("#name").val();
+                nationality=$('#nationality').val();
+                first = $("#first-interest").val();
+                second = $("#second-interest").val();
+                gender = $('input[type=radio][name=genderRadios]:checked').val();
+                memo =$("#memo").val();
 
-                    $.ajax({
-                        type: "POST",
-                        url :  apiUrl + "/post",
-                        contentType: 'application/json',
-                        data: JSON.stringify({
-                            $name : name,
-                            $nationality : nationality,
-                            $interest1 : first,
-                            $interest2 : second,
-                            $gander : gender,
-                            $memo : memo
-                        }),
-                        success: function (data, status) {
-                            $("#modal-default").modal('hide'); // 모달 창 닫기
-                            $("#cancel-reservation-message").val("");
-                            location.reload();
-                        },
-                        error: function (data, textStatus) {
-                            alert("Error!")
-                        }
-                    });
-                }
-            },
-            error: function (data, textStatus) {
-                alert("Error!")
+                $.ajax({
+                    type: "POST",
+                    url :  apiUrl + "/post",
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        $name : name,
+                        $nationality : nationality,
+                        $interest1 : first,
+                        $interest2 : second,
+                        $gander : gender,
+                        $memo : memo
+                    }),
+                    success: function (data, status) {
+                        $("#modal-default").modal('hide'); // 모달 창 닫기
+                        $("#cancel-reservation-message").val("");
+                        location.reload();
+                    }
+                });
+
+            },error: function (data, textStatus) {
+                $("#enter-password").attr("class", "form-control is-invalid");
+                alert("비밀번호가 다릅니다. 확인해주세요.");
             }
         });
     });
@@ -135,13 +129,12 @@ $(document).ready(function () {
                 sessionStorage.removeItem('accessToken');
                 document.cookie = "refreshToken=;  expires=Thu, 01 Jan 1970 00:00:00 UTC ; path=/";
 
+                alert("정상적으로 회원탈퇴 되었습니다.");
                 window.location.href = "/main"; // 페이지 이동
             },
             error: function (data, textStatus) {
-                alert("회원탈퇴에서 오류")
-            },
-            complete: function (data, textStatus) {
-            },
+                alert("회원탈퇴에 실패하였습니다.");
+            }
         });
     });
 
@@ -177,7 +170,7 @@ $(document).ready(function () {
                 location.reload();
             },
             error: function (error){
-                alert("Error : " + error.responseText);
+                alert("프로필 사진 변경에 실패하였습니다.");
             }
         });
     });

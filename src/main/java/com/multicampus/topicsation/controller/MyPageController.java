@@ -123,7 +123,7 @@ public class MyPageController {
                 return new ResponseEntity<>(file.getOriginalFilename() + " 파일이 업로드되었습니다.", HttpStatus.OK);// DB에 사진 파일 이름 저장
             }
             else{
-                return new ResponseEntity<>(file.getOriginalFilename() + " 파일이 업로드되었습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
 
