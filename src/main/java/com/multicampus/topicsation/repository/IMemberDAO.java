@@ -13,9 +13,8 @@ public interface IMemberDAO {
     String checkPass(String userId);
 
     List<MyPageDTO> viewAdmin();
-    void successAdmin(String userId);
-    void failAdmin(String userId);
-    void failAdmin2(String userId);
+    int successAdmin(String userId);
+    int failAdmin(String userId);
 
     MyPageDTO viewTutor(String userId);
     int modifyTutor(MyPageDTO myPageDTO);
