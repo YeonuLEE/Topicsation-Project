@@ -87,15 +87,21 @@ public class MyPageController {
         }
 
         @PostMapping("/admin/success")
-        public String adminSuccess(@RequestBody String userId) {
-            service.success(userId);
-            return null;
+        public ResponseEntity<Void> adminSuccess(@RequestBody String userId) {
+            if ( service.success(userId) >= 1){
+                return ResponseEntity.ok().build();
+            }else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
         }
 
         @PostMapping("/admin/fail")
-        public String adminFail(@RequestBody String userId) {
-            service.fail(userId);
-            return null;
+        public ResponseEntity<Void> adminFail(@RequestBody String userId) {
+            if(service.fail(userId) >= 1){
+                return ResponseEntity.ok().build();
+            }else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
         }
 
         @GetMapping("/{user_id}/get")
@@ -188,7 +194,7 @@ public class MyPageController {
         }
 
         @PostMapping("/{user_id}/schedule/postCalender")
-        public String schedulePost(@RequestBody String jsonString) {
+        public ResponseEntity<String> schedulePost(@RequestBody String jsonString) {
             JSONParser parser = new JSONParser();
             JSONObject jsonObject;
             JSONObject jsonUserInfo;
@@ -202,10 +208,14 @@ public class MyPageController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            if (result == 1 || result == 0)
-                return "success";
-            else
-                return "fail";
+            if (result >= 1 ){ // UPDATE 성공
+                return ResponseEntity.ok("success");
+            }else if(result == 0){ // UPDATE 할게 없음
+                return ResponseEntity.ok("nothing");
+            }else{ // 비밀번호 틀림
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+
         }
 
         @GetMapping("/{user_id}/history/get")

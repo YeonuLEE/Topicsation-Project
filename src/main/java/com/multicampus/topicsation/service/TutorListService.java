@@ -84,7 +84,7 @@ public class TutorListService implements ITutorListService {
     }
 
     @Override
-    public ResponseEntity<Void> ClassReserve(Map<String, String> paramMap) {
+    public int ClassReserve(Map<String, String> paramMap) {
         String tutorId = paramMap.get("tutorId");
         String classDate = paramMap.get("classDate");
         String classTime = paramMap.get("classTime");
@@ -92,11 +92,7 @@ public class TutorListService implements ITutorListService {
         String classId = tutorId + "_" + classDate + "_" + classTime;
 
         paramMap.put("classId", classId);
-        int result_update = tutorListDAO.classReserve(paramMap);
-        if (result_update == 1)
-            return ResponseEntity.ok().build();
-        else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return tutorListDAO.classReserve(paramMap);
     }
 
     @Override

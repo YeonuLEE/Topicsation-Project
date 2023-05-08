@@ -30,13 +30,21 @@ public class LessonController {
     public class LessonRestController {
 
         @PutMapping("/{lesson_id}/evaluate.do")
-        public int evaluateTutor(@RequestBody Map<String,String> evaluateInfo) {
-            return lessonService.evaluateService(evaluateInfo);
+        public ResponseEntity<Void> evaluateTutor(@RequestBody Map<String,String> evaluateInfo) {
+            if(lessonService.evaluateService(evaluateInfo) > 0){
+                return ResponseEntity.ok().build();
+            }else{
+                return ResponseEntity.internalServerError().build();
+            }
         }
 
         @PostMapping("/{lesson_id}/evaluate.review")
-        public int reviewRegister(@RequestBody Map<String,String> reviewInfo) {
-            return lessonService.reviewService(reviewInfo);
+        public ResponseEntity<Void> reviewRegister(@RequestBody Map<String,String> reviewInfo) {
+            if(lessonService.reviewService(reviewInfo) > 0){
+                return ResponseEntity.ok().build();
+            }else{
+                return ResponseEntity.internalServerError().build();
+            }
         }
 
         @GetMapping("/{lesson_id}/getNews")
