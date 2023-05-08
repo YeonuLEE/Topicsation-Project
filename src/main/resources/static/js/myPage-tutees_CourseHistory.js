@@ -1,6 +1,11 @@
 import { setupHeaderAjax, getId, getHeaderAjax} from './checkTokenExpiration.js';
+import {moveToErrorPage} from "./error/MoveToErrorPage.js";
 
 $(document).ready(function () {
+
+    $.ajaxSetup({
+        error: moveToErrorPage
+    });
 
     const token = sessionStorage.getItem('accessToken');
     let userId;
@@ -51,9 +56,6 @@ $(document).ready(function () {
                 tr.append(memo);
                 tbody.append(tr);
             }
-        },
-        error: function (data, textStatus) {
-            alert("Error!")
         }
     });
 });

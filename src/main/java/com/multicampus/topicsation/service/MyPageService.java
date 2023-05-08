@@ -133,13 +133,15 @@ public class MyPageService implements IMyPageService{
     }
 
     @Override
-    public void delete(String userId) {
+    public int delete(String userId) {
         String role = dao.checkRole(userId);
+        int result = 0;
         if (role.equals("tutee")) {
-            dao.deleteTutee(userId);
+            result = dao.deleteTutee(userId);
         } else if (role.equals("tutor")) {
-            dao.deleteTutor(userId);
+            result = dao.deleteTutor(userId);
         }
+        return result;
     }
 
     @Override
