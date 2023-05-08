@@ -202,22 +202,23 @@
                                                     <div class="modal-body">
                                                         <form>
                                                             <div class="mb-3">
-                                                                <label class="col-form-label">정말로
-                                                                    탈퇴하시겠습니까?</label>
+                                                                <label for="withdrawal" class="col-form-label">비밀번호를
+                                                                    입력해주세요</label>
+                                                                <input type="password" class="form-control"
+                                                                       id="withdrawal" autocomplete="off"
+                                                                       style="border-color: rgb(141, 140, 140);"
+                                                                       required>
                                                             </div>
                                                         </form>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-sm btn-primary ml-auto"
-                                                                data-dismiss="modal">
-                                                            아니오
+                                                        <button type="submit" class="btn btn-sm btn-secondary"
+                                                                id="delete">
+                                                            탈퇴하기
                                                         </button>
-                                                        <form id="withdrawal">
-                                                            <button type="button" class="btn btn-sm btn-secondary"
-                                                                    id="delete">
-                                                                예, 탈퇴하겠습니다.
-                                                            </button>
-                                                        </form>
+                                                        <button type="button" class="btn btn-link text-danger ml-auto"
+                                                                data-dismiss="modal" id="reset2">닫기
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>

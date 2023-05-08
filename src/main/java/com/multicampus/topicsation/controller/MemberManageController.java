@@ -40,7 +40,7 @@ public class MemberManageController {
         Long expirationTime = memberManageservice.getLinkExpirationMap(linkId); // 링크별 만료 시간 조회
         if (expirationTime == null || System.currentTimeMillis() > expirationTime) {
             // 만료된 링크 처리
-            return "html/404";
+            return "error/404";
         }
         return "html/password-change";
     }
