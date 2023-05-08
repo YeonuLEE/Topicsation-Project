@@ -1,7 +1,11 @@
 import {setupHeaderAjax, getHeaderAjax, getId} from './checkTokenExpiration.js';
-
+import {moveToErrorPage} from "./error/MoveToErrorPage.js";
 
 $(document).ready(function () {
+    // AJAX 에러 처리기로 설정
+    $.ajaxSetup({
+        error: moveToErrorPage
+    });
 
     let userId;
     // token 꺼내오기
@@ -21,7 +25,6 @@ $(document).ready(function () {
     $.ajax({
         type: "GET",
         url: apiUrl1,
-        dataType: "json",
         async:false,
         success: function (data, status, xhr) {
             getHeaderAjax(xhr)
@@ -123,11 +126,6 @@ $(document).ready(function () {
                 tr.append(failBtn);
                 tbody.append(tr);
             }
-        },
-        error: function (data, textStatus) {
-            alert("Error!")
-        },
-        complete: function (data, textStatus) {
-        },
+        }
     });
 });

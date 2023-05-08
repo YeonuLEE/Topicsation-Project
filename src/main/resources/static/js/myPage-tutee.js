@@ -1,6 +1,11 @@
-import { setupHeaderAjax, getId, getHeaderAjax } from './checkTokenExpiration.js';
+import {setupHeaderAjax, getId, getHeaderAjax} from './checkTokenExpiration.js';
+import {moveToErrorPage} from "./error/MoveToErrorPage.js";
 
-$(document).ready(function() {
+$(document).ready(function () {
+
+    $.ajaxSetup({
+        error: moveToErrorPage
+    });
 
     let name;
     let first;
@@ -9,7 +14,7 @@ $(document).ready(function() {
     const token = sessionStorage.getItem('accessToken');
 
     // access token 만료 기간 검증 및 req header에 삽입
-    if(token != null){
+    if (token != null) {
         setupHeaderAjax(token)
         userId = getId(token);
     }
@@ -20,8 +25,8 @@ $(document).ready(function() {
     $.ajax({
         type: "GET",
         url: apiUrl + "/get",
-        async:false,
-        success: function(data, status,xhr) {
+        async: false,
+        success: function (data, status, xhr) {
             getHeaderAjax(xhr)
 
             let jsonObject = JSON.parse(data);
@@ -33,15 +38,12 @@ $(document).ready(function() {
             $("#tutee-name").text(jsonObject.name);
             $("#name").val(jsonObject.name);
             $("#email").val(jsonObject.email);
-            $("#first-interest").val(jsonObject.interest1).prop("selected",true);
-            $("#second-interest").val(jsonObject.interest2).prop("selected",true);
+            $("#first-interest").val(jsonObject.interest1).prop("selected", true);
+            $("#second-interest").val(jsonObject.interest2).prop("selected", true);
 
             name = $("#name").val(jsonObject.name);
-            first = $("#first-interest").val(jsonObject.interest1).prop("selected",true);
-            second = $("#second-interest").val(jsonObject.interest2).prop("selected",true);
-        },
-        error: function (data, textStatus) {
-            alert("Error!")
+            first = $("#first-interest").val(jsonObject.interest1).prop("selected", true);
+            second = $("#second-interest").val(jsonObject.interest2).prop("selected", true);
         }
     });
 
@@ -57,46 +59,36 @@ $(document).ready(function() {
             data: JSON.stringify({
                 password: pwd1
             }),
-            success: function(data, status) {
+            success: function (data, status) {
+                name = $("#name").val();
+                first = $("#first-interest").val();
+                second = $("#second-interest").val();
 
-                if(data === false) {
-                    $("#enter-password").attr("class", "form-control is-invalid");
-                    alert("비밀번호가 다릅니다. 확인해주세요.")
-                } else {
-                    name = $("#name").val();
-                    first = $("#first-interest").val();
-                    second = $("#second-interest").val();
-
-                    $.ajax({
-                        type: "POST",
-                        url : apiUrl + "/post",
-                        contentType: 'application/json',
-                        data: JSON.stringify({
-                            $name : name,
-                            $interest1 : first,
-                            $interest2 : second
-                        }),
-                        success: function (data, status) {
-                            $("#modal-default").modal('hide'); // 모달 창 닫기
-                            $("#cancel-reservation-message").val("");
-                            location.reload();
-                        },
-                        error: function (data, textStatus) {
-                            alert("Error!")
-                        }
-                    });
-                }
+                $.ajax({
+                    type: "POST",
+                    url: apiUrl + "/post",
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        $name: name,
+                        $interest1: first,
+                        $interest2: second
+                    }),
+                    success: function (data, status) {
+                        $("#modal-default").modal('hide'); // 모달 창 닫기
+                        $("#cancel-reservation-message").val("");
+                        location.reload();
+                    },
+                });
             },
             error: function (data, textStatus) {
-                alert("Error!")
-            },
-            complete: function (data, textStatus) {
+                $("#enter-password").attr("class", "form-control is-invalid");
+                alert("비밀번호가 다릅니다. 확인해주세요.");
             },
         });
     });
 
     //회원 삭제
-    $('#delete').click(function (){
+    $('#delete').click(function () {
         $.ajax({
             type: "post",
             url: apiUrl + "/delete",
@@ -111,16 +103,17 @@ $(document).ready(function() {
                 // 토큰 제거
                 sessionStorage.removeItem('accessToken');
                 document.cookie = "refreshToken=;  expires=Thu, 01 Jan 1970 00:00:00 UTC ; path=/";
+                alert("정상적으로 회원탈퇴 되었습니다.");
 
                 window.location.href = "/main"; // 페이지 이동
             },
             error: function (data, textStatus) {
-                alert("Error!")
+                alert("회원탈퇴에 실패하였습니다.");
             }
         });
     });
 
-    $("#reset").click(function (){
+    $("#reset").click(function () {
         $("#cancel-reservation-message").val("");
     });
 });

@@ -31,14 +31,14 @@ public interface IMemberDAO {
 
     List<ClassDTO> schedule(String userId);
     void deleteClass(String userId);
-    void deleteTutor(String userId);
+    int deleteTutor(String userId);
 
     MyPageDTO viewTutee(String userId);
     int modifyTutee(MyPageDTO myPageDTO);
     MyPageScheduleDTO tuteeProfile(String userId);
     List<ClassDTO> scheduleTutee(String userId);
     List<ClassDTO> historyTutee(String userId);
-    void deleteTutee(String userId);
+    int deleteTutee(String userId);
     void cancelSchedule(String class_id);
 
 }
