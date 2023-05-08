@@ -24,13 +24,10 @@
     <delete id="failAdmin">
         delete FROM USER where user_id =#{userId}
     </delete>
-    <delete id="failAdmin2">
-        delete FROM TUTOR_INFO where TUTOR_ID =#{userId}
-    </delete>
 
     <!-- Tutor Page-->
     <select id="viewTutor" resultType="com.multicampus.topicsation.dto.MyPageDTO">
-        SELECT u.user_id, u.name, u.email, u.password, u.role, ti.gender, ti.nationality, ti.info, ti.like, ti.profileimg, u.interest1, u.interest2
+        SELECT u.user_id, u.name, u.email, u.role, ti.gender, ti.nationality, ti.info, ti.like, ti.profileimg, u.interest1, u.interest2
         FROM USER u
         INNER JOIN TUTOR_INFO ti ON u.user_id = ti.tutor_id where u.user_id = #{user_id}
     </select>
@@ -62,7 +59,7 @@
 
     <!-- Tutee Page-->
     <select id="viewTutee" resultType="com.multicampus.topicsation.dto.MyPageDTO">
-        SELECT u.user_id, u.name, u.email, u.interest1, u.interest2, u.password
+        SELECT u.user_id, u.name, u.email, u.interest1, u.interest2
         FROM USER u where u.user_id = #{user_id}
     </select>
     <update id="modifyTutee" parameterType="com.multicampus.topicsation.dto.MyPageDTO">
