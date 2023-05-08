@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/error")
 public class ErrorController {
 
+    @GetMapping("/400")
+    public void error400() {}
+
     @GetMapping("/401")
     public void error401() {}
 

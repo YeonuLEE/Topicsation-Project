@@ -7,7 +7,7 @@ $(document).ready(function () {
 
             $.ajax({
                 type: "POST",
-                url: "/members/singin/find/post",
+                url: "/members/signin/find/post",
                 contentType: 'application/json',
                 data: JSON.stringify({
                     email: email

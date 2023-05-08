@@ -162,9 +162,7 @@ $(document).ready(function () {
             },
             error: function (data, textStatus) {
                 alert("Member who already exists.")
-            },
-            complete: function (data, textStatus) {
-            },
+            }
         });
     });
 });

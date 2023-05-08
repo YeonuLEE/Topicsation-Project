@@ -137,12 +137,12 @@ public class MemberManageService implements IMemberManageService {
         System.out.println("신규 회원입니다.");
         //비밀번호 암호화
         signUpDTO.setPassword(BCrypt.hashpw(signUpDTO.getPassword(), BCrypt.gensalt()));
-        // DB에 저장
-        if (signUpDTO.getRole().equals("tutee")) {
-            signUpDao.addTuteeDAO(signUpDTO);
-        } else {
-            signUpDao.addTutorDAO1(signUpDTO);
-            String userId = signUpDao.getUserId(signUpDTO.getEmail());
+            // DB에 저장
+            if (signUpDTO.getRole().equals("tutee")) {
+                signUpDao.addTuteeDAO(signUpDTO);
+            } else {
+                signUpDao.addTutorDAO1(signUpDTO);
+                String userId = signUpDao.getUserId(signUpDTO.getEmail());
             System.out.println("file : " + signUpDTO.getFile());
             String bucketName = "asset";
             String folderName = "certificate";

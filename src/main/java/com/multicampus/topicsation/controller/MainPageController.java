@@ -57,8 +57,6 @@ public class MainPageController {
 
         @GetMapping("/search-all/get")
         public ResponseEntity<Map<String, Object>> searchPage(@RequestParam Map<String, String> requestParams) {
-
-
             return ResponseEntity.ok(searchService.searchList(requestParams));
         }
 
@@ -70,7 +68,12 @@ public class MainPageController {
 
         @PutMapping("/tutors/{tutor_id}/reserve")
         public ResponseEntity<Void> tutors(@RequestBody Map<String, String> paramMap) {
-            return tutorListService.ClassReserve(paramMap);
+
+            if (tutorListService.ClassReserve(paramMap) >= 1){
+                return ResponseEntity.ok().build();
+            }else{
+                return ResponseEntity.internalServerError().build();
+            }
         }
     }
 }

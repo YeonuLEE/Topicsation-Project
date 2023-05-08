@@ -24,9 +24,6 @@
     <delete id="failAdmin">
         delete FROM USER where user_id =#{userId}
     </delete>
-    <delete id="failAdmin2">
-        delete FROM TUTOR_INFO where TUTOR_ID =#{userId}
-    </delete>
 
     <!-- Tutor Page-->
     <select id="viewTutor" resultType="com.multicampus.topicsation.dto.MyPageDTO">

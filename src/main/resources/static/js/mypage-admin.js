@@ -1,5 +1,6 @@
 import {setupHeaderAjax, getHeaderAjax, getId} from './checkTokenExpiration.js';
-import {moveToErrorPage} from "./error/MoveToErrorPage.js";
+import { moveToErrorPage } from './error/MoveToErrorPage.js';
+
 
 $(document).ready(function () {
     // AJAX 에러 처리기로 설정
@@ -76,10 +77,8 @@ $(document).ready(function () {
                                 window.location.href = "/mypage/admin";
                             },
                             error: function (data) {
-                                alert("Error!")
-                            },
-                            complete: function (data, textStatus) {
-                            },
+                                alert("튜터 승인에 실패했습니다. 테이블에서 튜터를 찾을 수 없습니다.")
+                            }
                         });
                     });
 
@@ -112,10 +111,8 @@ $(document).ready(function () {
                                 window.location.href = "/mypage/admin";
                             },
                             error: function (data) {
-                                alert("Error!")
-                            },
-                            complete: function (data, textStatus) {
-                            },
+                                alert("튜터 거부에 실패했습니다. 테이블에서 튜터를 제거할 수 없습니다.")
+                            }
                         });
                     });
                 tr.append(tno);

@@ -124,12 +124,12 @@ public class MyPageService implements IMyPageService{
                     scheduleMap.put("class_time", schedule.get("class_time").toString());
                     countResult += dao.scheduleUpdate(scheduleMap);
                 }
-                return 1; //스케쥴 업데이트 완료
+                return countResult; //스케쥴 업데이트 완료
             } else {
                 return 0; // 업데이트할 스케쥴이 없음
             }
         }
-        return 2; // 비밀번호 오류
+        return -1; // 비밀번호 틀림
     }
 
     @Override
@@ -243,14 +243,14 @@ public class MyPageService implements IMyPageService{
     }
 
     @Override
-    public void success(String userId) {
-        dao.successAdmin(userId);
+    public int success(String userId) {
+        return dao.successAdmin(userId);
     }
 
     @Override
-    public void fail(String userId) {
-        dao.failAdmin2(userId);
-        dao.failAdmin(userId);
+    public int fail(String userId) {
+        return dao.failAdmin(userId);
+
     }
 }
 

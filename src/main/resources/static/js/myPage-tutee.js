@@ -1,7 +1,9 @@
-import {setupHeaderAjax, getId, getHeaderAjax} from './checkTokenExpiration.js';
-import {moveToErrorPage} from "./error/MoveToErrorPage.js";
 
-$(document).ready(function () {
+import { setupHeaderAjax, getId, getHeaderAjax } from './checkTokenExpiration.js';
+import { moveToErrorPage } from './error/MoveToErrorPage.js';
+
+$(document).ready(function() {
+    // AJAX 에러 처리기로 설정
 
     $.ajaxSetup({
         error: moveToErrorPage

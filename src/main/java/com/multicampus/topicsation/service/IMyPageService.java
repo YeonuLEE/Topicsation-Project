@@ -10,8 +10,8 @@ import java.util.Map;
 public interface IMyPageService {
     String check_password(String userId);
 
-    void success(String userId);
-    void fail(String userId);
+    int success(String userId);
+    int fail(String userId);
 
     String view(String userId);
     void modify(JSONObject jsonObject,String userId);

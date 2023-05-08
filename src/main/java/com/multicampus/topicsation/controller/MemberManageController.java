@@ -121,7 +121,7 @@ public class MemberManageController {
             }
         }
 
-        @PostMapping("/singin/find/post")
+        @PostMapping("/signin/find/post")
         public ResponseEntity<Object> passwordFind(@RequestBody MailDTO mailDTO, HttpServletRequest request) {
             //유효한 이메일인지 확인
             if(memberManageservice.checkEmail(mailDTO)) {
@@ -147,11 +147,10 @@ public class MemberManageController {
 
         @PostMapping("/signup-tutees.post")
         public ResponseEntity<String> signUpTutee(@RequestBody SignUpDTO signUpDTO) {
-            boolean result = memberManageservice.signUpProcess(signUpDTO);
-            if (result) {
-                return new ResponseEntity<>(signUpDTO.getEmail(), HttpStatus.OK);
+            if (memberManageservice.signUpProcess(signUpDTO)) {
+                return ResponseEntity.ok(signUpDTO.getEmail());
             } else {
-                return ResponseEntity.unprocessableEntity().build();
+                return ResponseEntity.internalServerError().build();
             }
         }
 
@@ -179,13 +178,10 @@ public class MemberManageController {
                     .file(file)
                     .build();
 
-            System.out.println(signUpDTO);
-
-            boolean result = memberManageservice.signUpProcess(signUpDTO);
-            if (result) {
-                return new ResponseEntity<>(signUpDTO.getEmail(), HttpStatus.OK);
+            if (memberManageservice.signUpProcess(signUpDTO)) {
+                return ResponseEntity.ok(signUpDTO.getEmail());
             } else {
-                return ResponseEntity.unprocessableEntity().build();
+                return ResponseEntity.internalServerError().build();
             }
         }
 
