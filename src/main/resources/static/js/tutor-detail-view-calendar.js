@@ -14,6 +14,10 @@ let dateFormatted;
 let timeFormatted;
 
 $(document).ready(function () {
+    // AJAX 에러 처리기로 설정
+    $.ajaxSetup({
+        error: moveToErrorPage
+    });
 
     const token = sessionStorage.getItem('accessToken');
 
@@ -79,8 +83,6 @@ $(document).ready(function () {
             let jsonObject = JSON.parse(data);
             let dataBody = $("#reviewCard");
 
-            console.log(jsonObject);
-
             $("#tutor-name").text(jsonObject.tutor_info.name);
             $("#introduce_content").text(jsonObject.tutor_info.introduce);
             $("#tutor-like").text(jsonObject.tutor_info.like);
@@ -122,12 +124,7 @@ $(document).ready(function () {
             for (let i = 0; i < jsonObject.schedule.length; i++) {
                 reservation(jsonObject, i);
             }
-        },
-        error: function (data, textStatus) {
-            location.href = "/error/404";
-        },
-        complete: function (data, textStatus) {
-        },
+        }
     });
 
     $('.datepicker').change(function () {
@@ -162,12 +159,7 @@ $(document).ready(function () {
                 for (let i = 0; i < jsonObject.schedule.length; i++) {
                     reservation(jsonObject, i);
                 }
-            },
-            error: function (data, textStatus) {
-                alert("Error!")
-            },
-            complete: function (data, textStatus) {
-            },
+            }
         });
     });
 
@@ -203,7 +195,6 @@ $(document).ready(function () {
             success: function (data, status) {
                 console.log(tagId + "예약완료");
                 alert(tagId + "에 예약되었습니다.");
-
             },
             error: function (data, textStatus) {
                 alert("예약에 실패하였습니다. 다시 시도해 주세요");
@@ -211,9 +202,7 @@ $(document).ready(function () {
                 $("#" + tagId).css("background-color", "green");
                 $("#" + tagId).css("pointer-events", "auto");
                 location.reload();
-            },
-            complete: function (data, textStatus) {
-            },
+            }
         });
     });
 });
@@ -239,7 +228,6 @@ function reservation(jsonObject, i) {
         } else {
             $("#" + jsonObject.schedule[i].class_time).css("pointer-events", "none");
         }
-
     }
 }
 
@@ -298,4 +286,14 @@ function getRoles(accessToken) {
     let result = JSON.parse(payload.toString())
 
     return result.roles;
+}
+
+function moveToErrorPage (xhr){
+    if(xhr.status == 401){
+        window.location.href = "error/401"
+    }else if(xhr.status == 404){
+        window.location.href = "error/404"
+    }else if(xhr.status == 500){
+        window.location.href = "error/500"
+    }
 }

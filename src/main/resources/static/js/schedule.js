@@ -13,13 +13,15 @@ let hours;
 let minutes;
 
 let dateFormatted;
-// let timeFormatted;
 
 //튜터 스케줄
 $(document).ready(function () {
+    // AJAX 에러 처리기로 설정
+    $.ajaxSetup({
+        error: moveToErrorPage
+    });
 
     token = sessionStorage.getItem('accessToken');
-    console.log(token)
 
     // access token 만료 기간 검증 및 req header에 삽입
     if (token != null) {
@@ -100,12 +102,7 @@ $(document).ready(function () {
             for (var i = 0; i < jsonObject.schedule.length; i++) {
                 scheduleList(jsonObject, i, tbody);
             }
-        },
-        error: function (data, textStatus) {
-            alert("Error!")
-        },
-        complete: function (data, textStatus) {
-        },
+        }
     });
 
     $('.cell').click(function () {
@@ -160,12 +157,7 @@ $(document).ready(function () {
                 for (let i = 0; i < jsonObject.schedule.length; i++) {
                     scheduleList(jsonObject, i, tbody);
                 }
-            },
-            error: function (data, textStatus) {
-                alert("Error!")
-            },
-            complete: function (data, textStatus) {
-            },
+            }
         });
     });
 
@@ -260,15 +252,14 @@ function saveSchedule(postUrl, dateFormatted) {
                 $("#modal-default").modal('hide');
                 location.reload()
             } else {
-                $("#modal-data").text("Invalid Password.").attr("class", "form-control is-invalid");
-                $("#enter-password").val("");
+                $("#modal-default").modal('hide');
+                location.reload()
             }
         },
         error: function (data, textStatus) {
-            alert("Error!")
-        },
-        complete: function (data, textStatus) {
-        },
+            $("#modal-data").text("Invalid Password.").attr("class", "form-control is-invalid");
+            $("#enter-password").val("");
+        }
     });
 }
 
@@ -373,4 +364,14 @@ function getRoles(accessToken) {
     let result = JSON.parse(payload.toString());
 
     return result.roles;
+}
+
+function moveToErrorPage (xhr){
+    if(xhr.status == 401){
+        window.location.href = "error/401"
+    }else if(xhr.status == 404){
+        window.location.href = "error/404"
+    }else if(xhr.status == 500){
+        window.location.href = "error/500"
+    }
 }

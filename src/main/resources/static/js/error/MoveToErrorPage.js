@@ -1,5 +1,7 @@
 export function moveToErrorPage (xhr){
-    if(xhr.status == 401){
+    if(xhr.status == 400){
+        window.location.href = "error/400"
+    } else if(xhr.status == 401){
         window.location.href = "error/401"
     }else if(xhr.status == 404){
         window.location.href = "error/404"

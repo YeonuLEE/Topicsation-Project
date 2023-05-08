@@ -156,9 +156,7 @@ $(document).ready(function () {
             },
             error: function (data, textStatus) {
                 alert("이미 존재하는 회원입니다.")
-            },
-            complete: function (data, textStatus) {
-            },
+            }
         });
     });
 });
