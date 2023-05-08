@@ -18,7 +18,7 @@ public interface IMyPageService {
     MyPageScheduleDTO schedule_tutor(Map<String, Object> paramMap);
     int scheduleUpdate(JSONObject jsonUserInfo, JSONArray jsonSchedule);
 
-    void delete(String user_id);
+    int delete(String user_id);
     boolean change_profileImg(String user_id, MultipartFile file);
 
     String schedule_tutee(String userId);

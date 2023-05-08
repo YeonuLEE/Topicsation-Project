@@ -1,6 +1,7 @@
 import {setupHeaderAjax, getHeaderAjax, getId} from './checkTokenExpiration.js';
 import { moveToErrorPage } from './error/MoveToErrorPage.js';
 
+
 $(document).ready(function () {
     // AJAX 에러 처리기로 설정
     $.ajaxSetup({
@@ -25,7 +26,6 @@ $(document).ready(function () {
     $.ajax({
         type: "GET",
         url: apiUrl1,
-        dataType: "json",
         async:false,
         success: function (data, status, xhr) {
             getHeaderAjax(xhr)

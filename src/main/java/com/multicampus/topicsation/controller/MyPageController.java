@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +35,6 @@ public class MyPageController {
 
     @Autowired
     private JwtUtils jwtUtils;
-
 
     @GetMapping("/tutee")
     public String tuteePage() {
@@ -105,15 +105,19 @@ public class MyPageController {
         }
 
         @GetMapping("/{user_id}/get")
-        public String myPage(@PathVariable("user_id") String userId) {
-            return service.view(userId);
+        public ResponseEntity<String> myPage(@PathVariable("user_id") String userId) {
+
+            return ResponseEntity.ok(service.view(userId));
         }
 
         @PostMapping("/{user_id}/passCheck")
         public ResponseEntity<Boolean> passCheck(@RequestBody Map<String, String> params, @PathVariable("user_id") String userId) {
             String password = params.get("password");
             String hashPass = service.check_password(userId);
-            return ResponseEntity.ok(BCrypt.checkpw(password, hashPass));
+            if(BCrypt.checkpw(password, hashPass)) {
+                return ResponseEntity.ok().build();
+            }else
+                return new ResponseEntity(false,HttpStatus.NOT_FOUND);
         }
 
         @PostMapping("/{user_id}/post")
@@ -129,19 +133,23 @@ public class MyPageController {
                 return new ResponseEntity<>(file.getOriginalFilename() + " 파일이 업로드되었습니다.", HttpStatus.OK);// DB에 사진 파일 이름 저장
             }
             else{
-                return new ResponseEntity<>(file.getOriginalFilename() + " 파일이 업로드되었습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
 
         @PostMapping("/{user_id}/delete")
-        public String myPageDelete(@PathVariable("user_id") String userId) {
-            service.delete(userId);
-            return null;
+        public ResponseEntity<Void> myPageDelete(@PathVariable("user_id") String userId) {
+            if(service.delete(userId) == 1){
+                return ResponseEntity.ok().build();
+            }
+            else{
+                return ResponseEntity.internalServerError().build();
+            }
         }
 
         @GetMapping("/{user_id}/schedule/get")
-        public String schedulePage(@PathVariable("user_id") String userId) {
-            return service.schedule_tutee(userId);
+        public ResponseEntity<String> schedulePage(@PathVariable("user_id") String userId) {
+            return ResponseEntity.ok(service.schedule_tutee(userId));
         }
 
         @PutMapping("/{user_id}/schedule/cancel")
