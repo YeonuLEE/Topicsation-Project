@@ -30,11 +30,13 @@ $(document).ready(function () {
         success: function (data, status, xhr) {
             getHeaderAjax(xhr)
 
+            let parsedData = JSON.parse(data)
+
             $("#manage-tutor").attr("href","/mypage/admin");
 
             let tbody = $("#spare-tutor");
-            for (let i = 0; i < data.length; i++) {
-                let spare = data[i];
+            for (let i = 0; i < parsedData.length; i++) {
+                let spare = parsedData[i];
                 console.log(spare);
                 let tr = $("<tr>");
                 let tno = $("<th scope=\"row\">").text(i + 1);
@@ -66,7 +68,7 @@ $(document).ready(function () {
                                 numbers += char;
                             }
                         }
-                        let userId = data[numbers].userId;
+                        let userId = parsedData[numbers].userId;
 
                         $.ajax({
                             type: "post",
@@ -100,7 +102,7 @@ $(document).ready(function () {
                                 numbers += char;
                             }
                         }
-                        let userId = data[numbers].userId;
+                        let userId = parsedData[numbers].userId;
 
                         $.ajax({
                             type: "post",
