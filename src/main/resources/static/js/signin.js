@@ -13,15 +13,21 @@ $(document).ready(function() {
                 password: password
             }),
             success: function (data, textStatus, xhr) {
-                //accesstoken 뽑아내기
-                const authorization = xhr.getResponseHeader("Authorization");
-                const accessToken = authorization.substring(7);
-                //accesstoken 저장
-                sessionStorage.setItem("accessToken", accessToken);
+                if(data === "1") {
+                    //accesstoken 뽑아내기
+                    const authorization = xhr.getResponseHeader("Authorization");
+                    const accessToken = authorization.substring(7);
+                    //accesstoken 저장
+                    sessionStorage.setItem("accessToken", accessToken);
 
-                //현재 페이지의 URL을 /main으로 변경하고, 변경된 URL을 새로고침
-                history.pushState(null, null, "/main");
-                location.reload();
+                    //현재 페이지의 URL을 /main으로 변경하고, 변경된 URL을 새로고침
+                    history.pushState(null, null, "/main");
+                    location.reload();
+                }else{
+                    alert("Not yet approved. Please wait a minute.")
+                    history.pushState(null, null, "/main");
+                    location.reload();
+                }
                 },
             error: function (data, textStatus) {
                 $("#loginFail").text("로그인 정보가 틀렸습니다")
