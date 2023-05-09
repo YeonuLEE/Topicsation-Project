@@ -12,4 +12,5 @@ public class LoginDTO {
     private String password;
     private String role;
     private String user_id;
+    private String approval;
 }

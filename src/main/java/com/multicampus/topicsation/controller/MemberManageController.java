@@ -77,11 +77,11 @@ public class MemberManageController {
         }
 
         @PostMapping("/signin.post")
-        public ResponseEntity<Object> signin(@RequestBody Map<String, String> params, HttpServletResponse response) throws Exception {
+        public ResponseEntity<String> signin(@RequestBody Map<String, String> params, HttpServletResponse response) throws Exception {
               //email과 password 검증
             LoginDTO dto = memberManageservice.login(params);
 
-            if (dto != null) {
+            if (dto != null && dto.getApproval().equals("1")) {
                 //accesstoken 생성
                 String accessToken = jwtUtils.createAccessToken(dto.getRole(), dto.getUser_id());
 
@@ -99,7 +99,9 @@ public class MemberManageController {
                 response.addCookie(cookie);
 
                 //200 전달
-                return ResponseEntity.ok().build();
+                return ResponseEntity.ok(dto.getApproval());
+            }else if(dto != null && dto.getApproval().equals("0")) {
+                return ResponseEntity.ok(dto.getApproval());
             }
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
