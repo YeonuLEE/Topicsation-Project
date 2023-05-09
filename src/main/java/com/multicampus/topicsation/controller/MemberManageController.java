@@ -186,9 +186,9 @@ public class MemberManageController {
         }
 
         @PostMapping("/email.send")
-        public ResponseEntity<String> emailAuth(@RequestBody MailDTO mailDTO) {
+        public ResponseEntity<Void> emailAuth(@RequestBody MailDTO mailDTO) {
             if(memberManageservice.signupSendMail(mailDTO)){
-                return ResponseEntity.ok(mailDTO.getAuthKey());
+                return ResponseEntity.ok().build();
             }
             else {
                 return ResponseEntity.internalServerError().build();
@@ -196,8 +196,8 @@ public class MemberManageController {
         }
 
         @PostMapping("/signup/success.post")
-        public ResponseEntity<Void> successEmailAuth(@RequestBody SignUpDTO signUpDTO) {
-            if(memberManageservice.isSuccessEmailAuth(signUpDTO)){
+        public ResponseEntity<Void> successEmailAuth(@RequestBody Map<String,String> mapParam) {
+            if(memberManageservice.isSuccessEmailAuth(mapParam)){
                 return ResponseEntity.ok().build();
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();

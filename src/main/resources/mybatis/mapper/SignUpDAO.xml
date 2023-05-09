@@ -30,12 +30,19 @@
     <insert id="addTutorDAO2" parameterType="com.multicampus.topicsation.dto.SignUpDTO">
         insert into TUTOR_INFO (tutor_id, gender, nationality, certificate) values (last_insert_id(), #{gender}, #{nationality}, #{certificate})
     </insert>
-<!--    회원가입시 이메일인증 여부 갱신 -->
-    <update id="isSuccessEmailAuthDAO" parameterType="String">
-        update USER set email_auth = 1 where BINARY email = #{email}
-    </update>
 <!--    튜터 인증파일 파일명을 user_id로 변경하기 위해-->
     <select id="getUserId" parameterType="String" resultType="String">
         select user_id FROM USER where BINARY email = #{email}
     </select>
+    <!-- 인증 코드 저장 메서드 -->
+    <update id="saveEmailCode">
+        UPDATE USER SET EMAIL_AUTH = #{emailCode} WHERE BINARY EMAIL = #{email}
+    </update>
+    <!-- 인증 코드 가져오는 메서드 -->
+    <select id="getEmailCode" resultType="_int">
+        SELECT EMAIL_AUTH FROM USER WHERE EMAIL = #{email}
+    </select>
+    <!-- 인증 코드 저장 메서드 -->
+
+
 </mapper>

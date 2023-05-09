@@ -1,7 +1,6 @@
 $(document).ready(function () {
 
     let email = atob(sessionStorage.getItem("email"));
-    let authKey;
     let dataBody = $("#email-auth");
     let form = $("<form>", {id: "emailTokenForm"});
     let div1 = $("<div>", {class: "form-group"});
@@ -50,7 +49,6 @@ $(document).ready(function () {
                 email: email
             }),
             success: function (data, status) {
-                authKey = data;
             },
             error: function (data, textStatus) {
                 alert("인증코드 전송에 실패하였습니다.");
@@ -63,28 +61,24 @@ $(document).ready(function () {
 
     $(document).on('click', '#auth-btn', function (event) {
         event.preventDefault();
+
         let emailCode = $("#email-code").val();
-        if (emailCode === authKey) {
-            sessionStorage.removeItem("email");
-            $.ajax({
-                type: "POST",
-                url: "/members/signup/success.post",
-                contentType: 'application/json',
-                data: JSON.stringify({
-                    email: email
-                }),
-                success: function (data, status) {
-                    location.href = "/members/signup/success";
-                },error: function (data, status) {
-                    alert("이메일인증에 실패했습니다")
-                    location.href = "/members/signup/email";
-                }
-            });
-        }
-        else if (emailCode == "") {
-            alert("인증코드를 입력해주세요");
-        } else {
-            alert("인증코드를 다시 확인해주세요");
-        }
+        sessionStorage.removeItem("email");
+
+        $.ajax({
+            type: "POST",
+            url: "/members/signup/success.post",
+            contentType: 'application/json',
+            data: JSON.stringify({
+                email : email,
+                emailCode : emailCode,
+            }),
+            success: function (data, status) {
+                location.href = "/members/signup/success";
+            },error: function (data, status) {
+                alert("이메일인증에 실패했습니다.\n 메인페이지로 이동합니다.")
+                location.href = "/main"
+            }
+        });
     });
 });
