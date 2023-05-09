@@ -35,7 +35,7 @@
                  INNER JOIN TUTOR_INFO t ON u.user_id = t.tutor_id
                  LEFT JOIN DISLIKE d ON u.user_id = d.tutor_id AND d.tutee_id = #{user_id}
         WHERE ((u.interest1 = #{interest1} AND u.interest2 = #{interest2}) OR (u.interest1 = #{interest2} AND u.interest2 = #{interest1}))
-          AND t.approval = 1 AND d.tutor_id IS NULL
+          AND t.approval = 1 AND d.tutor_id IS NULL AND u.EMAIL_AUTH = 1
         ORDER BY t.like DESC LIMIT 6
     </select>
     <select id="spareList" resultType="com.multicampus.topicsation.dto.RecommendDTO">
@@ -43,12 +43,12 @@
         FROM USER u
                  INNER JOIN TUTOR_INFO t ON u.user_id = t.tutor_id
                  LEFT JOIN DISLIKE d ON u.user_id = d.tutor_id AND d.tutee_id = #{user_id}
-        WHERE (u.interest1 = #{interest} OR u.interest2 = #{interest}) AND t.approval = 1 AND d.tutor_id IS NULL
+        WHERE (u.interest1 = #{interest} OR u.interest2 = #{interest}) AND t.approval = 1 AND d.tutor_id IS NULL AND u.EMAIL_AUTH = 1
         ORDER BY t.like DESC LIMIT 6
     </select>
     <select id="nonMembers" resultType="com.multicampus.topicsation.dto.RecommendDTO">
         SELECT u.user_id, u.name, u.interest1, u.interest2, t.nationality, t.profileImg, t.like
         FROM USER u
-                 INNER JOIN TUTOR_INFO t ON u.user_id = t.tutor_id and t.approval = 1 ORDER BY t.like DESC LIMIT 6
+                 INNER JOIN TUTOR_INFO t ON u.user_id = t.tutor_id and t.approval = 1 AND u.EMAIL_AUTH = 1 ORDER BY t.like DESC LIMIT 6
     </select>
 </mapper>
