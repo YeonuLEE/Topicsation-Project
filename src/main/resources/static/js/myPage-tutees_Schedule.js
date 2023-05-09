@@ -175,7 +175,7 @@ $(document).ready(function () {
     $(document).on('click', '.goToClassBtn', function (event) {
         event.preventDefault();
         let classId = $(this).attr("id");
-        let admission_link = "http://27.96.131.49:3000" + "/lesson/" + classId + "?token=" + token;
+        let admission_link = "http://115.85.183.164:3000" + "/lesson/" + classId + "?token=" + token;
 
         const currentTime = new Date();
 
