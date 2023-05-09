@@ -24,7 +24,7 @@ $(document).ready(function() {
                     history.pushState(null, null, "/main");
                     location.reload();
                 }else{
-                    alert("Not yet approved. Please wait a minute.")
+                    alert("Not yet approved. Please wait.")
                     history.pushState(null, null, "/main");
                     location.reload();
                 }

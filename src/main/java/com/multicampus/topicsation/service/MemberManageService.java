@@ -56,16 +56,17 @@ public class MemberManageService implements IMemberManageService {
         Map<String, String> result = new HashMap<>();
         result.put("email", email);
 
-        LoginDTO dto = loginDao.login(email);
-        if (dto != null && BCrypt.checkpw(password, dto.getPassword())) {
-            if (dto.getRole().equals("tutor") && loginDao.checkApproval(dto.getUser_id()) != 1) {
-                dto.setApproval("0");
+        if(signUpDao.checkEmailAuthDAO(email) == 1) {
+            LoginDTO dto = loginDao.login(email);
+            if(dto != null && BCrypt.checkpw(password, dto.getPassword())) {
+                if (dto.getRole().equals("tutor") && loginDao.checkApproval(dto.getUser_id()) != 1) {
+                    dto.setApproval("0");
+                    return dto;
+                }
+                dto.setApproval("1");
                 return dto;
             }
-            dto.setApproval("1");
-            return dto;
-        }
-        return null;
+        } return null;
     }
 
     @Override

@@ -16,7 +16,7 @@
     <select id="viewAdmin" resultType="com.multicampus.topicsation.dto.MyPageDTO">
         SELECT u.user_id as userId, u.name, u.regi_date, ti.certificate
         FROM USER u
-        INNER JOIN TUTOR_INFO ti ON u.user_id = ti.tutor_id where ti.approval = 0
+        INNER JOIN TUTOR_INFO ti ON u.user_id = ti.tutor_id where ti.approval = 0 and email_auth = 1
     </select>
     <update id="successAdmin" parameterType="com.multicampus.topicsation.dto.MyPageDTO">
         UPDATE TUTOR_INFO SET approval = 1 where tutor_id = #{userId}
