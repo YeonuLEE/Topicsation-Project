@@ -22,7 +22,6 @@
             <if test="date != null">
                 and tc.CLASS_DATE = #{date} AND tc.TUTEE_ID IS NULL
             </if>
-                and u.EMAIL_AUTH = true
                 and ti.APPROVAL = true
         </where>
         GROUP BY u.USER_ID, u.NAME, ti.NATIONALITY, ti.INFO, ti.LIKE, ti.PROFILEIMG, u.INTEREST1, u.INTEREST2
@@ -48,7 +47,6 @@
             <if test="date != null">
                 and (tc.CLASS_DATE = #{date} AND tc.TUTEE_ID IS NULL)
             </if>
-                and u.EMAIL_AUTH = true
                 and ti.APPROVAL = true
         </where>
     </select>
