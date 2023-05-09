@@ -162,10 +162,13 @@ $(document).ready(function () {
     myPeerConnection = new RTCPeerConnection({
       iceServers: [
         {
-          urls: [
-            "http://27.96.131.49:3000"
-          ],
+          urls: "stun:49.50.167.18:3478"
         },
+        {
+          urls: "turn:49.50.167.18:3478",
+          username:Math.floor(Date.now() / 1000),
+          credential:"wcrWcr80516!@"
+        }
       ],
     });
     myPeerConnection.addEventListener("icecandidate", handleIce);
