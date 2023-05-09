@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  var pathURI = "http://localhost:8081/lesson/{lesson_id}";
+  var pathURI = "http://49.50.162.92:8081/lesson/{lesson_id}";
   var classId = window.location.pathname.split("/").pop(); // /class/456
   var apiUrl = pathURI.replace("{lesson_id}", classId);
 
@@ -69,7 +69,7 @@ $(document).ready(function () {
     $("#minutes").text(min + "분");
     $("#seconds").text(sec + "초");
 
-    if (min == 13 && sec == 10) {
+    if (min == 0 && sec == 0) {
       setTimeout(function () {
         var _width = "400";
         var _height = "300";
@@ -92,7 +92,7 @@ $(document).ready(function () {
         );
 
         popup.onload = function () {
-          window.opener.location.href = "http://localhost:8081/main";
+          window.opener.location.href = "http://49.50.162.92:8081/main";
         };
 
         return false;

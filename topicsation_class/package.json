@@ -1,5 +1,5 @@
 {
-  "name": "Video chatting",
+  "name": "videochatting",
   "version": "1.0.0",
   "description": "Video chatting using WebRTC and Websockets",
   "license": "MIT",
