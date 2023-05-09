@@ -171,7 +171,7 @@ $(document).ready(function () {
 
     $(document).on('click', '.admission-btn', function () {
         let classId = $(this).attr("id");
-        let admission_link = "http://localhost:3000" + link + classId + "?token=" + token;
+        let admission_link = "http://27.96.131.49:3000" + link + classId + "?token=" + token;
         const currentTime = new Date();
 
         const dateStr = classId.substring(classId.indexOf('_') + 1, classId.indexOf('_') + 11);
