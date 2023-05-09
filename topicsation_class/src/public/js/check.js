@@ -1,7 +1,7 @@
 import {getId} from './checkTokenExpiration.js';
 
 $(document).ready(function () {
-    var apiUrl = "http://localhost:8081/lesson/{lesson_id}";
+    var apiUrl = "http://49.50.162.92:8081/lesson/{lesson_id}";
     var classId = window.location.pathname.split("/").pop(); // /class/456
     apiUrl = apiUrl.replace("{lesson_id}", classId);
 
@@ -18,7 +18,7 @@ $(document).ready(function () {
             if(userId != data.tutorId && userId != data.tuteeId){
                 alert("예약한 수업이 아닙니다\n" +
                     "Not your reserved class")
-                window.location = "http://localhost:8081/main"
+                window.location = "http://49.50.162.92:8081/main"
             }
         },
         error: function (data, textStatus) {
