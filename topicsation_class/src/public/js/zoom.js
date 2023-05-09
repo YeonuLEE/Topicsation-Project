@@ -162,14 +162,13 @@ $(document).ready(function () {
     myPeerConnection = new RTCPeerConnection({
       iceServers: [
         {
-          urls: [
-            "stun:stun.l.google.com:19302",
-            "stun:stun1.l.google.com:19302",
-            "stun:stun2.l.google.com:19302",
-            "stun:stun3.l.google.com:19302",
-            "stun:stun4.l.google.com:19302",
-          ],
+          urls: "stun:49.50.167.18:3478"
         },
+        {
+          urls: "turn:49.50.167.18:3478",
+          username:Math.floor(Date.now() / 1000),
+          credential:"wcrWcr80516!@"
+        }
       ],
     });
     myPeerConnection.addEventListener("icecandidate", handleIce);
