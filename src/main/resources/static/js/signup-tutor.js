@@ -155,6 +155,7 @@ $(document).ready(function () {
             data: formData,
             processData: false, // processData를 false로 설정하여 jQuery가 데이터를 처리하지 않도록 함
             contentType: false, // contentType을 false로 설정하여 jQuery가 contentType을 설정하지 않도록 함
+            async: false,
             success: function (data, status) {
                 let email = btoa(data);
                 sessionStorage.setItem("email", email);

@@ -149,6 +149,7 @@ $(document).ready(function () {
             url: "/members/signup-tutees.post",
             contentType: 'application/json',
             data: JSON.stringify(data),
+            async: false,
             success: function (data, status) {
                 let email = btoa(data);
                 sessionStorage.setItem("email", email);

@@ -129,9 +129,9 @@ public class MemberManageService implements IMemberManageService {
             } else {
                 System.out.println("이메일 인증을 받지 않은 회원입니다. 기존 정보를 삭제합니다.");
                 if(signUpDTO.getRole().equals("tutee")){
-                    signUpDao.deleteNotAuthTuteeDAO(signUpDTO.getEmail());
+                    signUpDao.deleteNotAuthDAO(signUpDTO.getEmail());
                 } else{
-                    signUpDao.deleteNotAuthTutorDAO(signUpDTO.getEmail());
+                    signUpDao.deleteNotAuthDAO(signUpDTO.getEmail());
                 }
             }
         }
@@ -208,9 +208,10 @@ public class MemberManageService implements IMemberManageService {
         int savedEmailCode = signUpDao.getEmailCode(email);
 
         if (emailCode.equals(Integer.toString(savedEmailCode))){
+            signUpDao.isSuccessEmailAuthDAO(email);
             return true;
         }else{
-            signUpDao.deleteNotAuthTuteeDAO(email);
+            signUpDao.deleteNotAuthDAO(email);
             return false;
         }
     }
