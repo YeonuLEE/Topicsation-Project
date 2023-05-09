@@ -14,16 +14,13 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -115,6 +112,7 @@ public class MemberManageService implements IMemberManageService {
         return result == 1;
     }
 
+    @Transactional
     @Override
     public boolean signUpProcess(SignUpDTO signUpDTO) {
 
@@ -168,19 +166,22 @@ public class MemberManageService implements IMemberManageService {
         return fileName.substring(lastIndexOfDot + 1);
     }
 
+    @Transactional
     @Override
     public boolean signupSendMail(MailDTO mailDTO){
 
         // 랜덤 인증코드
         Random random = new Random();
         String authKey = String.valueOf(random.nextInt(888888) + 111111); // 범위: 111111~999999
-        mailDTO.setAuthKey(authKey);
+
+        // 인증코드 저장
+        signUpDao.saveEmailCode(mailDTO.getEmail(), authKey);
 
         SimpleMailMessage message = new SimpleMailMessage();
 
         message.setTo(mailDTO.getEmail());
         message.setSubject("TOPICSATION 인증코드입니다");
-        message.setText("인증코드: " + mailDTO.getAuthKey());
+        message.setText("인증코드: " + authKey);
 
         System.out.println("[message] "+ message);
 
@@ -195,15 +196,19 @@ public class MemberManageService implements IMemberManageService {
         }
     }
 
+    @Transactional
     @Override
-    public boolean isSuccessEmailAuth(SignUpDTO signUpDTO) {
-        try{
-            signUpDao.isSuccessEmailAuthDAO(signUpDTO.getEmail());
+    public boolean isSuccessEmailAuth(Map<String,String> mapParam) {
+        String email = mapParam.get("email");
+        String emailCode = mapParam.get("emailCode");
+
+        int savedEmailCode = signUpDao.getEmailCode(email);
+
+        if (emailCode.equals(Integer.toString(savedEmailCode))){
             return true;
-        } catch(Exception e) {
-            e.printStackTrace();
+        }else{
+            signUpDao.deleteNotAuthTuteeDAO(email);
             return false;
         }
-
     }
 }

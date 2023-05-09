@@ -2,12 +2,12 @@ package com.multicampus.topicsation.service;
 
 import com.multicampus.topicsation.dto.NewsDTO;
 import com.multicampus.topicsation.repository.ILessonDAO;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -18,6 +18,7 @@ public class LessonService implements ILessonService{
     @Autowired
     private ILessonDAO lessonDAO;
 
+    @Transactional
     @Override
     public JSONObject getNewsService(String classId) throws ParseException {
         JSONParser jsonParser = new JSONParser();
@@ -67,14 +68,14 @@ public class LessonService implements ILessonService{
 
             urlList.add(newsUrl);
 
-            String result = String.join(",", urlList);
-            Map<String, Object> params = new HashMap<>();
-            params.put("param1", classId);
-            params.put("param2", result);
-            lessonDAO.setURL(params);
-
             resultJsonObject.put(category, newsJson);
         }
+
+        String result = String.join(",", urlList);
+        Map<String, Object> params = new HashMap<>();
+        params.put("param1", classId);
+        params.put("param2", result);
+        lessonDAO.setURL(params);
 
         // 뉴스 세개 JSONObject에 담아서 return
         return resultJsonObject;
