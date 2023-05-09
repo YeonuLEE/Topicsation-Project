@@ -20,7 +20,7 @@ public interface IMemberManageService {
    // 회원가입 인증코드 이메일 전송
    boolean signupSendMail(MailDTO mailDTO);
    // 이메일인증을 성공했는지 확인
-   boolean isSuccessEmailAuth(SignUpDTO signUpDTO);
+   boolean isSuccessEmailAuth(Map<String,String> mapParam);
    // 튜터 인증 파일 업로드
    String getFileExtension(String fileName);
    // 비밀번호 재설정 링크 만료 시간 저장

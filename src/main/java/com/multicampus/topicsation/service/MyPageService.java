@@ -10,9 +10,9 @@ import org.json.simple.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -144,6 +144,7 @@ public class MyPageService implements IMyPageService{
         return result;
     }
 
+    @Transactional
     @Override
     public boolean change_profileImg(String userId, MultipartFile file) {
         String bucketName = "asset";

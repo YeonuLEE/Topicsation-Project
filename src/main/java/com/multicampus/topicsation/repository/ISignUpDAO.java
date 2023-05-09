@@ -2,6 +2,7 @@ package com.multicampus.topicsation.repository;
 
 import com.multicampus.topicsation.dto.SignUpDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface ISignUpDAO {
@@ -22,10 +23,12 @@ public interface ISignUpDAO {
     public int addTutorDAO1(SignUpDTO signUpDTO);
     public int addTutorDAO2(SignUpDTO signUpDTO);
 
-    // 이메일 인증 성공시 email_auth 1로 변경
-    public int isSuccessEmailAuthDAO(String email);
     // 업로드된 파일명을 user_id로 사용
     public String getUserId(String email);
-
+    // 인증 코드 저장 메서드
+    int saveEmailCode(@Param("email") String email, @Param("emailCode") String emailCode);
+    //  인증코드 가져오기
+    int getEmailCode(@Param("email") String email);
+    // 회원 삭제 하기
 
 }
