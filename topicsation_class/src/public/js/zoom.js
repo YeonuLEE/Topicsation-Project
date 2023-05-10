@@ -160,17 +160,32 @@ $(document).ready(function () {
 
   // RTC Code
   function makeConnection() {
-    myPeerConnection = new RTCPeerConnection({
-      iceServers:
-        {
-          urls: "stun:49.50.167.18:3478"
-        }
-    });
-    myPeerConnection.addEventListener("icecandidate", handleIce);
-    myPeerConnection.addEventListener("track", handleTrack);
-    myStream
-      .getTracks()
-      .forEach((track) => myPeerConnection.addTrack(track, myStream));
+
+    fetch('https://www.topicsation.online/getTurnCredentials')
+        .then(response => response.json())
+        .then(data => {
+          let { username, password } = data;
+
+          myPeerConnection = new RTCPeerConnection({
+            iceServers:[
+                {
+                  urls: "stun:49.50.167.18:3478"
+                },
+              {
+                urls: "turn:49.50.167.18:3478",
+                username : username,
+                credential : password,
+              }
+                ]
+          });
+          myPeerConnection.addEventListener("icecandidate", handleIce);
+          myPeerConnection.addEventListener("track", handleTrack);
+          myStream
+              .getTracks()
+              .forEach((track) => myPeerConnection.addTrack(track, myStream));
+
+        });
+
   }
 
   function handleIce(data) {
