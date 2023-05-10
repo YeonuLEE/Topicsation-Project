@@ -142,10 +142,7 @@ $(document).ready(function () {
     socket.emit("offer", offer, roomName);
   });
 
-  socket.on("offer", async (username, password, offer) => {
-
-    settedUsername = username;
-    settedPassword = password;
+  socket.on("offer", async (offer) => {
 
     myPeerConnection.setRemoteDescription(offer);
     const answer = await myPeerConnection.createAnswer();
@@ -164,16 +161,10 @@ $(document).ready(function () {
   // RTC Code
   function makeConnection() {
     myPeerConnection = new RTCPeerConnection({
-      iceServers: [
+      iceServers:
         {
           urls: "stun:49.50.167.18:3478"
-        },
-        {
-          urls: "turn:49.50.167.18:3478",
-          username: settedUsername,
-          credential: settedPassword
         }
-      ],
     });
     myPeerConnection.addEventListener("icecandidate", handleIce);
     myPeerConnection.addEventListener("track", handleTrack);
