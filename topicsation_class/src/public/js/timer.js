@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  var pathURI = "http://49.50.162.92:8081/lesson/{lesson_id}";
+  var pathURI = "http://49.50.162.92:80/lesson/{lesson_id}";
   var classId = window.location.pathname.split("/").pop(); // /class/456
   var apiUrl = pathURI.replace("{lesson_id}", classId);
 
@@ -92,7 +92,7 @@ $(document).ready(function () {
         );
 
         popup.onload = function () {
-          window.opener.location.href = "http://49.50.162.92:8081/main";
+          window.opener.location.href = "http://49.50.162.92:80/main";
         };
 
         return false;
