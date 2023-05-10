@@ -171,7 +171,7 @@ $(document).ready(function () {
 
     $(document).on('click', '.admission-btn', function () {
         let classId = $(this).attr("id");
-        let admission_link = "https://115.85.183.164:443" + link + classId + "?token=" + token;
+        let admission_link = "https://www.topicsation.online" + link + classId + "?token=" + token;
         const currentTime = new Date();
 
         const dateStr = classId.substring(classId.indexOf('_') + 1, classId.indexOf('_') + 11);

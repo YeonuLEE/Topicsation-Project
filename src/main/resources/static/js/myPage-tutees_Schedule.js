@@ -175,7 +175,7 @@ $(document).ready(function () {
     $(document).on('click', '.goToClassBtn', function (event) {
         event.preventDefault();
         let classId = $(this).attr("id");
-        let admission_link = "https://115.85.183.164:443" + "/lesson/" + classId + "?token=" + token;
+        let admission_link = "https://www.topicsation.online" + "/lesson/" + classId + "?token=" + token;
 
         const currentTime = new Date();
 
