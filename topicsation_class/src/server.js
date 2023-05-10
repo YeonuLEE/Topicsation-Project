@@ -6,6 +6,13 @@ import { filtering, AhoCorasick, wordsToCensor} from './censoredWords.js';
 
 const app = require("./app");
 const fs = require('fs');
+require('dotenv').config();
+
+const crypto = require('crypto');
+
+let staticAuthSecret = process.env.STATIC_AUTH_SECRET;
+
+
 
 // 인증서 파일 경로
 const privateKey = fs.readFileSync('/etc/letsencrypt/live/www.topicsation.online/privkey.pem', 'utf8');
@@ -40,6 +47,11 @@ instrument(wsServer, {
 
 // wsServer logic
 wsServer.on("connection", (socket) => {
+  // TURN 서버 아이디 비밀번호
+  let username = Math.floor(Date.now() / 1000) + 3600;
+  let password = crypto.createHmac('sha1', staticAuthSecret)
+      .update(username.toString())
+      .digest('base64');
 
   // 채팅 기능 관련
   socket.on("enter_room", (roomName, done) => {
@@ -67,8 +79,8 @@ wsServer.on("connection", (socket) => {
     socket.join(roomName);
     socket.to(roomName).emit("welcome");
   });
-  socket.on("offer", (offer, roomName) => {
-    socket.to(roomName).emit("offer", offer);
+  socket.on("offer" , (offer, roomName) => {
+    socket.to(roomName).emit("offer", username, password, offer);
   });
   socket.on("answer", (answer, roomName) => {
     socket.to(roomName).emit("answer", answer);
