@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  var apiUrl = "http://49.50.162.92:8081/lesson/{lesson_id}";
+  var apiUrl = "http://49.50.162.92:80/lesson/{lesson_id}";
   var classId = window.location.pathname.split("/").pop(); // /class/456
   apiUrl = apiUrl.replace("{lesson_id}", classId);
 
