@@ -81,7 +81,7 @@ public class MemberManageService implements IMemberManageService {
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
         String linkId = UUID.randomUUID().toString();
-        String link = "http://49.50.162.92:8081/members/signin/change?linkId=" + linkId; //페이지 링크
+        String link = "https://www.topicsation.site/members/signin/change?linkId=" + linkId; //페이지 링크
 
         long expirationTime = System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(5); // 만료 시간 설정
         linkExpirationMap.put(linkId, expirationTime); // 링크별 만료 시간 저장
