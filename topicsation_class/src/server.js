@@ -1,9 +1,22 @@
 import http from "http";
+import https from "https";
 import { Server } from "socket.io";
 import { instrument } from "@socket.io/admin-ui";
 import { filtering, AhoCorasick, wordsToCensor} from './censoredWords.js';
 
 const app = require("./app");
+const fs = require('fs');
+
+// 인증서 파일 경로
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/www.topicsation.online/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/etc/letsencrypt/live/www.topicsation.online/cert.pem', 'utf8');
+const ca = fs.readFileSync('/etc/letsencrypt/live/www.topicsation.online/chain.pem', 'utf8');
+
+const credentials = {
+  key: privateKey,
+  cert: certificate,
+  ca: ca
+};
 
 // 금지어 필터링 설정
 const ac  = new AhoCorasick();
@@ -11,8 +24,9 @@ wordsToCensor.forEach((pattern) => ac.insert(pattern));
 ac.buildFailureLinks();
 
 // connect
-const httpSever = http.createServer(app); // http server
-const wsServer = new Server(httpSever, {
+const httpsServer = https.createServer(credentials, app);
+const httpServer = http.createServer(app); // http server
+const wsServer = new Server(httpsServer, {
   cors: {
     origin: ["https://admin.socket.io"],
     credentials: true,
@@ -65,5 +79,5 @@ wsServer.on("connection", (socket) => {
 });
 
 // listen
-const handleListen = () => console.log("Listening on http://115.85.183.164:80");
-httpSever.listen(80, handleListen);
+const handleListen = () => console.log("Listening on https://115.85.183.164:443");
+httpsServer.listen(443, handleListen);
