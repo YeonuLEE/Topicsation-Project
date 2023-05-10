@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  var pathURI = "https://www.topicsation.site/{lesson_id}";
+  var pathURI = "https://www.topicsation.site/lesson/{lesson_id}";
   var classId = window.location.pathname.split("/").pop(); // /class/456
   var apiUrl = pathURI.replace("{lesson_id}", classId);
 
