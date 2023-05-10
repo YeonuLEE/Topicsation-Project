@@ -16,7 +16,8 @@ $(document).ready(function () {
   let cameraOff = false;
   let roomName;
   let myPeerConnection;
-  let myDataChannel;
+  let settedUsername;
+  let settedPassword;
 
   // 화상 관련 함수 선언
   async function getCameras() {
@@ -141,7 +142,10 @@ $(document).ready(function () {
     socket.emit("offer", offer, roomName);
   });
 
-  socket.on("offer", async (offer) => {
+  socket.on("offer", async (username, password, offer) => {
+
+    settedUsername = username;
+    settedPassword = password;
 
     myPeerConnection.setRemoteDescription(offer);
     const answer = await myPeerConnection.createAnswer();
@@ -166,8 +170,8 @@ $(document).ready(function () {
         },
         {
           urls: "turn:49.50.167.18:3478",
-          username:Math.floor(Date.now() / 1000),
-          credential:"wcrWcr80516!@"
+          username: settedUsername,
+          credential: settedPassword
         }
       ],
     });
