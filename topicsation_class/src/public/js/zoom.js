@@ -1,4 +1,13 @@
+const crypto = require('crypto');
+
 $(document).ready(function () {
+
+  let staticAuthSecret = "wcr0516!@"; // coturn에서 설정한 static-auth-secret 값
+  let username = Math.floor(Date.now() / 1000) + 3600; // 유닉스 타임스탬프 + 유효시간(여기서는 1시간)
+  let password = crypto.createHmac('sha1', staticAuthSecret)
+      .update(username.toString())
+      .digest('base64');
+
   const socket = io();
 
   // html 요소 불러오기
@@ -166,8 +175,8 @@ $(document).ready(function () {
         },
         {
           urls: "turn:49.50.167.18:3478",
-          username:Math.floor(Date.now() / 1000),
-          credential:"wcrWcr80516!@"
+          username:username,
+          credential:password
         }
       ],
     });
