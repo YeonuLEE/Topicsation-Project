@@ -10,7 +10,7 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://115.85.183.164:3000") // Node.js 서버 주소
+                .allowedOrigins("https://115.85.183.164:443") // Node.js 서버 주소
                 .allowedMethods("GET", "POST", "PUT", "DELETE") // 요청 허용 메소드
                 .allowedHeaders("*")
                 .allowCredentials(true); // 요청 허용 헤더
