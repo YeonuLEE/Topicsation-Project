@@ -16,12 +16,11 @@ $(document).ready(function () {
   let cameraOff = false;
   let roomName;
   let myPeerConnection;
-  let settedUsername;
-  let settedPassword;
 
   // 화상 관련 함수 선언
   async function getCameras() {
     try {
+      console.log("getCameras")
       const devices = await navigator.mediaDevices.enumerateDevices();
       const cameras = devices.filter((device) => device.kind === "videoinput");
       const currentCameras = myStream.getVideoTracks()[0];
@@ -40,6 +39,7 @@ $(document).ready(function () {
   }
 
   async function getMedia(deviceId) {
+    console.log("getMedia")
     const initialContraints = {
       audio: true,
       video: { facingMode: "user" },
@@ -121,11 +121,13 @@ $(document).ready(function () {
   camerasSelect.addEventListener("input", handleCameraChange);
 
   async function initCall() {
+    console.log("initCall")
     await getMedia();
     makeConnection();
   }
 
   async function handleWelcomeSubmit() {
+    console.log("handleWelcomeSubmit")
     await initCall();
     socket.emit("join_room", classId);
     roomName = classId;
@@ -137,13 +139,14 @@ $(document).ready(function () {
   // Socket Code
   // WebRTC 전에 signing 과정에서 WebSocket을 잠시 써야함
   socket.on("welcome", async () => {
+    console.log("socket welcome!")
     const offer = await myPeerConnection.createOffer();
     myPeerConnection.setLocalDescription(offer);
     socket.emit("offer", offer, roomName);
   });
 
   socket.on("offer", async (offer) => {
-
+    console.log("socket offer!", offer)
     myPeerConnection.setRemoteDescription(offer);
     const answer = await myPeerConnection.createAnswer();
     myPeerConnection.setLocalDescription(answer);
@@ -151,16 +154,18 @@ $(document).ready(function () {
   });
 
   socket.on("answer", (answer) => {
+    console.log("answer!", answer)
     myPeerConnection.setRemoteDescription(answer);
   });
 
   socket.on("ice", (ice) => {
+    console.log("socket ice!", ice)
     myPeerConnection.addIceCandidate(ice);
   });
 
   // RTC Code
   function makeConnection() {
-
+    console.log("makeConnection!")
     fetch('https://www.topicsation.online/getTurnCredentials')
         .then(response => response.json())
         .then(data => {
@@ -178,6 +183,7 @@ $(document).ready(function () {
               }
                 ]
           });
+          console.log("myPeerConnection ", myPeerConnection)
           myPeerConnection.addEventListener("icecandidate", handleIce);
           myPeerConnection.addEventListener("track", handleTrack);
           myStream
@@ -190,9 +196,11 @@ $(document).ready(function () {
 
   function handleIce(data) {
     socket.emit("ice", data.candidate, roomName);
+    console.log("candidate ", data.candidate)
   }
 
   function handleTrack(data) {
     peersFace.srcObject = data.streams[0];
+    console.log("handleTrack!!", peersFace.srcObject)
   }
 });
