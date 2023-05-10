@@ -65,5 +65,5 @@ wsServer.on("connection", (socket) => {
 });
 
 // listen
-const handleListen = () => console.log("Listening on http://27.96.131.49:3000");
-httpSever.listen(3000, handleListen);
+const handleListen = () => console.log("Listening on http://115.85.183.164:80");
+httpSever.listen(80, handleListen);
