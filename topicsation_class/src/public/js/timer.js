@@ -19,6 +19,7 @@ $(document).ready(function () {
     var now_hour = now.getHours();
     var now_min = now.getMinutes();
     var time_min = 0;
+    var time_hour = 0;
 
     if (now_min < 30) {
       time_hour = now_hour;
@@ -48,6 +49,10 @@ $(document).ready(function () {
     var nt = now.getTime();
     var ot = open.getTime();
     var et = end.getTime();
+    var sec = 0;
+    var day = 0;
+    var hour = 0;
+    var min = 0;
 
     //  $("p.time-title").html("금일 마감까지 남은 시간");
     sec = parseInt(et - nt) / 1000;
