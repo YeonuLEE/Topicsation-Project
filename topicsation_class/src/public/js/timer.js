@@ -1,7 +1,12 @@
+import {getId} from './checkTokenExpiration.js';
+
 $(document).ready(function () {
   var pathURI = "https://www.topicsation.site/lesson/{lesson_id}";
   var classId = window.location.pathname.split("/").pop(); // /class/456
   var apiUrl = pathURI.replace("{lesson_id}", classId);
+
+  const token = window.token
+  let userId = getId(token)
 
   function remaindTime() {
     const curr = new Date();
@@ -78,23 +83,37 @@ $(document).ready(function () {
         var _left = Math.ceil((window.screen.width - _width) / 2);
         var _top = Math.ceil((window.screen.height - _height) / 2);
 
-        var popup = window.open(
-          apiUrl + "/evaluate",
-          "Evaluate",
-          "width=" +
-            _width +
-            ", height=" +
-            _height +
-            ", left=" +
-            _left +
-            ", top=" +
-            _top
-        );
+        var popup
+        $.ajax({
+          type:"GET",
+          async:false,
+          url: apiUrl+"/getMembers",
+          success: function (data, textStatus) {
 
-        popup.onload = function () {
-          window.opener.location.href = "https://www.topicsation.site/main";
-        };
-
+            if(userId == data.tuteeId){
+              popup = window.open(
+                  apiUrl + "/evaluate",
+                  "Evaluate",
+                  "width=" +
+                  _width +
+                  ", height=" +
+                  _height +
+                  ", left=" +
+                  _left +
+                  ", top=" +
+                  _top
+              );
+            }
+          },
+          error: function (data, textStatus) {
+            alert("튜티, 튜터 검증에 실패했습니다.");
+          },
+          complete: function (data, textStatus) {
+            popup.onload = function () {
+              window.opener.location.href = "https://www.topicsation.site/main";
+            };
+          },
+        })
         return false;
       }, 1000);
     }
