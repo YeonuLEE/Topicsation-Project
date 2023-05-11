@@ -34,7 +34,7 @@ $(document).ready(function () {
       now.getDate(),
       time_hour,
       time_min,
-      00
+      0
     );
     var open = new Date(
       now.getFullYear(),
@@ -42,7 +42,7 @@ $(document).ready(function () {
       now.getDate(),
       now_hour,
       now_min,
-      00
+      0
     );
 
     var nt = now.getTime();
