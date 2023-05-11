@@ -2,7 +2,7 @@ $(document).ready(function () {
     let datatitle = $("#evaluate-h3");
     let databody = $("#evaluate-div");
     // 변수 초기화
-    let apiUrl = "http://localhost:8081/lesson/{lesson_id}";
+    let apiUrl = "https://wwww.topicsation.site/{lesson_id}";
     let classId
 
     const url = window.location.pathname;
@@ -19,7 +19,7 @@ $(document).ready(function () {
 
     window.onload = function () {
         setTimeout(function () {
-            window.opener.location.href = "http://localhost:8081/main";
+            window.opener.location.href = "https://wwww.topicsation.site/main";
         }, 1000);
     };
 
