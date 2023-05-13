@@ -2,6 +2,7 @@ $(document).ready(function () {
     let datatitle = $("#evaluate-h3");
     let databody = $("#evaluate-div");
     // 변수 초기화
+
     let apiUrl = "https://www.topicsation.site/lesson/{lesson_id}";
     let classId
 

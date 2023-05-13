@@ -1,7 +1,12 @@
+import {getId} from './checkTokenExpiration.js';
+
 $(document).ready(function () {
   var pathURI = "https://www.topicsation.site/lesson/{lesson_id}";
   var classId = window.location.pathname.split("/").pop(); // /class/456
   var apiUrl = pathURI.replace("{lesson_id}", classId);
+
+  const token = window.token
+  let userId = getId(token)
 
   function remaindTime() {
     const curr = new Date();
@@ -14,6 +19,7 @@ $(document).ready(function () {
     var now_hour = now.getHours();
     var now_min = now.getMinutes();
     var time_min = 0;
+    var time_hour = 0;
 
     if (now_min < 30) {
       time_hour = now_hour;
@@ -29,7 +35,7 @@ $(document).ready(function () {
       now.getDate(),
       time_hour,
       time_min,
-      00
+      0
     );
     var open = new Date(
       now.getFullYear(),
@@ -37,12 +43,16 @@ $(document).ready(function () {
       now.getDate(),
       now_hour,
       now_min,
-      00
+      0
     );
 
     var nt = now.getTime();
     var ot = open.getTime();
     var et = end.getTime();
+    var sec = 0;
+    var day = 0;
+    var hour = 0;
+    var min = 0;
 
     //  $("p.time-title").html("금일 마감까지 남은 시간");
     sec = parseInt(et - nt) / 1000;
@@ -78,23 +88,37 @@ $(document).ready(function () {
         var _left = Math.ceil((window.screen.width - _width) / 2);
         var _top = Math.ceil((window.screen.height - _height) / 2);
 
-        var popup = window.open(
-          apiUrl + "/evaluate",
-          "Evaluate",
-          "width=" +
-            _width +
-            ", height=" +
-            _height +
-            ", left=" +
-            _left +
-            ", top=" +
-            _top
-        );
+        var popup
+        $.ajax({
+          type:"GET",
+          async:false,
+          url: apiUrl+"/getMembers",
+          success: function (data, textStatus) {
 
-        popup.onload = function () {
-          window.opener.location.href = "https://www.topicsation.site/main";
-        };
-
+            if(userId == data.tuteeId){
+              popup = window.open(
+                  apiUrl + "/evaluate",
+                  "Evaluate",
+                  "width=" +
+                  _width +
+                  ", height=" +
+                  _height +
+                  ", left=" +
+                  _left +
+                  ", top=" +
+                  _top
+              );
+            }
+          },
+          error: function (data, textStatus) {
+            alert("튜티, 튜터 검증에 실패했습니다.");
+          },
+          complete: function (data, textStatus) {
+            popup.onload = function () {
+              window.opener.location.href = "https://www.topicsation.site/main";
+            };
+          },
+        })
         return false;
       }, 1000);
     }
