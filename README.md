@@ -28,14 +28,11 @@
             <td align="center"><a href="https://github.com/ahyuniii">이아현</a></td>
         </tr>
         <tr>
-            <td><ul style="text-align: left;"><li>프로젝트관리</li><li>스케줄관리</li><li>예약관리</li><li>튜터상세정보</li><li>튜터평가</li><li>뉴스크롤링</li><li>NCP S3 API FILE IO</li><li>프로젝트 발표</li></ul></td>
-            <td><ul style="text-align: left;"><li>로그인(JWT)</li><li>비밀번호찾기</br>(SMTP)</li><li>튜터상세정보</li><li>튜터리뷰</li><li>NCP 서버구축, 배포</li></ul>
-            </td>
-            <td><ul style="text-align: left;"><li>로그인(JWT)</li><li>뉴스추천</li><li>수업화상 채팅</br>(WebRTC, 소켓IO)</li><li>수업 및 서버</li><li>TURN서버 구축</li><li>NCP 서버 구축, 배포</li></ul></br>
-            </td>
-            <td><ul style="text-align: left;"><li>튜터추천</li><li>마이페이지 튜터</li><li>마이페이지 튜티</li><li>어드민 페이지 FILE IO</li><li>NCP DB 서버 구축</li></ul>
-            <td><ul style="text-align: left;"><li>회원가입</li><li>이메일인증</br>(SMTP)</li><li>튜터검색</li><li>페이징</li><li>NCP DB 서버 구축</li></ul>
-            </td>
+            <td><ul style="text-align: left;"><li>프로젝트관리</li><li>스케줄관리</li><li>예약관리</li><li>튜터상세정보</li><li>튜터평가</li><li>뉴스크롤링</li><li>NCP S3 API FILE IO</li><li>프로젝트발표</li></ul></td>
+            <td><ul style="text-align: left;"><li>로그인(JWT)</li><li>비밀번호찾기</br>(SMTP)</li><li>튜터상세정보</li><li>튜터리뷰</li><li>NCP 서버구축, 배포</li></ul></br></td>
+            <td><ul style="text-align: left;"><li>로그인(JWT)</li><li>뉴스추천</li><li>수업화상 채팅</br>(WebRTC, 소켓IO)</li><li>수업 및 서버</li><li>TURN서버 구축</li><li>NCP 서버 구축, 배포</li></ul></br></td>
+            <td><ul style="text-align: left;"><li>튜터추천</li><li>마이페이지 튜터</li><li>마이페이지 튜티</li><li>어드민 페이지 FILE IO</li><li>NCP DB 서버 구축</li></ul></br></td>
+            <td><ul style="text-align: left;"><li>회원가입</li><li>이메일인증</br>(SMTP)</li><li>튜터검색</li><li>페이징</li><li>NCP DB 서버 구축</li></ul></br></td>
         </tr>
     </tbody>
 </table></br>
