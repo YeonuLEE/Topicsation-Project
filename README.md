@@ -5,9 +5,9 @@
 > **<h2>관심뉴스로 배우는 영어 회화 서비스</h2>**
 
 - multiit 백엔드 개발자 취업캠프 8회차 1조
-- 프로젝트 기간 : 2023.04.20 ~ 2023.05.11
-- [Topicsation↗️](https://www.topicsation.site>)
-- [프로젝트 노션](https://www.notion.so/TOPICSATION-cb1516898d3e4575821fa274d6cb8e2c>)
+- 프로젝트 기간 : 2023.04.05 ~ 2023.05.11
+- [Topicsation↗️](https://www.topicsation.site)
+- [프로젝트 노션](https://www.notion.so/TOPICSATION-cb1516898d3e4575821fa274d6cb8e2c)
 
 ## ✨멤버 ദ്ദി◍•ᴗ•◍)
 
