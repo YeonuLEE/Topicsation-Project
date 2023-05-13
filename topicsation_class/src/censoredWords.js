@@ -63,7 +63,7 @@ export class AhoCorasick {
                 }
 
                 if (failureLink) { // 실패 링크가 존재하면
-                    childNode.failureLink = failureLink.children[ch]; // 현재 보고있는 자식노드의 실패링크를 끝까지 타고 올라간 실패링크의 ch에 해당하는 노드로 이어줌 >> 결과적으로 현재 노드보다 상위의 노드중에 ch와 ch가 이어지게 됨
+                    childNode.failureLink = failureLink.children[ch]; // 현재 보고있는 자식노드의 실패링크를 끝까지 타고 올라간 실패링크의 ch에 해당하는 노드로 이어줌 >> 결과적으로 현재 노드보다 상위의 노드중에 ch와 ch가 이어지게 됨 >> 자식 노드가 현재 실패 링크가 없기 때문에 이렇게 찾아주는 거임
                 } else { // 실패 링크가 존재하지 않으면
                     childNode.failureLink = this.root; // 자식노드의 실패링크를 루트 노드로 설정
                 }
@@ -73,6 +73,7 @@ export class AhoCorasick {
 
     // 실제로 탐색을 실시하는 메서드
     search(text) { // 탐색하고 싶은 문자열을 매개변수로 받는다
+
         const matches = []; // 문자열과 일치하는 패턴들을 저장하는 리스트
         let currentNode = this.root; // 항상 시작은 루트 노드부터
 

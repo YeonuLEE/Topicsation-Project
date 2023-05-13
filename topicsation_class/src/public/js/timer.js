@@ -107,17 +107,14 @@ $(document).ready(function () {
                   _left +
                   ", top=" +
                   _top
-              );
+              )
+            }else{
+              location.href = "https://www.topicsation.site/main";
             }
           },
           error: function (data, textStatus) {
             alert("튜티, 튜터 검증에 실패했습니다.");
-          },
-          complete: function (data, textStatus) {
-            popup.onload = function () {
-              window.opener.location.href = "https://www.topicsation.site/main";
-            };
-          },
+          }
         })
         return false;
       }, 1000);
