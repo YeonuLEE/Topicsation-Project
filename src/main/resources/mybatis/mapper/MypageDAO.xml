@@ -106,4 +106,7 @@
     <insert id="scheduleUpdate" parameterType="map">
         INSERT INTO TUTOR_CLASS (CLASS_ID, CLASS_DATE, CLASS_TIME, TUTOR_ID) VALUES (CONCAT(#{tutor_id}, '_', #{class_date}, '_', #{class_time}), #{class_date}, #{class_time}, #{tutor_id})
     </insert>
+    <update id="cancelSchedule" parameterType="String">
+        UPDATE TUTOR_CLASS SET tutee_id = null where class_id = #{class_id}
+    </update>
 </mapper>
