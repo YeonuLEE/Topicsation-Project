@@ -16,7 +16,7 @@ public class TopicsationApplication {
         SpringApplication.run(TopicsationApplication.class, args);
 
 
-        ProcessBuilder processBuilder = new ProcessBuilder("/usr/bin/python", "NewsCrawler.py");
+        ProcessBuilder processBuilder = new ProcessBuilder("/usr/bin/python3", "NewsCrawler.py");
         // 파이썬 실행 파일이 있는 경로와 스크립트 파일명을 전달하여 ProcessBuilder 객체를 생성합니다.
         processBuilder.directory(new File("/root/app/Topicsation-Project/src/main/resources/static/NewsTopicCrawler"));
 
@@ -34,6 +34,7 @@ public class TopicsationApplication {
             int exitCode = process.waitFor();
             System.out.println("Exit code: " + exitCode);
         } catch (InterruptedException e) {
+		e.printStackTrace();
             Thread.currentThread().interrupt();
             // 예외 처리 로직 추가
         }
