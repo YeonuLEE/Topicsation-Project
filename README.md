@@ -5,30 +5,16 @@
 > **<h2>관심뉴스로 배우는 영어 회화 서비스</h2>**
 
 - multiit 백엔드 개발자 취업캠프 8회차 1조
-- 프로젝트 기간 : 2023.04.05 ~ 2023.05.11
-- [Topicsation↗️](https://www.topicsation.site)
-- [프로젝트 노션](https://www.notion.so/TOPICSATION-cb1516898d3e4575821fa274d6cb8e2c)
+- 프로젝트 기간 : 2023.04.20 ~ 2023.05.11
+- [Topicsation↗️](https://www.topicsation.site>)
+- [프로젝트 노션](https://www.notion.so/TOPICSATION-cb1516898d3e4575821fa274d6cb8e2c>)
 
 ## ✨멤버 ദ്ദി◍•ᴗ•◍)
 
-<table align="center">
-    <tbody>
-        <tr>
-            <td align="center"><img src="https://github.com/YeonuLEE/Topicsation-Project/assets/114329639/3e7aea11-9175-4f24-99e5-9ddc10944716" height="100"></td>
-            <td align="center"><img src="https://github.com/YeonuLEE/Topicsation-Project/assets/114329639/ca310537-b379-4b79-b6fa-2b22a0c86034" height="90"></td>
-            <td align="center"><img src="https://github.com/YeonuLEE/Topicsation-Project/assets/114329639/a40edccd-62d6-41e8-ba1b-d32a73ce8cd4" height="100"></td>
-            <td align="center"><img src="https://github.com/YeonuLEE/Topicsation-Project/assets/114329639/620d794e-e3a0-421b-91e8-a3eb134504f1" height="100"></td>
-            <td align="center"><img src="https://github.com/YeonuLEE/Topicsation-Project/assets/114329639/496f42a9-a569-40a9-82da-d8649a9d2c55" height="100"></td>
-        </tr>
-        <tr>
-            <td align="center"><a href="https://github.com/YeonuLEE">👑이연우</a></td>
-            <td align="center"><a href="https://github.com/mangs2e">김명진</a></td>
-            <td align="center"><a href="https://github.com/AngryCatKR96">손동영</a></td>
-            <td align="center"><a href="https://github.com/tobetop123">이동하</a></td>
-            <td align="center"><a href="https://github.com/ahyuniii">이아현</a></td>
-        </tr>
-    </tbody>
-</table></br>
+|<center><img src="https://github.com/YeonuLEE/Topicsation-Project/assets/114329639/3e7aea11-9175-4f24-99e5-9ddc10944716" height="100"></center>|<center><img src="https://github.com/YeonuLEE/Topicsation-Project/assets/114329639/ca310537-b379-4b79-b6fa-2b22a0c86034" height="90"></center>|<center><img src="https://github.com/YeonuLEE/Topicsation-Project/assets/114329639/a40edccd-62d6-41e8-ba1b-d32a73ce8cd4" height="100"></center>|<center><img src="https://github.com/YeonuLEE/Topicsation-Project/assets/114329639/620d794e-e3a0-421b-91e8-a3eb134504f1" height="100"></center>|<center><img src="https://github.com/YeonuLEE/Topicsation-Project/assets/114329639/496f42a9-a569-40a9-82da-d8649a9d2c55" height="100"></center>|
+|----|----|----|----|----|
+|<center>[👑이연우](https://github.com/YeonuLEE)</center>|<center>[김명진](https://github.com/mangs2e)</center>|<center>[손동영](https://github.com/AngryCatKR96)</center>|<center>[이동하](https://github.com/tobetop123)</center>|<center>[이아현](https://github.com/ahyuniii)</center>|
+|<ul style="text-align: left;"><li>프로젝트 관리</li><li>스케줄관리 기능</li><li>예약관리 기능</li><li>튜터상세정보 기능</li><li>튜터평가 기능</li><li>뉴스크롤링 기능</li><li>NCP S3 API FILE IO</li><li>프로젝트 발표</li></ul>|<ul style="text-align: left;"><li>로그인 기능(JWT)</li><li>비밀번호찾기 기능(SMTP)</li><li>튜터상세정보 기능</li><li>튜터리뷰 기능</li><li>NCP 서버구축, 배포</li></ul>|<ul style="text-align: left;"><li>로그인기능(JWT)</li><li>뉴스추천 기능</li><li>수업화상 채팅</br>(WebRTC, 소켓IO)</li><li>수업기능 및 서버</li><li>TURN서버 구축</li><li>NCP 서버 구축, 배포</li></ul>|<ul style="text-align: left;"><li>튜터추천 기능</li><li>마이페이지 튜터 기능</li><li>마이페이지 튜티 기능</li><li>어드민 페이지 FILE IO</li><li>NCP DB 서버 구축</li></ul>|<ul style="text-align: left;"><li>회원가입 기능</li><li>이메일인증 기능(SMTP)</li><li>튜터검색 기능</li><li>페이징 기능</li><li>NCP DB 서버 구축</li></ul>|
 
 ## 💻 주요 기능
 
