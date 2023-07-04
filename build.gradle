@@ -19,7 +19,7 @@ dependencies {
     compileOnly 'org.springframework.boot:spring-boot-devtools'
 
     // database
-    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+    runtimeOnly 'com.mysql:mysql-connector-j'
 
     // ORM
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.0'
